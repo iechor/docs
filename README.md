@@ -49,4 +49,4 @@ contribute, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Copyright and license
 
-Copyright 2013-2023 iEchor, Inc., released under the <a href="https://github.com/iechor/docs/blob/main/LICENSE">Apache 2.0 license</a> .
+Copyright 2023-2023 iEchor, Inc., released under the <a href="https://github.com/iechor/docs/blob/main/LICENSE">Apache 2.0 license</a> .
