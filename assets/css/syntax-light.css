@@ -27,7 +27,7 @@
       user-select: none;
       margin-right: 0.4em;
       padding: 0 0.4em 0 0.4em;
-      color: theme("colors.gray.light.400");
+      color: theme("colors.purple.light.400");
     }
     /* LineNumbers */
     .ln {
@@ -35,7 +35,7 @@
       user-select: none;
       margin-right: 0.4em;
       padding: 0 0.4em 0 0.4em;
-      color: theme("colors.gray.light.400");
+      color: theme("colors.purple.light.400");
     }
     /* Line */
     .line {
@@ -255,35 +255,35 @@
     }
     /* Punctuation */
     .p {
-      color: theme("colors.gray.light.400");
+      color: theme("colors.purple.light.400");
     }
     /* Comment */
     .c {
-      color: theme("colors.gray.light.400");
+      color: theme("colors.purple.light.400");
     }
     /* CommentHashbang */
     .ch {
-      color: theme("colors.gray.light.400");
+      color: theme("colors.purple.light.400");
     }
     /* CommentMultiline */
     .cm {
-      color: theme("colors.gray.light.400");
+      color: theme("colors.purple.light.400");
     }
     /* CommentSingle */
     .c1 {
-      color: theme("colors.gray.light.400");
+      color: theme("colors.purple.light.400");
     }
     /* CommentSpecial */
     .cs {
-      color: theme("colors.gray.light.400");
+      color: theme("colors.purple.light.400");
     }
     /* CommentPreproc */
     .cp {
-      color: theme("colors.gray.light.400");
+      color: theme("colors.purple.light.400");
     }
     /* CommentPreprocFile */
     .cpf {
-      color: theme("colors.gray.light.400");
+      color: theme("colors.purple.light.400");
     }
     /* Generic */
     .g {
@@ -303,7 +303,7 @@
     }
     /* GenericHeading */
     .gh {
-      color: theme("colors.gray.light.600");
+      color: theme("colors.purple.light.600");
     }
     /* GenericInserted */
     .gi {
@@ -324,7 +324,7 @@
     }
     /* GenericSubheading */
     .gu {
-      color: theme("colors.gray.light.600");
+      color: theme("colors.purple.light.600");
     }
     /* GenericTraceback */
     .gt {
@@ -337,7 +337,7 @@
     }
     /* TextWhitespace */
     .w {
-      color: theme("colors.gray.light.100");
+      color: theme("colors.purple.light.100");
     }
   }
 }
