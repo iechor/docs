@@ -1,7 +1,7 @@
 ---
 title: Validate your extension
 description: Step three in the extension creation process
-keywords: Docker, Extensions, sdk, validate, install
+keywords: iEchor, Extensions, sdk, validate, install
 aliases:
 - /desktop/extensions-sdk/extensions/validation/
 - /desktop/extensions-sdk/build/build-install/
@@ -15,12 +15,12 @@ Validate your extension before you share or publish it. Validating the extension
 
 The Extensions CLI lets you validate your extension before installing and running it locally.
 
-The validation checks if the extension’s `Dockerfile` specifies all the required labels and if the metadata file is valid against the JSON schema file.
+The validation checks if the extension’s `iEchorfile` specifies all the required labels and if the metadata file is valid against the JSON schema file.
 
 To validate, run:
 
 ```console
-$ docker extension validate <name-of-your-extension>
+$ iechor extension validate <name-of-your-extension>
 ```
 
 If your extension is valid, the following message displays:
@@ -32,7 +32,7 @@ The extension image "name-of-your-extension" is valid
 Before the image is built, it's also possible to validate only the `metadata.json` file:
 
 ```console
-$ docker extension validate /path/to/metadata.json
+$ iechor extension validate /path/to/metadata.json
 ```
 
-The JSON schema used to validate the `metadata.json` file against can be found under the [releases page](https://github.com/docker/extensions-sdk/releases/latest).
+The JSON schema used to validate the `metadata.json` file against can be found under the [releases page](https://github.com/iechor/extensions-sdk/releases/latest).

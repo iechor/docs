@@ -1,0 +1,108 @@
+command: iechor context create
+short: Create a context
+long: |-
+    Creates a new `context`. This lets you switch the daemon your `iechor` CLI
+    connects to.
+usage: iechor context create [OPTIONS] CONTEXT
+pname: iechor context
+plink: iechor_context.yaml
+options:
+    - option: description
+      value_type: string
+      description: Description of the context
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: iechor
+      value_type: stringToString
+      default_value: '[]'
+      description: set the iechor endpoint
+      details_url: '#iechor'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: from
+      value_type: string
+      description: create context from a named context
+      details_url: '#from'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### Create a context with a iEchor endpoint (--iechor) {#iechor}
+
+    Use the `--iechor` flag to create a context with a custom endpoint. The
+    following example creates a context named `my-context` with a iechor endpoint
+    of `/var/run/iechor.sock`:
+
+    ```console
+    $ iechor context create \
+        --iechor host=unix:///var/run/iechor.sock \
+        my-context
+    ```
+
+    ### Create a context based on an existing context (--from) {#from}
+
+    Use the `--from=<context-name>` option to create a new context from
+    an existing context. The example below creates a new context named `my-context`
+    from the existing context `existing-context`:
+
+    ```console
+    $ iechor context create --from existing-context my-context
+    ```
+
+    If the `--from` option isn't set, the `context` is created from the current context:
+
+    ```console
+    $ iechor context create my-context
+    ```
+
+    This can be used to create a context out of an existing `IECHOR_HOST` based script:
+
+    ```console
+    $ source my-setup-script.sh
+    $ iechor context create my-context
+    ```
+
+    To source the `iechor` endpoint configuration from an existing context
+    use the `--iechor from=<context-name>` option. The example below creates a
+    new context named `my-context` using the iechor endpoint configuration from
+    the existing context `existing-context`:
+
+    ```console
+    $ iechor context create \
+        --iechor from=existing-context \
+        my-context
+    ```
+
+    iEchor endpoints configurations, as well as the description can be modified with
+    `iechor context update`.
+
+    Refer to the [`iechor context update` reference](/reference/cli/iechor/context/update/) for details.
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

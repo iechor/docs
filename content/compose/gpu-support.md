@@ -1,13 +1,13 @@
 ---
-description: Understand GPU support in Docker Compose
-keywords: documentation, docs, docker, compose, GPU access, NVIDIA, samples
-title: Turn on GPU access with Docker Compose
+description: Understand GPU support in iEchor Compose
+keywords: documentation, docs, iechor, compose, GPU access, NVIDIA, samples
+title: Turn on GPU access with iEchor Compose
 ---
 
-Compose services can define GPU device reservations if the Docker host contains such devices and the Docker Daemon is set accordingly. For this, make sure you install the [prerequisites](../config/containers/resource_constraints.md#gpu) if you haven't already done so.
+Compose services can define GPU device reservations if the iEchor host contains such devices and the iEchor Daemon is set accordingly. For this, make sure you install the [prerequisites](../config/containers/resource_constraints.md#gpu) if you haven't already done so.
 
-The examples in the following sections focus specifically on providing service containers access to GPU devices with Docker Compose. 
-You can use either `docker-compose` or `docker compose` commands. For more information, see [Migrate to Compose V2](migrate.md).
+The examples in the following sections focus specifically on providing service containers access to GPU devices with iEchor Compose. 
+You can use either `iechor-compose` or `iechor compose` commands. For more information, see [Migrate to Compose V2](migrate.md).
 
 ## Enabling GPU access to service containers
 
@@ -47,10 +47,10 @@ services:
               capabilities: [gpu]
 ```
 
-Run with Docker Compose:
+Run with iEchor Compose:
 
 ```console
-$ docker compose up
+$ iechor compose up
 Creating network "gpu_default" with the default driver
 Creating gpu_test_1 ... done
 Attaching to gpu_test_1    

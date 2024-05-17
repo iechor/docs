@@ -1,6 +1,6 @@
 ---
 title: Suppress image vulnerabilities with VEX
-description: An introduction to using VEX with Docker Scout
+description: An introduction to using VEX with iEchor Scout
 keywords: scout, vex, Vulnerability Exploitability eXchange, openvex, vulnerabilities, cves
 ---
 
@@ -10,11 +10,11 @@ In this guide, you will learn about:
 
 - How VEX can help you suppress non-applicable or fixed vulnerabilities found in your images
 - How to create VEX documents and statements
-- How to apply and consume VEX data with Docker Scout
+- How to apply and consume VEX data with iEchor Scout
 
 > **Experimental**
 >
-> Support for VEX is an experimental feature in Docker Scout.
+> Support for VEX is an experimental feature in iEchor Scout.
 > We recommend that you do not use this feature in production environments
 > as this feature may change or be removed from future releases.
 { .experimental }
@@ -23,10 +23,10 @@ In this guide, you will learn about:
 
 If you want to follow along the steps of this guide, you'll need the following:
 
-- The latest version of Docker Desktop
+- The latest version of iEchor Desktop
 - The [containerd image store](../../desktop/containerd.md) must be enabled
 - Git
-- A [Docker account](../../docker-id/_index.md)
+- A [iEchor account](../../iechor-id/_index.md)
 - A GitHub account
 
 ## Introduction to VEX
@@ -88,31 +88,31 @@ helps organizations perform risk assessment of software products.
 ## Create and enable a repository
 
 To get started, create a sample project to work with.
-Use the [Docker Scout demo service](https://github.com/docker/scout-demo-service)
+Use the [iEchor Scout demo service](https://github.com/iechor/scout-demo-service)
 template repository to bootstrap a new repository in your own GitHub organization.
 
 1. Create the repository from the template.
 2. Clone the Git repository to your machine.
-3. Build an image from the repository and push it to a new Docker Hub repository.
+3. Build an image from the repository and push it to a new iEchor Hub repository.
 
    ```console
    $ cd scout-demo-service
-   $ docker build --provenance=true --sbom=true --tag <ORG>/scout-demo-service:v1 --push .
+   $ iechor build --provenance=true --sbom=true --tag <ORG>/scout-demo-service:v1 --push .
    ```
 
-4. Enable Docker Scout on the repository.
+4. Enable iEchor Scout on the repository.
 
    ```console
-   $ docker scout repo enable <ORG>/scout-demo-service
+   $ iechor scout repo enable <ORG>/scout-demo-service
    ```
 
 ## Inspect vulnerability
 
-Use the `docker scout cves` command to view the vulnerabilities for the image.
+Use the `iechor scout cves` command to view the vulnerabilities for the image.
 For the purpose of this guide, we'll concentrate on a particular CVE: CVE-2022-24999.
 
 ```console
-$ docker scout cves --only-cve-id CVE-2022-24999
+$ iechor scout cves --only-cve-id CVE-2022-24999
 ```
 
 The output from this command shows that this CVE affects two JavaScript packages
@@ -142,13 +142,13 @@ Otherwise, you can grab a prebuilt binary from the `vexctl`
 
 Use the `vexctl create` command to create an OpenVEX document.
 The following command creates a VEX document `CVE-2022-24999.vex.json`
-which states that the Docker image and its sub-components
+which states that the iEchor image and its sub-components
 are unaffected by the CVE because the vulnerable code is never executed.
 
 ```console
 $ vexctl create \
   --author="author@example.com" \
-  --product="pkg:docker/<ORG>/scout-demo-service@v1" \
+  --product="pkg:iechor/<ORG>/scout-demo-service@v1" \
   --subcomponents="pkg:npm/express@4.17.1" \
   --subcomponents="pkg:npm/qs@6.7.0" \
   --vuln="CVE-2022-24999" \
@@ -174,7 +174,7 @@ This creates a VEX document that looks like this:
       "timestamp": "2024-02-03T09:33:28.913574+01:00",
       "products": [
         {
-          "@id": "pkg:docker/<ORG>/scout-demo-service@v1",
+          "@id": "pkg:iechor/<ORG>/scout-demo-service@v1",
           "subcomponents": [
             {
               "@id": "pkg:npm/express@4.17.1"
@@ -195,18 +195,18 @@ This creates a VEX document that looks like this:
 ## Verify CVE suppression
 
 To test whether the VEX statement provides the expected security advisory,
-use the `docker scout cves` command to review the CVE status.
+use the `iechor scout cves` command to review the CVE status.
 The `--vex-location` flag lets you specify a directory containing VEX documents.
 
 ```console
-$ docker scout cves --only-cve-id CVE-2022-24999 --vex-location .
+$ iechor scout cves --only-cve-id CVE-2022-24999 --vex-location .
 ```
 
 You should now see `VEX` fields appear in the output of the command.
 
 ```text {hl_lines=[7,8]}
 ✗ HIGH CVE-2022-24999 [OWASP Top Ten 2017 Category A9 - Using Components with Known Vulnerabilities]
-  https://scout.docker.com/v/CVE-2022-24999
+  https://scout.iechor.com/v/CVE-2022-24999
   Affected range : <4.17.3                                             
   Fixed version  : 4.17.3                                              
   CVSS Score     : 7.5                                                 
@@ -261,7 +261,7 @@ Instead, `products` should refer to the packages that contain the vulnerabilitie
 2. Attach the `in-toto.vex.json` VEX document as an attestation:
 
    ```console
-   $ docker scout attestation add \
+   $ iechor scout attestation add \
      --file in-toto.vex.json \
      --predicate-type https://openvex.dev/ns/v0.2.0 \
      <ORG>/scout-demo-service:v1
@@ -270,16 +270,16 @@ Instead, `products` should refer to the packages that contain the vulnerabilitie
    This adds an in-toto attestation to the image,
    with a predicate type of `https://openvex.dev/ns/v0.2.0`.
 
-3. Analyze the image with `docker scout cves`.
+3. Analyze the image with `iechor scout cves`.
 
    > **Note**
    >
    > This only works when analyzing remote images in a registry.
-   > To force Docker Scout to analyze a registry image instead of a local one,
+   > To force iEchor Scout to analyze a registry image instead of a local one,
    > specify the image reference with a `registry://` prefix.
 
    ```console
-   $ docker scout cves \
+   $ iechor scout cves \
      --only-cve-id CVE-2022-24999 \
      registry://<ORG>/scout-demo-service:v1
    ```

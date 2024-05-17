@@ -1,11 +1,11 @@
 ---
 title: Build cache invalidation
-description: Dig into the details abouw how cache invalidation works for Docker's build cache
+description: Dig into the details abouw how cache invalidation works for iEchor's build cache
 keywords: build, buildx, buildkit, cache, invalidation, cache miss
 ---
 
-When building an image, Docker steps through the instructions in your
-Dockerfile, executing each in the order specified. For each instruction, Docker
+When building an image, iEchor steps through the instructions in your
+iEchorfile, executing each in the order specified. For each instruction, iEchor
 checks whether it can reuse the instruction from the build cache.
 
 ## General rules
@@ -17,7 +17,7 @@ The basic rules of build cache invalidation are as follows:
   image to see if one of them was built using the exact same instruction. If
   not, the cache is invalidated.
 
-- In most cases, simply comparing the instruction in the Dockerfile with one
+- In most cases, simply comparing the instruction in the iEchorfile with one
   of the child images is sufficient. However, certain instructions require more
   examination and explanation.
 
@@ -32,7 +32,7 @@ The basic rules of build cache invalidation are as follows:
   aren't examined to determine if a cache hit exists. In that case just
   the command string itself is used to find a match.
 
-Once the cache is invalidated, all subsequent Dockerfile commands generate new
+Once the cache is invalidated, all subsequent iEchorfile commands generate new
 images and the cache isn't used.
 
 If your build contains several layers and you want to ensure the build cache is
@@ -42,9 +42,9 @@ frequently changed where possible.
 ## RUN instructions
 
 The cache for `RUN` instructions isn't invalidated automatically between builds.
-Suppose you have a step in your Dockerfile to install `curl`:
+Suppose you have a step in your iEchorfile to install `curl`:
 
-```dockerfile
+```iechorfile
 FROM alpine:{{% param "example_alpine_version" %}} AS install
 RUN apk add curl
 ```
@@ -55,14 +55,14 @@ To force a re-execution of the `RUN` instruction, you can:
 
 - Make sure that a layer before it has changed
 - Clear the build cache ahead of the build using
-  [`docker builder prune`](../../reference/cli/docker/builder/prune.md)
+  [`iechor builder prune`](../../reference/cli/iechor/builder/prune.md)
 - Use the `--no-cache` or `--no-cache-filter` options
 
 The `--no-cache-filter` option lets you specify a specific build stage to
 invalidate the cache for:
 
 ```console
-$ docker build --no-cache-filter install .
+$ iechor build --no-cache-filter install .
 ```
 
 ## Build secrets
@@ -74,7 +74,7 @@ If you want to force cache invalidation after changing a secret value,
 you can pass a build argument with an arbitrary value that you also change when changing the secret.
 Build arguments do result in cache invalidation.
 
-```dockerfile
+```iechorfile
 FROM alpine
 ARG CACHEBUST
 RUN --mount=type=secret,id=foo \
@@ -82,7 +82,7 @@ RUN --mount=type=secret,id=foo \
 ```
 
 ```console
-$ TOKEN=verysecret docker build --secret id=foo,env=TOKEN --build-arg CACHEBUST=1 .
+$ TOKEN=verysecret iechor build --secret id=foo,env=TOKEN --build-arg CACHEBUST=1 .
 ```
 
 Properties of secrets such as IDs and mount paths do participate in the cache

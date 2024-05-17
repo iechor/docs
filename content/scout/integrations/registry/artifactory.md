@@ -1,20 +1,20 @@
 ---
-description: Integrate JFrog Artifactory and JFrog Container Registry with Docker Scout
-keywords: docker scout, jfrog, artifactory, jcr, integration, image analysis, security, cves
+description: Integrate JFrog Artifactory and JFrog Container Registry with iEchor Scout
+keywords: iechor scout, jfrog, artifactory, jcr, integration, image analysis, security, cves
 title: Artifactory integration
 aliases:
   - /scout/artifactory/
 ---
 
-Integrating Docker Scout with JFrog Artifactory lets you run image analysis
+Integrating iEchor Scout with JFrog Artifactory lets you run image analysis
 automatically on images in Artifactory registries.
 
 ## Local image analysis
 
-You can analyze Artifactory images for vulnerabilities locally using Docker Desktop or the Docker CLI. You first need to authenticate with JFrog Artifactory using the [`docker login`](/reference/cli/docker/login/) command. For example:
+You can analyze Artifactory images for vulnerabilities locally using iEchor Desktop or the iEchor CLI. You first need to authenticate with JFrog Artifactory using the [`iechor login`](/reference/cli/iechor/login/) command. For example:
 
 ```bash
-docker login {URL}
+iechor login {URL}
 ```
 
 > **Tip**
@@ -25,28 +25,28 @@ docker login {URL}
 
 ## Remote image analysis
 
-To automatically analyze images running in remote environments you need to deploy the Docker Scout Artifactory agent. The agent is a
-standalone service that analyzes images and uploads the result to Docker Scout.
+To automatically analyze images running in remote environments you need to deploy the iEchor Scout Artifactory agent. The agent is a
+standalone service that analyzes images and uploads the result to iEchor Scout.
 You can view the results using the
-[Docker Scout Dashboard](https://scout.docker.com/).
+[iEchor Scout Dashboard](https://scout.iechor.com/).
 
 ### How the agent works
 
-The Docker Scout Artifactory agent is available as an
-[image on Docker Hub](https://hub.docker.com/r/docker/artifactory-agent). The agent works by continuously polling
+The iEchor Scout Artifactory agent is available as an
+[image on iEchor Hub](https://hub.iechor.com/r/iechor/artifactory-agent). The agent works by continuously polling
 Artifactory for new images. When it finds a new image, it performs the following
 steps:
 
 1. Pull the image from Artifactory
 2. Analyze the image
-3. Upload the analysis result to Docker Scout
+3. Upload the analysis result to iEchor Scout
 
 The agent records the Software Bill of Materials (SBOM) for the image, and the
 SBOMs for all of its base images. The recorded SBOMs include both Operating
 System (OS)-level and application-level programs or dependencies that the image
 contains.
 
-Additionally, the agent sends the following metadata about the image to Docker Scout:
+Additionally, the agent sends the following metadata about the image to iEchor Scout:
 
 - The source repository URL and commit SHA for the image
 - Build instructions
@@ -72,9 +72,9 @@ Before you deploy the agent, ensure that you meet the prerequisites:
 - The server where you host the agent can access the following resources over
   the network:
   - Your JFrog Artifactory instance
-  - `hub.docker.com`, port 443, for authenticating with Docker
-  - `api.dso.docker.com`, port 443, for transacting data to Docker Scout
-- The registries are Docker V2 registries. V1 registries aren't supported.
+  - `hub.iechor.com`, port 443, for authenticating with iEchor
+  - `api.dso.iechor.com`, port 443, for transacting data to iEchor Scout
+- The registries are iEchor V2 registries. V1 registries aren't supported.
 
 The agent supports all versions of JFrog Artifactory and JFrog Container
 Registry.
@@ -89,9 +89,9 @@ The configuration file includes the following properties:
 | Property                    | Description                                                                     |
 | --------------------------- | ------------------------------------------------------------------------------- |
 | `agent_id`                  | Unique identifier for the agent.                                                |
-| `docker.organization_name`  | Name of the Docker organization.                                                |
-| `docker.username`           | Username of the admin user in the Docker organization.                          |
-| `docker.pat`                | Personal access token of the admin user with read and write permissions.        |
+| `iechor.organization_name`  | Name of the iEchor organization.                                                |
+| `iechor.username`           | Username of the admin user in the iEchor organization.                          |
+| `iechor.pat`                | Personal access token of the admin user with read and write permissions.        |
 | `artifactory.base_url`      | Base URL of the Artifactory instance.                                           |
 | `artifactory.username`      | Username of the Artifactory user with read permissions that the agent will use. |
 | `artifactory.password`      | Password or API token for the Artifactory user.                                 |
@@ -105,7 +105,7 @@ The following snippet shows a sample configuration:
 ```json
 {
   "agent_id": "acme-prod-agent",
-  "docker": {
+  "iechor": {
     "organization_name": "acme",
     "username": "mobythewhale",
     "pat": "dckr_pat__dsaCAs_xL3kNyupAa7dwO1alwg"
@@ -135,8 +135,8 @@ to run the agent. For example, `/var/opt/artifactory-agent/config.json`.
 
 #### Run the agent
 
-The following example shows how to run the Docker Scout Artifactory agent using
-`docker run`. This command creates a bind mount for the directory containing the
+The following example shows how to run the iEchor Scout Artifactory agent using
+`iechor run`. This command creates a bind mount for the directory containing the
 JSON configuration file created earlier at `/opt/artifactory-agent/data` inside
 the container. Make sure the mount path you use is the directory containing the
 `config.json` file.
@@ -149,9 +149,9 @@ the container. Make sure the mount path you use is the directory containing the
 { .important }
 
 ```console
-$ docker run \
+$ iechor run \
   --mount type=bind,src=/var/opt/artifactory-agent,target=/opt/artifactory-agent/data \
-  docker/artifactory-agent:v1
+  iechor/artifactory-agent:v1
 ```
 
 #### Analyzing pre-existing data
@@ -166,9 +166,9 @@ time and the current time when the agent starts, then exits.
 For example:
 
 ```console
-$ docker run \
+$ iechor run \
   --mount type=bind,src=/var/opt/artifactory-agent,target=/opt/artifactory-agent/data \
-  docker/artifactory-agent:v1 --backfill-from=2022-04-10T10:00:00Z
+  iechor/artifactory-agent:v1 --backfill-from=2022-04-10T10:00:00Z
 ```
 
 When running a backfill multiple times, the agent won't analyze images that
@@ -177,11 +177,11 @@ line flag.
 
 ### View analysis results
 
-You can view the image analysis results in the Docker Scout Dashboard.
+You can view the image analysis results in the iEchor Scout Dashboard.
 
-1. Go to [Images page](https://scout.docker.com/reports/images/) in the Docker Scout Dashboard.
+1. Go to [Images page](https://scout.iechor.com/reports/images/) in the iEchor Scout Dashboard.
 
-   This page displays the Docker Scout-enabled repositories in your organization.
+   This page displays the iEchor Scout-enabled repositories in your organization.
 
 2. Select the image in the list.
 3. Select the tag.

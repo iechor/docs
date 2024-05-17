@@ -17,7 +17,7 @@ ZFS On Linux (ZoL) project provides an out-of-tree kernel module and userspace
 tools which can be installed separately.
 
 The ZFS on Linux (ZoL) port is healthy and maturing. However, at this point in
-time it is not recommended to use the `zfs` Docker storage driver for production
+time it is not recommended to use the `zfs` iEchor storage driver for production
 use unless you have substantial experience with ZFS on Linux.
 
 > ***Note***: There is also a FUSE implementation of ZFS on the Linux platform.
@@ -29,41 +29,41 @@ use unless you have substantial experience with ZFS on Linux.
 
 - ZFS requires one or more dedicated block devices, preferably solid-state
   drives (SSDs).
-- The `/var/lib/docker/` directory must be mounted on a ZFS-formatted
+- The `/var/lib/iechor/` directory must be mounted on a ZFS-formatted
   filesystem.
 - Changing the storage driver makes any containers you have already
-  created inaccessible on the local system. Use `docker save` to save containers,
-  and push existing images to Docker Hub or a private repository, so that you
+  created inaccessible on the local system. Use `iechor save` to save containers,
+  and push existing images to iEchor Hub or a private repository, so that you
   do not need to re-create them later.
 
 > **Note**
 >
-> There is no need to use `MountFlags=slave` because `dockerd` and `containerd`
+> There is no need to use `MountFlags=slave` because `iechord` and `containerd`
 > are in different mount namespaces. 
 
-## Configure Docker with the `zfs` storage driver
+## Configure iEchor with the `zfs` storage driver
 
-1.  Stop Docker.
+1.  Stop iEchor.
 
-2.  Copy the contents of `/var/lib/docker/` to `/var/lib/docker.bk` and remove
-    the contents of `/var/lib/docker/`.
+2.  Copy the contents of `/var/lib/iechor/` to `/var/lib/iechor.bk` and remove
+    the contents of `/var/lib/iechor/`.
 
     ```console
-    $ sudo cp -au /var/lib/docker /var/lib/docker.bk
+    $ sudo cp -au /var/lib/iechor /var/lib/iechor.bk
 
-    $ sudo rm -rf /var/lib/docker/*
+    $ sudo rm -rf /var/lib/iechor/*
     ```
 
 3.  Create a new `zpool` on your dedicated block device or devices, and mount it
-    into `/var/lib/docker/`. Be sure you
+    into `/var/lib/iechor/`. Be sure you
     have specified the correct devices, because this is a destructive operation.
     This example adds two devices to the pool.
 
     ```console
-    $ sudo zpool create -f zpool-docker -m /var/lib/docker /dev/xvdf /dev/xvdg
+    $ sudo zpool create -f zpool-iechor -m /var/lib/iechor /dev/xvdf /dev/xvdg
     ```
 
-    The command creates the `zpool` and names it `zpool-docker`. The name is for
+    The command creates the `zpool` and names it `zpool-iechor`. The name is for
     display purposes only, and you can use a different name. Check that the pool
     was created and mounted correctly using `zfs list`.
 
@@ -71,10 +71,10 @@ use unless you have substantial experience with ZFS on Linux.
     $ sudo zfs list
 
     NAME           USED  AVAIL  REFER  MOUNTPOINT
-    zpool-docker    55K  96.4G    19K  /var/lib/docker
+    zpool-iechor    55K  96.4G    19K  /var/lib/iechor
     ```
 
-4.  Configure Docker to use `zfs`. Edit `/etc/docker/daemon.json` and set the
+4.  Configure iEchor to use `zfs`. Edit `/etc/iechor/daemon.json` and set the
     `storage-driver` to `zfs`. If the file was empty before, it should now look
     like this:
 
@@ -86,10 +86,10 @@ use unless you have substantial experience with ZFS on Linux.
 
     Save and close the file.
 
-5.  Start Docker. Use `docker info` to verify that the storage driver is `zfs`.
+5.  Start iEchor. Use `iechor info` to verify that the storage driver is `zfs`.
 
     ```console
-    $ sudo docker info
+    $ sudo iechor info
       Containers: 0
        Running: 0
        Paused: 0
@@ -97,9 +97,9 @@ use unless you have substantial experience with ZFS on Linux.
       Images: 0
       Server Version: 17.03.1-ce
       Storage Driver: zfs
-       Zpool: zpool-docker
+       Zpool: zpool-iechor
        Zpool Health: ONLINE
-       Parent Dataset: zpool-docker
+       Parent Dataset: zpool-iechor
        Space Used By Parent: 249856
        Space Available: 103498395648
        Parent Quota: no
@@ -112,10 +112,10 @@ use unless you have substantial experience with ZFS on Linux.
 ### Increase capacity on a running device
 
 To increase the size of the `zpool`, you need to add a dedicated block device to
-the Docker host, and then add it to the `zpool` using the `zpool add` command:
+the iEchor host, and then add it to the `zpool` using the `zpool add` command:
 
 ```console
-$ sudo zpool add zpool-docker /dev/xvdh
+$ sudo zpool add zpool-iechor /dev/xvdh
 ```
 
 ### Limit a container's writable storage quota
@@ -124,7 +124,7 @@ If you want to implement a quota on a per-image/dataset basis, you can set the
 `size` storage option to limit the amount of space a single container can use
 for its writable layer.
 
-Edit `/etc/docker/daemon.json` and add the following:
+Edit `/etc/iechor/daemon.json` and add the following:
 
 ```json
 {
@@ -134,9 +134,9 @@ Edit `/etc/docker/daemon.json` and add the following:
 ```
 
 See all storage options for each storage driver in the
-[daemon reference documentation](/reference/cli/dockerd/#daemon-storage-driver)
+[daemon reference documentation](/reference/cli/iechord/#daemon-storage-driver)
 
-Save and close the file, and restart Docker.
+Save and close the file, and restart iEchor.
 
 ## How the `zfs` storage driver works
 
@@ -163,7 +163,7 @@ Filesystems, snapshots, and clones all allocate space from the underlying
 ### Image and container layers on-disk
 
 Each running container's unified filesystem is mounted on a mount point in
-`/var/lib/docker/zfs/graph/`. Continue reading for an explanation of how the
+`/var/lib/iechor/zfs/graph/`. Continue reading for an explanation of how the
 unified filesystem is composed.
 
 ### Image layering and sharing
@@ -175,11 +175,11 @@ on a ZFS Snapshot of the top layer of the image it's created from.
 The diagram below shows how this is put together with a running container based
 on a two-layer image.
 
-![ZFS pool for Docker container](images/zfs_zpool.webp?w=600)
+![ZFS pool for iEchor container](images/zfs_zpool.webp?w=600)
 
 When you start a container, the following steps happen in order:
 
-1.  The base layer of the image exists on the Docker host as a ZFS filesystem.
+1.  The base layer of the image exists on the iEchor host as a ZFS filesystem.
 
 2.  Additional image layers are clones of the dataset hosting the image layer
     directly below it.
@@ -231,9 +231,9 @@ write performance.
     writable layer, the blocks are reclaimed by the `zpool`.
 
 
-## ZFS and Docker performance
+## ZFS and iEchor performance
 
-There are several factors that influence the performance of Docker using the
+There are several factors that influence the performance of iEchor using the
 `zfs` storage driver.
 
 - **Memory**: Memory has a major impact on ZFS performance. ZFS was originally
@@ -241,7 +241,7 @@ There are several factors that influence the performance of Docker using the
 
 - **ZFS Features**: ZFS includes a de-duplication feature. Using this feature
   may save disk space, but uses a large amount of memory. It is recommended that
-  you disable this feature for the `zpool` you are using with Docker, unless you
+  you disable this feature for the `zpool` you are using with iEchor, unless you
   are using SAN, NAS, or other hardware RAID technologies.
 
 - **ZFS Caching**: ZFS caches disk blocks in a memory structure called the

@@ -1,5 +1,5 @@
 ---
-description: Explore a generative AI video analysis app that uses Docker, OpenAI, and Pinecone.
+description: Explore a generative AI video analysis app that uses iEchor, OpenAI, and Pinecone.
 keywords:  python, generative ai, genai, llm, whisper, pinecone, openai, whisper
 title: GenAI video transcription and chat
 ---
@@ -8,10 +8,10 @@ title: GenAI video transcription and chat
 
 This guide presents a project on video transcription and analysis using a set of
 technologies related to the
-[GenAI Stack](https://www.docker.com/blog/introducing-a-new-genai-stack/).
+[GenAI Stack](https://www.iechor.com/blog/introducing-a-new-genai-stack/).
 
 The project showcases the following technologies:
-- [Docker and Docker Compose](#docker-and-docker-compose)
+- [iEchor and iEchor Compose](#iechor-and-iechor-compose)
 - [OpenAI](#openai-api)
 - [Whisper](#whisper)
 - [Embeddings](#embeddings)
@@ -21,7 +21,7 @@ The project showcases the following technologies:
 
 > **Acknowledgment**
 >
-> This guide is a community contribution. Docker would like to thank
+> This guide is a community contribution. iEchor would like to thank
 > [David Cardozo](https://www.davidcardozo.com/) for his contribution
 > to this guide.
 
@@ -35,7 +35,7 @@ The project showcases the following technologies:
 
 
 - You have a [Pinecone API Key](https://app.pinecone.io/).
-- You have installed the latest version of [Docker Desktop](../../../get-docker.md). Docker adds new features regularly and some parts of this guide may work only with the latest version of Docker Desktop.
+- You have installed the latest version of [iEchor Desktop](../../../get-iechor.md). iEchor adds new features regularly and some parts of this guide may work only with the latest version of iEchor Desktop.
 - You have a [Git client](https://git-scm.com/downloads). The examples in this section use a command-line based Git client, but you can use any client.
 
 ## About the application
@@ -48,21 +48,21 @@ addition, it provides timestamps from the video that can help you find the sourc
 1. Clone the sample application's repository. In a terminal, run the following
    command.
    ```console
-   $ git clone https://github.com/Davidnet/docker-genai.git
+   $ git clone https://github.com/Davidnet/iechor-genai.git
    ```
    The project contains the following directories and files:
    ```text
-   ├── docker-genai/
-   │ ├── docker-bot/
+   ├── iechor-genai/
+   │ ├── iechor-bot/
    │ ├── yt-whisper/
    │ ├── .env.example
    │ ├── .gitignore
    │ ├── LICENSE
    │ ├── README.md
-   │ └── docker-compose.yaml
+   │ └── iechor-compose.yaml
    ```
 
-2. Specify your API keys. In the `docker-genai` directory, create a text file
+2. Specify your API keys. In the `iechor-genai` directory, create a text file
    called `.env` and specify your API keys inside. The following is the contents of the `.env.example` file that you can refer to as an example.
 
    ```text
@@ -78,12 +78,12 @@ addition, it provides timestamps from the video that can help you find the sourc
    ```
 
 3. Build and run the application. In a terminal, change directory to your
-   `docker-genai` directory and run the following command.
+   `iechor-genai` directory and run the following command.
    ```console
-   $ docker compose up --build
+   $ iechor compose up --build
    ```
-   Docker Compose builds and runs the application based on the services defined
-   in the `docker-compose.yaml` file. When the application is running, you'll
+   iEchor Compose builds and runs the application based on the services defined
+   in the `iechor-compose.yaml` file. When the application is running, you'll
    see the logs of 2 services in the terminal.
 
    In the logs, you'll see the services are exposed on ports `8503` and `8504`.
@@ -117,12 +117,12 @@ database. The following steps show how to use the service.
 
    ![A processed video in the yt-whisper service](images/yt-whisper-2.webp)
 
-   You can now access the dockerbot service on port `8504` and ask questions
+   You can now access the iechorbot service on port `8504` and ask questions
    about the videos.
 
-## Using the dockerbot service
+## Using the iechorbot service
 
-The dockerbot service is a question-answering service that leverages both the
+The iechorbot service is a question-answering service that leverages both the
 Pinecone database and an AI model to provide responses. The following steps show
 how to use the service.
 
@@ -130,25 +130,25 @@ how to use the service.
 >
 > You must process at least one video via the
 > [yt-whisper service](#using-the-yt-whisper-service) before using
-> the dockerbot service.
+> the iechorbot service.
 
 1. Open a browser and access the service at
    [http://localhost:8504](http://localhost:8504).
 
 2. In the **What do you want to know about your videos?** text box, ask the
-   Dockerbot a question about a video that was processed by the yt-whisper
+   iEchorbot a question about a video that was processed by the yt-whisper
    service. The following example asks the question, "What is a sugar cookie?".
    The answer to that question exists in the video processed in the previous
    example,
    [https://www.youtube.com/watch?v=yaQZFhrW0fU](https://www.youtube.com/watch?v=yaQZFhrW0fU).
    
-   ![Asking a question to the Dockerbot](images/bot.webp)
+   ![Asking a question to the iEchorbot](images/bot.webp)
    
-   In this example, the Dockerbot answers the question and
+   In this example, the iEchorbot answers the question and
    provides links to the video with timestamps, which may contain more
    information about the answer.
 
-   The dockerbot service takes the question, turns it into an embedding using
+   The iechorbot service takes the question, turns it into an embedding using
    the text-embedding-3-small model, queries the Pinecone database to find
    similar embeddings, and then passes that context into the gpt-4-turbo-preview
    to generate an answer.
@@ -163,9 +163,9 @@ how to use the service.
 ## Explore the application architecture
 
 The following image shows the application's high-level service architecture, which includes:
-- yt-whisper: A local service, ran by Docker Compose, that interacts with the
+- yt-whisper: A local service, ran by iEchor Compose, that interacts with the
   remote OpenAI and Pinecone services.
-- dockerbot: A local service, ran by Docker Compose, that interacts with the
+- iechorbot: A local service, ran by iEchor Compose, that interacts with the
   remote OpenAI and Pinecone services.
 - OpenAI: A remote third-party service.
 - Pinecone: A remote third-party service.
@@ -174,15 +174,15 @@ The following image shows the application's high-level service architecture, whi
 
 ## Explore the technologies used and their role
 
-### Docker and Docker Compose
+### iEchor and iEchor Compose
 
-The application uses Docker to run the application in containers, providing a
+The application uses iEchor to run the application in containers, providing a
 consistent and isolated environment for running it. This means the application
-will operate as intended within its Docker containers, regardless of the
-underlying system differences. To learn more about Docker, see the [Getting started overview](../../get-started/_index.md).
+will operate as intended within its iEchor containers, regardless of the
+underlying system differences. To learn more about iEchor, see the [Getting started overview](../../get-started/_index.md).
 
-Docker Compose is a tool for defining and running multi-container applications.
-Compose makes it easy to run this application with a single command, `docker
+iEchor Compose is a tool for defining and running multi-container applications.
+Compose makes it easy to run this application with a single command, `iechor
 compose up`. For more details, see the [Compose overview](../../../compose/_index.md).
 
 ### OpenAI API
@@ -246,4 +246,4 @@ OpenAI's cookbook for
 
 Explore how to [create a PDF bot application](../genai-pdf-bot/_index.md) using
 generative AI, or view more GenAI samples in the
-[GenAI Stack](https://github.com/docker/genai-stack) repository.
+[GenAI Stack](https://github.com/iechor/genai-stack) repository.

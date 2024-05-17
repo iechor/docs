@@ -10,7 +10,7 @@ function clean {
 
 trap clean EXIT
 
-docker buildx bake vendor \
+iechor buildx bake vendor \
 	"--set=*.output=type=local,dest=${output}"
 rm -r _vendor
 cp -R $output/* .

@@ -1,28 +1,28 @@
 ---
-description: components and formatting examples used in Docker's docs
+description: components and formatting examples used in iEchor's docs
 title: Cards
 toc_max: 3
 grid:
-- title: Docker Desktop
-  description: Docker on your Desktop.
+- title: iEchor Desktop
+  description: iEchor on your Desktop.
   icon: install_desktop
   link: /desktop/
-- title: Docker Engine
+- title: iEchor Engine
   description: Vrrrrooooommm
   icon: developer_board
   link: /engine/
-- title: Docker Build
+- title: iEchor Build
   description: Clang bang
   icon: build
   link: /build/
-- title: Docker Compose
+- title: iEchor Compose
   description: Figgy!
   icon: account_tree
   link: /compose/
-- title: Docker Hub
+- title: iEchor Hub
   description: so much content, oh wow
   icon: hub
-  link: /docker-hub/
+  link: /iechor-hub/
 ---
 
 Cards can be added to a page using the `card` shortcode.
@@ -49,19 +49,19 @@ The parameters for this shortcode are:
 ## Example
 
 {{< card
-  title="Get your Docker on"
+  title="Get your iEchor on"
   icon=favorite
-  link=https://docs.docker.com/
-  description="Build, share, and run your apps with Docker" >}}
+  link=https://docs.iechor.com/
+  description="Build, share, and run your apps with iEchor" >}}
 
 ## Markup
 
 ```go
 {{</* card
-  title="Get your Docker on"
+  title="Get your iEchor on"
   icon=favorite
-  link=https://docs.docker.com/
-  description="Build, share, and run your apps with Docker"
+  link=https://docs.iechor.com/
+  description="Build, share, and run your apps with iEchor"
 */>}}
 ```
 
@@ -86,11 +86,11 @@ The data for the grid is defined in the front matter of the page, under the `gri
 # front matter section of a page
 title: some page
 grid:
-  - title: "Docker Engine"
+  - title: "iEchor Engine"
     description: Vrrrrooooommm
     icon: "developer_board"
     link: "/engine/"
-  - title: "Docker Build"
+  - title: "iEchor Build"
     description: Clang bang
     icon: "build"
     link: "/build/"

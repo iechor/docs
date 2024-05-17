@@ -43,7 +43,7 @@ This example produces a manifest file for each and every Compose service in you 
 ## Input
 
 The input compose model is the canonical yaml model you can get by running
- `docker compose config`. Within a template you can access model nodes using 
+ `iechor compose config`. Within a template you can access model nodes using 
  dot notation:
 
  ```yaml

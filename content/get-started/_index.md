@@ -1,9 +1,9 @@
 ---
 title: Overview of the get started guide
-keywords: docker basics, how to start a docker container, container settings, setup
-  docker, how to setup docker, setting up docker, docker container guide, how to get
-  started with docker
-description: Get started with the Docker basics in this comprehensive overview, You'll
+keywords: iechor basics, how to start a iechor container, container settings, setup
+  iechor, how to setup iechor, setting up iechor, iechor container guide, how to get
+  started with iechor
+description: Get started with the iEchor basics in this comprehensive overview, You'll
   learn about containers, images, and how to containerize your first application.
 aliases:
 - /engine/getstarted-voting-app/
@@ -23,11 +23,11 @@ aliases:
 - /engine/getstarted/step_two/
 - /engine/quickstart/
 - /engine/tutorials/
-- /engine/tutorials/dockerimages/
-- /engine/tutorials/dockerizing/
-- /engine/tutorials/usingdocker/
-- /engine/userguide/containers/dockerimages/
-- /engine/userguide/dockerimages/
+- /engine/tutorials/iechorimages/
+- /engine/tutorials/iechorizing/
+- /engine/tutorials/usingiechor/
+- /engine/userguide/containers/iechorimages/
+- /engine/userguide/iechorimages/
 - /engine/userguide/intro/
 - /get-started/part1/
 - /get-started/part5/
@@ -49,8 +49,8 @@ aliases:
 - /mac/step_six/
 - /mac/step_three/
 - /mac/step_two/
-- /userguide/dockerimages/
-- /userguide/dockerrepos/
+- /userguide/iechorimages/
+- /userguide/iechorrepos/
 - /windows/last_page/
 - /windows/started/
 - /windows/step_four/
@@ -60,19 +60,19 @@ aliases:
 - /windows/step_two/
 ---
 
-This guide contains step-by-step instructions on how to get started with Docker. This guide shows you how to:
+This guide contains step-by-step instructions on how to get started with iEchor. This guide shows you how to:
 
 - Build and run an image as a container.
-- Share images using Docker Hub.
-- Deploy Docker applications using multiple containers with a database.
-- Run applications using Docker Compose.
+- Share images using iEchor Hub.
+- Deploy iEchor applications using multiple containers with a database.
+- Run applications using iEchor Compose.
 
 ## What is a container?
 
 A container is a sandboxed process running on a host machine that is isolated from all other processes running on that host machine. That isolation leverages [kernel namespaces and cgroups](https://medium.com/@saschagrunert/demystifying-containers-part-i-kernel-space-2c53d6979504),
-features that have been in Linux for a long time. Docker makes these capabilities approachable and easy to use. To summarize, a container:
+features that have been in Linux for a long time. iEchor makes these capabilities approachable and easy to use. To summarize, a container:
 
-- Is a runnable instance of an image. You can create, start, stop, move, or delete a container using the Docker API or CLI.
+- Is a runnable instance of an image. You can create, start, stop, move, or delete a container using the iEchor API or CLI.
 - Can be run on local machines, virtual machines, or deployed to the cloud.
 - Is portable (and can be run on any OS).
 - Is isolated from other containers and runs its own software, binaries, configurations, etc.

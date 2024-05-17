@@ -1,25 +1,25 @@
 ---
 description: Learn how to create and manage teams for your organization
-keywords: Docker, docker, registry, teams, organizations, plans, Dockerfile, Docker
+keywords: iEchor, iechor, registry, teams, organizations, plans, iEchorfile, iEchor
   Hub, docs, documentation, repository permissions
 title: Create and manage a team
 aliases:
-- /docker-hub/manage-a-team/
+- /iechor-hub/manage-a-team/
 ---
 
-You can manage teams for your organization in Docker Hub.
+You can manage teams for your organization in iEchor Hub.
 
-A team is a group of Docker users that belong to an organization. An
+A team is a group of iEchor users that belong to an organization. An
 organization can have multiple teams. An
 organization owner can then create new teams and add members to an existing team
-using their Docker ID or email address and by selecting a team the user should be part of. Members aren't required to be part of a team to be associated with an organization.
+using their iEchor ID or email address and by selecting a team the user should be part of. Members aren't required to be part of a team to be associated with an organization.
 
 The organization owner can add additional organization owners to help them
 manage users, teams, and repositories in the organization by assigning them the owner role.
 
 ## Create a team
 
-1. Go to **Organizations** in Docker Hub, and select your organization.
+1. Go to **Organizations** in iEchor Hub, and select your organization.
 2. Select the **Teams** tab and then select **Create Team**.
 3. Fill out your team's information and select **Create**.
 4. [Add members to your team](members.md#add-a-member-to-a-team)
@@ -33,8 +33,8 @@ owner can also specify [permissions](#permissions-reference) for each team in
 the organization. Only an org owner can enable [SSO](../../security/for-admins/single-sign-on/_index.md)
 for
 the organization. When SSO is enabled for your organization, the org owner can
-also manage users. Docker can auto-provision Docker IDs for new end-users or
-users who'd like to have a separate Docker ID for company use through SSO
+also manage users. iEchor can auto-provision iEchor IDs for new end-users or
+users who'd like to have a separate iEchor ID for company use through SSO
 enforcement.
 
 The org owner can also add additional org owners to help them manage users, teams, and repositories in the organization.
@@ -48,7 +48,7 @@ access. Note that org owners have full administrative access to all repositories
 
 To give a team access to a repository
 
-1. Navigate to **Organizations** in Docker Hub, and select your organization.
+1. Navigate to **Organizations** in iEchor Hub, and select your organization.
 2. Select the **Teams** tab and select the team that you'd like to configure repository access to.
 3. Select the **Permissions** tab and select a repository from the
    **Repository** drop-down.
@@ -98,5 +98,5 @@ To view a team's permissions across all repositories:
 
 ## More resources
 
-- [Video: Docker teams](https://youtu.be/WKlT1O-4Du8?feature=shared&t=348)
+- [Video: iEchor teams](https://youtu.be/WKlT1O-4Du8?feature=shared&t=348)
 - [Video: Roles, teams, and repositories](https://youtu.be/WKlT1O-4Du8?feature=shared&t=435)

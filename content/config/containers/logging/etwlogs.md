@@ -1,6 +1,6 @@
 ---
-description: Learn how to use the Event Tracing for Windows (ETW) logging driver with Docker Engine
-keywords: ETW, docker, logging, driver
+description: Learn how to use the Event Tracing for Windows (ETW) logging driver with iEchor Engine
+keywords: ETW, iechor, logging, driver
 title: ETW logging driver
 aliases:
   - /engine/admin/logging/etwlogs/
@@ -24,10 +24,10 @@ before the provider has been registered with the system.
 Here is an example of how to listen to these events using the logman utility program
 included in most installations of Windows:
 
-1. `logman start -ets DockerContainerLogs -p {a3693192-9ed6-46d2-a981-f8226c8363bd} 0 0 -o trace.etl`
+1. `logman start -ets iEchorContainerLogs -p {a3693192-9ed6-46d2-a981-f8226c8363bd} 0 0 -o trace.etl`
 2. Run your container(s) with the etwlogs driver, by adding
-   `--log-driver=etwlogs` to the Docker run command, and generate log messages.
-3. `logman stop -ets DockerContainerLogs`
+   `--log-driver=etwlogs` to the iEchor run command, and generate log messages.
+3. `logman stop -ets iEchorContainerLogs`
 4. This generates an etl file that contains the events. One way to convert this
    file into human-readable form is to run: `tracerpt -y trace.etl`.
 

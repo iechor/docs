@@ -1,5 +1,5 @@
 ---
-description: components and formatting examples used in Docker's docs
+description: components and formatting examples used in iEchor's docs
 title: Lists
 toc_max: 3
 ---
@@ -23,7 +23,7 @@ Use dashes (`-`) or asterisks (`*`) for bullet points.
     the code block happens.
 
     ```bash
-    $ docker run hello-world
+    $ iechor run hello-world
     ```
 
 4.  Numbered list item 4 with a bullet list inside it and a numbered list
@@ -59,7 +59,7 @@ Use dashes (`-`) or asterisks (`*`) for bullet points.
     the code block happens.
 
     ```bash
-    $ docker run hello-world
+    $ iechor run hello-world
     ```
 
 4.  Numbered list item 4 with a bullet list inside it and a numbered list

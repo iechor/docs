@@ -1,20 +1,20 @@
 ---
 title: Image-building best practices
 keywords: get started, setup, orientation, quickstart, intro, concepts, containers,
-  docker desktop
+  iechor desktop
 description: Tips for building images for your application
 ---
 
 ## Image layering
 
-Using the `docker image history` command, you can see the command that was used
+Using the `iechor image history` command, you can see the command that was used
 to create each layer within an image.
 
-1. Use the `docker image history` command to see the layers in the `getting-started` image you
+1. Use the `iechor image history` command to see the layers in the `getting-started` image you
    created.
 
     ```console
-    $ docker image history getting-started
+    $ iechor image history getting-started
     ```
 
     You should get output that looks something like the following.
@@ -26,7 +26,7 @@ to create each layer within an image.
     a2c054d14948        36 seconds ago      /bin/sh -c #(nop) COPY dir:5dc710ad87c789593…   198kB               
     9577ae713121        37 seconds ago      /bin/sh -c #(nop) WORKDIR /app                  0B                  
     b95baba1cfdb        13 days ago         /bin/sh -c #(nop)  CMD ["node"]                 0B                  
-    <missing>           13 days ago         /bin/sh -c #(nop)  ENTRYPOINT ["docker-entry…   0B                  
+    <missing>           13 days ago         /bin/sh -c #(nop)  ENTRYPOINT ["iechor-entry…   0B                  
     <missing>           13 days ago         /bin/sh -c #(nop) COPY file:238737301d473041…   116B                
     <missing>           13 days ago         /bin/sh -c apk add --no-cache --virtual .bui…   5.35MB              
     <missing>           13 days ago         /bin/sh -c #(nop)  ENV YARN_VERSION=1.21.1      0B                  
@@ -44,7 +44,7 @@ to create each layer within an image.
    full output.
 
     ```console
-    $ docker image history --no-trunc getting-started
+    $ iechor image history --no-trunc getting-started
     ```
 
 ## Layer caching
@@ -52,10 +52,10 @@ to create each layer within an image.
 Now that you've seen the layering in action, there's an important lesson to learn to help decrease build
 times for your container images. Once a layer changes, all downstream layers have to be recreated as well.
 
-Look at the following Dockerfile you created for the getting started app.
+Look at the following iEchorfile you created for the getting started app.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM node:18-alpine
 WORKDIR /app
 COPY . .
@@ -63,19 +63,19 @@ RUN yarn install --production
 CMD ["node", "src/index.js"]
 ```
 
-Going back to the image history output, you see that each command in the Dockerfile becomes a new layer in the image.
+Going back to the image history output, you see that each command in the iEchorfile becomes a new layer in the image.
 You might remember that when you made a change to the image, the yarn dependencies had to be reinstalled. It doesn't make much sense to ship around the same dependencies every time you build.
 
-To fix it, you need to restructure your Dockerfile to help support the caching
+To fix it, you need to restructure your iEchorfile to help support the caching
 of the dependencies. For Node-based applications, those dependencies are defined
 in the `package.json` file. You can copy only that file in first, install the
 dependencies, and then copy in everything else. Then, you only recreate the yarn
 dependencies if there was a change to the `package.json`.
 
-1. Update the Dockerfile to copy in the `package.json` first, install dependencies, and then copy everything else in.
+1. Update the iEchorfile to copy in the `package.json` first, install dependencies, and then copy everything else in.
 
-   ```dockerfile
-   # syntax=docker/dockerfile:1
+   ```iechorfile
+   # syntax=iechor/iechorfile:1
    FROM node:18-alpine
    WORKDIR /app
    COPY package.json yarn.lock ./
@@ -84,36 +84,36 @@ dependencies if there was a change to the `package.json`.
    CMD ["node", "src/index.js"]
    ```
 
-2. Create a file named `.dockerignore` in the same folder as the Dockerfile with the following contents.
+2. Create a file named `.iechorignore` in the same folder as the iEchorfile with the following contents.
 
    ```ignore
    node_modules
    ```
 
-    `.dockerignore` files are an easy way to selectively copy only image relevant files.
+    `.iechorignore` files are an easy way to selectively copy only image relevant files.
     You can read more about this
-    [here](../build/building/context.md#dockerignore-files).
+    [here](../build/building/context.md#iechorignore-files).
     In this case, the `node_modules` folder should be omitted in the second `COPY` step because otherwise,
     it would possibly overwrite files which were created by the command in the `RUN` step.
 
-3. Build a new image using `docker build`.
+3. Build a new image using `iechor build`.
 
     ```console
-    $ docker build -t getting-started .
+    $ iechor build -t getting-started .
     ```
 
     You should see output like the following.
 
     ```plaintext
     [+] Building 16.1s (10/10) FINISHED
-    => [internal] load build definition from Dockerfile
-    => => transferring dockerfile: 175B
-    => [internal] load .dockerignore
+    => [internal] load build definition from iEchorfile
+    => => transferring iechorfile: 175B
+    => [internal] load .iechorignore
     => => transferring context: 2B
-    => [internal] load metadata for docker.io/library/node:18-alpine
+    => [internal] load metadata for iechor.io/library/node:18-alpine
     => [internal] load build context
     => => transferring context: 53.37MB
-    => [1/5] FROM docker.io/library/node:18-alpine
+    => [1/5] FROM iechor.io/library/node:18-alpine
     => CACHED [2/5] WORKDIR /app
     => [3/5] COPY package.json yarn.lock ./
     => [4/5] RUN yarn install --production
@@ -121,23 +121,23 @@ dependencies if there was a change to the `package.json`.
     => exporting to image
     => => exporting layers
     => => writing image     sha256:d6f819013566c54c50124ed94d5e66c452325327217f4f04399b45f94e37d25
-    => => naming to docker.io/library/getting-started
+    => => naming to iechor.io/library/getting-started
     ```
 
 4. Now, make a change to the `src/static/index.html` file. For example, change the `<title>` to "The Awesome Todo App".
 
-5. Build the Docker image now using `docker build -t getting-started .` again. This time, your output should look a little different.
+5. Build the iEchor image now using `iechor build -t getting-started .` again. This time, your output should look a little different.
 
     ```plaintext
     [+] Building 1.2s (10/10) FINISHED
-    => [internal] load build definition from Dockerfile
-    => => transferring dockerfile: 37B
-    => [internal] load .dockerignore
+    => [internal] load build definition from iEchorfile
+    => => transferring iechorfile: 37B
+    => [internal] load .iechorignore
     => => transferring context: 2B
-    => [internal] load metadata for docker.io/library/node:18-alpine
+    => [internal] load metadata for iechor.io/library/node:18-alpine
     => [internal] load build context
     => => transferring context: 450.43kB
-    => [1/5] FROM docker.io/library/node:18-alpine
+    => [1/5] FROM iechor.io/library/node:18-alpine
     => CACHED [2/5] WORKDIR /app
     => CACHED [3/5] COPY package.json yarn.lock ./
     => CACHED [4/5] RUN yarn install --production
@@ -145,7 +145,7 @@ dependencies if there was a change to the `package.json`.
     => exporting to image
     => => exporting layers
     => => writing image     sha256:91790c87bcb096a83c2bd4eb512bc8b134c757cda0bdee4038187f98148e2eda
-    => => naming to docker.io/library/getting-started
+    => => naming to iechor.io/library/getting-started
     ```
 
     First off, you should notice that the build was much faster. And, you'll see
@@ -166,8 +166,8 @@ When building Java-based applications, you need a JDK to compile the source code
 that JDK isn't needed in production. Also, you might be using tools like Maven or Gradle to help build the app.
 Those also aren't needed in your final image. Multi-stage builds help.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM maven AS build
 WORKDIR /app
 COPY . .
@@ -187,8 +187,8 @@ When building React applications, you need a Node environment to compile the JS 
 and more into static HTML, JS, and CSS. If you aren't doing server-side rendering, you don't even need a Node environment
 for your production build. You can ship the static resources in a static nginx container.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM node:18 AS build
 WORKDIR /app
 COPY package* yarn.lock ./
@@ -201,7 +201,7 @@ FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 ```
 
-In the previous Dockerfile example, it uses the `node:18` image to perform the build (maximizing layer caching) and then copies the output
+In the previous iEchorfile example, it uses the `node:18` image to perform the build (maximizing layer caching) and then copies the output
 into an nginx container.
 
 ## Summary
@@ -209,10 +209,10 @@ into an nginx container.
 In this section, you learned a few image building best practices, including layer caching and multi-stage builds.
 
 Related information:
- - [.dockerignore](../build/building/context.md#dockerignore-files)
- - [Dockerfile reference](../reference/dockerfile.md)
- - [Build with Docker guide](../build/guide/index.md)
- - [Dockerfile best practices](../develop/develop-images/dockerfile_best-practices.md)
+ - [.iechorignore](../build/building/context.md#iechorignore-files)
+ - [iEchorfile reference](../reference/iechorfile.md)
+ - [Build with iEchor guide](../build/guide/index.md)
+ - [iEchorfile best practices](../develop/develop-images/iechorfile_best-practices.md)
 
 ## Next steps
 

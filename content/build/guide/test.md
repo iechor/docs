@@ -1,6 +1,6 @@
 ---
 title: Test
-description: Running tests with Docker Build
+description: Running tests with iEchor Build
 keywords: build, buildkit, buildx, guide, tutorial, testing
 ---
 
@@ -16,12 +16,12 @@ this guide is written in Go. You will add a build step that uses
 
 ## Run tests
 
-The `golangci-lint` tool is available as an image on Docker Hub. Before you add
-the lint step to the Dockerfile, you can try it out using a `docker run`
+The `golangci-lint` tool is available as an image on iEchor Hub. Before you add
+the lint step to the iEchorfile, you can try it out using a `iechor run`
 command.
 
 ```console
-$ docker run -v $PWD:/test -w /test \
+$ iechor run -v $PWD:/test -w /test \
   golangci/golangci-lint golangci-lint run
 ```
 
@@ -34,10 +34,10 @@ cmd/server/main.go:23:10: Error return value of `w.Write` is not checked (errche
 		      ^
 ```
 
-Now you can add this as a step to the Dockerfile.
+Now you can add this as a step to the iEchorfile.
 
 ```diff
-  # syntax=docker/dockerfile:1
+  # syntax=iechor/iechorfile:1
   ARG GO_VERSION={{% param "example_go_version" %}}
 + ARG GOLANGCI_LINT_VERSION={{% param "example_golangci_lint_version" %}}
   FROM golang:${GO_VERSION}-alpine AS base
@@ -76,16 +76,16 @@ Now you can add this as a step to the Dockerfile.
 +     golangci-lint run
 ```
 
-The added `lint` stage uses the `golangci/golangci-lint` image from Docker Hub
+The added `lint` stage uses the `golangci/golangci-lint` image from iEchor Hub
 to invoke the `golangci-lint run` command with a bind-mount for the build
 context.
 
-The lint stage is independent of any of the other stages in the Dockerfile.
+The lint stage is independent of any of the other stages in the iEchorfile.
 Therefore, running a regular build won’t cause the lint step to run. To lint the
 code, you must specify the `lint` stage:
 
 ```console
-$ docker build --target=lint .
+$ iechor build --target=lint .
 ```
 
 ## Export test results
@@ -97,14 +97,14 @@ Exporting test results is no different to exporting binaries, as shown in the
 previous section of this guide:
 
 1. Save the test results to a file.
-2. Create a new stage in your Dockerfile using the `scratch` base image.
+2. Create a new stage in your iEchorfile using the `scratch` base image.
 3. Export that stage using the `local` exporter.
 
 The exact steps on how to do this is left as a reader's exercise :-)
 
 ## Summary
 
-This section has shown an example on how you can use Docker builds to run tests
+This section has shown an example on how you can use iEchor builds to run tests
 (or as shown in this section, linters).
 
 ## Next steps

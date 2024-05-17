@@ -95,7 +95,7 @@ grid:
   - title: "Bake"
     icon: "cake"
     description: Icon name = cake
-  - title: "Docker ID"
+  - title: "iEchor ID"
     icon: "fingerprint"
     description: Icon name = fingerprint
   - title: "Repository"
@@ -107,7 +107,7 @@ grid:
   - title: "official images"
     icon: "verified"
     description: Icon name = verified
-  - title: "Hardened Docker Desktop"
+  - title: "Hardened iEchor Desktop"
     icon: "lock"
     description: Icon name = lock
   - title: "Sign in"

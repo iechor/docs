@@ -1,7 +1,7 @@
 ---
 title: Samples overview
 description: Learn how to containerize different types of services by walking through
-  Official Docker samples.
+  Official iEchor samples.
 cascade:
   layout: samples
 aliases:
@@ -12,7 +12,7 @@ aliases:
 - /samples/apt-cacher-ng/
 ---
 
-Learn how to containerize different types of services by walking through Official Docker samples.
+Learn how to containerize different types of services by walking through Official iEchor samples.
 
 ## Databases
 

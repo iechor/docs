@@ -1,12 +1,12 @@
 ---
-description: Containerize Rust apps using Docker
-keywords: Docker, getting started, Rust, language
+description: Containerize Rust apps using iEchor
+keywords: iEchor, getting started, Rust, language
 title: Rust language-specific guide
 toc_min: 1
 toc_max: 2
 ---
 
-The Rust language-specific guide teaches you how to create a containerized Rust application using Docker. In this guide, you'll learn how to:
+The Rust language-specific guide teaches you how to create a containerized Rust application using iEchor. In this guide, you'll learn how to:
 
 * Containerize a Rust application
 * Build an image and run the newly built image as a container

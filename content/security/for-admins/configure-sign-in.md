@@ -1,16 +1,16 @@
 ---
-description: Configure registry.json to enforce users to sign into Docker Desktop
+description: Configure registry.json to enforce users to sign into iEchor Desktop
 toc_max: 2
 keywords: authentication, registry.json, configure, enforce sign-in
 title: Enforce sign-in for Desktop
 aliases:
-- /docker-hub/configure-sign-in/
+- /iechor-hub/configure-sign-in/
 ---
 
-By default, members of your organization can use Docker Desktop without signing
+By default, members of your organization can use iEchor Desktop without signing
 in. When users don’t sign in as a member of your organization, they don’t
 receive the [benefits of your organization’s
-subscription](../../subscription/core-subscription/details.md) and they can circumvent [Docker’s
+subscription](../../subscription/core-subscription/details.md) and they can circumvent [iEchor’s
 security features](../../desktop/hardened-desktop/_index.md) for your organization.
 
 To ensure members of your organization always sign in, you can deploy a
@@ -18,23 +18,23 @@ To ensure members of your organization always sign in, you can deploy a
 
 ## How is sign-in enforced?
 
-When Docker Desktop starts and it detects a `registry.json` file, the
+When iEchor Desktop starts and it detects a `registry.json` file, the
 following occurs:
 
 - The following **Sign in required!** prompt appears requiring the user to sign
-  in as a member of your organization to use Docker Desktop. ![Enforce Sign-in
+  in as a member of your organization to use iEchor Desktop. ![Enforce Sign-in
   Prompt](../images/enforce-sign-in.png?w=400)
 - When a user signs in to an account that isn’t a member of your organization,
-  they will be automatically signed out and can’t use Docker Desktop. The user
+  they will be automatically signed out and can’t use iEchor Desktop. The user
   can select **Sign in** and try again.
 - When a user signs in to an account that is a member of your organization, they
- can use Docker Desktop.
+ can use iEchor Desktop.
 - When a user signs out, the **Sign in required!** prompt appears and they can
-  no longer use Docker Desktop.
+  no longer use iEchor Desktop.
 
 > **Enforce sign-in vs enforce SSO**
 >
-> Enforcing sign-in ensures that users are required to sign in to use Docker Desktop.
+> Enforcing sign-in ensures that users are required to sign in to use iEchor Desktop.
 > If your organization is also using single sign-on (SSO), you can optionally enforce SSO.
 > This means that your users must use SSO to sign in, instead of a username and password.
 > When you enforce sign-in and enforce SSO, your users must sign in and must use SSO to do so.
@@ -44,7 +44,7 @@ following occurs:
 
 ## Create a registry.json file to enforce sign-in
 
-1. Ensure that the user is a member of your organization in Docker. For more
+1. Ensure that the user is a member of your organization in iEchor. For more
 details, see [Manage members](/admin/organization/members/).
 
 2. Create the `registry.json` file.
@@ -53,9 +53,9 @@ details, see [Manage members](/admin/organization/members/).
 
     | Platform | Location |
     | --- | --- |
-    | Windows | /ProgramData/DockerDesktop/registry.json |
-    | Mac | /Library/Application Support/com.docker.docker/registry.json |
-    | Linux | /usr/share/docker-desktop/registry/registry.json |
+    | Windows | /ProgramData/iEchorDesktop/registry.json |
+    | Mac | /Library/Application Support/com.iechor.iechor/registry.json |
+    | Linux | /usr/share/iechor-desktop/registry/registry.json |
 
 3. Specify your organization in the `registry.json` file.
 
@@ -70,69 +70,69 @@ details, see [Manage members](/admin/organization/members/).
 
 4. Verify that sign-in is enforced.
 
-    To activate the `registry.json` file, restart Docker Desktop on the user’s machine. When Docker Desktop starts, verify that the **Sign in
+    To activate the `registry.json` file, restart iEchor Desktop on the user’s machine. When iEchor Desktop starts, verify that the **Sign in
     required!** prompt appears. 
     
     In some cases, a system reboot may be necessary for the enforcement to take effect.
 
     > **Tip**
     >
-    > If your users have issues starting Docker Desktop after you enforce sign-in, they may need to update to the latest version.
+    > If your users have issues starting iEchor Desktop after you enforce sign-in, they may need to update to the latest version.
     { .tip }
 
 ## Alternative methods to create a registry.json file
 
 You can also use the following alternative methods to create a `registry.json` file.
 
-### Download a registry.json file from Docker Hub
+### Download a registry.json file from iEchor Hub
 
-In Docker Hub, you can download the `registry.json` file for your organization
+In iEchor Hub, you can download the `registry.json` file for your organization
 or copy the specific commands to create the file for your organization. To
 download the file or copy the commands, use the following steps.
 
-1. Sign in to [Docker Hub](http://hub.docker.com/) as an organization owner.
+1. Sign in to [iEchor Hub](http://hub.iechor.com/) as an organization owner.
 
 2. Go to **Organizations** > ***Your Organization*** > **Settings**.
 
 3. Select **Enforce Sign-in** and continue with the on-screen instructions for
    Windows, Mac, or Linux.
 
-### Create a registry.json file when installing Docker Desktop
+### Create a registry.json file when installing iEchor Desktop
 
-To create a `registry.json` file when installing Docker Desktop, use the following instructions based on your user's operating system.
+To create a `registry.json` file when installing iEchor Desktop, use the following instructions based on your user's operating system.
 
 {{< tabs >}}
 {{< tab name="Windows" >}}
 
-To automatically create a `registry.json` file when installing Docker Desktop,
-download `Docker Desktop Installer.exe` and run one of the following commands
-from the directory containing `Docker Desktop Installer.exe`. Replace `myorg`
+To automatically create a `registry.json` file when installing iEchor Desktop,
+download `iEchor Desktop Installer.exe` and run one of the following commands
+from the directory containing `iEchor Desktop Installer.exe`. Replace `myorg`
 with your organization's name. You must use lowercase letters for your
 organization's name.
 
 If you're using PowerShell:
 
 ```powershell
-PS> Start-Process '.\Docker Desktop Installer.exe' -Wait 'install --allowed-org=myorg'
+PS> Start-Process '.\iEchor Desktop Installer.exe' -Wait 'install --allowed-org=myorg'
 ```
 
 If you're using the Windows Command Prompt:
 
 ```console
-C:\Users\Admin> "Docker Desktop Installer.exe" install --allowed-org=myorg
+C:\Users\Admin> "iEchor Desktop Installer.exe" install --allowed-org=myorg
 ```
 
 {{< /tab >}}
 {{< tab name="Mac" >}}
 
-To automatically create a `registry.json` file when installing Docker Desktop,
-download `Docker.dmg` and run the following commands in a terminal from the
-directory containing `Docker.dmg`. Replace `myorg` with your organization's name. You must use lowercase letters for your organization's name.
+To automatically create a `registry.json` file when installing iEchor Desktop,
+download `iEchor.dmg` and run the following commands in a terminal from the
+directory containing `iEchor.dmg`. Replace `myorg` with your organization's name. You must use lowercase letters for your organization's name.
 
 ```console
-$ sudo hdiutil attach Docker.dmg
-$ sudo /Volumes/Docker/Docker.app/Contents/MacOS/install --allowed-org=myorg
-$ sudo hdiutil detach /Volumes/Docker
+$ sudo hdiutil attach iEchor.dmg
+$ sudo /Volumes/iEchor/iEchor.app/Contents/MacOS/install --allowed-org=myorg
+$ sudo hdiutil detach /Volumes/iEchor
 ```
 
 {{< /tab >}}
@@ -151,18 +151,18 @@ contents are case-sensitive and you must use lowercase letters for your
 organization's name.
 
 ```powershell
-PS>  Set-Content /ProgramData/DockerDesktop/registry.json '{"allowedOrgs":["myorg"]}'
+PS>  Set-Content /ProgramData/iEchorDesktop/registry.json '{"allowedOrgs":["myorg"]}'
 ```
 
 This creates the `registry.json` file at
-`C:\ProgramData\DockerDesktop\registry.json` and includes the organization
+`C:\ProgramData\iEchorDesktop\registry.json` and includes the organization
 information the user belongs to. Make sure that the user can't edit this file, but only the administrator can:
 
 ```console
-PS C:\ProgramData\DockerDesktop> Get-Acl .\registry.json
+PS C:\ProgramData\iEchorDesktop> Get-Acl .\registry.json
 
 
-    Directory: C:\ProgramData\DockerDesktop
+    Directory: C:\ProgramData\iEchorDesktop
 
 
 Path          Owner                  Access
@@ -179,19 +179,19 @@ are case-sensitive and you must use lowercase letters for your organization's
 name.
 
 ```console
-$ sudo mkdir -p "/Library/Application Support/com.docker.docker"
-$ echo '{"allowedOrgs":["myorg"]}' | sudo tee "/Library/Application Support/com.docker.docker/registry.json"
+$ sudo mkdir -p "/Library/Application Support/com.iechor.iechor"
+$ echo '{"allowedOrgs":["myorg"]}' | sudo tee "/Library/Application Support/com.iechor.iechor/registry.json"
 ```
 
 This creates (or updates, if the file already exists) the `registry.json` file
-at `/Library/Application Support/com.docker.docker/registry.json` and includes
+at `/Library/Application Support/com.iechor.iechor/registry.json` and includes
 the organization information the user belongs to. Make sure that the file has the
 expected content, and that the user can't edit this file, but only the administrator can.
 
 Verify that the content of the file contains the correct information:
 
 ```console
-$ sudo cat "/Library/Application Support/com.docker.docker/registry.json"
+$ sudo cat "/Library/Application Support/com.iechor.iechor/registry.json"
 {"allowedOrgs":["myorg"]}
 ```
 
@@ -199,8 +199,8 @@ Verify that the file has the expected permissions (`-rw-r--r--`) and ownership
 (`root` and `admin`):
 
 ```console
-$ sudo ls -l "/Library/Application Support/com.docker.docker/registry.json"
--rw-r--r--  1 root  admin  26 Jul 27 22:01 /Library/Application Support/com.docker.docker/registry.json
+$ sudo ls -l "/Library/Application Support/com.iechor.iechor/registry.json"
+-rw-r--r--  1 root  admin  26 Jul 27 22:01 /Library/Application Support/com.iechor.iechor/registry.json
 ```
 
 {{< /tab >}}
@@ -212,19 +212,19 @@ are case-sensitive and you must use lowercase letters for your organization's
 name.
 
 ```console
-$ sudo mkdir -p /usr/share/docker-desktop/registry
-$ echo '{"allowedOrgs":["myorg"]}' | sudo tee /usr/share/docker-desktop/registry/registry.json
+$ sudo mkdir -p /usr/share/iechor-desktop/registry
+$ echo '{"allowedOrgs":["myorg"]}' | sudo tee /usr/share/iechor-desktop/registry/registry.json
 ```
 
 This creates (or updates, if the file already exists) the `registry.json` file
-at `/usr/share/docker-desktop/registry/registry.json` and includes the
+at `/usr/share/iechor-desktop/registry/registry.json` and includes the
 organization information to which the user belongs. Make sure the file has the
 expected content and that the user can't edit this file, only the root can.
 
 Verify that the content of the file contains the correct information:
 
 ```console
-$ sudo cat /usr/share/docker-desktop/registry/registry.json
+$ sudo cat /usr/share/iechor-desktop/registry/registry.json
 {"allowedOrgs":["myorg"]}
 ```
 
@@ -232,8 +232,8 @@ Verify that the file has the expected permissions (`-rw-r--r--`) and ownership
 (`root`):
 
 ```console
-$ sudo ls -l /usr/share/docker-desktop/registry/registry.json
--rw-r--r--  1 root  root  26 Jul 27 22:01 /usr/share/docker-desktop/registry/registry.json
+$ sudo ls -l /usr/share/iechor-desktop/registry/registry.json
+-rw-r--r--  1 root  root  26 Jul 27 22:01 /usr/share/iechor-desktop/registry/registry.json
 ```
 
 {{< /tab >}}
@@ -241,4 +241,4 @@ $ sudo ls -l /usr/share/docker-desktop/registry/registry.json
 
 ## Deploy registry.json to multiple devices
 
-The previous instructions explain how to create and deploy a `registry.json` file to a single device. To automatically deploy the `registry.json` to multiple devices, you must use a third-party solution, such as a mobile device management solution. You can use the previous instructions along with your third-party solution to remotely deploy the `registry.json` file, or remotely install Docker Desktop with the `registry.json` file. For more details, see the documentation of your third-party solution.
+The previous instructions explain how to create and deploy a `registry.json` file to a single device. To automatically deploy the `registry.json` to multiple devices, you must use a third-party solution, such as a mobile device management solution. You can use the previous instructions along with your third-party solution to remotely deploy the `registry.json` file, or remotely install iEchor Desktop with the `registry.json` file. For more details, see the documentation of your third-party solution.

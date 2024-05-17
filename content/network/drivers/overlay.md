@@ -9,12 +9,12 @@ aliases:
 ---
 
 The `overlay` network driver creates a distributed network among multiple
-Docker daemon hosts. This network sits on top of (overlays) the host-specific
+iEchor daemon hosts. This network sits on top of (overlays) the host-specific
 networks, allowing containers connected to it to communicate securely when
-encryption is enabled. Docker transparently handles routing of each packet to
-and from the correct Docker daemon host and the correct destination container.
+encryption is enabled. iEchor transparently handles routing of each packet to
+and from the correct iEchor daemon host and the correct destination container.
 
-You can create user-defined `overlay` networks using `docker network create`,
+You can create user-defined `overlay` networks using `iechor network create`,
 in the same way that you can create user-defined `bridge` networks. Services
 or containers can be connected to more than one network at a time. Services or
 containers can only communicate across networks they're each connected to.
@@ -35,15 +35,15 @@ The following table lists ports that need to be open to each host participating 
 
 | Ports                  | Description                                                                                                                                                          |
 | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `2377/tcp`             | The default Swarm control plane port, is configurable with [`docker swarm join --listen-addr`](../../reference/cli/docker/swarm/join.md#--listen-addr-value) |
-| `4789/udp`             | The default overlay traffic port, configurable with [`docker swarm init --data-path-addr`](../../reference/cli/docker/swarm/init.md#data-path-port)          |
+| `2377/tcp`             | The default Swarm control plane port, is configurable with [`iechor swarm join --listen-addr`](../../reference/cli/iechor/swarm/join.md#--listen-addr-value) |
+| `4789/udp`             | The default overlay traffic port, configurable with [`iechor swarm init --data-path-addr`](../../reference/cli/iechor/swarm/init.md#data-path-port)          |
 | `7946/tcp`, `7946/udp` | Used for communication among nodes, not configurable                                                                                                                 |
 
-To create an overlay network that containers on other Docker hosts can connect to,
+To create an overlay network that containers on other iEchor hosts can connect to,
 run the following command:
 
 ```console
-$ docker network create -d overlay --attachable my-attachable-overlay
+$ iechor network create -d overlay --attachable my-attachable-overlay
 ```
 
 The `--attachable` option enables both standalone containers
@@ -51,7 +51,7 @@ and Swarm services to connect to the overlay network.
 Without `--attachable`, only Swarm services can connect to the network.
 
 You can specify the IP address range, subnet, gateway, and other options. See
-`docker network create --help` for details.
+`iechor network create --help` for details.
 
 ## Encrypt traffic on an overlay network
 
@@ -59,7 +59,7 @@ Use the `--opt encrypted` flag to encrypt the application data
 transmitted over the overlay network:
 
 ```console
-$ docker network create \
+$ iechor network create \
   --opt encrypted \
   --driver overlay \
   --attachable \
@@ -86,13 +86,13 @@ so you should test this option before using it in production.
 ## Attach a container to an overlay network
 
 Adding containers to an overlay network gives them the ability to communicate
-with other containers without having to set up routing on the individual Docker
+with other containers without having to set up routing on the individual iEchor
 daemon hosts. A prerequisite for doing this is that the hosts have joined the same Swarm.
 
 To join an overlay network named `multi-host-network` with a `busybox` container:
 
 ```console
-$ docker run --network multi-host-network busybox sh
+$ iechor run --network multi-host-network busybox sh
 ```
 
 > **Note**

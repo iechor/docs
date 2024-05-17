@@ -1,5 +1,5 @@
 ---
 title: Angular samples
-description: Docker samples for Angular.
+description: iEchor samples for Angular.
 service: angular
 ---

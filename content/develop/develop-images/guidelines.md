@@ -1,7 +1,7 @@
 ---
-description: Hints, tips and guidelines for writing clean, reliable Dockerfiles
-keywords: parent image, images, dockerfile, best practices, hub, official image
-title: General best practices for writing Dockerfiles
+description: Hints, tips and guidelines for writing clean, reliable iEchorfiles
+keywords: parent image, images, iechorfile, best practices, hub, official image
+title: General best practices for writing iEchorfiles
 tags: [Best practices]
 ---
 
@@ -9,7 +9,7 @@ tags: [Best practices]
 
 Multi-stage builds let you reduce the size of your final image, by creating a
 cleaner separation between the building of your image and the final output.
-Split your Dockerfile instructions into distinct stages to make sure that the
+Split your iEchorfile instructions into distinct stages to make sure that the
 resulting output only contains the files that's needed to run the application.
 
 Using multiple stages can also let you build more efficiently by executing
@@ -18,16 +18,16 @@ build steps in parallel.
 See [Multi-stage builds](../../build/building/multi-stage.md) for more
 information.
 
-## Exclude with .dockerignore
+## Exclude with .iechorignore
 
 To exclude files not relevant to the build, without restructuring your source
-repository, use a `.dockerignore` file. This file supports exclusion patterns
+repository, use a `.iechorignore` file. This file supports exclusion patterns
 similar to `.gitignore` files. For information on creating one, see
-[Dockerignore file](../../build/building/context.md#dockerignore-files).
+[iEchorignore file](../../build/building/context.md#iechorignore-files).
 
 ## Create ephemeral containers
 
-The image defined by your Dockerfile should generate containers that are as
+The image defined by your iEchorfile should generate containers that are as
 ephemeral as possible. Ephemeral means that the container can be stopped
 and destroyed, then rebuilt and replaced with an absolute minimum set up and
 configuration.
@@ -59,7 +59,7 @@ processes, and [Apache](https://httpd.apache.org/) can create one process per
 request.
 
 Use your best judgment to keep containers as clean and modular as possible. If
-containers depend on each other, you can use [Docker container networks](../../network/index.md)
+containers depend on each other, you can use [iEchor container networks](../../network/index.md)
 to ensure that these containers can communicate.
 
 ## Sort multi-line arguments
@@ -69,9 +69,9 @@ This helps to avoid duplication of packages and make the
 list much easier to update. This also makes PRs a lot easier to read and
 review. Adding a space before a backslash (`\`) helps as well.
 
-Here’s an example from the [buildpack-deps image](https://github.com/docker-library/buildpack-deps):
+Here’s an example from the [buildpack-deps image](https://github.com/iechor-library/buildpack-deps):
 
-```dockerfile
+```iechorfile
 RUN apt-get update && apt-get install -y \
   bzr \
   cvs \
@@ -83,14 +83,14 @@ RUN apt-get update && apt-get install -y \
 
 ## Leverage build cache
 
-When building an image, Docker steps through the instructions in your
-Dockerfile, executing each in the order specified. For each instruction, Docker
+When building an image, iEchor steps through the instructions in your
+iEchorfile, executing each in the order specified. For each instruction, iEchor
 checks whether it can reuse the instruction from the build cache.
 
 Understanding how the build cache works, and how cache invalidation occurs,
 is critical for ensuring faster builds.
-For more information about the Docker build cache and how to optimize your builds,
-see [Docker build cache](../../build/cache/_index.md).
+For more information about the iEchor build cache and how to optimize your builds,
+see [iEchor build cache](../../build/cache/_index.md).
 
 ## Pin base image versions
 
@@ -99,11 +99,11 @@ image. This is useful because it lets publishers update tags to point to
 newer versions of an image. And as an image consumer, it means you
 automatically get the new version when you re-build your image.
 
-For example, if you specify `FROM alpine:3.19` in your Dockerfile, `3.19`
+For example, if you specify `FROM alpine:3.19` in your iEchorfile, `3.19`
 resolves to the latest patch version for `3.19`.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM alpine:3.19
 ```
 
@@ -119,15 +119,15 @@ an audit trail of the exact image versions that you're using.
 To fully secure your supply chain integrity, you can pin the image version to a
 specific digest. By pinning your images to a digest, you're guaranteed to
 always use the same image version, even if a publisher replaces the tag with a
-new image. For example, the following Dockerfile pins the Alpine image to the
+new image. For example, the following iEchorfile pins the Alpine image to the
 same tag as earlier, `3.19`, but this time with a digest reference as well.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM alpine:3.19@sha256:13b7e62e8df80264dbb747995705a986aa530415763a6c58f84a3ca8af9a5bcd
 ```
 
-With this Dockerfile, even if the publisher updates the `3.19` tag, your builds
+With this iEchorfile, even if the publisher updates the `3.19` tag, your builds
 would still use the pinned image version:
 `13b7e62e8df80264dbb747995705a986aa530415763a6c58f84a3ca8af9a5bcd`.
 
@@ -136,21 +136,21 @@ to look up and include the image digest for base image versions manually each
 time you want to update it. And you're opting out of automated security fixes,
 which is likely something you want to get.
 
-Docker Scout has a built-in [**Outdated base images**
+iEchor Scout has a built-in [**Outdated base images**
 policy](../../scout/policy/_index.md#outdated-base-images) that checks for
 whether the base image version you're using is in fact the latest version. This
-policy also checks if pinned digests in your Dockerfile correspond to the
+policy also checks if pinned digests in your iEchorfile correspond to the
 correct version. If a publisher updates an image that you've pinned, the policy
 evaluation returns a non-compliant status, indicating that you should update
 your image.
 
-Docker Scout also supports an automated remediation workflow for keeping your
-base images up-to-date. When a new image digest is available, Docker Scout can
+iEchor Scout also supports an automated remediation workflow for keeping your
+base images up-to-date. When a new image digest is available, iEchor Scout can
 automatically raise a pull request on your repository to update your
-Dockerfiles to use the latest version. This is better than using a tag that
+iEchorfiles to use the latest version. This is better than using a tag that
 changes the version automatically, because you're in control and you have an
 audit trail of when and how the change occurred.
 
-For more information about automatically updating your base images with Docker
+For more information about automatically updating your base images with iEchor
 Scout, see
 [Remediation](../../scout/policy/remediation.md#automatic-base-image-updates)

@@ -1,8 +1,8 @@
 ---
-title: Get started with Policy Evaluation in Docker Scout
+title: Get started with Policy Evaluation in iEchor Scout
 keywords: scout, supply chain, vulnerabilities, packages, cves, policy
 description: |
-  Policies in Docker Scout let you define supply chain rules and thresholds
+  Policies in iEchor Scout let you define supply chain rules and thresholds
   for your artifacts, and track how your artifacts perform against those
   requirements over time
 ---
@@ -10,11 +10,11 @@ description: |
 > **Early Access**
 >
 > Policy Evaluation is an [Early Access](/release-lifecycle/#early-access-ea)
-> feature of Docker Scout.
+> feature of iEchor Scout.
 { .restricted }
 
 In software supply chain management, maintaining the security and reliability
-of artifacts is a top priority. Policy Evaluation in Docker Scout introduces a
+of artifacts is a top priority. Policy Evaluation in iEchor Scout introduces a
 layer of control, on top of existing analysis capabilities. It lets you define
 supply chain rules for your artifacts, and helps you track how your artifacts
 perform, relative to your rules and thresholds, over time.
@@ -24,7 +24,7 @@ with established best practices.
 
 ## How Policy Evaluation works
 
-When you activate Docker Scout for a repository, images that you push are
+When you activate iEchor Scout for a repository, images that you push are
 [automatically analyzed](../image-analysis.md). The analysis gives you insights
 about the composition of your images, including what packages they contain and
 what vulnerabilities they're exposed to. Policy Evaluation builds on top of the
@@ -37,9 +37,9 @@ If an image contains a copyleft-licensed package, that image is non-compliant wi
 Some policies, such as the **Copyleft licenses** policy, are configurable.
 Configurable policies let you adjust the criteria to better match your organization's needs.
 
-In Docker Scout, policies are designed to help you ratchet forward your
+In iEchor Scout, policies are designed to help you ratchet forward your
 security and supply chain stature. Where other tools focus on providing a pass
-or fail status, Docker Scout policies visualizes how small, incremental changes
+or fail status, iEchor Scout policies visualizes how small, incremental changes
 affect policy status, even when your artifacts don't meet the policy
 requirements (yet). By tracking how the fail gap changes over time, you more
 easily see whether your artifact is improving or deteriorating relative to
@@ -52,7 +52,7 @@ image up-to-dateness.
 
 ## Out-of-the-box policies
 
-Docker Scout ships the following out-of-the-box policies:
+iEchor Scout ships the following out-of-the-box policies:
 
 - [Fixable critical and high vulnerabilities](#fixable-critical-and-high-vulnerabilities)
 - [Copyleft licenses](#copyleft-licenses)
@@ -125,17 +125,17 @@ evaluate. For more information, see [No base image data](#no-base-image-data).
 ### High-profile vulnerabilities
 
 The **High-profile vulnerabilities** policy requires that your artifacts don't
-contain vulnerabilities from Docker Scout’s curated list. This list is kept
+contain vulnerabilities from iEchor Scout’s curated list. This list is kept
 up-to-date with newly disclosed vulnerabilities that are widely recognized to
 be risky.
 
 The list includes the following vulnerabilities:
 
-- [CVE-2014-0160 (OpenSSL Heartbleed)](https://scout.docker.com/v/CVE-2014-0160)
-- [CVE-2021-44228 (Log4Shell)](https://scout.docker.com/v/CVE-2021-44228)
-- [CVE-2023-38545 (cURL SOCKS5 heap buffer overflow)](https://scout.docker.com/v/CVE-2023-38545)
+- [CVE-2014-0160 (OpenSSL Heartbleed)](https://scout.iechor.com/v/CVE-2014-0160)
+- [CVE-2021-44228 (Log4Shell)](https://scout.iechor.com/v/CVE-2021-44228)
+- [CVE-2023-38545 (cURL SOCKS5 heap buffer overflow)](https://scout.iechor.com/v/CVE-2023-38545)
 :cc
-- [CVE-2024-3094 (XZ backdoor)](https://scout.docker.com/v/CVE-2024-3094)
+- [CVE-2024-3094 (XZ backdoor)](https://scout.iechor.com/v/CVE-2024-3094)
 
 You can configure the CVEs included in this list by creating a custom policy.
 For more information, see [Configure policies](./configure.md).
@@ -151,7 +151,7 @@ provenance attestation with max mode. To ensure compliance,
 update your build command to attach these attestations at build-time:
 
 ```console
-$ docker buildx build --provenance=true --sbom=true -t <IMAGE> --push .
+$ iechor buildx build --provenance=true --sbom=true -t <IMAGE> --push .
 ```
 
 For more information about
@@ -163,15 +163,15 @@ building with attestations, see
 The Quality gates passed policy builds on the [SonarQube
 integration](../integrations/code-quality/sonarqube.md) to assess the quality
 of your source code. This policy works by ingesting the SonarQube code analysis
-results into Docker Scout.
+results into iEchor Scout.
 
 You define the criteria for this policy using SonarQube's [quality
 gates](https://docs.sonarsource.com/sonarqube/latest/user-guide/quality-gates/).
 SonarQube evaluates your source code against the quality gates you've defined
-in SonarQube. Docker Scout surfaces the SonarQube assessment as a Docker Scout
+in SonarQube. iEchor Scout surfaces the SonarQube assessment as a iEchor Scout
 policy.
 
-Docker Scout uses [provenance](../../build/attestations/slsa-provenance.md)
+iEchor Scout uses [provenance](../../build/attestations/slsa-provenance.md)
 attestations or the `org.opencontainers.image.revision` OCI annotation to link
 SonarQube analysis results with container images. In addition to enabling the
 SonarQube integration, you must also make sure that your images has either the
@@ -180,20 +180,20 @@ attestation or the label.
 ![Git commit SHA links image with SonarQube analysis](../images/scout-sq-commit-sha.webp)
 
 Once you push an image and policy evaluation completes, the results from the
-SonarQube quality gates display as a policy in the Docker Scout Dashboard, and
+SonarQube quality gates display as a policy in the iEchor Scout Dashboard, and
 in the CLI.
 
 > **Note**
 >
-> Docker Scout can only access SonarQube analyses created after the integration
-> is enabled. Docker Scout doesn't have access to historic evaluations. Trigger
+> iEchor Scout can only access SonarQube analyses created after the integration
+> is enabled. iEchor Scout doesn't have access to historic evaluations. Trigger
 > a SonarQube analysis and policy evaluation after enabling the integration to
-> view the results in Docker Scout.
+> view the results in iEchor Scout.
 
 ### Default non-root user
 
 By default, containers run as the `root` superuser with full system
-administration privileges inside the container, unless the Dockerfile specifies
+administration privileges inside the container, unless the iEchorfile specifies
 a different default user. Running containers as a privileged user weakens their
 runtime security, as it means any code that runs in the container can perform
 administrative actions. 
@@ -208,15 +208,15 @@ user was set explicitly for the image. This helps you distinguish between
 policy violations caused by images where the `root` user is implicit, and
 images where `root` is set on purpose.
 
-The following Dockerfile runs as `root` by default despite not being explicitly set:
-```Dockerfile
+The following iEchorfile runs as `root` by default despite not being explicitly set:
+```iEchorfile
 FROM alpine
 RUN echo "Hi"
 ```
 
 Whereas in the following case, the `root` user is explicitly set:
 
-```Dockerfile
+```iEchorfile
 FROM alpine
 USER root
 RUN echo "Hi"
@@ -227,19 +227,19 @@ RUN echo "Hi"
 > This policy only checks for the default user of the image, as set in the
 > image configuration blob. Even if you do specify a non-root default user,
 > it's still possible to override the default user at runtime, for example by
-> using the `--user` flag for the `docker run` command.
+> using the `--user` flag for the `iechor run` command.
 
 To make your images compliant with this policy, use the
-[`USER`](../../reference/dockerfile.md#user) Dockerfile instruction to set
+[`USER`](../../reference/iechorfile.md#user) iEchorfile instruction to set
 a default user that doesn't have root privileges for the runtime stage.
 
-The following Dockerfile snippets shows the difference between a compliant and
+The following iEchorfile snippets shows the difference between a compliant and
 non-compliant image.
 
 {{< tabs >}}
 {{< tab name="Non-compliant" >}}
 
-```dockerfile
+```iechorfile
 FROM alpine AS builder
 COPY Makefile ./src /
 RUN make build
@@ -252,7 +252,7 @@ ENTRYPOINT ["/app/production"]
 {{< /tab >}}
 {{< tab name="Compliant" >}}
 
-```dockerfile {hl_lines=7}
+```iechorfile {hl_lines=7}
 FROM alpine AS builder
 COPY Makefile ./src /
 RUN make build
@@ -277,26 +277,26 @@ example patterns for this policy.
 
 | Use case                                                        | Pattern                          |
 | --------------------------------------------------------------- | -------------------------------- |
-| Allow all images from Docker Hub                                | `docker.io/*`                    |
-| Allow all Docker Official Images                                | `docker.io/library/*`            |
-| Allow images from a specific organization                       | `docker.io/orgname/*`            |
-| Allow tags of a specific repository                             | `docker.io/orgname/repository:*` |
+| Allow all images from iEchor Hub                                | `iechor.io/*`                    |
+| Allow all iEchor Official Images                                | `iechor.io/library/*`            |
+| Allow images from a specific organization                       | `iechor.io/orgname/*`            |
+| Allow tags of a specific repository                             | `iechor.io/orgname/repository:*` |
 | Allow images on a registry with hostname `registry.example.com` | `registry.example.com/*`         |
-| Allow slim tags of NodeJS images                                | `docker.io/library/node:*-slim`  |
+| Allow slim tags of NodeJS images                                | `iechor.io/library/node:*-slim`  |
 
 An asterisk (`*`) matches up until the character that follows, or until the end
-of the image reference. Note that the `docker.io` prefix is required in order
-to match Docker Hub images. This is the registry hostname of Docker Hub.
+of the image reference. Note that the `iechor.io` prefix is required in order
+to match iEchor Hub images. This is the registry hostname of iEchor Hub.
 
 You can also configure the policy to:
 
-- Allow only supported tags of Docker Official Images.
+- Allow only supported tags of iEchor Official Images.
 
   When this option is enabled, images using unsupported tags of official images
   trigger a policy violation. Supported tags for official images are listed in
-  the **Supported tags** section of the repository overview on Docker Hub.
+  the **Supported tags** section of the repository overview on iEchor Hub.
 
-- Allow only Docker Official Images of supported distro versions
+- Allow only iEchor Official Images of supported distro versions
 
   When this option is enabled, images using unsupported Linux distributions
   that have reached end of life (such as `ubuntu:18.04`) trigger a policy violation.
@@ -306,7 +306,7 @@ You can also configure the policy to:
 
 This policy isn't enabled by default. To enable the policy:
 
-1. [Create a new policy](https://scout.docker.com/reports/policies/create?fromDefinition=approved-base-images&fromNamespace=docker) in the Docker Scout Dashboard.
+1. [Create a new policy](https://scout.iechor.com/reports/policies/create?fromDefinition=approved-base-images&fromNamespace=iechor) in the iEchor Scout Dashboard.
 2. Under **Approved base image sources**, specify the image reference patterns that you want to allow.
 3. Select whether you want to allow only supported tags for official images,
    and supported Linux distribution versions.
@@ -325,11 +325,11 @@ images used in your builds. In such cases, the **Outdated base images** and
 
 This "no data" state occurs when:
 
-- Docker Scout doesn't know what base image tag you used
+- iEchor Scout doesn't know what base image tag you used
 - The base image version you used has multiple tags, but not all tags are out
   of date
 
-To make sure that Docker Scout always knows about your base image, you can
+To make sure that iEchor Scout always knows about your base image, you can
 attach [provenance attestations](../../build/attestations/slsa-provenance.md)
-at build-time. Docker Scout uses provenance attestations to find out the base
+at build-time. iEchor Scout uses provenance attestations to find out the base
 image version.

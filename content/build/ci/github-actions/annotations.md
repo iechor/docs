@@ -12,9 +12,9 @@ To add annotations when building images with GitHub Actions, use the
 metadata action creates an `annotations` output that you can reference, both
 with [build-push-action] and [bake-action].
 
-[metadata-action]: https://github.com/docker/metadata-action#overwrite-labels-and-annotations
-[build-push-action]: https://github.com/docker/build-push-action/
-[bake-action]: https://github.com/docker/bake-action/
+[metadata-action]: https://github.com/iechor/metadata-action#overwrite-labels-and-annotations
+[build-push-action]: https://github.com/iechor/build-push-action/
+[bake-action]: https://github.com/iechor/bake-action/
 
 {{< tabs >}}
 {{< tab name="build-push-action" >}}
@@ -29,29 +29,29 @@ env:
   IMAGE_NAME: user/app
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: ${{ env.IMAGE_NAME }}
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           tags: ${{ steps.meta.outputs.tags }}
           annotations: ${{ steps.meta.outputs.annotations }}
@@ -71,32 +71,32 @@ env:
   IMAGE_NAME: user/app
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: ${{ env.IMAGE_NAME }}
 
       - name: Build
-        uses: docker/bake-action@v4
+        uses: iechor/bake-action@v4
         with:
           files: |
-            ./docker-bake.hcl
+            ./iechor-bake.hcl
             ${{ steps.meta.outputs.bake-file-tags }}
             ${{ steps.meta.outputs.bake-file-annotations }}
           push: true
@@ -109,9 +109,9 @@ jobs:
 
 By default, annotations are placed on image manifests. To configure the
 [annotation level](../../building/annotations.md#specify-annotation-level), set
-the `DOCKER_METADATA_ANNOTATIONS_LEVELS` environment variable on the
+the `IECHOR_METADATA_ANNOTATIONS_LEVELS` environment variable on the
 `metadata-action` step to a comma-separated list of all the levels that you
-want to annotate. For example, setting `DOCKER_METADATA_ANNOTATIONS_LEVELS` to
+want to annotate. For example, setting `IECHOR_METADATA_ANNOTATIONS_LEVELS` to
 `index` results in annotations on the image index instead of the manifests.
 
 The following example creates annotations on both the image index and
@@ -127,31 +127,31 @@ env:
   IMAGE_NAME: user/app
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: ${{ env.IMAGE_NAME }}
         env:
-          DOCKER_METADATA_ANNOTATIONS_LEVELS: manifest,index
+          IECHOR_METADATA_ANNOTATIONS_LEVELS: manifest,index
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           tags: ${{ steps.meta.outputs.tags }}
           annotations: ${{ steps.meta.outputs.annotations }}

@@ -19,8 +19,8 @@ container images.
 Build a container image using the `local` exporter:
 
 ```console
-$ docker buildx build --output type=local[,parameters] .
-$ docker buildx build --output type=tar[,parameters] .
+$ iechor buildx build --output type=local[,parameters] .
+$ iechor buildx build --output type=tar[,parameters] .
 ```
 
 The following table describes the available parameters:

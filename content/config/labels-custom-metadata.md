@@ -1,12 +1,12 @@
 ---
-description: Learn about labels, a tool to manage metadata on Docker objects.
-keywords: labels, metadata, docker, annotations
-title: Docker object labels
+description: Learn about labels, a tool to manage metadata on iEchor objects.
+keywords: labels, metadata, iechor, annotations
+title: iEchor object labels
 aliases:
   - /engine/userguide/labels-custom-metadata/
 ---
 
-Labels are a mechanism for applying metadata to Docker objects, including:
+Labels are a mechanism for applying metadata to iEchor objects, including:
 
 - Images
 - Containers
@@ -30,7 +30,7 @@ all previous values.
 ### Key format recommendations
 
 A label key is the left-hand side of the key-value pair. Keys are alphanumeric
-strings which may contain periods (`.`) and hyphens (`-`). Most Docker users use
+strings which may contain periods (`.`) and hyphens (`-`). Most iEchor users use
 images created by other organizations, and the following guidelines help to
 prevent inadvertent duplication of labels across objects, especially if you plan
 to use labels as a mechanism for automation.
@@ -40,8 +40,8 @@ to use labels as a mechanism for automation.
 
 - Don't use a domain in your label key without the domain owner's permission.
 
-- The `com.docker.*`, `io.docker.*`, and `org.dockerproject.*` namespaces are
-  reserved by Docker for internal use.
+- The `com.iechor.*`, `io.iechor.*`, and `org.iechorproject.*` namespaces are
+  reserved by iEchor for internal use.
 
 - Label keys should begin and end with a lower-case letter and should only
   contain lower-case alphanumeric characters, the period character (`.`), and
@@ -49,7 +49,7 @@ to use labels as a mechanism for automation.
 
 - The period character (`.`) separates namespace "fields". Label keys without
   namespaces are reserved for CLI use, allowing users of the CLI to interactively
-  label Docker objects using shorter typing-friendly strings.
+  label iEchor objects using shorter typing-friendly strings.
 
 These guidelines aren't currently enforced and additional guidelines may apply
 to specific use cases.
@@ -62,7 +62,7 @@ that the value be serialized to a string first, using a mechanism specific to
 the type of structure. For instance, to serialize JSON into a string, you might
 use the `JSON.stringify()` JavaScript method.
 
-Since Docker doesn't deserialize the value, you can't treat a JSON or XML
+Since iEchor doesn't deserialize the value, you can't treat a JSON or XML
 document as a nested structure when querying or filtering by label value unless
 you build this functionality into third-party tooling.
 
@@ -71,7 +71,7 @@ you build this functionality into third-party tooling.
 Each type of object with support for labels has mechanisms for adding and
 managing them and using them as they relate to that type of object. These links
 provide a good place to start learning about how you can use labels in your
-Docker deployments.
+iEchor deployments.
 
 Labels on images, containers, local daemons, volumes, and networks are static for
 the lifetime of the object. To change these labels you must recreate the object.
@@ -79,37 +79,37 @@ Labels on Swarm nodes and services can be updated dynamically.
 
 - Images and containers
 
-  - [Adding labels to images](../reference/dockerfile.md#label)
-  - [Overriding a container's labels at runtime](../reference/cli/docker/container/run.md#label)
-  - [Inspecting labels on images or containers](../reference/cli/docker/inspect.md)
-  - [Filtering images by label](../reference/cli/docker/image/ls.md#filter)
-  - [Filtering containers by label](../reference/cli/docker/container/ls.md#filter)
+  - [Adding labels to images](../reference/iechorfile.md#label)
+  - [Overriding a container's labels at runtime](../reference/cli/iechor/container/run.md#label)
+  - [Inspecting labels on images or containers](../reference/cli/iechor/inspect.md)
+  - [Filtering images by label](../reference/cli/iechor/image/ls.md#filter)
+  - [Filtering containers by label](../reference/cli/iechor/container/ls.md#filter)
 
-- Local Docker daemons
+- Local iEchor daemons
 
-  - [Adding labels to a Docker daemon at runtime](../reference/cli/dockerd.md)
-  - [Inspecting a Docker daemon's labels](../reference/cli/docker/system/info.md)
+  - [Adding labels to a iEchor daemon at runtime](../reference/cli/iechord.md)
+  - [Inspecting a iEchor daemon's labels](../reference/cli/iechor/system/info.md)
 
 - Volumes
 
-  - [Adding labels to volumes](../reference/cli/docker/volume/create.md)
-  - [Inspecting a volume's labels](../reference/cli/docker/volume/inspect.md)
-  - [Filtering volumes by label](../reference/cli/docker/volume/ls.md#filter)
+  - [Adding labels to volumes](../reference/cli/iechor/volume/create.md)
+  - [Inspecting a volume's labels](../reference/cli/iechor/volume/inspect.md)
+  - [Filtering volumes by label](../reference/cli/iechor/volume/ls.md#filter)
 
 - Networks
 
-  - [Adding labels to a network](../reference/cli/docker/network/create.md)
-  - [Inspecting a network's labels](../reference/cli/docker/network/inspect.md)
-  - [Filtering networks by label](../reference/cli/docker/network/ls.md#filter)
+  - [Adding labels to a network](../reference/cli/iechor/network/create.md)
+  - [Inspecting a network's labels](../reference/cli/iechor/network/inspect.md)
+  - [Filtering networks by label](../reference/cli/iechor/network/ls.md#filter)
 
 - Swarm nodes
 
-  - [Adding or updating a Swarm node's labels](../reference/cli/docker/node/update.md#label-add)
-  - [Inspecting a Swarm node's labels](../reference/cli/docker/node/inspect.md)
-  - [Filtering Swarm nodes by label](../reference/cli/docker/node/ls.md#filter)
+  - [Adding or updating a Swarm node's labels](../reference/cli/iechor/node/update.md#label-add)
+  - [Inspecting a Swarm node's labels](../reference/cli/iechor/node/inspect.md)
+  - [Filtering Swarm nodes by label](../reference/cli/iechor/node/ls.md#filter)
 
 - Swarm services
-  - [Adding labels when creating a Swarm service](../reference/cli/docker/service/create.md#label)
-  - [Updating a Swarm service's labels](../reference/cli/docker/service/update.md)
-  - [Inspecting a Swarm service's labels](../reference/cli/docker/service/inspect.md)
-  - [Filtering Swarm services by label](../reference/cli/docker/service/ls.md#filter)
+  - [Adding labels when creating a Swarm service](../reference/cli/iechor/service/create.md#label)
+  - [Updating a Swarm service's labels](../reference/cli/iechor/service/update.md)
+  - [Inspecting a Swarm service's labels](../reference/cli/iechor/service/inspect.md)
+  - [Filtering Swarm services by label](../reference/cli/iechor/service/ls.md#filter)

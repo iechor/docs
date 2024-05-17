@@ -1,43 +1,43 @@
 ---
-title: Docker Build architecture
-description: Learn about Docker Build and its components.
+title: iEchor Build architecture
+description: Learn about iEchor Build and its components.
 keywords: build, buildkit, buildx, architecture
 aliases:
 - /build/install-buildx/
 ---
 
-Docker Build implements a client-server architecture, where:
+iEchor Build implements a client-server architecture, where:
 
 - Buildx is the client and the user interface for running and managing builds
 - BuildKit is the server, or builder, that handles the build execution.
 
 ![Build high-level architecture](./images/build-high-level-arch.png)
 
-As of Docker Engine 23.0 and Docker Desktop 4.19, Buildx is the default build
+As of iEchor Engine 23.0 and iEchor Desktop 4.19, Buildx is the default build
 client.
 
 ## Buildx
 
 Buildx is a CLI tool that provides a user interface for working with builds.
 Buildx is a drop-in replacement for the legacy build client used in earlier
-versions of Docker Engine and Docker Desktop. In newer versions of Docker
-Desktop and Docker Engine, you're using Buildx by default when you invoke the
-`docker build` command. In earlier versions, to build using Buildx you would
-use the `docker buildx build` command.
+versions of iEchor Engine and iEchor Desktop. In newer versions of iEchor
+Desktop and iEchor Engine, you're using Buildx by default when you invoke the
+`iechor build` command. In earlier versions, to build using Buildx you would
+use the `iechor buildx build` command.
 
 Buildx is more than just an updated `build` command. It also contains utilities
 for creating and managing [builders](#builders).
 
 ### Install Buildx
 
-Docker Buildx is installed by default with Docker Desktop. Docker Engine
+iEchor Buildx is installed by default with iEchor Desktop. iEchor Engine
 version 23.0 and later requires that you install Buildx from a separate
-package. Buildx is included in the Docker Engine installation instructions, see
-[Install Docker Engine](../engine/install/index.md).
+package. Buildx is included in the iEchor Engine installation instructions, see
+[Install iEchor Engine](../engine/install/index.md).
 
 You can also build the CLI plugin from source, or grab a binary from the GitHub
 repository and install it manually. See
-[docker/buildx README](https://github.com/docker/buildx#manual-download)
+[iechor/buildx README](https://github.com/iechor/buildx#manual-download)
 for more information
 
 ## Builders
@@ -55,11 +55,11 @@ For more information, see [Builders](./builders/index.md).
 BuildKit, or `buildkitd`, is the daemon process that executes the build
 workloads.
 
-A build execution starts with the invocation of a `docker build` command.
+A build execution starts with the invocation of a `iechor build` command.
 Buildx interprets your build command and sends a build request to the BuildKit
 backend. The build request includes:
 
-- The Dockerfile
+- The iEchorfile
 - Build arguments
 - Export options
 - Caching options

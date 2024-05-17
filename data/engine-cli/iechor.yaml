@@ -1,0 +1,240 @@
+command: iechor
+short: The base command for the iEchor CLI.
+long: The base command for the iEchor CLI.
+cname:
+    - iechor attach
+    - iechor build
+    - iechor builder
+    - iechor checkpoint
+    - iechor commit
+    - iechor config
+    - iechor container
+    - iechor context
+    - iechor cp
+    - iechor create
+    - iechor diff
+    - iechor events
+    - iechor exec
+    - iechor export
+    - iechor history
+    - iechor image
+    - iechor images
+    - iechor import
+    - iechor info
+    - iechor inspect
+    - iechor kill
+    - iechor load
+    - iechor login
+    - iechor logout
+    - iechor logs
+    - iechor manifest
+    - iechor network
+    - iechor node
+    - iechor pause
+    - iechor plugin
+    - iechor port
+    - iechor ps
+    - iechor pull
+    - iechor push
+    - iechor rename
+    - iechor restart
+    - iechor rm
+    - iechor rmi
+    - iechor run
+    - iechor save
+    - iechor search
+    - iechor secret
+    - iechor service
+    - iechor stack
+    - iechor start
+    - iechor stats
+    - iechor stop
+    - iechor swarm
+    - iechor system
+    - iechor tag
+    - iechor top
+    - iechor trust
+    - iechor unpause
+    - iechor update
+    - iechor version
+    - iechor volume
+    - iechor wait
+clink:
+    - iechor_attach.yaml
+    - iechor_build.yaml
+    - iechor_builder.yaml
+    - iechor_checkpoint.yaml
+    - iechor_commit.yaml
+    - iechor_config.yaml
+    - iechor_container.yaml
+    - iechor_context.yaml
+    - iechor_cp.yaml
+    - iechor_create.yaml
+    - iechor_diff.yaml
+    - iechor_events.yaml
+    - iechor_exec.yaml
+    - iechor_export.yaml
+    - iechor_history.yaml
+    - iechor_image.yaml
+    - iechor_images.yaml
+    - iechor_import.yaml
+    - iechor_info.yaml
+    - iechor_inspect.yaml
+    - iechor_kill.yaml
+    - iechor_load.yaml
+    - iechor_login.yaml
+    - iechor_logout.yaml
+    - iechor_logs.yaml
+    - iechor_manifest.yaml
+    - iechor_network.yaml
+    - iechor_node.yaml
+    - iechor_pause.yaml
+    - iechor_plugin.yaml
+    - iechor_port.yaml
+    - iechor_ps.yaml
+    - iechor_pull.yaml
+    - iechor_push.yaml
+    - iechor_rename.yaml
+    - iechor_restart.yaml
+    - iechor_rm.yaml
+    - iechor_rmi.yaml
+    - iechor_run.yaml
+    - iechor_save.yaml
+    - iechor_search.yaml
+    - iechor_secret.yaml
+    - iechor_service.yaml
+    - iechor_stack.yaml
+    - iechor_start.yaml
+    - iechor_stats.yaml
+    - iechor_stop.yaml
+    - iechor_swarm.yaml
+    - iechor_system.yaml
+    - iechor_tag.yaml
+    - iechor_top.yaml
+    - iechor_trust.yaml
+    - iechor_unpause.yaml
+    - iechor_update.yaml
+    - iechor_version.yaml
+    - iechor_volume.yaml
+    - iechor_wait.yaml
+options:
+    - option: config
+      value_type: string
+      default_value: /root/.iechor
+      description: Location of client config files
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: context
+      shorthand: c
+      value_type: string
+      description: |
+        Name of the context to use to connect to the daemon (overrides IECHOR_HOST env var and default context set with `iechor context use`)
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: debug
+      shorthand: D
+      value_type: bool
+      default_value: "false"
+      description: Enable debug mode
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: host
+      shorthand: H
+      value_type: list
+      description: Daemon socket to connect to
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: log-level
+      shorthand: l
+      value_type: string
+      default_value: info
+      description: Set the logging level (`debug`, `info`, `warn`, `error`, `fatal`)
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: tls
+      value_type: bool
+      default_value: "false"
+      description: Use TLS; implied by --tlsverify
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: tlscacert
+      value_type: string
+      default_value: /root/.iechor/ca.pem
+      description: Trust certs signed only by this CA
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: tlscert
+      value_type: string
+      default_value: /root/.iechor/cert.pem
+      description: Path to TLS certificate file
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: tlskey
+      value_type: string
+      default_value: /root/.iechor/key.pem
+      description: Path to TLS key file
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: tlsverify
+      value_type: bool
+      default_value: "false"
+      description: Use TLS and verify the remote
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

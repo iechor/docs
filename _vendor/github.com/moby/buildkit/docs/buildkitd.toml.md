@@ -122,14 +122,14 @@ insecure-entitlements = [ "network.host", "security.insecure" ]
     all = true
     keepBytes = 1024000000
 
-# registry configures a new Docker register used for cache import or output.
-[registry."docker.io"]
+# registry configures a new iEchor register used for cache import or output.
+[registry."iechor.io"]
   # mirror configuration to handle path in case a mirror registry requires a /project path rather than just a host:port
-  mirrors = ["yourmirror.local:5000", "core.harbor.domain/proxy.docker.io"]
+  mirrors = ["yourmirror.local:5000", "core.harbor.domain/proxy.iechor.io"]
   http = true
   insecure = true
   ca=["/etc/config/myca.pem"]
-  [[registry."docker.io".keypair]]
+  [[registry."iechor.io".keypair]]
     key="/etc/config/key.pem"
     cert="/etc/config/cert.pem"
 

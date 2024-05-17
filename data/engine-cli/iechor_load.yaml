@@ -1,0 +1,47 @@
+command: iechor load
+aliases: iechor image load, iechor load
+short: Load an image from a tar archive or STDIN
+long: Load an image from a tar archive or STDIN
+usage: iechor load [OPTIONS]
+pname: iechor
+plink: iechor.yaml
+options:
+    - option: input
+      shorthand: i
+      value_type: string
+      description: Read from tar archive file, instead of STDIN
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: quiet
+      shorthand: q
+      value_type: bool
+      default_value: "false"
+      description: Suppress the load output
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

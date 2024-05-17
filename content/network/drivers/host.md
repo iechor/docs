@@ -1,13 +1,13 @@
 ---
 title: Host network driver
-description: All about exposing containers on the Docker host's network
+description: All about exposing containers on the iEchor host's network
 keywords: network, host, standalone, host mode networking
 aliases:
 - /network/host/
 ---
 
 If you use the `host` network mode for a container, that container's network
-stack isn't isolated from the Docker host (the container shares the host's
+stack isn't isolated from the iEchor host (the container shares the host's
 networking namespace), and the container doesn't get its own IP-address allocated.
 For instance, if you run a container which binds to port 80 and you use `host`
 networking, the container's application is available on port 80 on the host's IP
@@ -31,19 +31,19 @@ Host mode networking can be useful for the following use cases:
 
 This is because it doesn't require network address translation (NAT), and no "userland-proxy" is created for each port.
 
-The host networking driver only works on Linux hosts, but is available as a Beta feature, on Docker Desktop version 4.29 and later.
+The host networking driver only works on Linux hosts, but is available as a Beta feature, on iEchor Desktop version 4.29 and later.
 
 You can also use a `host` network for a swarm service, by passing `--network host`
-to the `docker service create` command. In this case, control traffic (traffic
+to the `iechor service create` command. In this case, control traffic (traffic
 related to managing the swarm and the service) is still sent across an overlay
-network, but the individual swarm service containers send data using the Docker
+network, but the individual swarm service containers send data using the iEchor
 daemon's host network and ports. This creates some extra limitations. For instance,
 if a service container binds to port 80, only one service container can run on a
 given swarm node.
 
-## Docker Desktop
+## iEchor Desktop
 
-Host networking is also supported on Docker Desktop version 4.29 and later for Mac,
+Host networking is also supported on iEchor Desktop version 4.29 and later for Mac,
 Windows, and Linux as a [beta feature](../../release-lifecycle.md#beta). To enable this feature, navigate to the **Features in development** tab in **Settings**, and then select **Enable host networking**.
 
 This feature works in both directions. This means you can
@@ -56,7 +56,7 @@ networking enabled. TCP as well as UDP are supported as communication protocols.
 The following command starts netcat in a container that listens on port `8000`:
 
 ```console
-$ docker run --rm -it --net=host nicolaka/netshoot nc -lkv 0.0.0.0 8000
+$ iechor run --rm -it --net=host nicolaka/netshoot nc -lkv 0.0.0.0 8000
 ```
 
 Port `8000` will then be available on the host and you can connect to it with the following
@@ -73,7 +73,7 @@ To access a service running on the host from the container, you can start a cont
 host networking enabled with this command:
 
 ```console
-$ docker run --rm -it --net=host nicolaka/netshoot
+$ iechor run --rm -it --net=host nicolaka/netshoot
 ```
 
 If you then want to access a service on your host from the container (in this
@@ -85,8 +85,8 @@ $ nc localhost 80
 
 ### Limitations
 
-- The host network feature of Docker Desktop works on layer 4. This means that
-unlike with Docker on Linux, network protocols that operate below TCP or UDP are
+- The host network feature of iEchor Desktop works on layer 4. This means that
+unlike with iEchor on Linux, network protocols that operate below TCP or UDP are
 not supported.
 - This feature doesn't work with Enhanced Container Isolation enabled, since
 isolating your containers from the host and allowing them access to the host

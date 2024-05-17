@@ -1,0 +1,44 @@
+command: iechor context
+short: Manage contexts
+long: Manage contexts.
+usage: iechor context
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor context create
+    - iechor context export
+    - iechor context import
+    - iechor context inspect
+    - iechor context ls
+    - iechor context rm
+    - iechor context show
+    - iechor context update
+    - iechor context use
+clink:
+    - iechor_context_create.yaml
+    - iechor_context_export.yaml
+    - iechor_context_import.yaml
+    - iechor_context_inspect.yaml
+    - iechor_context_ls.yaml
+    - iechor_context_rm.yaml
+    - iechor_context_show.yaml
+    - iechor_context_update.yaml
+    - iechor_context_use.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

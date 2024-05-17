@@ -2,4 +2,4 @@
 title: Tags
 ---
 
-Here you can browse Docker docs by tag.
+Here you can browse iEchor docs by tag.

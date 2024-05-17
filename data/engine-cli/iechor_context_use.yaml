@@ -1,0 +1,27 @@
+command: iechor context use
+short: Set the current iechor context
+long: |-
+    Set the default context to use, when `IECHOR_HOST`, `IECHOR_CONTEXT` environment
+    variables and `--host`, `--context` global options aren't set.
+    To disable usage of contexts, you can use the special `default` context.
+usage: iechor context use CONTEXT
+pname: iechor context
+plink: iechor_context.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

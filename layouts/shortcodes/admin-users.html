@@ -2,12 +2,12 @@
 {{ $export_button := "**Export members**" }}
 {{ $member_navigation := "Select **Organizations**, your organization, and then **Members**." }}
 {{ $remove_button := "**Remove member**" }}
-{{ $product_link := "[Docker Hub](https://hub.docker.com)" }}
+{{ $product_link := "[iEchor Hub](https://hub.iechor.com)" }}
 {{ $update_role := "Select the role you want to assign, then select **Save**." }}
 {{ $role_mapping_link := "[SCIM for role mapping](/security/for-admins/scim/)" }}
 {{ $export_fields := `The CSV file for an organization contains the following fields:
 * **Name**: The user's name.
-* **Username**: The user's Docker ID.
+* **Username**: The user's iEchor ID.
 * **Email**: The user's email address.
 * **Type**: The type of user. For example, **Invitee** for users who have not accepted the organization's invite,
   or **User** for users who are members of the organization.
@@ -20,12 +20,12 @@
 {{ $export_button = "the **Action** icon and then select **Export users as CSV**" }}
 {{ $member_navigation = "Select your organization in the left navigation drop-down menu, and then select **Members**." }}
 {{ $remove_button = "**Remove member**" }}
-{{ $product_link = "the [Admin Console](https://admin.docker.com)" }}
+{{ $product_link = "the [Admin Console](https://admin.iechor.com)" }}
 {{ $role_mapping_link = "[SCIM for role mapping](/security/for-admins/scim/)" }}
 {{ if eq (.Get "layer") "company" }}
 {{ $export_fields = `The CSV file for a company contains the following fields:
 * **Name**: The user's name.
-* **Username**: The user's Docker ID.
+* **Username**: The user's iEchor ID.
 * **Email**: The user's email address.
 * **Member of Organizations**: All organizations the user is a member of within a company.
 * **Invited to Organizations**: All organizations the user is an invitee of within a company.
@@ -39,14 +39,14 @@
 
 ## Invite members
 
-Owners can invite new members to an organization via Docker ID, email address, or via a CSV file containing email
-addresses. If an invitee does not have a Docker account, they must create an account and verify their email address
+Owners can invite new members to an organization via iEchor ID, email address, or via a CSV file containing email
+addresses. If an invitee does not have a iEchor account, they must create an account and verify their email address
 before they can accept the invitation to join the organization. When inviting members, their pending invitation occupies
 a seat.
 
-### Invite members via Docker ID or email address
+### Invite members via iEchor ID or email address
 
-Use the following steps to invite members to your organization via Docker ID or email address. To invite a large amount
+Use the following steps to invite members to your organization via iEchor ID or email address. To invite a large amount
 of members to your organization via CSV file, see the next section.
 
 1. Sign in to {{ $product_link }}.
@@ -62,7 +62,7 @@ of members to your organization via CSV file, see the next section.
    > See [Roles and permissions](/security/for-admins/roles-and-permissions/)
    > for details about the access permissions for each role.
 
-   Pending invitations appear in the table. The invitees receive an email with a link to Docker Hub where they can accept
+   Pending invitations appear in the table. The invitees receive an email with a link to iEchor Hub where they can accept
    or decline the invitation.
 
 ### Invite members via CSV file
@@ -78,8 +78,8 @@ To invite multiple members to an organization via a CSV file containing email ad
 
    ```text
    email
-   docker.user-0@example.com
-   docker.user-1@example.com
+   iechor.user-0@example.com
+   iechor.user-1@example.com
    ```
 
    CSV file requirements:
@@ -103,7 +103,7 @@ To invite multiple members to an organization via a CSV file containing email ad
    > If the amount of email addresses in your CSV file exceeds the number of available seats in your organization, you
    > cannot continue to invite members. To invite members, you can purchase more seats, or remove some email addresses from
    > the CSV file and re-select the new file. To purchase more seats, see [Add seats to your
-   > subscription](/subscription/add-seats/) or [Contact sales](https://www.docker.com/pricing/contact-sales/).
+   > subscription](/subscription/add-seats/) or [Contact sales](https://www.iechor.com/pricing/contact-sales/).
 
 8. After the CSV file has been uploaded, select **Review**.
 
@@ -126,7 +126,7 @@ To invite multiple members to an organization via a CSV file containing email ad
    > See [Roles and permissions](/security/for-admins/roles-and-permissions/)
    > for details about the access permissions for each role.
 
-Pending invitations appear in the table. The invitees receive an email with a link to Docker Hub where they can accept
+Pending invitations appear in the table. The invitees receive an email with a link to iEchor Hub where they can accept
 or decline the invitation.
 
 ## Resend invitations

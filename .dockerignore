@@ -6,7 +6,7 @@ _releaser
 CONTRIBUTING.md
 Dockerfile
 compose.yml
-docker-bake.hcl
+iechor-bake.hcl
 public
 node_modules
 resources

@@ -1,0 +1,30 @@
+command: iechor buildx stop
+short: Stop builder instance
+long: |-
+    Stops the specified or current builder. This does not prevent buildx build to
+    restart the builder. The implementation of stop depends on the driver.
+usage: iechor buildx stop [NAME]
+pname: iechor buildx
+plink: iechor_buildx.yaml
+inherited_options:
+    - option: builder
+      value_type: string
+      description: Override the configured builder instance
+      details_url: '#builder'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### Override the configured builder instance (--builder) {#builder}
+
+    Same as [`buildx --builder`](/reference/cli/iechor/buildx/#builder).
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

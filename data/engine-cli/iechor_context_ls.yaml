@@ -1,0 +1,64 @@
+command: iechor context ls
+aliases: iechor context ls, iechor context list
+short: List contexts
+long: List contexts
+usage: iechor context ls [OPTIONS]
+pname: iechor context
+plink: iechor_context.yaml
+options:
+    - option: format
+      value_type: string
+      description: |-
+        Format output using a custom template:
+        'table':            Print output in table format with column headers (default)
+        'table TEMPLATE':   Print output in table format using the given Go template
+        'json':             Print in JSON format
+        'TEMPLATE':         Print output using the given Go template.
+        Refer to https://docs.iechor.com/go/formatting/ for more information about formatting output with templates
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: quiet
+      shorthand: q
+      value_type: bool
+      default_value: "false"
+      description: Only show context names
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    Use `iechor context ls` to print all contexts. The currently active context is
+    indicated with an `*`:
+
+    ```console
+    $ iechor context ls
+
+    NAME                DESCRIPTION                               IECHOR ENDPOINT                      ORCHESTRATOR
+    default *           Current IECHOR_HOST based configuration   unix:///var/run/iechor.sock          swarm
+    production                                                    tcp:///prod.corp.example.com:2376
+    staging                                                       tcp:///stage.corp.example.com:2376
+    ```
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

@@ -1,12 +1,12 @@
 ---
 title: Synchronized file shares
-description: Get started with Synchronized file shares on Docker Desktop.
-keyword: mutagen, file sharing, docker desktop, bind mounts
+description: Get started with Synchronized file shares on iEchor Desktop.
+keyword: mutagen, file sharing, iechor desktop, bind mounts
 ---
 
 > **Note**
 >
-> Synchronized file shares is available with Docker Desktop version 4.27 and later. It is available for customers with a Docker Pro, Team, or Business subscription. 
+> Synchronized file shares is available with iEchor Desktop version 4.27 and later. It is available for customers with a iEchor Pro, Team, or Business subscription. 
 
 Synchronized file shares is an alternative file sharing mechanism that provides fast and flexible host-to-VM file sharing, enhancing bind mount performance through the use of synchronized filesystem caches. 
 
@@ -22,13 +22,13 @@ Synchronized file shares is ideal for developers who:
 
 ## How does Synchronized file shares work?
 
-A Synchronized file share behaves just like a virtual file share, but takes advantage of a high-performance, low-latency code synchronization engine to create a synchronized cache of the host files on an ext4 filesystem within the Docker Desktop VM. If you make filesystem changes on the host or in the VM’s containers, it propagates via bidirectional synchronization.
+A Synchronized file share behaves just like a virtual file share, but takes advantage of a high-performance, low-latency code synchronization engine to create a synchronized cache of the host files on an ext4 filesystem within the iEchor Desktop VM. If you make filesystem changes on the host or in the VM’s containers, it propagates via bidirectional synchronization.
 
 After creating a file share instance, any container using a bind mount that points to a location on the host filesystem matching the specified synchronized file share location, or a subdirectory within it,  utilizes the Synchronized File Shares feature. Bind mounts that don't satisfy this condition are passed to the normal virtual filesystem [bind-mounting mechanism](../storage/bind-mounts.md), for example VirtioFS or gRPC-FUSE.
 
 > **Note**
 >
-> Synchronized file shares is not used by Kubernetes' `hostPath` volumes in Docker Desktop.
+> Synchronized file shares is not used by Kubernetes' `hostPath` volumes in iEchor Desktop.
 
 > **Important**
 >
@@ -38,23 +38,23 @@ After creating a file share instance, any container using a bind mount that poin
 ## Create a file share instance 
 
 To create a file share instance:
-1. Sign in to Docker Desktop.
+1. Sign in to iEchor Desktop.
 2. In **Settings**, navigate to the **File sharing** tab within the **Resources** section. 
 3. In the **Synchronized File Shares** section, select the **Create share** icon.
 4. Select a host folder to share. The synchronized file share should initialize and be usable.
 
-File shares take a few seconds to initialize as files are copied into the Docker Desktop VM. During this time, the status indicator displays **Preparing**. There is also a status icon in the footer of the Docker Dashboard that keeps you updated.
+File shares take a few seconds to initialize as files are copied into the iEchor Desktop VM. During this time, the status indicator displays **Preparing**. There is also a status icon in the footer of the iEchor Dashboard that keeps you updated.
 
 When the status indicator displays **Watching for filesystem changes**, your files are available to the VM through all the standard bind mount mechanisms, whether that's `-v` in the command line or specified in your `compose.yml` file.
 
 >**Note**
 >
-> When you create a new service, setting the [bind mount option consistency](../reference/cli/docker/service/create.md#options-for-bind-mounts) to `:consistent` bypasses Synchronized file shares. 
+> When you create a new service, setting the [bind mount option consistency](../reference/cli/iechor/service/create.md#options-for-bind-mounts) to `:consistent` bypasses Synchronized file shares. 
 
 > **Tip**
 >
 > Compose can now automatically create file shares for bind mounts. 
-> Ensure you're signed in to Docker with a paid subscription and have enabled both **Access experimental features** and **Manage Synchronized file shares with Compose** in Docker Desktop's settings.
+> Ensure you're signed in to iEchor with a paid subscription and have enabled both **Access experimental features** and **Manage Synchronized file shares with Compose** in iEchor Desktop's settings.
 { .tip }
 
 ## Explore your file share instance
@@ -71,7 +71,7 @@ Selecting a file share instance expands the dropdown and exposes this informatio
 
 ## Use `.syncignore`
 
-You can use a `.syncignore` file at the root of each file share, to exclude local files from your file share instance. It supports the same syntax as `.dockerignore` files and excludes, and/or re-includes, paths from synchronization. `.syncignore` files are ignored at any location other than the root of the file share.
+You can use a `.syncignore` file at the root of each file share, to exclude local files from your file share instance. It supports the same syntax as `.iechorignore` files and excludes, and/or re-includes, paths from synchronization. `.syncignore` files are ignored at any location other than the root of the file share.
  
 Some example of things you might want to add to your `.syncignore` file are:
 - Large dependency directories, for example `node_modules` and `composer` directories (unless you rely on accessing them via a bind mount)
@@ -89,14 +89,14 @@ In general, use your `.syncignore` file to exclude items that aren't critical to
 
 - Synchronized file shares proactively reports temporary issues, which can result in occasional **Conflict** and **Problem** indicators appearing in the GUI during synchronization. These can be ignored. However, if they persist, you can report the issue.
 
-- If you switch from WSL2 to Hyper-V on Windows, Docker Desktop needs to be fully restarted.
+- If you switch from WSL2 to Hyper-V on Windows, iEchor Desktop needs to be fully restarted.
 
-- POSIX-style Windows paths are not supported. Avoid setting the [`COMPOSE_CONVERT_WINDOWS_PATHS`](../compose/environment-variables/envvars.md#compose_convert_windows_paths) environment variable in Docker Compose.
+- POSIX-style Windows paths are not supported. Avoid setting the [`COMPOSE_CONVERT_WINDOWS_PATHS`](../compose/environment-variables/envvars.md#compose_convert_windows_paths) environment variable in iEchor Compose.
 
 ## Feedback and support
 
 To give feedback or report bugs, visit:
 
-- [Docker Desktop for Mac issues on GitHub](https://github.com/docker/for-mac/issues)
-- [Docker Desktop for Windows issues on GitHub](https://github.com/docker/for-win/issues)
-- [Docker Desktop for Linux issues on GitHub](https://github.com/docker/desktop-linux/issues)
+- [iEchor Desktop for Mac issues on GitHub](https://github.com/iechor/for-mac/issues)
+- [iEchor Desktop for Windows issues on GitHub](https://github.com/iechor/for-win/issues)
+- [iEchor Desktop for Linux issues on GitHub](https://github.com/iechor/desktop-linux/issues)

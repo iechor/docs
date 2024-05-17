@@ -1,7 +1,7 @@
 ---
-description: Collecting Docker metrics with Prometheus
+description: Collecting iEchor metrics with Prometheus
 keywords: prometheus, metrics
-title: Collect Docker metrics with Prometheus
+title: Collect iEchor metrics with Prometheus
 aliases:
   - /engine/admin/prometheus/
   - /config/thirdparty/monitoring/
@@ -9,7 +9,7 @@ aliases:
 ---
 
 [Prometheus](https://prometheus.io/) is an open-source systems monitoring and
-alerting toolkit. You can configure Docker as a Prometheus target.
+alerting toolkit. You can configure iEchor as a Prometheus target.
 
 > **Warning**
 >
@@ -17,25 +17,25 @@ alerting toolkit. You can configure Docker as a Prometheus target.
 > development and may change at any time.
 { .warning }
 
-Currently, you can only monitor Docker itself. You can't currently monitor your
-application using the Docker target.
+Currently, you can only monitor iEchor itself. You can't currently monitor your
+application using the iEchor target.
 
 ## Example
 
-The following example shows you how to configure your Docker daemon, set up
-Prometheus to run as a container on your local machine, and monitor your Docker
+The following example shows you how to configure your iEchor daemon, set up
+Prometheus to run as a container on your local machine, and monitor your iEchor
 instance using Prometheus.
 
 ### Configure the daemon
 
-To configure the Docker daemon as a Prometheus target, you need to specify the
+To configure the iEchor daemon as a Prometheus target, you need to specify the
 `metrics-address` in the `daemon.json` configuration file. This daemon expects
 the file to be located at one of the following locations by default. If the
 file doesn't exist, create it.
 
-- **Linux**: `/etc/docker/daemon.json`
-- **Windows Server**: `C:\ProgramData\docker\config\daemon.json`
-- **Docker Desktop**: Open the Docker Desktop settings and select **Docker Engine** to edit the file.
+- **Linux**: `/etc/iechor/daemon.json`
+- **Windows Server**: `C:\ProgramData\iechor\config\daemon.json`
+- **iEchor Desktop**: Open the iEchor Desktop settings and select **iEchor Engine** to edit the file.
 
 Add the following configuration:
 
@@ -45,17 +45,17 @@ Add the following configuration:
 }
 ```
 
-Save the file, or in the case of Docker Desktop for Mac or Docker Desktop for
-Windows, save the configuration. Restart Docker.
+Save the file, or in the case of iEchor Desktop for Mac or iEchor Desktop for
+Windows, save the configuration. Restart iEchor.
 
-Docker now exposes Prometheus-compatible metrics on port 9323 on the loopback
+iEchor now exposes Prometheus-compatible metrics on port 9323 on the loopback
 interface.
 
 ### Create a Prometheus configuration
 
 Copy the following configuration file and save it to a location of your choice,
 for example `/tmp/prometheus.yml`. This is a stock Prometheus configuration file,
-except for the addition of the Docker job definition at the bottom of the file.
+except for the addition of the iEchor job definition at the bottom of the file.
 
 ```yml
 # my global config
@@ -86,12 +86,12 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:9090"]
 
-  - job_name: docker
+  - job_name: iechor
       # metrics_path defaults to '/metrics'
       # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ["host.docker.internal:9323"]
+      - targets: ["host.iechor.internal:9323"]
 ```
 
 ### Run Prometheus in a container
@@ -99,28 +99,28 @@ scrape_configs:
 Next, start a Prometheus container using this configuration.
 
 ```console
-$ docker run --name my-prometheus \
+$ iechor run --name my-prometheus \
     --mount type=bind,source=/tmp/prometheus.yml,destination=/etc/prometheus/prometheus.yml \
     -p 9090:9090 \
-    --add-host host.docker.internal=host-gateway \
+    --add-host host.iechor.internal=host-gateway \
     prom/prometheus
 ```
 
-If you're using Docker Desktop, the `--add-host` flag is optional. This flag
+If you're using iEchor Desktop, the `--add-host` flag is optional. This flag
 makes sure that the host's internal IP gets exposed to the Prometheus
-container. Docker Desktop does this by default. The host IP is exposed as the
-`host.docker.internal` hostname. This matches the configuration defined in
+container. iEchor Desktop does this by default. The host IP is exposed as the
+`host.iechor.internal` hostname. This matches the configuration defined in
 `prometheus.yml` in the previous step.
 
 ### Open the Prometheus Dashboard
 
-Verify that the Docker target is listed at `http://localhost:9090/targets/`.
+Verify that the iEchor target is listed at `http://localhost:9090/targets/`.
 
 ![Prometheus targets page](images/prometheus-targets.webp)
 
 > **Note**
 >
-> You can't access the endpoint URLs on this page directly if you use Docker
+> You can't access the endpoint URLs on this page directly if you use iEchor
 > Desktop.
 
 ### Use Prometheus
@@ -132,14 +132,14 @@ from the combo box to the right of the **Execute** button, and click
 
 ![Idle Prometheus report](images/prometheus-graph_idle.webp)
 
-The graph shows a pretty idle Docker instance, unless you're already running
+The graph shows a pretty idle iEchor instance, unless you're already running
 active workloads on your system.
 
 To make the graph more interesting, run a container that uses some network
 actions by starting downloading some packages using a package manager:
 
 ```console
-$ docker run --rm alpine apk add git make musl-dev go
+$ iechor run --rm alpine apk add git make musl-dev go
 ```
 
 Wait a few seconds (the default scrape interval is 15 seconds) and reload your
@@ -152,15 +152,15 @@ traffic caused by the container you just ran.
 
 The example provided here shows how to run Prometheus as a container on your
 local system. In practice, you'll probably be running Prometheus on another
-system or as a cloud service somewhere. You can set up the Docker daemon as a
+system or as a cloud service somewhere. You can set up the iEchor daemon as a
 Prometheus target in such contexts too. Configure the `metrics-addr` of the
 daemon and add the address of the daemon as a scrape endpoint in your
 Prometheus configuration.
 
 ```yaml
-- job_name: docker
+- job_name: iechor
   static_configs:
-    - targets: ["docker.daemon.example:<PORT>"]
+    - targets: ["iechor.daemon.example:<PORT>"]
 ```
 
 For more information about Prometheus, refer to the

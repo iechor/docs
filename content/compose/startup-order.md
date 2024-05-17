@@ -1,6 +1,6 @@
 ---
-description: How to control service startup and shutdown order in Docker Compose
-keywords: documentation, docs, docker, compose, startup, shutdown, order
+description: How to control service startup and shutdown order in iEchor Compose
+keywords: documentation, docs, iechor, compose, startup, shutdown, order
 title: Control startup and shutdown order in Compose
 notoc: true
 ---
@@ -10,7 +10,7 @@ You can control the order of service startup and shutdown with the
 containers in dependency order, where dependencies are determined by
 `depends_on`, `links`, `volumes_from`, and `network_mode: "service:..."`.
 
-A good example of when you might use this is an application which needs to access a database. If both services are started with `docker compose up`, there is a chance this will fail since the application service might start before the database service and won't find a database able to handle its SQL statements. 
+A good example of when you might use this is an application which needs to access a database. If both services are started with `iechor compose up`, there is a chance this will fail since the application service might start before the database service and won't find a database able to handle its SQL statements. 
 
 ## Control startup
 

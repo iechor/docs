@@ -1,0 +1,22 @@
+command: iechor buildx install
+short: Install buildx as a 'iechor builder' alias
+long: Install buildx as a 'iechor builder' alias
+usage: iechor buildx install
+pname: iechor buildx
+plink: iechor_buildx.yaml
+options:
+    - option: builder
+      value_type: string
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: true
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

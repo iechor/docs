@@ -1,7 +1,7 @@
 ---
 title: Deployment and orchestration
 keywords: orchestration, deploy, kubernetes, swarm,
-description: Get oriented on some basics of Docker and install Docker Desktop.
+description: Get oriented on some basics of iEchor and install iEchor Desktop.
 ---
 
 Containerization provides an opportunity to move and scale applications to
@@ -14,7 +14,7 @@ updates and reconfigurations of those containers during their lifecycle.
 
 Tools to manage, scale, and maintain containerized applications are called
 orchestrators. Two of the most popular orchestration tools are Kubernetes and
-Docker Swarm. Docker Desktop provides development environments for both of these
+iEchor Swarm. iEchor Desktop provides development environments for both of these
 orchestrators.
 
 The advanced modules teach you how to:
@@ -24,16 +24,16 @@ The advanced modules teach you how to:
 
 ## Turn on Kubernetes
 
-Docker Desktop sets up Kubernetes for you quickly and easily. Follow the setup and validation instructions appropriate for your operating system:
+iEchor Desktop sets up Kubernetes for you quickly and easily. Follow the setup and validation instructions appropriate for your operating system:
 
 {{< tabs group="os" >}}
 {{< tab name="Mac and Linux" >}}
 
 ### Mac
 
-1.  From the Docker Dashboard, navigate to **Settings**, and select the **Kubernetes** tab.
+1.  From the iEchor Dashboard, navigate to **Settings**, and select the **Kubernetes** tab.
 
-2.  Select the checkbox labeled **Enable Kubernetes**, and select **Apply & Restart**. Docker Desktop automatically sets up Kubernetes for you. You'll know that Kubernetes has been successfully enabled when you see a green light beside 'Kubernetes _running_' in **Settings**.
+2.  Select the checkbox labeled **Enable Kubernetes**, and select **Apply & Restart**. iEchor Desktop automatically sets up Kubernetes for you. You'll know that Kubernetes has been successfully enabled when you see a green light beside 'Kubernetes _running_' in **Settings**.
 
 3. To confirm that Kubernetes is up and running, create a text file called `pod.yaml` with the following content:
 
@@ -97,9 +97,9 @@ Docker Desktop sets up Kubernetes for you quickly and easily. Follow the setup a
 
 ### Windows
 
-1. From the Docker Dashboard, navigate to **Settings**, and select the **Kubernetes** tab.
+1. From the iEchor Dashboard, navigate to **Settings**, and select the **Kubernetes** tab.
 
-2. Select the checkbox labeled **Enable Kubernetes**, and select **Apply & Restart**. Docker Desktop automatically sets up Kubernetes for you. You'll know that Kubernetes has been successfully enabled when you see a green light beside 'Kubernetes _running_' in the **Settings** menu.
+2. Select the checkbox labeled **Enable Kubernetes**, and select **Apply & Restart**. iEchor Desktop automatically sets up Kubernetes for you. You'll know that Kubernetes has been successfully enabled when you see a green light beside 'Kubernetes _running_' in the **Settings** menu.
 
 3. To confirm that Kubernetes is up and running, create a text file called `pod.yaml` with the following content:
 
@@ -161,19 +161,19 @@ Docker Desktop sets up Kubernetes for you quickly and easily. Follow the setup a
 {{< /tab >}}
 {{< /tabs >}}
 
-## Enable Docker Swarm
+## Enable iEchor Swarm
 
-Docker Desktop runs primarily on Docker Engine, which has everything you need to run a Swarm built in. Follow the setup and validation instructions appropriate for your operating system:
+iEchor Desktop runs primarily on iEchor Engine, which has everything you need to run a Swarm built in. Follow the setup and validation instructions appropriate for your operating system:
 
 {{< tabs group="os" >}}
 {{< tab name="Mac" >}}
 
 ### Mac
 
-1. Open a terminal, and initialize Docker Swarm mode:
+1. Open a terminal, and initialize iEchor Swarm mode:
 
     ```console
-    $ docker swarm init
+    $ iechor swarm init
     ```
 
     If all goes well, you should see a message similar to the following:
@@ -183,50 +183,50 @@ Docker Desktop runs primarily on Docker Engine, which has everything you need to
 
     To add a worker to this swarm, run the following command:
 
-        docker swarm join --token SWMTKN-1-3e0hh0jd5t4yjg209f4g5qpowbsczfahv2dea9a1ay2l8787cf-2h4ly330d0j917ocvzw30j5x9 192.168.65.3:2377
+        iechor swarm join --token SWMTKN-1-3e0hh0jd5t4yjg209f4g5qpowbsczfahv2dea9a1ay2l8787cf-2h4ly330d0j917ocvzw30j5x9 192.168.65.3:2377
 
-    To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+    To add a manager to this swarm, run 'iechor swarm join-token manager' and follow the instructions.
     ```
 
-2. Run a simple Docker service that uses an alpine-based filesystem, and isolates a ping to 8.8.8.8:
+2. Run a simple iEchor service that uses an alpine-based filesystem, and isolates a ping to 8.8.8.8:
 
     ```console
-    $ docker service create --name demo alpine:latest ping 8.8.8.8
+    $ iechor service create --name demo alpine:latest ping 8.8.8.8
     ```
 
 3. Check that your service created one running container:
 
     ```console
-    $ docker service ps demo
+    $ iechor service ps demo
     ```
 
     You should see something like:
 
     ```shell
     ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE           ERROR               PORTS
-    463j2s3y4b5o        demo.1              alpine:latest       docker-desktop      Running             Running 8 seconds ago
+    463j2s3y4b5o        demo.1              alpine:latest       iechor-desktop      Running             Running 8 seconds ago
     ```
 
 4. Check that you get the logs you'd expect for a ping process:
 
     ```console
-    $ docker service logs demo
+    $ iechor service logs demo
     ```
 
     You should see the output of a healthy ping process:
 
     ```shell
-    demo.1.463j2s3y4b5o@docker-desktop    | PING 8.8.8.8 (8.8.8.8): 56 data bytes
-    demo.1.463j2s3y4b5o@docker-desktop    | 64 bytes from 8.8.8.8: seq=0 ttl=37 time=13.005 ms
-    demo.1.463j2s3y4b5o@docker-desktop    | 64 bytes from 8.8.8.8: seq=1 ttl=37 time=13.847 ms
-    demo.1.463j2s3y4b5o@docker-desktop    | 64 bytes from 8.8.8.8: seq=2 ttl=37 time=41.296 ms
+    demo.1.463j2s3y4b5o@iechor-desktop    | PING 8.8.8.8 (8.8.8.8): 56 data bytes
+    demo.1.463j2s3y4b5o@iechor-desktop    | 64 bytes from 8.8.8.8: seq=0 ttl=37 time=13.005 ms
+    demo.1.463j2s3y4b5o@iechor-desktop    | 64 bytes from 8.8.8.8: seq=1 ttl=37 time=13.847 ms
+    demo.1.463j2s3y4b5o@iechor-desktop    | 64 bytes from 8.8.8.8: seq=2 ttl=37 time=41.296 ms
     ...
     ```
 
 5. Finally, tear down your test service:
 
     ```console
-    $ docker service rm demo
+    $ iechor service rm demo
     ```
 
 {{< /tab >}}
@@ -234,10 +234,10 @@ Docker Desktop runs primarily on Docker Engine, which has everything you need to
 
 ### Windows
 
-1. Open a PowerShell, and initialize Docker Swarm mode:
+1. Open a PowerShell, and initialize iEchor Swarm mode:
 
     ```console
-    $ docker swarm init
+    $ iechor swarm init
     ```
 
     If all goes well, you should see a message similar to the following:
@@ -247,50 +247,50 @@ Docker Desktop runs primarily on Docker Engine, which has everything you need to
 
     To add a worker to this swarm, run the following command:
 
-        docker swarm join --token SWMTKN-1-3e0hh0jd5t4yjg209f4g5qpowbsczfahv2dea9a1ay2l8787cf-2h4ly330d0j917ocvzw30j5x9 192.168.65.3:2377
+        iechor swarm join --token SWMTKN-1-3e0hh0jd5t4yjg209f4g5qpowbsczfahv2dea9a1ay2l8787cf-2h4ly330d0j917ocvzw30j5x9 192.168.65.3:2377
 
-    To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+    To add a manager to this swarm, run 'iechor swarm join-token manager' and follow the instructions.
     ```
 
-2. Run a simple Docker service that uses an alpine-based filesystem, and isolates a ping to 8.8.8.8:
+2. Run a simple iEchor service that uses an alpine-based filesystem, and isolates a ping to 8.8.8.8:
 
     ```console
-    $ docker service create --name demo alpine:latest ping 8.8.8.8
+    $ iechor service create --name demo alpine:latest ping 8.8.8.8
     ```
 
 3. Check that your service created one running container:
 
     ```console
-    $ docker service ps demo
+    $ iechor service ps demo
     ```
 
     You should see something like:
 
     ```shell
     ID                  NAME                IMAGE               NODE                DESIRED STATE       CURRENT STATE           ERROR               PORTS
-    463j2s3y4b5o        demo.1              alpine:latest       docker-desktop      Running             Running 8 seconds ago
+    463j2s3y4b5o        demo.1              alpine:latest       iechor-desktop      Running             Running 8 seconds ago
     ```
 
 4. Check that you get the logs you'd expect for a ping process:
 
     ```console
-    $ docker service logs demo
+    $ iechor service logs demo
     ```
 
     You should see the output of a healthy ping process:
 
     ```shell
-    demo.1.463j2s3y4b5o@docker-desktop    | PING 8.8.8.8 (8.8.8.8): 56 data bytes
-    demo.1.463j2s3y4b5o@docker-desktop    | 64 bytes from 8.8.8.8: seq=0 ttl=37 time=13.005 ms
-    demo.1.463j2s3y4b5o@docker-desktop    | 64 bytes from 8.8.8.8: seq=1 ttl=37 time=13.847 ms
-    demo.1.463j2s3y4b5o@docker-desktop    | 64 bytes from 8.8.8.8: seq=2 ttl=37 time=41.296 ms
+    demo.1.463j2s3y4b5o@iechor-desktop    | PING 8.8.8.8 (8.8.8.8): 56 data bytes
+    demo.1.463j2s3y4b5o@iechor-desktop    | 64 bytes from 8.8.8.8: seq=0 ttl=37 time=13.005 ms
+    demo.1.463j2s3y4b5o@iechor-desktop    | 64 bytes from 8.8.8.8: seq=1 ttl=37 time=13.847 ms
+    demo.1.463j2s3y4b5o@iechor-desktop    | 64 bytes from 8.8.8.8: seq=2 ttl=37 time=41.296 ms
     ...
     ```
 
 5. Finally, tear down your test service:
 
     ```console
-    $ docker service rm demo
+    $ iechor service rm demo
     ```
 
 {{< /tab >}}
@@ -311,5 +311,5 @@ Further documentation for all CLI commands used in this article are available he
 - [`kubectl get`](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#get)
 - [`kubectl logs`](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#logs)
 - [`kubectl delete`](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#delete)
-- [`docker swarm init`](/reference/cli/docker/swarm/init/)
-- [`docker service *`](/reference/cli/docker/service/)
+- [`iechor swarm init`](/reference/cli/iechor/swarm/init/)
+- [`iechor service *`](/reference/cli/iechor/service/)

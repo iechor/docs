@@ -1,5 +1,5 @@
 ---
 title: Traefik samples
-description: Docker samples for Traefik.
+description: iEchor samples for Traefik.
 service: traefik
 ---

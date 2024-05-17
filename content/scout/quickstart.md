@@ -1,28 +1,28 @@
 ---
-title: Docker Scout quickstart
+title: iEchor Scout quickstart
 keywords: scout, supply chain, vulnerabilities, packages, cves, scan, analysis, analyze
-description: Learn how to get started with Docker Scout to analyze images and fix vulnerabilities
+description: Learn how to get started with iEchor Scout to analyze images and fix vulnerabilities
 aliases:
   - /atomist/get-started/
 ---
 
-Docker Scout analyzes image contents and generates a detailed report of packages
+iEchor Scout analyzes image contents and generates a detailed report of packages
 and vulnerabilities that it detects. It can provide you with
 suggestions for how to remediate issues discovered by image analysis.
 
-This guide takes a vulnerable container image and shows you how to use Docker
+This guide takes a vulnerable container image and shows you how to use iEchor
 Scout to identify and fix the vulnerabilities, compare image versions over time,
 and share the results with your team.
 
 ## Step 1: Setup
 
-[This example project](https://github.com/docker/scout-demo-service) contains
+[This example project](https://github.com/iechor/scout-demo-service) contains
 a vulnerable Node.js application that you can use to follow along.
 
 1. Clone its repository:
 
    ```console
-   $ git clone https://github.com/docker/scout-demo-service.git
+   $ git clone https://github.com/iechor/scout-demo-service.git
    ```
 
 2. Move into the directory:
@@ -31,61 +31,61 @@ a vulnerable Node.js application that you can use to follow along.
    $ cd scout-demo-service
    ```
 
-3. Make sure you're signed in to your Docker account,
-   either by running the `docker login` command or by signing in with Docker Desktop.
+3. Make sure you're signed in to your iEchor account,
+   either by running the `iechor login` command or by signing in with iEchor Desktop.
 
 4. Build the image and push it to a `<ORG_NAME>/scout-demo:v1`,
-   where `<ORG_NAME>` is the Docker Hub namespace you push to.
+   where `<ORG_NAME>` is the iEchor Hub namespace you push to.
 
    ```console
-   $ docker build --push -t <ORG_NAME>/scout-demo:v1 .
+   $ iechor build --push -t <ORG_NAME>/scout-demo:v1 .
    ```
 
-## Step 2: Enable Docker Scout
+## Step 2: Enable iEchor Scout
 
-Docker Scout analyzes all local images by default. To analyze images in
+iEchor Scout analyzes all local images by default. To analyze images in
 remote repositories, you need to enable it first.
-You can do this from Docker Hub, the Docker Scout Dashboard, and CLI.
+You can do this from iEchor Hub, the iEchor Scout Dashboard, and CLI.
 [Find out how in the overview guide](/scout).
 
-1. Sign in to your Docker account with the `docker login` command or use the
-   **Sign in** button in Docker Desktop.
+1. Sign in to your iEchor account with the `iechor login` command or use the
+   **Sign in** button in iEchor Desktop.
 
-2. Next, enroll your organization with Docker Scout, using the `docker scout enroll` command.
+2. Next, enroll your organization with iEchor Scout, using the `iechor scout enroll` command.
 
    ```console
-   $ docker scout enroll <ORG_NAME>
-       ✓ Successfully enrolled organization <ORG_NAME> with Docker Scout Free
+   $ iechor scout enroll <ORG_NAME>
+       ✓ Successfully enrolled organization <ORG_NAME> with iEchor Scout Free
    ```
 
-3. Enable Docker Scout for your image repository with the `docker scout repo enable` command.
+3. Enable iEchor Scout for your image repository with the `iechor scout repo enable` command.
 
    ```console
-   $ docker scout repo enable --org <ORG_NAME> <ORG_NAME>/scout-demo
+   $ iechor scout repo enable --org <ORG_NAME> <ORG_NAME>/scout-demo
    ```
 
 ## Step 3: Analyze image vulnerabilities
 
-After building, use the `docker scout` CLI command to see vulnerabilities
-detected by Docker Scout.
+After building, use the `iechor scout` CLI command to see vulnerabilities
+detected by iEchor Scout.
 
 The example application for this guide uses a vulnerable version of Express.
 The following command shows all CVEs affecting Express in the image you just
 built:
 
 ```console
-$ docker scout cves --only-package express
+$ iechor scout cves --only-package express
 ```
 
-Docker Scout analyzes the image you built most recently by default,
+iEchor Scout analyzes the image you built most recently by default,
 so there's no need to specify the name of the image in this case.
 
-Learn more about the `docker scout cves` command in the
-[`CLI reference documentation`](/reference/cli/docker/scout/cves).
+Learn more about the `iechor scout cves` command in the
+[`CLI reference documentation`](/reference/cli/iechor/scout/cves).
 
 ## Step 4: Fix application vulnerabilities
 
-The fix suggested by Docker Scout is to update
+The fix suggested by iEchor Scout is to update
 the underlying vulnerable express version to 4.17.3 or later.
 
 1. Update the `package.json` file with the new package version.
@@ -97,17 +97,17 @@ the underlying vulnerable express version to 4.17.3 or later.
       }
    ```
 
-2. Rebuild the image with a new tag and push it to your Docker Hub repository:
+2. Rebuild the image with a new tag and push it to your iEchor Hub repository:
 
    ```console
-   $ docker build --push -t <ORG_NAME>/scout-demo:v2 .
+   $ iechor build --push -t <ORG_NAME>/scout-demo:v2 .
    ```
 
-Now, viewing the latest tag of the image in Docker Desktop, the Docker Scout
+Now, viewing the latest tag of the image in iEchor Desktop, the iEchor Scout
 Dashboard, or CLI, you can see that you have fixed the vulnerability.
 
 ```console
-$ docker scout cves --only-package express
+$ iechor scout cves --only-package express
     ✓ Provenance obtained from attestation
     ✓ Image stored for indexing
     ✓ Indexed 79 packages
@@ -121,7 +121,7 @@ $ docker scout cves --only-package express
     Target            │  mobywhale/scout-demo:v2                   
       digest          │  ef68417b2866                                     
       platform        │ linux/arm64                                       
-      provenance      │ https://github.com/docker/scout-demo-service.git  
+      provenance      │ https://github.com/iechor/scout-demo-service.git  
                       │  7c3a06793fc8f97961b4a40c73e0f7ed85501857         
       vulnerabilities │    0C     0H     0M     0L                        
       size            │ 19 MB                                             
@@ -139,17 +139,17 @@ $ docker scout cves --only-package express
 While inspecting vulnerabilities based on specific packages can be useful,
 it isn't the most effective way to improve your supply chain conduct.
 
-Docker Scout also supports policy evaluation,
+iEchor Scout also supports policy evaluation,
 a higher-level concept for detecting and fixing issues in your images.
 Policies are a set of customizable rules that let organizations track whether
 images are compliant with their supply chain requirements.
 
 Because policy rules are specific to each organization,
 you must specify which organization's policy you're evaluating against.
-Use the `docker scout config` command to configure your Docker organization.
+Use the `iechor scout config` command to configure your iEchor organization.
 
 ```console
-$ docker scout config organization <ORG_NAME>
+$ iechor scout config organization <ORG_NAME>
     ✓ Successfully set organization to <ORG_NAME>
 ```
 
@@ -158,7 +158,7 @@ of the compliance status for the image you just built.
 The image is evaluated against the default, out-of-the-box policies.
 
 ```console
-$ docker scout quickview
+$ iechor scout quickview
 
 ...
 Policy status  FAILED  (2/6 policies met, 2 missing data)
@@ -189,7 +189,7 @@ Take the `Default non-root user` policy for example.
 This policy helps improve runtime security by ensuring that
 images aren't set to run as the `root` superuser by default.
 
-To address this policy violation, edit the Dockerfile by adding a `USER`
+To address this policy violation, edit the iEchorfile by adding a `USER`
 instruction, specifying a non-root user:
 
 ```diff
@@ -200,16 +200,16 @@ instruction, specifying a non-root user:
 
 Additionally, to get a more complete policy evaluation result,
 your image should have SBOM and provenance attestations attached to it.
-Docker Scout uses the provenance attestations to determine how the image was
+iEchor Scout uses the provenance attestations to determine how the image was
 built so that it can provide a better evaluation result.
 
 Before you can build an image with attestations,
 you must enable the [containerd image store](../desktop/containerd.md)
-(or create a custom builder using the `docker-container` driver).
+(or create a custom builder using the `iechor-container` driver).
 The default image store doesn't support manifest lists,
 which is how the provenance attestations are attached to an image.
 
-Open **Settings** in Docker Desktop. Under the **General** section,
+Open **Settings** in iEchor Desktop. Under the **General** section,
 check the **Use containerd for pulling and storing images** option.
 Note that changing the image store hides existing images and containers until you switch back.
 
@@ -217,16 +217,16 @@ With the containerd image store enabled, rebuild the image with a new `v3` tag.
 This time, add the `--provenance=true` and `--sbom=true` flags.
 
 ```console
-$ docker build --provenance=true --sbom=true --push -t <ORG_NAME>/scout-demo:v3 .
+$ iechor build --provenance=true --sbom=true --push -t <ORG_NAME>/scout-demo:v3 .
 ```
 
 ## Step 7: View in Dashboard
 
 After pushing the updated image with attestations, it's time to view the
-results through a different lens: the Docker Scout Dashboard.
+results through a different lens: the iEchor Scout Dashboard.
 
-1. Open the [Docker Scout Dashboard](https://scout.docker.com/).
-2. Sign in with your Docker account.
+1. Open the [iEchor Scout Dashboard](https://scout.iechor.com/).
+2. Sign in with your iEchor account.
 3. Select **Images** in the left-hand navigation.
 
 The images page lists your Scout-enabled repositories.
@@ -237,7 +237,7 @@ The sidebar shows a compliance overview for the last pushed tag of a repository.
 >
 > If policy results haven't appeared yet, try refreshing the page.
 > It might take a few minutes before the results appear if this is your
-> first time using the Docker Scout Dashboard.
+> first time using the iEchor Scout Dashboard.
 
 Inspect the **Outdated base images** policy.
 This policy checks whether base images you use are up-to-date.
@@ -247,7 +247,7 @@ because the example image uses an old version `alpine` as a base image.
 Select the **View fix** button next to the policy name for details about the violation,
 and recommendations on how to address it.
 In this case, the recommended action is to enable
-[Docker Scout's GitHub integration](./integrations/source-code-management/github.md),
+[iEchor Scout's GitHub integration](./integrations/source-code-management/github.md),
 which helps keep your base images up-to-date automatically.
 
 > **Tip**
@@ -260,9 +260,9 @@ which helps keep your base images up-to-date automatically.
 ## Summary
 
 This quickstart guide has scratched the surface on some of the ways
-Docker Scout can support software supply chain management:
+iEchor Scout can support software supply chain management:
 
-- How to enable Docker Scout for your repositories
+- How to enable iEchor Scout for your repositories
 - Analyzing images for vulnerabilities
 - Policy and compliance
 - Fixing vulnerabilities and improving compliance
@@ -276,6 +276,6 @@ Check out the following sections:
 
 - [Image analysis](./image-analysis.md)
 - [Data sources](/scout/advisory-db-sources)
-- [Docker Scout Dashboard](/scout/dashboard)
+- [iEchor Scout Dashboard](/scout/dashboard)
 - [Integrations](./integrations/_index.md)
 - [Policy evaluation](./policy/_index.md)

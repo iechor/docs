@@ -1,7 +1,7 @@
 ---
 title: OAuth 2.0 flow
-description: Docker extension OAuth 2.0 flow
-keywords: Docker, extensions, sdk, OAuth 2.0
+description: iEchor extension OAuth 2.0 flow
+keywords: iEchor, extensions, sdk, OAuth 2.0
 aliases:
 - /desktop/extensions-sdk/dev/oauth2-flow/
 ---
@@ -24,7 +24,7 @@ After the user returns to the client via the redirect URL, the application gets 
 
 The image above shows that:
 
-- The Docker extension asks the user to authorize access to their data.
+- The iEchor extension asks the user to authorize access to their data.
 - If the user grants access, the extension then requests an access token from the service provider, passing the access grant from the user and authentication details to identify the client.
 - The service provider then validates these details and returns an access token.
 - The extension uses the access token to request the user data with the service provider.
@@ -52,11 +52,11 @@ window.ddClient.openExternal("https://authorization-server.com/authorize?
 
 ## Get the authorization code and access token
 
-You can get the authorization code from the extension UI by listing `docker-desktop://dashboard/extension-tab?extensionId=awesome/my-extension` as the `redirect_uri` in the OAuth app you're using and concatenating the authorization code as a query parameter. The extension UI code will then be able to read the corresponding code query-param.
+You can get the authorization code from the extension UI by listing `iechor-desktop://dashboard/extension-tab?extensionId=awesome/my-extension` as the `redirect_uri` in the OAuth app you're using and concatenating the authorization code as a query parameter. The extension UI code will then be able to read the corresponding code query-param.
 
 > **Important**
 >
-> Using this feature requires the extension SDK 0.3.3 in Docker Desktop. You need to ensure that the required SDK version for your extension set with `com.docker.desktop.extension.api.version` in [image labels](../extensions/labels.md) is higher than 0.3.3.
+> Using this feature requires the extension SDK 0.3.3 in iEchor Desktop. You need to ensure that the required SDK version for your extension set with `com.iechor.desktop.extension.api.version` in [image labels](../extensions/labels.md) is higher than 0.3.3.
 { .important }
 
 #### Authorization
@@ -83,7 +83,7 @@ POST https://authorization-server.com/token
 
 ### Store the access token
 
-The Docker Extensions SDK doesn't provide a specific mechanism to store secrets.
+The iEchor Extensions SDK doesn't provide a specific mechanism to store secrets.
 
 It's highly recommended that you use an external source of storage to store the access token.
 

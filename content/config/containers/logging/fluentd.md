@@ -1,6 +1,6 @@
 ---
 description: Learn how to use the fluentd logging driver
-keywords: Fluentd, docker, logging, driver
+keywords: Fluentd, iechor, logging, driver
 title: Fluentd logging driver
 aliases:
   - /engine/reference/logging/fluentd/
@@ -20,7 +20,7 @@ driver sends the following metadata in the structured log message:
 | Field            | Description                                                                                                                                           |
 | :--------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `container_id`   | The full 64-character container ID.                                                                                                                   |
-| `container_name` | The container name at the time it was started. If you use `docker rename` to rename a container, the new name isn't reflected in the journal entries. |
+| `container_name` | The container name at the time it was started. If you use `iechor rename` to rename a container, the new name isn't reflected in the journal entries. |
 | `source`         | `stdout` or `stderr`                                                                                                                                  |
 | `log`            | The container log                                                                                                                                     |
 
@@ -29,13 +29,13 @@ driver sends the following metadata in the structured log message:
 Some options are supported by specifying `--log-opt` as many times as needed:
 
 - `fluentd-address`: specify a socket address to connect to the Fluentd daemon, ex `fluentdhost:24224` or `unix:///path/to/fluentd.sock`.
-- `tag`: specify a tag for Fluentd messages. Supports some Go template markup, ex `{{.ID}}`, `{{.FullID}}` or `{{.Name}}` `docker.{{.ID}}`.
+- `tag`: specify a tag for Fluentd messages. Supports some Go template markup, ex `{{.ID}}`, `{{.FullID}}` or `{{.Name}}` `iechor.{{.ID}}`.
 
 To use the `fluentd` driver as the default logging driver, set the `log-driver`
 and `log-opt` keys to appropriate values in the `daemon.json` file, which is
-located in `/etc/docker/` on Linux hosts or
-`C:\ProgramData\docker\config\daemon.json` on Windows Server. For more about
-configuring Docker using `daemon.json`, see [daemon.json](../../../reference/cli/dockerd.md#daemon-configuration-file).
+located in `/etc/iechor/` on Linux hosts or
+`C:\ProgramData\iechor\config\daemon.json` on Windows Server. For more about
+configuring iEchor using `daemon.json`, see [daemon.json](../../../reference/cli/iechord.md#daemon-configuration-file).
 
 The following example sets the log driver to `fluentd` and sets the
 `fluentd-address` option.
@@ -49,7 +49,7 @@ The following example sets the log driver to `fluentd` and sets the
 }
 ```
 
-Restart Docker for the changes to take effect.
+Restart iEchor for the changes to take effect.
 
 > **Note**
 >
@@ -59,10 +59,10 @@ Restart Docker for the changes to take effect.
 > in quotes (`"`).
 
 To set the logging driver for a specific container, pass the
-`--log-driver` option to `docker run`:
+`--log-driver` option to `iechor run`:
 
 ```console
-$ docker run --log-driver=fluentd ...
+$ iechor run --log-driver=fluentd ...
 ```
 
 Before using this logging driver, launch a Fluentd daemon. The logging driver
@@ -70,7 +70,7 @@ connects to this daemon through `localhost:24224` by default. Use the
 `fluentd-address` option to connect to a different address.
 
 ```console
-$ docker run --log-driver=fluentd --log-opt fluentd-address=fluentdhost:24224
+$ iechor run --log-driver=fluentd --log-opt fluentd-address=fluentdhost:24224
 ```
 
 If container cannot connect to the Fluentd daemon, the container stops
@@ -86,16 +86,16 @@ By default, the logging driver connects to `localhost:24224`. Supply the
 `fluentd-address` option to connect to a different address. `tcp`(default) and `unix` sockets are supported.
 
 ```console
-$ docker run --log-driver=fluentd --log-opt fluentd-address=fluentdhost:24224
-$ docker run --log-driver=fluentd --log-opt fluentd-address=tcp://fluentdhost:24224
-$ docker run --log-driver=fluentd --log-opt fluentd-address=unix:///path/to/fluentd.sock
+$ iechor run --log-driver=fluentd --log-opt fluentd-address=fluentdhost:24224
+$ iechor run --log-driver=fluentd --log-opt fluentd-address=tcp://fluentdhost:24224
+$ iechor run --log-driver=fluentd --log-opt fluentd-address=unix:///path/to/fluentd.sock
 ```
 
 Two of the above specify the same address, because `tcp` is default.
 
 ### tag
 
-By default, Docker uses the first 12 characters of the container ID to tag log messages.
+By default, iEchor uses the first 12 characters of the container ID to tag log messages.
 Refer to the [log tag option documentation](log_tags.md) for customizing
 the log tag format.
 
@@ -113,7 +113,7 @@ logging-related environment variables and labels. It is used for advanced
 
 ### fluentd-async
 
-Docker connects to Fluentd in the background. Messages are buffered until the
+iEchor connects to Fluentd in the background. Messages are buffered until the
 connection is established. Defaults to `false`.
 
 ### fluentd-async-reconnect-interval
@@ -142,14 +142,14 @@ The maximum number of retries. Defaults to `4294967295` (2\*\*32 - 1).
 
 Generates event logs in nanosecond resolution. Defaults to `false`.
 
-## Fluentd daemon management with Docker
+## Fluentd daemon management with iEchor
 
 About `Fluentd` itself, see [the project webpage](https://www.fluentd.org)
 and [its documents](https://docs.fluentd.org).
 
 To use this logging driver, start the `fluentd` daemon on a host. We recommend
-that you use [the Fluentd docker
-image](https://hub.docker.com/r/fluent/fluentd/). This image is
+that you use [the Fluentd iechor
+image](https://hub.iechor.com/r/fluent/fluentd/). This image is
 especially useful if you want to aggregate multiple container logs on each
 host then, later, transfer the logs to another Fluentd node to create an
 aggregate store.
@@ -171,11 +171,11 @@ aggregate store.
 2.  Launch Fluentd container with this configuration file:
 
     ```console
-    $ docker run -it -p 24224:24224 -v /path/to/conf/test.conf:/fluentd/etc/test.conf -e FLUENTD_CONF=test.conf fluent/fluentd:latest
+    $ iechor run -it -p 24224:24224 -v /path/to/conf/test.conf:/fluentd/etc/test.conf -e FLUENTD_CONF=test.conf fluent/fluentd:latest
     ```
 
 3.  Start one or more containers with the `fluentd` logging driver:
 
     ```console
-    $ docker run --log-driver=fluentd your/application
+    $ iechor run --log-driver=fluentd your/application
     ```

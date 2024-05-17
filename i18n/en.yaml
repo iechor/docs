@@ -33,12 +33,12 @@ buildx:
 buildkit:
   other: BuildKit
 engine:
-  other: Docker Engine
+  other: iEchor Engine
 api:
   other: Engine API
 desktop:
-  other: Docker Desktop
+  other: iEchor Desktop
 compose:
-  other: Docker Compose
+  other: iEchor Compose
 scout:
-  other: Docker Scout
+  other: iEchor Scout

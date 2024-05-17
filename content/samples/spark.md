@@ -1,5 +1,5 @@
 ---
 title: Spark samples
-description: Docker samples for Spark.
+description: iEchor samples for Spark.
 service: spark
 ---

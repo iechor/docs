@@ -1,21 +1,21 @@
 ---
 title: Runtime options with Memory, CPUs, and GPUs
 description: Specify the runtime options for a container
-keywords: docker, daemon, configuration, runtime
+keywords: iechor, daemon, configuration, runtime
 aliases:
   - /engine/articles/systemd/
   - /engine/admin/resource_constraints/
 ---
 
 By default, a container has no resource constraints and can use as much of a
-given resource as the host's kernel scheduler allows. Docker provides ways
+given resource as the host's kernel scheduler allows. iEchor provides ways
 to control how much memory, or CPU a container can use, setting runtime
-configuration flags of the `docker run` command. This section provides details
+configuration flags of the `iechor run` command. This section provides details
 on when you should set such limits and the possible implications of setting them.
 
 Many of these features require your kernel to support Linux capabilities. To
 check for support, you can use the
-[`docker info`](../../reference/cli/docker/system/info.md) command. If a capability
+[`iechor info`](../../reference/cli/iechor/system/info.md) command. If a capability
 is disabled in your kernel, you may see a warning at the end of the output like
 the following:
 
@@ -24,7 +24,7 @@ WARNING: No swap limit support
 ```
 
 Consult your operating system's documentation for enabling them. See also the
-[Docker Engine troubleshooting guide](../../engine/install/troubleshoot.md#kernel-cgroup-swap-limit-capabilities)
+[iEchor Engine troubleshooting guide](../../engine/install/troubleshoot.md#kernel-cgroup-swap-limit-capabilities)
 for more information.
 
 ## Memory
@@ -35,14 +35,14 @@ It's important not to allow a running container to consume too much of the
 host machine's memory. On Linux hosts, if the kernel detects that there isn't
 enough memory to perform important system functions, it throws an `OOME`, or
 `Out Of Memory Exception`, and starts killing processes to free up
-memory. Any process is subject to killing, including Docker and other important
+memory. Any process is subject to killing, including iEchor and other important
 applications. This can effectively bring the entire system down if the wrong
 process is killed.
 
-Docker attempts to mitigate these risks by adjusting the OOM priority on the
-Docker daemon so that it's less likely to be killed than other processes
+iEchor attempts to mitigate these risks by adjusting the OOM priority on the
+iEchor daemon so that it's less likely to be killed than other processes
 on the system. The OOM priority on containers isn't adjusted. This makes it more
-likely for an individual container to be killed than for the Docker daemon
+likely for an individual container to be killed than for the iEchor daemon
 or other system processes to be killed. You shouldn't try to circumvent
 these safeguards by manually setting `--oom-score-adj` to an extreme negative
 number on the daemon or a container, or by setting `--oom-kill-disable` on a
@@ -57,7 +57,7 @@ You can mitigate the risk of system instability due to OOME by:
   before placing it into production.
 - Ensure that your application runs only on hosts with adequate resources.
 - Limit the amount of memory your container can use, as described below.
-- Be mindful when configuring swap on your Docker hosts. Swap is slower than
+- Be mindful when configuring swap on your iEchor hosts. Swap is slower than
   memory but can provide a buffer against running out of system memory.
 - Consider converting your container to a
   [service](../../engine/swarm/services.md), and using service-level constraints
@@ -66,7 +66,7 @@ You can mitigate the risk of system instability due to OOME by:
 
 ### Limit a container's access to memory
 
-Docker can enforce hard or soft memory limits.
+iEchor can enforce hard or soft memory limits.
 
 - Hard limits lets the container use no more than a fixed amount of memory.
 - Soft limits lets the container use as much memory as it needs unless certain
@@ -84,7 +84,7 @@ Most of these options take a positive integer, followed by a suffix of `b`, `k`,
 | `-m` or `--memory=`    | The maximum amount of memory the container can use. If you set this option, the minimum allowed value is `6m` (6 megabytes). That is, you must set the value to at least 6 megabytes.                                                                                                                                                                                                           |
 | `--memory-swap`\*      | The amount of memory this container is allowed to swap to disk. See [`--memory-swap` details](#--memory-swap-details).                                                                                                                                                                                                                                                                          |
 | `--memory-swappiness`  | By default, the host kernel can swap out a percentage of anonymous pages used by a container. You can set `--memory-swappiness` to a value between 0 and 100, to tune this percentage. See [`--memory-swappiness` details](#--memory-swappiness-details).                                                                                                                                       |
-| `--memory-reservation` | Allows you to specify a soft limit smaller than `--memory` which is activated when Docker detects contention or low memory on the host machine. If you use `--memory-reservation`, it must be set lower than `--memory` for it to take precedence. Because it is a soft limit, it doesn't guarantee that the container doesn't exceed the limit.                                                |
+| `--memory-reservation` | Allows you to specify a soft limit smaller than `--memory` which is activated when iEchor detects contention or low memory on the host machine. If you use `--memory-reservation`, it must be set lower than `--memory` for it to take precedence. Because it is a soft limit, it doesn't guarantee that the container doesn't exceed the limit.                                                |
 | `--kernel-memory`      | The maximum amount of kernel memory the container can use. The minimum allowed value is `6m`. Because kernel memory can't be swapped out, a container which is starved of kernel memory may block host machine resources, which can have side effects on the host machine and on other containers. See [`--kernel-memory` details](#--kernel-memory-details).                                   |
 | `--oom-kill-disable`   | By default, if an out-of-memory (OOM) error occurs, the kernel kills processes in a container. To change this behavior, use the `--oom-kill-disable` option. Only disable the OOM killer on containers where you have also set the `-m/--memory` option. If the `-m` flag isn't set, the host can run out of memory and the kernel may need to kill the host system's processes to free memory. |
 
@@ -178,7 +178,7 @@ configure the [real-time scheduler](#configure-the-real-time-scheduler).
 
 The CFS is the Linux kernel CPU scheduler for normal Linux processes. Several
 runtime flags let you configure the amount of access to CPU resources your
-container has. When you use these settings, Docker modifies the settings for
+container has. When you use these settings, iEchor modifies the settings for
 the container's cgroup on the host machine.
 
 | Option                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -193,13 +193,13 @@ If you have 1 CPU, each of the following commands guarantees the container at
 most 50% of the CPU every second.
 
 ```console
-$ docker run -it --cpus=".5" ubuntu /bin/bash
+$ iechor run -it --cpus=".5" ubuntu /bin/bash
 ```
 
 Which is the equivalent to manually specifying `--cpu-period` and `--cpu-quota`;
 
 ```console
-$ docker run -it --cpu-period=100000 --cpu-quota=50000 ubuntu /bin/bash
+$ iechor run -it --cpu-period=100000 --cpu-quota=50000 ubuntu /bin/bash
 ```
 
 ### Configure the real-time scheduler
@@ -207,7 +207,7 @@ $ docker run -it --cpu-period=100000 --cpu-quota=50000 ubuntu /bin/bash
 You can configure your container to use the real-time scheduler, for tasks which
 can't use the CFS scheduler. You need to
 [make sure the host machine's kernel is configured correctly](#configure-the-host-machines-kernel)
-before you can [configure the Docker daemon](#configure-the-docker-daemon) or
+before you can [configure the iEchor daemon](#configure-the-iechor-daemon) or
 [configure individual containers](#configure-individual-containers).
 
 > **Warning**
@@ -225,41 +225,41 @@ existence of the file `/sys/fs/cgroup/cpu.rt_runtime_us`. For guidance on
 configuring the kernel real-time scheduler, consult the documentation for your
 operating system.
 
-#### Configure the Docker daemon
+#### Configure the iEchor daemon
 
-To run containers using the real-time scheduler, run the Docker daemon with
+To run containers using the real-time scheduler, run the iEchor daemon with
 the `--cpu-rt-runtime` flag set to the maximum number of microseconds reserved
 for real-time tasks per runtime period. For instance, with the default period of
 1000000 microseconds (1 second), setting `--cpu-rt-runtime=950000` ensures that
 containers using the real-time scheduler can run for 950000 microseconds for every
 1000000-microsecond period, leaving at least 50000 microseconds available for
 non-real-time tasks. To make this configuration permanent on systems which use
-`systemd`, see [Control and configure Docker with systemd](../daemon/systemd.md).
+`systemd`, see [Control and configure iEchor with systemd](../daemon/systemd.md).
 
 #### Configure individual containers
 
 You can pass several flags to control a container's CPU priority when you
-start the container using `docker run`. Consult your operating system's
+start the container using `iechor run`. Consult your operating system's
 documentation or the `ulimit` command for information on appropriate values.
 
 | Option                     | Description                                                                                                                                                                               |
 | :------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--cap-add=sys_nice`       | Grants the container the `CAP_SYS_NICE` capability, which allows the container to raise process `nice` values, set real-time scheduling policies, set CPU affinity, and other operations. |
-| `--cpu-rt-runtime=<value>` | The maximum number of microseconds the container can run at real-time priority within the Docker daemon's real-time scheduler period. You also need the `--cap-add=sys_nice` flag.        |
+| `--cpu-rt-runtime=<value>` | The maximum number of microseconds the container can run at real-time priority within the iEchor daemon's real-time scheduler period. You also need the `--cap-add=sys_nice` flag.        |
 | `--ulimit rtprio=<value>`  | The maximum real-time priority allowed for the container. You also need the `--cap-add=sys_nice` flag.                                                                                    |
 
 The following example command sets each of these three flags on a `debian:jessie`
 container.
 
 ```console
-$ docker run -it \
+$ iechor run -it \
     --cpu-rt-runtime=950000 \
     --ulimit rtprio=99 \
     --cap-add=sys_nice \
     debian:jessie
 ```
 
-If the kernel or Docker daemon isn't configured correctly, an error occurs.
+If the kernel or iEchor daemon isn't configured correctly, an error occurs.
 
 ## GPU
 
@@ -283,7 +283,7 @@ Include the `--gpus` flag when you start a container to access GPU resources.
 Specify how many GPUs to use. For example:
 
 ```console
-$ docker run -it --rm --gpus all ubuntu nvidia-smi
+$ iechor run -it --rm --gpus all ubuntu nvidia-smi
 ```
 
 Exposes all available GPUs and returns a result akin to the following:
@@ -309,13 +309,13 @@ Exposes all available GPUs and returns a result akin to the following:
 Use the `device` option to specify GPUs. For example:
 
 ```console
-$ docker run -it --rm --gpus device=GPU-3a23c669-1f69-c64e-cf85-44e9b07e7a2a ubuntu nvidia-smi
+$ iechor run -it --rm --gpus device=GPU-3a23c669-1f69-c64e-cf85-44e9b07e7a2a ubuntu nvidia-smi
 ```
 
 Exposes that specific GPU.
 
 ```console
-$ docker run -it --rm --gpus '"device=0,2"' ubuntu nvidia-smi
+$ iechor run -it --rm --gpus '"device=0,2"' ubuntu nvidia-smi
 ```
 
 Exposes the first and third GPUs.
@@ -330,7 +330,7 @@ You can set capabilities manually. For example, on Ubuntu you can run the
 following:
 
 ```console
-$ docker run --gpus 'all,capabilities=utility' --rm ubuntu nvidia-smi
+$ iechor run --gpus 'all,capabilities=utility' --rm ubuntu nvidia-smi
 ```
 
 This enables the `utility` driver capability which adds the `nvidia-smi` tool to
@@ -338,8 +338,8 @@ the container.
 
 Capabilities as well as other configurations can be set in images via
 environment variables. More information on valid variables can be found in the
-[nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/docker-specialized.html)
-documentation. These variables can be set in a Dockerfile.
+[nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/iechor-specialized.html)
+documentation. These variables can be set in a iEchorfile.
 
 You can also use CUDA images which sets these variables automatically. See the
 official [CUDA images](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda)

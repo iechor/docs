@@ -1,5 +1,5 @@
 ---
 title: Vue.js samples
-description: Docker samples for Vue.js.
+description: iEchor samples for Vue.js.
 service: vuejs
 ---

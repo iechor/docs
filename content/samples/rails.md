@@ -1,5 +1,5 @@
 ---
 title: Rails samples
-description: Docker samples for Rails.
+description: iEchor samples for Rails.
 service: rails
 ---

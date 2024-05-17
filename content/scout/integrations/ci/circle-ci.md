@@ -1,12 +1,12 @@
 ---
-description: How to integrate Docker Scout with Circle CI
+description: How to integrate iEchor Scout with Circle CI
 keywords: supply chain, security, ci, continuous integration, circle ci
-title: Integrate Docker Scout with Circle CI
+title: Integrate iEchor Scout with Circle CI
 ---
 
 The following examples runs when triggered in CircleCI. When triggered, it
-checks out the "docker/scout-demo-service:latest" image and tag and then uses
-Docker Scout to create a CVE report.
+checks out the "iechor/scout-demo-service:latest" image and tag and then uses
+iEchor Scout to create a CVE report.
 
 Add the following to a _.circleci/config.yml_ file.
 
@@ -17,10 +17,10 @@ version: 2.1
 
 jobs:
   build:
-    docker:
+    iechor:
       - image: cimg/base:stable
     environment:
-      IMAGE_TAG: docker/scout-demo-service:latest
+      IMAGE_TAG: iechor/scout-demo-service:latest
 ```
 
 This defines the container image the workflow uses and an environment variable
@@ -33,42 +33,42 @@ steps:
   # Checkout the repository files
   - checkout
   
-  # Set up a separate Docker environment to run `docker` commands in
-  - setup_remote_docker:
+  # Set up a separate iEchor environment to run `iechor` commands in
+  - setup_remote_iechor:
       version: 20.10.24
 
-  # Install Docker Scout and login to Docker Hub
+  # Install iEchor Scout and login to iEchor Hub
   - run:
-      name: Install Docker Scout
+      name: Install iEchor Scout
       command: |
         env
-        curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b /home/circleci/bin
-        echo $DOCKER_HUB_PAT | docker login -u $DOCKER_HUB_USER --password-stdin
+        curl -sSfL https://raw.githubusercontent.com/iechor/scout-cli/main/install.sh | sh -s -- -b /home/circleci/bin
+        echo $IECHOR_HUB_PAT | iechor login -u $IECHOR_HUB_USER --password-stdin
 
-  # Build the Docker image
+  # Build the iEchor image
   - run:
-      name: Build Docker image
-      command: docker build -t $IMAGE_TAG .
+      name: Build iEchor image
+      command: iechor build -t $IMAGE_TAG .
   
-  # Run Docker Scout          
+  # Run iEchor Scout          
   - run:
       name: Scan image for CVEs
       command: |
-        docker-scout cves $IMAGE_TAG --exit-code --only-severity critical,high
+        iechor-scout cves $IMAGE_TAG --exit-code --only-severity critical,high
 ```
 
-This checks out the repository files and then sets up a separate Docker
+This checks out the repository files and then sets up a separate iEchor
 environment to run commands in.
 
-It installs Docker Scout, logs into Docker Hub, builds the Docker image, and
-then runs Docker Scout to generate a CVE report. It only shows critical or
+It installs iEchor Scout, logs into iEchor Hub, builds the iEchor image, and
+then runs iEchor Scout to generate a CVE report. It only shows critical or
 high-severity vulnerabilities.
 
 Finally, add a name for the workflow and the workflow's jobs:
 
 ```yaml
 workflows:
-  build-docker-image:
+  build-iechor-image:
     jobs:
       - build
 ```

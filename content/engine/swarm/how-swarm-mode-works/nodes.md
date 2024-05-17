@@ -1,14 +1,14 @@
 ---
 description: How swarm nodes work
-keywords: docker, container, cluster, swarm mode, node
+keywords: iechor, container, cluster, swarm mode, node
 title: How nodes work
 aliases:
 - /engine/swarm/how-swarm-mode-works/
 ---
 
 Swarm mode lets you create a
-cluster of one or more Docker Engines called a swarm. A swarm consists
-of one or more nodes: physical or virtual machines running Docker
+cluster of one or more iEchor Engines called a swarm. A swarm consists
+of one or more nodes: physical or virtual machines running iEchor
 Engine.
 
 There are two types of nodes: [managers](#manager-nodes) and
@@ -43,7 +43,7 @@ from the failure of a manager node without downtime.
 * A five-manager swarm tolerates a maximum simultaneous loss of two
 manager nodes.
 * An odd number `N` of manager nodes in the cluster tolerates the loss of at most `(N-1)/2` managers.
-Docker recommends a maximum of seven manager nodes for a swarm.
+iEchor recommends a maximum of seven manager nodes for a swarm.
 
     >**Important**
     >
@@ -53,13 +53,13 @@ Docker recommends a maximum of seven manager nodes for a swarm.
 
 ## Worker nodes
 
-Worker nodes are also instances of Docker Engine whose sole purpose is to
+Worker nodes are also instances of iEchor Engine whose sole purpose is to
 execute containers. Worker nodes don't participate in the Raft distributed
 state, make scheduling decisions, or serve the swarm mode HTTP API.
 
 You can create a swarm of one manager node, but you cannot have a worker node
 without at least one manager node. By default, all managers are also workers.
-In a single manager node cluster, you can run commands like `docker service
+In a single manager node cluster, you can run commands like `iechor service
 create` and the scheduler places all tasks on the local engine.
 
 To prevent the scheduler from placing tasks on a manager node in a multi-node
@@ -68,17 +68,17 @@ gracefully stops tasks on nodes in `Drain` mode and schedules the tasks on an
 `Active` node. The scheduler does not assign new tasks to nodes with `Drain`
 availability.
 
-Refer to the [`docker node update`](../../../reference/cli/docker/node/update.md)
+Refer to the [`iechor node update`](../../../reference/cli/iechor/node/update.md)
 command line reference to see how to change node availability.
 
 ## Change roles
 
-You can promote a worker node to be a manager by running `docker node promote`.
+You can promote a worker node to be a manager by running `iechor node promote`.
 For example, you may want to promote a worker node when you
-take a manager node offline for maintenance. See [node promote](../../../reference/cli/docker/node/promote.md).
+take a manager node offline for maintenance. See [node promote](../../../reference/cli/iechor/node/promote.md).
 
 You can also demote a manager node to a worker node. See
-[node demote](../../../reference/cli/docker/node/demote.md).
+[node demote](../../../reference/cli/iechor/node/demote.md).
 
 
 ## Learn more

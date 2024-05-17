@@ -1,12 +1,12 @@
 ---
-description: components and formatting examples used in Docker's docs
+description: components and formatting examples used in iEchor's docs
 title: Links
 toc_max: 3
 ---
 
 ## Examples
 
-- [External links](https://docker.com) open in a new tab
+- [External links](https://iechor.com) open in a new tab
 - [Internal links](links.md) open in the same tab
 
 You can use relative links, using source filenames,
@@ -22,6 +22,6 @@ about them in advance.
 ## Syntax
 
 ```md
-[External links](https://docker.com)
+[External links](https://iechor.com)
 [Internal links](links.md)
 ```

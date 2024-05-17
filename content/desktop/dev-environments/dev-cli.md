@@ -1,19 +1,19 @@
 ---
 description: Set up a dev Environments
-keywords: Dev Environments, share, docker dev, Docker Desktop
-title: Use the docker dev CLI plugin
+keywords: Dev Environments, share, iechor dev, iEchor Desktop
+title: Use the iechor dev CLI plugin
 ---
 
 {{< include "dev-envs-changing.md" >}}
 
-Use the new `docker dev` CLI plugin to get the full Dev Environments experience from the terminal in addition to the Dashboard.
+Use the new `iechor dev` CLI plugin to get the full Dev Environments experience from the terminal in addition to the Dashboard.
 
-It is available with [Docker Desktop 4.13.0 and later](../release-notes.md). 
+It is available with [iEchor Desktop 4.13.0 and later](../release-notes.md). 
 
 ### Usage
 
 ```bash
-docker dev [OPTIONS] COMMAND
+iechor dev [OPTIONS] COMMAND
 ```
 
 ### Commands
@@ -28,13 +28,13 @@ docker dev [OPTIONS] COMMAND
 | `rm`                 | Removes a dev environment                |
 | `start`              | Starts a dev environment                 |
 | `stop`               | Stops a dev environment                  |
-| `version`            | Shows the Docker Dev version information |
+| `version`            | Shows the iEchor Dev version information |
 
-### `docker dev check`
+### `iechor dev check`
 
 #### Usage
 
-`docker dev check [OPTIONS]`
+`iechor dev check [OPTIONS]`
 
 #### Options
 
@@ -42,11 +42,11 @@ docker dev [OPTIONS] COMMAND
 |:---------------------|:------------------------------------|
 | `--format`,`-f`      | Format the output.                  |
 
-### `docker dev create`
+### `iechor dev create`
 
 #### Usage
 
-`docker dev create [OPTIONS] REPOSITORY_URL`
+`iechor dev create [OPTIONS] REPOSITORY_URL`
 
 #### Options
 
@@ -55,11 +55,11 @@ docker dev [OPTIONS] COMMAND
 | `--detach`,`-d`      | Detach creates a Dev Env without attaching to it's logs.  |
 | `--open`,`-o`        | Open IDE after a successful creation                      |
 
-### `docker dev list`
+### `iechor dev list`
 
 #### Usage
 
-`docker dev list [OPTIONS]`
+`iechor dev list [OPTIONS]`
 
 #### Options
 
@@ -68,17 +68,17 @@ docker dev [OPTIONS] COMMAND
 | `--format`,`-f`      | Format the output             |
 | `--quiet`,`-q`       | Only show dev environments names  |
 
-### `docker dev logs`
+### `iechor dev logs`
 
 #### Usage
 
-`docker dev logs [OPTIONS] DEV_ENV_NAME`
+`iechor dev logs [OPTIONS] DEV_ENV_NAME`
 
-### `docker dev open`
+### `iechor dev open`
 
 #### Usage
 
-`docker dev open DEV_ENV_NAME CONTAINER_REF [OPTIONS]`
+`iechor dev open DEV_ENV_NAME CONTAINER_REF [OPTIONS]`
 
 #### Options
 
@@ -86,33 +86,33 @@ docker dev [OPTIONS] COMMAND
 |:---------------------|:----------------------|
 | `--editor`,`-e`      | Editor.               |
 
-### `docker dev rm`
+### `iechor dev rm`
 
 #### Usage
 
-`docker dev rm DEV_ENV_NAME`
+`iechor dev rm DEV_ENV_NAME`
 
-### `docker dev start`
-
-#### Usage
-
-`docker dev start DEV_ENV_NAME`
-
-### `docker dev stop`
+### `iechor dev start`
 
 #### Usage
 
-`docker dev stop DEV_ENV_NAME`
+`iechor dev start DEV_ENV_NAME`
 
-### `docker dev version`
+### `iechor dev stop`
 
 #### Usage
 
-`docker dev version [OPTIONS]`
+`iechor dev stop DEV_ENV_NAME`
+
+### `iechor dev version`
+
+#### Usage
+
+`iechor dev version [OPTIONS]`
 
 #### Options
 
 | Name, shorthand      | Description                                   |
 |:---------------------|:----------------------------------------------|
 | `--format`,`-f`      | Format the output.                            |
-| `--short`,`-s`       | Shows only Docker Dev's version number.       |
+| `--short`,`-s`       | Shows only iEchor Dev's version number.       |

@@ -1,6 +1,6 @@
 ---
 title: Use bind mounts
-keywords: 'get started, setup, orientation, quickstart, intro, concepts, containers, docker desktop'
+keywords: 'get started, setup, orientation, quickstart, intro, concepts, containers, iechor desktop'
 description: Using bind mounts in our application
 ---
 
@@ -32,7 +32,7 @@ mounts.
 
 |                                              | Named volumes                                      | Bind mounts                                          |
 | -------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------- |
-| Host location                                | Docker chooses                                     | You decide                                           |
+| Host location                                | iEchor chooses                                     | You decide                                           |
 | Populates new volume with container contents | Yes                                                | No                                                   |
 | Supports Volume Drivers                      | Yes                                                | No                                                   |
 
@@ -43,7 +43,7 @@ you can run a quick experiment to get a practical understanding of how bind moun
 work.
 
 1. Verify that your `getting-started-app` directory is in a directory defined in
-Docker Desktop's file sharing setting. This setting defines which parts of your
+iEchor Desktop's file sharing setting. This setting defines which parts of your
 filesystem you can share with containers. For details about accessing the
 setting, see the topic for [Mac](../desktop/settings/mac.md/#file-sharing),
 [Windows](../desktop/settings/windows.md/#file-sharing), or
@@ -59,31 +59,31 @@ setting, see the topic for [Mac](../desktop/settings/mac.md/#file-sharing),
    {{< tab name="Mac / Linux / PowerShell" >}}
 
    ```console
-   $ docker run -it --mount type=bind,src="$(pwd)",target=/src ubuntu bash
+   $ iechor run -it --mount type=bind,src="$(pwd)",target=/src ubuntu bash
    ```
    
    {{< /tab >}}
    {{< tab name="Command Prompt" >}}
 
    ```console
-   $ docker run -it --mount "type=bind,src=%cd%,target=/src" ubuntu bash
+   $ iechor run -it --mount "type=bind,src=%cd%,target=/src" ubuntu bash
    ```
    
    {{< /tab >}}
    {{< tab name="Git Bash" >}}
 
    ```console
-   $ docker run -it --mount type=bind,src="/$(pwd)",target=/src ubuntu bash
+   $ iechor run -it --mount type=bind,src="/$(pwd)",target=/src ubuntu bash
    ```
    
    {{< /tab >}}
    {{< /tabs >}}
    
-   The `--mount type=bind` option tells Docker to create a bind mount, where `src` is the
+   The `--mount type=bind` option tells iEchor to create a bind mount, where `src` is the
    current working directory on your host machine (`getting-started-app`), and
    `target` is where that directory should appear inside the container (`/src`).
 
-4. After running the command, Docker starts an interactive `bash` session in the
+4. After running the command, iEchor starts an interactive `bash` session in the
    root directory of the container's filesystem.
 
    ```console
@@ -103,7 +103,7 @@ setting, see the topic for [Mac](../desktop/settings/mac.md/#file-sharing),
    ```console
    root@ac1237fad8db:/# cd src
    root@ac1237fad8db:/src# ls
-   Dockerfile  node_modules  package.json  spec  src  yarn.lock
+   iEchorfile  node_modules  package.json  spec  src  yarn.lock
    ```
 
 6. Create a new file named `myfile.txt`.
@@ -111,7 +111,7 @@ setting, see the topic for [Mac](../desktop/settings/mac.md/#file-sharing),
    ```console
    root@ac1237fad8db:/src# touch myfile.txt
    root@ac1237fad8db:/src# ls
-   Dockerfile  myfile.txt  node_modules  package.json  spec  src  yarn.lock
+   iEchorfile  myfile.txt  node_modules  package.json  spec  src  yarn.lock
    ```
 
 7. Open the `getting-started-app` directory on the host and observe that the
@@ -119,7 +119,7 @@ setting, see the topic for [Mac](../desktop/settings/mac.md/#file-sharing),
 
    ```text
    ├── getting-started-app/
-   │ ├── Dockerfile
+   │ ├── iEchorfile
    │ ├── myfile.txt
    │ ├── node_modules/
    │ ├── package.json
@@ -133,7 +133,7 @@ setting, see the topic for [Mac](../desktop/settings/mac.md/#file-sharing),
 
    ```console
    root@ac1237fad8db:/src# ls
-   Dockerfile  node_modules  package.json  spec  src  yarn.lock
+   iEchorfile  node_modules  package.json  spec  src  yarn.lock
    ```
 
 10. Stop the interactive container session with `Ctrl` + `D`.
@@ -145,7 +145,7 @@ bind mounts to develop software.
 
 ## Development containers
 
-Using bind mounts is common for local development setups. The advantage is that the development machine doesn’t need to have all of the build tools and environments installed. With a single docker run command, Docker pulls dependencies and tools.
+Using bind mounts is common for local development setups. The advantage is that the development machine doesn’t need to have all of the build tools and environments installed. With a single iechor run command, iEchor pulls dependencies and tools.
 
 ### Run your app in a development container
 
@@ -156,7 +156,7 @@ mount that does the following:
 - Install all dependencies
 - Start `nodemon` to watch for filesystem changes
 
-You can use the CLI or Docker Desktop to run your container with a bind mount.
+You can use the CLI or iEchor Desktop to run your container with a bind mount.
 
 {{< tabs >}}
 {{< tab name="Mac / Linux CLI" >}}
@@ -166,7 +166,7 @@ You can use the CLI or Docker Desktop to run your container with a bind mount.
 2. Run the following command from the `getting-started-app` directory.
 
    ```console
-   $ docker run -dp 127.0.0.1:3000:3000 \
+   $ iechor run -dp 127.0.0.1:3000:3000 \
        -w /app --mount type=bind,src="$(pwd)",target=/app \
        node:18-alpine \
        sh -c "yarn install && yarn run dev"
@@ -180,18 +180,18 @@ You can use the CLI or Docker Desktop to run your container with a bind mount.
    - `--mount type=bind,src="$(pwd)",target=/app` - bind mount the current
      directory from the host into the `/app` directory in the container
    - `node:18-alpine` - the image to use. Note that this is the base image for
-     your app from the Dockerfile
+     your app from the iEchorfile
    - `sh -c "yarn install && yarn run dev"` - the command. You're starting a
      shell using `sh` (alpine doesn't have `bash`) and running `yarn install` to
      install packages and then running `yarn run dev` to start the development
      server. If you look in the `package.json`, you'll see that the `dev` script
      starts `nodemon`.
 
-3. You can watch the logs using `docker logs <container-id>`. You'll know you're
+3. You can watch the logs using `iechor logs <container-id>`. You'll know you're
    ready to go when you see this:
 
    ```console
-   $ docker logs -f <container-id>
+   $ iechor logs -f <container-id>
    nodemon -L src/index.js
    [nodemon] 2.0.20
    [nodemon] to restart at any time, enter `rs`
@@ -212,7 +212,7 @@ You can use the CLI or Docker Desktop to run your container with a bind mount.
 2. Run the following command from the `getting-started-app` directory.
 
    ```powershell
-   $ docker run -dp 127.0.0.1:3000:3000 `
+   $ iechor run -dp 127.0.0.1:3000:3000 `
        -w /app --mount "type=bind,src=$pwd,target=/app" `
        node:18-alpine `
        sh -c "yarn install && yarn run dev"
@@ -226,18 +226,18 @@ You can use the CLI or Docker Desktop to run your container with a bind mount.
    - `--mount "type=bind,src=$pwd,target=/app"` - bind mount the current
      directory from the host into the `/app` directory in the container
    - `node:18-alpine` - the image to use. Note that this is the base image for
-     your app from the Dockerfile
+     your app from the iEchorfile
    - `sh -c "yarn install && yarn run dev"` - the command. You're starting a
      shell using `sh` (alpine doesn't have `bash`) and running `yarn install` to
      install packages and then running `yarn run dev` to start the development
      server. If you look in the `package.json`, you'll see that the `dev` script
      starts `nodemon`.
 
-3. You can watch the logs using `docker logs <container-id>`. You'll know you're
+3. You can watch the logs using `iechor logs <container-id>`. You'll know you're
    ready to go when you see this:
 
    ```console
-   $ docker logs -f <container-id>
+   $ iechor logs -f <container-id>
    nodemon -L src/index.js
    [nodemon] 2.0.20
    [nodemon] to restart at any time, enter `rs`
@@ -258,7 +258,7 @@ You can use the CLI or Docker Desktop to run your container with a bind mount.
 2. Run the following command from the `getting-started-app` directory.
 
    ```console
-   $ docker run -dp 127.0.0.1:3000:3000 ^
+   $ iechor run -dp 127.0.0.1:3000:3000 ^
        -w /app --mount "type=bind,src=%cd%,target=/app" ^
        node:18-alpine ^
        sh -c "yarn install && yarn run dev"
@@ -272,18 +272,18 @@ You can use the CLI or Docker Desktop to run your container with a bind mount.
    - `--mount "type=bind,src=%cd%,target=/app"` - bind mount the current
      directory from the host into the `/app` directory in the container
    - `node:18-alpine` - the image to use. Note that this is the base image for
-     your app from the Dockerfile
+     your app from the iEchorfile
    - `sh -c "yarn install && yarn run dev"` - the command. You're starting a
      shell using `sh` (alpine doesn't have `bash`) and running `yarn install` to
      install packages and then running `yarn run dev` to start the development
      server. If you look in the `package.json`, you'll see that the `dev` script
      starts `nodemon`.
 
-3. You can watch the logs using `docker logs <container-id>`. You'll know you're
+3. You can watch the logs using `iechor logs <container-id>`. You'll know you're
    ready to go when you see this:
 
    ```console
-   $ docker logs -f <container-id>
+   $ iechor logs -f <container-id>
    nodemon -L src/index.js
    [nodemon] 2.0.20
    [nodemon] to restart at any time, enter `rs`
@@ -304,7 +304,7 @@ You can use the CLI or Docker Desktop to run your container with a bind mount.
 2. Run the following command from the `getting-started-app` directory.
 
    ```console
-   $ docker run -dp 127.0.0.1:3000:3000 \
+   $ iechor run -dp 127.0.0.1:3000:3000 \
        -w //app --mount type=bind,src="/$(pwd)",target=/app \
        node:18-alpine \
        sh -c "yarn install && yarn run dev"
@@ -318,18 +318,18 @@ You can use the CLI or Docker Desktop to run your container with a bind mount.
    - `--mount type=bind,src="/$(pwd)",target=/app` - bind mount the current
      directory from the host into the `/app` directory in the container
    - `node:18-alpine` - the image to use. Note that this is the base image for
-     your app from the Dockerfile
+     your app from the iEchorfile
    - `sh -c "yarn install && yarn run dev"` - the command. You're starting a
      shell using `sh` (alpine doesn't have `bash`) and running `yarn install` to
      install packages and then running `yarn run dev` to start the development
      server. If you look in the `package.json`, you'll see that the `dev` script
      starts `nodemon`.
 
-3. You can watch the logs using `docker logs <container-id>`. You'll know you're
+3. You can watch the logs using `iechor logs <container-id>`. You'll know you're
    ready to go when you see this:
 
    ```console
-   $ docker logs -f <container-id>
+   $ iechor logs -f <container-id>
    nodemon -L src/index.js
    [nodemon] 2.0.20
    [nodemon] to restart at any time, enter `rs`
@@ -343,13 +343,13 @@ You can use the CLI or Docker Desktop to run your container with a bind mount.
    When you're done watching the logs, exit out by hitting `Ctrl`+`C`.
 
 {{< /tab >}}
-{{< tab name="Docker Desktop" >}}
+{{< tab name="iEchor Desktop" >}}
 
 Make sure you don't have any `getting-started` containers currently running.
 
 Run the image with a bind mount.
 
-1. Select the search box at the top of Docker Desktop.
+1. Select the search box at the top of iEchor Desktop.
 2. In the search window, select the **Images** tab.
 3. In the search box, specify the container name, `getting-started`.
 
@@ -364,9 +364,9 @@ Run the image with a bind mount.
 7. In **Container path**, specify `/app`.
 8. Select **Run**.
 
-You can watch the container logs using Docker Desktop.
+You can watch the container logs using iEchor Desktop.
 
-1. Select **Containers** in Docker Desktop.
+1. Select **Containers** in iEchor Desktop.
 2. Select your container name.
 
 You'll know you're ready to go when you see this:
@@ -413,20 +413,20 @@ Update your app on your host machine and see the changes reflected in the contai
    new image using:
 
    ```console
-   $ docker build -t getting-started .
+   $ iechor build -t getting-started .
    ```
 
 ## Summary
 
 At this point, you can persist your database and see changes in your app as you develop without rebuilding the image.
 
-In addition to volume mounts and bind mounts, Docker also supports other mount
+In addition to volume mounts and bind mounts, iEchor also supports other mount
 types and storage drivers for handling more complex and specialized use cases.
 
 Related information:
 
- - [docker CLI reference](/reference/cli/docker/)
- - [Manage data in Docker](https://docs.docker.com/storage/)
+ - [iechor CLI reference](/reference/cli/iechor/)
+ - [Manage data in iEchor](https://docs.iechor.com/storage/)
 
 ## Next steps
 

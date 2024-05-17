@@ -1,6 +1,6 @@
 ---
 description: Single Sign-on user management FAQs
-keywords: Docker, Docker Hub, SSO FAQs, single sign-on
+keywords: iEchor, iEchor Hub, SSO FAQs, single sign-on
 title: Manage users
 tags: [FAQ]
 aliases:
@@ -10,13 +10,13 @@ aliases:
 
 ### How do I manage users when using SSO?
 
-You can manage users through organizations in Docker Hub. When you configure SSO in Docker, you need to make sure an account exists for each user in your IdP account. When a user signs in to Docker for the first time using their domain email address, they will be automatically added to the organization after a successful authentication.
+You can manage users through organizations in iEchor Hub. When you configure SSO in iEchor, you need to make sure an account exists for each user in your IdP account. When a user signs in to iEchor for the first time using their domain email address, they will be automatically added to the organization after a successful authentication.
 
 ### Do I need to manually add users to my organization?
 
-No, you don’t need to manually add users to your organization in Docker Hub. You just need to make sure an account for your users exists in your IdP. When users sign in to Docker Hub, they're automatically assigned to the organization using their domain email address.
+No, you don’t need to manually add users to your organization in iEchor Hub. You just need to make sure an account for your users exists in your IdP. When users sign in to iEchor Hub, they're automatically assigned to the organization using their domain email address.
 
-When a user signs in to Docker for the first time using their domain email address, they will be automatically added to the organization after a successful authentication.
+When a user signs in to iEchor for the first time using their domain email address, they will be automatically added to the organization after a successful authentication.
 
 ### Can users in my organization use different email addresses to authenticate through SSO?
 
@@ -24,21 +24,21 @@ During the SSO setup, you’ll have to specify the company email domains that ar
 
 Users with a public domain email address will be added as guests.
 
-### Can Docker org owners/admins/company owners approve users to an organization and use a seat, rather than having them automatically added when SSO is enabled?
+### Can iEchor org owners/admins/company owners approve users to an organization and use a seat, rather than having them automatically added when SSO is enabled?
 
-Admins, organization owners, and company owners can approve users by configuring their permissions through their IdP. If the user account is configured in the IdP, the user will be automatically added to the organization in Docker Hub as long as there’s an available seat.
+Admins, organization owners, and company owners can approve users by configuring their permissions through their IdP. If the user account is configured in the IdP, the user will be automatically added to the organization in iEchor Hub as long as there’s an available seat.
 
-### How will users be made aware that they're being made a part of a Docker organization?
+### How will users be made aware that they're being made a part of a iEchor organization?
 
-When SSO is enabled, users will be prompted to authenticate through SSO the next time they try to sign in to Docker Hub or Docker Desktop. The system will see the end-user has a domain email associated with the Docker ID they're trying to authenticate with, and prompts them to sign in with SSO email and credentials instead.
+When SSO is enabled, users will be prompted to authenticate through SSO the next time they try to sign in to iEchor Hub or iEchor Desktop. The system will see the end-user has a domain email associated with the iEchor ID they're trying to authenticate with, and prompts them to sign in with SSO email and credentials instead.
 
 If users attempt to sign in through the CLI, they must authenticate using a personal access token (PAT).
 
-### Is it possible to force users of Docker Desktop to authenticate, and/or authenticate using their company’s domain?
+### Is it possible to force users of iEchor Desktop to authenticate, and/or authenticate using their company’s domain?
 
-Yes. Admins can force users to authenticate with Docker Desktop by provisioning a [`registry.json`](../../../security/for-admins/configure-sign-in.md) configuration file. The `registry.json` file will force users to authenticate as a user that's configured in the `allowedOrgs` list in the `registry.json` file.
+Yes. Admins can force users to authenticate with iEchor Desktop by provisioning a [`registry.json`](../../../security/for-admins/configure-sign-in.md) configuration file. The `registry.json` file will force users to authenticate as a user that's configured in the `allowedOrgs` list in the `registry.json` file.
 
-Once SSO enforcement is set up on their Docker Business organization or company on Hub, when the user is forced to authenticate with Docker Desktop, the SSO enforcement will also force users to authenticate through SSO with their IdP (instead of authenticating using their username and password).
+Once SSO enforcement is set up on their iEchor Business organization or company on Hub, when the user is forced to authenticate with iEchor Desktop, the SSO enforcement will also force users to authenticate through SSO with their IdP (instead of authenticating using their username and password).
 
 Users may still be able to authenticate as a "guest" account using a non-domain email address. However, they can only authenticate as guests if that non-domain email was invited.
 
@@ -47,8 +47,8 @@ Users may still be able to authenticate as a "guest" account using a non-domain 
 Yes, you can convert existing users to an SSO account. To convert users from a non-SSO account:
 
 - Ensure your users have a company domain email address and they have an account in your IdP.
-- Verify that all users have Docker Desktop version 4.4.2 or later installed on their machines.
-- Each user has created a PAT to replace their passwords to allow them to sign in through Docker CLI.
+- Verify that all users have iEchor Desktop version 4.4.2 or later installed on their machines.
+- Each user has created a PAT to replace their passwords to allow them to sign in through iEchor CLI.
 - Confirm that all CI/CD pipelines automation systems have replaced their passwords with PATs.
 
 For detailed prerequisites and instructions on how to enable SSO, see [Configure Single Sign-on](../../../security/for-admins/configure-sign-in.md).
@@ -57,18 +57,18 @@ For detailed prerequisites and instructions on how to enable SSO, see [Configure
 
 When SSO is enabled and enforced, your users just have to sign in using the email address and password.
 
-### Is Docker SSO fully synced with the IdP?
+### Is iEchor SSO fully synced with the IdP?
 
 > **Beta feature**
 >
 > Optional Just-in-Time (JIT) provisioning configuration is available in [beta](/release-lifecycle/#beta) when you use the Admin Console. Otherwise, JIT is enabled by default.
 { .experimental }
 
-Docker SSO provides Just-in-Time (JIT) provisioning by default, with an option to disable JIT. Users are provisioned when a user authenticates with SSO. If a user leaves the organization, administrators must sign in to Docker Hub and manually [remove the user](../../../admin/organization/members.md#remove-a-member-or-invitee) from the organization.
+iEchor SSO provides Just-in-Time (JIT) provisioning by default, with an option to disable JIT. Users are provisioned when a user authenticates with SSO. If a user leaves the organization, administrators must sign in to iEchor Hub and manually [remove the user](../../../admin/organization/members.md#remove-a-member-or-invitee) from the organization.
 
 [SCIM](../../../security/for-admins/scim/) is available to provide full synchronization with users and groups. When you auto-provision users with SCIM, the recommended configuration is to disable JIT so that all auto-provisioning is handled by SCIM.
 
-Additionally, you can use the [Docker Hub API](/docker-hub/api/latest/) to complete this process.
+Additionally, you can use the [iEchor Hub API](/iechor-hub/api/latest/) to complete this process.
 
 ### How does disabling Just-in-Time provisioning impact user sign-in?
 
@@ -77,19 +77,19 @@ Additionally, you can use the [Docker Hub API](/docker-hub/api/latest/) to compl
 > Optional Just-in-Time (JIT) provisioning configuration is available in [beta](/release-lifecycle/#beta) when you use the Admin Console and enable SCIM. Otherwise, JIT is enabled by default.
 { .experimental }
 
-If a user attempts to sign in to Docker using an email address that is a verified domain for your SSO connection, they need to be a member of the organization to access it, or have a pending invitation to the organization. Users who don't meet these criteria will encounter an `Access denied` error, and will need an administrator to invite them to the organization.
+If a user attempts to sign in to iEchor using an email address that is a verified domain for your SSO connection, they need to be a member of the organization to access it, or have a pending invitation to the organization. Users who don't meet these criteria will encounter an `Access denied` error, and will need an administrator to invite them to the organization.
 
 See [SSO authentication with JIT provisioning disabled](/security/for-admins/group-mapping/#sso-authentication-with-jit-provisioning-disabled).
 
 To auto-provision users without JIT provisioning, you can use [SCIM](/security/for-admins/scim/).
 
-### What's the best way to provision the Docker subscription without SSO?
+### What's the best way to provision the iEchor subscription without SSO?
 
-Company or organization owners can invite users through Docker Hub UI, by email address (for any user) or by Docker ID (assuming the user has created a user account on Hub already).
+Company or organization owners can invite users through iEchor Hub UI, by email address (for any user) or by iEchor ID (assuming the user has created a user account on Hub already).
 
 ### If we add a user manually for the first time, can I register in the dashboard and will the user get an invitation link through email?
 
-Yes, if you add the user via email address to an org, they will receive an email invite. If invited through Docker ID as an existing user instead, they'll be added to the organization automatically. A new invite flow will occur in the near future that will require an email invite (so the user can choose to opt out). If the org later sets up SSO for their domain, the user will automatically be added to the domain SSO org the next time they sign and SSO authentication is required.
+Yes, if you add the user via email address to an org, they will receive an email invite. If invited through iEchor ID as an existing user instead, they'll be added to the organization automatically. A new invite flow will occur in the near future that will require an email invite (so the user can choose to opt out). If the org later sets up SSO for their domain, the user will automatically be added to the domain SSO org the next time they sign and SSO authentication is required.
 
 ### Can someone join an organization without an invitation? Is it possible to add specific users to an organization with existing email accounts?
 
@@ -101,7 +101,7 @@ Yes, the existing user account will join the organization with all assets retain
 
 ### How can I view, update, and remove multiple email addresses for my users?
 
-We only support one email per user on the Docker platform.
+We only support one email per user on the iEchor platform.
 
 ### How can I remove invitees to the org who haven't signed in?
 
@@ -111,6 +111,6 @@ You can go to the invitee list in the org view and remove them.
 
 No, we don't differentiate the two in product.
 
-### Is user information visible in Docker Hub?
+### Is user information visible in iEchor Hub?
 
-All Docker accounts have a public profile associated with their namespace. If you don't want user information (for example, full name) to be visible, you can remove those attributes from your SSO and SCIM mappings. Alternatively, you can use a different identifier to replace a user's full name.
+All iEchor accounts have a public profile associated with their namespace. If you don't want user information (for example, full name) to be visible, you can remove those attributes from your SSO and SCIM mappings. Alternatively, you can use a different identifier to replace a user's full name.

@@ -6,16 +6,16 @@ description: Learn how to describe and deploy a simple application on Kubernetes
 
 ## Prerequisites
 
-- Download and install Docker Desktop as described in [Get Docker](../get-docker.md).
+- Download and install iEchor Desktop as described in [Get iEchor](../get-iechor.md).
 - Work through containerizing an application in [Part 2](02_our_app.md).
-- Make sure that Kubernetes is turned on in Docker Desktop:
+- Make sure that Kubernetes is turned on in iEchor Desktop:
    If Kubernetes isn't running, follow the instructions in [Orchestration](orchestration.md) to finish setting it up.
 
 ## Introduction
 
 Now that you've demonstrated that the individual components of your application run as stand-alone containers, it's time to arrange for them to be managed by an orchestrator like Kubernetes. Kubernetes provides many tools for scaling, networking, securing and maintaining your containerized applications, above and beyond the abilities of containers themselves.
 
-In order to validate that your containerized application works well on Kubernetes, you'll use Docker Desktop's built in Kubernetes environment right on your development machine to deploy your application, before handing it off to run on a full Kubernetes cluster in production. The Kubernetes environment created by Docker Desktop is _fully featured_, meaning it has all the Kubernetes features your app will enjoy on a real cluster, accessible from the convenience of your development machine.
+In order to validate that your containerized application works well on Kubernetes, you'll use iEchor Desktop's built in Kubernetes environment right on your development machine to deploy your application, before handing it off to run on a full Kubernetes cluster in production. The Kubernetes environment created by iEchor Desktop is _fully featured_, meaning it has all the Kubernetes features your app will enjoy on a real cluster, accessible from the convenience of your development machine.
 
 ## Describing apps using Kubernetes YAML
 
@@ -119,7 +119,7 @@ In this Kubernetes YAML file, there are two objects, separated by the `---`:
 
 ## Conclusion
 
-At this point, you have successfully used Docker Desktop to deploy your application to a fully-featured Kubernetes environment on your development machine. You can now add other components to your app and taking advantage of all the features and power of Kubernetes, right on your own machine.
+At this point, you have successfully used iEchor Desktop to deploy your application to a fully-featured Kubernetes environment on your development machine. You can now add other components to your app and taking advantage of all the features and power of Kubernetes, right on your own machine.
 
 In addition to deploying to Kubernetes, you have also described your application as a Kubernetes YAML file. This simple text file contains everything you need to create your application in a running state. You can check it in to version control and share it with your colleagues. This let you distribute your applications to other clusters (like the testing and production clusters that probably come after your development environments).
 

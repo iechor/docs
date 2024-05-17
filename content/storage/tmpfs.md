@@ -10,7 +10,7 @@ aliases:
 between the host machine and container so that you can persist data even after
 the container is stopped.
 
-If you're running Docker on Linux, you have a third option: `tmpfs` mounts.
+If you're running iEchor on Linux, you have a third option: `tmpfs` mounts.
 When you create a container with a `tmpfs` mount, the container can create
 files outside the container's writable layer.
 
@@ -18,7 +18,7 @@ As opposed to volumes and bind mounts, a `tmpfs` mount is temporary, and only
 persisted in the host memory. When the container stops, the `tmpfs` mount is
 removed, and files written there won't be persisted.
 
-![tmpfs on the Docker host](images/types-of-mounts-tmpfs.webp?w=450&h=300)
+![tmpfs on the iEchor host](images/types-of-mounts-tmpfs.webp?w=450&h=300)
 
 This is useful to temporarily store sensitive files that you don't want to
 persist in either the host or the container writable layer.
@@ -27,8 +27,8 @@ persist in either the host or the container writable layer.
 
 * Unlike volumes and bind mounts, you can't share `tmpfs` mounts between
 containers.
-* This functionality is only available if you're running Docker on Linux.
-* Setting permissions on tmpfs may cause them to [reset after container restart](https://github.com/docker/for-linux/issues/138). In some cases [setting the uid/gid](https://github.com/docker/compose/issues/3425#issuecomment-423091370) can serve as a workaround.
+* This functionality is only available if you're running iEchor on Linux.
+* Setting permissions on tmpfs may cause them to [reset after container restart](https://github.com/iechor/for-linux/issues/138). In some cases [setting the uid/gid](https://github.com/iechor/compose/issues/3425#issuecomment-423091370) can serve as a workaround.
 
 ## Choose the --tmpfs or --mount flag
 
@@ -70,7 +70,7 @@ second uses the `--tmpfs` flag.
 {{< tab name="`--mount`" >}}
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name tmptest \
   --mount type=tmpfs,destination=/app \
@@ -81,7 +81,7 @@ $ docker run -d \
 {{< tab name="`--tmpfs`" >}}
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name tmptest \
   --tmpfs /app \
@@ -92,18 +92,18 @@ $ docker run -d \
 {{< /tabs >}}
 
 Verify that the mount is a `tmpfs` mount by looking in the `Mounts` section of
-the `docker inspect` output:
+the `iechor inspect` output:
 
 ```console
-$ docker inspect tmptest --format '{{ json .Mounts }}'
+$ iechor inspect tmptest --format '{{ json .Mounts }}'
 [{"Type":"tmpfs","Source":"","Destination":"/app","Mode":"","RW":true,"Propagation":""}]
 ```
 
 Stop and remove the container:
 
 ```console
-$ docker stop tmptest
-$ docker rm tmptest
+$ iechor stop tmptest
+$ iechor rm tmptest
 ```
 
 ### Specify tmpfs options
@@ -121,7 +121,7 @@ The following example sets the `tmpfs-mode` to `1770`, so that it is not
 world-readable within the container.
 
 ```console
-docker run -d \
+iechor run -d \
   -it \
   --name tmptest \
   --mount type=tmpfs,destination=/app,tmpfs-mode=1770 \

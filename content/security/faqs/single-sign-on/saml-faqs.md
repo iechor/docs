@@ -1,6 +1,6 @@
 ---
 description: Single Sign-on SAML FAQs
-keywords: Docker, Docker Hub, SSO FAQs, single sign-on, SAML
+keywords: iEchor, iEchor Hub, SSO FAQs, single sign-on, SAML
 title: SAML
 tags: [FAQ]
 aliases:
@@ -18,8 +18,8 @@ The preferred format is your email address, which should also be your Name ID.
 
 ### When you enforce SAML SSO, at what stage is the login required for tracking through SAML? At runtime or install time?
 
-At runtime for Docker Desktop if it’s configured to require authentication to the organization.
+At runtime for iEchor Desktop if it’s configured to require authentication to the organization.
 
-### Do you have any information on how to use the Docker Desktop application in accordance with the SSO users we provide? How can we verify that we're handling the licensing correctly?
+### Do you have any information on how to use the iEchor Desktop application in accordance with the SSO users we provide? How can we verify that we're handling the licensing correctly?
 
-Verify that your users have downloaded the latest version of Docker Desktop. An enhancement in user management observability and capabilities will become available in the future.
+Verify that your users have downloaded the latest version of iEchor Desktop. An enhancement in user management observability and capabilities will become available in the future.

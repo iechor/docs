@@ -1,20 +1,20 @@
 ---
-description: Hints, tips and guidelines for writing clean, reliable Dockerfile instructions
-keywords: parent image, images, dockerfile, best practices, hub, official image
-title: Best practices for Dockerfile instructions 
+description: Hints, tips and guidelines for writing clean, reliable iEchorfile instructions
+keywords: parent image, images, iechorfile, best practices, hub, official image
+title: Best practices for iEchorfile instructions 
 ---
 
 These recommendations are designed to help you create an efficient and
-maintainable Dockerfile.
+maintainable iEchorfile.
 
 ### FROM
 
 Whenever possible, use current official images as the basis for your
-images. Docker recommends the [Alpine image](https://hub.docker.com/_/alpine/) as it
+images. iEchor recommends the [Alpine image](https://hub.iechor.com/_/alpine/) as it
 is tightly controlled and small in size (currently under 6 MB), while still
 being a full Linux distribution.
 
-For more information about the `FROM` instruction, see [Dockerfile reference for the FROM instruction](../../reference/dockerfile.md#from).
+For more information about the `FROM` instruction, see [iEchorfile reference for the FROM instruction](../../reference/iechorfile.md#from).
 
 ### LABEL
 
@@ -26,7 +26,7 @@ The following examples show the different acceptable formats. Explanatory commen
 Strings with spaces must be quoted or the spaces must be escaped. Inner
 quote characters (`"`), must also be escaped. For example:
 
-```dockerfile
+```iechorfile
 # Set one or more individual labels
 LABEL com.example.version="0.0.1-beta"
 LABEL vendor1="ACME Incorporated"
@@ -35,19 +35,19 @@ LABEL com.example.release-date="2015-02-12"
 LABEL com.example.version.is-production=""
 ```
 
-An image can have more than one label. Prior to Docker 1.10, it was recommended
+An image can have more than one label. Prior to iEchor 1.10, it was recommended
 to combine all labels into a single `LABEL` instruction, to prevent extra layers
 from being created. This is no longer necessary, but combining labels is still
 supported. For example:
 
-```dockerfile
+```iechorfile
 # Set multiple labels on one line
 LABEL com.example.version="0.0.1-beta" com.example.release-date="2015-02-12"
 ```
 
 The above example can also be written as:
 
-```dockerfile
+```iechorfile
 # Set multiple labels at once, using line-continuation characters to break long lines
 LABEL vendor=ACME\ Incorporated \
       com.example.is-beta= \
@@ -60,15 +60,15 @@ See [Understanding object labels](../../config/labels-custom-metadata.md)
 for guidelines about acceptable label keys and values. For information about
 querying labels, refer to the items related to filtering in
 [Managing labels on objects](../../config/labels-custom-metadata.md#manage-labels-on-objects).
-See also [LABEL](../../reference/dockerfile.md#label) in the Dockerfile reference.
+See also [LABEL](../../reference/iechorfile.md#label) in the iEchorfile reference.
 
 ### RUN
 
 Split long or complex `RUN` statements on multiple lines separated with
-backslashes to make your Dockerfile more readable, understandable, and
+backslashes to make your iEchorfile more readable, understandable, and
 maintainable.
 
-For more information about `RUN`, see [Dockerfile reference for the RUN instruction](../../reference/dockerfile.md#run).
+For more information about `RUN`, see [iEchorfile reference for the RUN instruction](../../reference/iechorfile.md#run).
 
 #### apt-get
 
@@ -79,7 +79,7 @@ look out for.
 Always combine `RUN apt-get update` with `apt-get install` in the same `RUN`
 statement. For example:
 
-```dockerfile
+```iechorfile
 RUN apt-get update && apt-get install -y \
     package-bar \
     package-baz \
@@ -88,40 +88,40 @@ RUN apt-get update && apt-get install -y \
 ```
 
 Using `apt-get update` alone in a `RUN` statement causes caching issues and
-subsequent `apt-get install` instructions to fail. For example, this issue will occur in the following Dockerfile:
+subsequent `apt-get install` instructions to fail. For example, this issue will occur in the following iEchorfile:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 FROM ubuntu:22.04
 RUN apt-get update
 RUN apt-get install -y curl
 ```
 
-After building the image, all layers are in the Docker cache. Suppose you later
-modify `apt-get install` by adding an extra package as shown in the following Dockerfile:
+After building the image, all layers are in the iEchor cache. Suppose you later
+modify `apt-get install` by adding an extra package as shown in the following iEchorfile:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 FROM ubuntu:22.04
 RUN apt-get update
 RUN apt-get install -y curl nginx
 ```
 
-Docker sees the initial and modified instructions as identical and reuses the
+iEchor sees the initial and modified instructions as identical and reuses the
 cache from previous steps. As a result the `apt-get update` isn't executed
 because the build uses the cached version. Because the `apt-get update` isn't
 run, your build can potentially get an outdated version of the `curl` and
 `nginx` packages.
 
-Using `RUN apt-get update && apt-get install -y` ensures your Dockerfile
+Using `RUN apt-get update && apt-get install -y` ensures your iEchorfile
 installs the latest package versions with no further coding or manual
 intervention. This technique is known as cache busting. You can also achieve
 cache busting by specifying a package version. This is known as version pinning.
 For example:
 
-```dockerfile
+```iechorfile
 RUN apt-get update && apt-get install -y \
     package-bar \
     package-baz \
@@ -135,7 +135,7 @@ in required packages.
 Below is a well-formed `RUN` instruction that demonstrates all the `apt-get`
 recommendations.
 
-```dockerfile
+```iechorfile
 RUN apt-get update && apt-get install -y \
     aufs-tools \
     automake \
@@ -168,11 +168,11 @@ Official Debian and Ubuntu images [automatically run `apt-get clean`](https://gi
 
 Some `RUN` commands depend on the ability to pipe the output of one command into another, using the pipe character (`|`), as in the following example:
 
-```dockerfile
+```iechorfile
 RUN wget -O - https://some.site | wc -l > /number
 ```
 
-Docker executes these commands using the `/bin/sh -c` interpreter, which only
+iEchor executes these commands using the `/bin/sh -c` interpreter, which only
 evaluates the exit code of the last operation in the pipe to determine success.
 In the example above, this build step succeeds and produces a new image so long
 as the `wc -l` command succeeds, even if the `wget` command fails.
@@ -181,7 +181,7 @@ If you want the command to fail due to an error at any stage in the pipe,
 prepend `set -o pipefail &&` to ensure that an unexpected error prevents the
 build from inadvertently succeeding. For example:
 
-```dockerfile
+```iechorfile
 RUN set -o pipefail && wget -O - https://some.site | wc -l > /number
 ```
 
@@ -193,7 +193,7 @@ RUN set -o pipefail && wget -O - https://some.site | wc -l > /number
 > Debian-based images, consider using the _exec_ form of `RUN` to explicitly
 > choose a shell that does support the `pipefail` option. For example:
 >
-> ```dockerfile
+> ```iechorfile
 > RUN ["/bin/bash", "-c", "set -o pipefail && wget -O - https://some.site | wc -l > /number"]
 > ```
 
@@ -209,13 +209,13 @@ for any service-based image.
 In most other cases, `CMD` should be given an interactive shell, such as bash,
 python and perl. For example, `CMD ["perl", "-de0"]`, `CMD ["python"]`, or `CMD
 ["php", "-a"]`. Using this form means that when you execute something like
-`docker run -it python`, you’ll get dropped into a usable shell, ready to go.
+`iechor run -it python`, you’ll get dropped into a usable shell, ready to go.
 `CMD` should rarely be used in the manner of `CMD ["param", "param"]` in
-conjunction with [`ENTRYPOINT`](../../reference/dockerfile.md#entrypoint), unless
+conjunction with [`ENTRYPOINT`](../../reference/iechorfile.md#entrypoint), unless
 you and your expected users are already quite familiar with how `ENTRYPOINT`
 works.
 
-For more information about `CMD`, see [Dockerfile reference for the CMD instruction](../../reference/dockerfile.md#cmd).
+For more information about `CMD`, see [iEchorfile reference for the CMD instruction](../../reference/iechorfile.md#cmd).
 
 ### EXPOSE
 
@@ -225,12 +225,12 @@ your application. For example, an image containing the Apache web server would
 use `EXPOSE 80`, while an image containing MongoDB would use `EXPOSE 27017` and
 so on.
 
-For external access, your users can execute `docker run` with a flag indicating
+For external access, your users can execute `iechor run` with a flag indicating
 how to map the specified port to the port of their choice.
-For container linking, Docker provides environment variables for the path from
+For container linking, iEchor provides environment variables for the path from
 the recipient container back to the source (for example, `MYSQL_PORT_3306_TCP`).
 
-For more information about `EXPOSE`, see [Dockerfile reference for the EXPOSE instruction](../../reference/dockerfile.md#expose).
+For more information about `EXPOSE`, see [iEchorfile reference for the EXPOSE instruction](../../reference/iechorfile.md#expose).
 
 ### ENV
 
@@ -246,7 +246,7 @@ variables specific to services you want to containerize, such as Postgres’s
 Lastly, `ENV` can also be used to set commonly used version numbers so that
 version bumps are easier to maintain, as seen in the following example:
 
-```dockerfile
+```iechorfile
 ENV PG_MAJOR=9.3
 ENV PG_VERSION=9.3.4
 RUN curl -SL https://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/postgres && …
@@ -260,10 +260,10 @@ automatically bump the version of the software in your container.
 Each `ENV` line creates a new intermediate layer, just like `RUN` commands. This
 means that even if you unset the environment variable in a future layer, it
 still persists in this layer and its value can be dumped. You can test this by
-creating a Dockerfile like the following, and then building it.
+creating a iEchorfile like the following, and then building it.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM alpine
 ENV ADMIN_USER="mark"
 RUN echo $ADMIN_USER > ./mark
@@ -271,7 +271,7 @@ RUN unset ADMIN_USER
 ```
 
 ```console
-$ docker run --rm test sh -c 'echo $ADMIN_USER'
+$ iechor run --rm test sh -c 'echo $ADMIN_USER'
 
 mark
 ```
@@ -279,13 +279,13 @@ mark
 To prevent this, and really unset the environment variable, use a `RUN` command
 with shell commands, to set, use, and unset the variable all in a single layer.
 You can separate your commands with `;` or `&&`. If you use the second method,
-and one of the commands fails, the `docker build` also fails. This is usually a
-good idea. Using `\` as a line continuation character for Linux Dockerfiles
+and one of the commands fails, the `iechor build` also fails. This is usually a
+good idea. Using `\` as a line continuation character for Linux iEchorfiles
 improves readability. You could also put all of the commands into a shell script
 and have the `RUN` command just run that shell script.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM alpine
 RUN export ADMIN_USER="mark" \
     && echo $ADMIN_USER > ./mark \
@@ -294,11 +294,11 @@ CMD sh
 ```
 
 ```console
-$ docker run --rm test sh -c 'echo $ADMIN_USER'
+$ iechor run --rm test sh -c 'echo $ADMIN_USER'
 
 ```
 
-For more information about `ENV`, see [Dockerfile reference for the ENV instruction](../../reference/dockerfile.md#env).
+For more information about `ENV`, see [iEchorfile reference for the ENV instruction](../../reference/iechorfile.md#env).
 
 ### ADD or COPY
 
@@ -314,7 +314,7 @@ container temporarily to execute a `RUN` instruction, you can often substitute
 the `COPY` instruction with a bind mount instead. For example, to temporarily
 add a `requirements.txt` file for a `RUN pip install` instruction:
 
-```dockerfile
+```iechorfile
 RUN --mount=type=bind,source=requirements.txt,target=/tmp/requirements.txt \
     pip install --requirement /tmp/requirements.txt
 ```
@@ -330,14 +330,14 @@ as part of your build. `ADD` is better than manually adding files using
 something like `wget` and `tar`, because it ensures a more precise build cache.
 `ADD` also has built-in support for checksum validation of the remote
 resources, and a protocol for parsing branches, tags, and subdirectories from
-[Git URLs](../../reference/cli/docker/image/build.md#git-repositories).
+[Git URLs](../../reference/cli/iechor/image/build.md#git-repositories).
 
 The following example uses `ADD` to download a .NET installer. Combined with
 multi-stage builds, only the .NET runtime remains in the final stage, no
 intermediate files.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 FROM scratch AS src
 ARG DOTNET_VERSION=8.0.0-preview.6.23329.7
@@ -359,8 +359,8 @@ RUN ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 ```
 
 For more information about `ADD` or `COPY`, see the following:
-- [Dockerfile reference for the ADD instruction](../../reference/dockerfile.md#add)
-- [Dockerfile reference for the COPY instruction](../../reference/dockerfile.md#copy)
+- [iEchorfile reference for the ADD instruction](../../reference/iechorfile.md#add)
+- [iEchorfile reference for the COPY instruction](../../reference/iechorfile.md#copy)
 
 
 ### ENTRYPOINT
@@ -371,7 +371,7 @@ default flags.
 
 The following is an example of an image for the command line tool `s3cmd`:
 
-```dockerfile
+```iechorfile
 ENTRYPOINT ["s3cmd"]
 CMD ["--help"]
 ```
@@ -379,13 +379,13 @@ CMD ["--help"]
 You can use the following command to run the image and show the command's help:
 
 ```console
-$ docker run s3cmd
+$ iechor run s3cmd
 ```
 
 Or, you can use the right parameters to execute a command, like in the following example:
 
 ```console
-$ docker run s3cmd ls s3://mybucket
+$ iechor run s3cmd ls s3://mybucket
 ```
 
 This is useful because the image name can double as a reference to the binary as
@@ -395,7 +395,7 @@ The `ENTRYPOINT` instruction can also be used in combination with a helper
 script, allowing it to function in a similar way to the command above, even
 when starting the tool may require more than one step.
 
-For example, the [Postgres Official Image](https://hub.docker.com/_/postgres/)
+For example, the [Postgres Official Image](https://hub.iechor.com/_/postgres/)
 uses the following script as its `ENTRYPOINT`:
 
 ```bash
@@ -416,14 +416,14 @@ exec "$@"
 ```
 
 
-This script uses [the `exec` Bash command](https://wiki.bash-hackers.org/commands/builtin/exec) so that the final running application becomes the container's PID 1. This allows the application to receive any Unix signals sent to the container. For more information, see the [`ENTRYPOINT` reference](../../reference/dockerfile.md#entrypoint).
+This script uses [the `exec` Bash command](https://wiki.bash-hackers.org/commands/builtin/exec) so that the final running application becomes the container's PID 1. This allows the application to receive any Unix signals sent to the container. For more information, see the [`ENTRYPOINT` reference](../../reference/iechorfile.md#entrypoint).
 
 In the following example, a helper script is copied into the container and run via `ENTRYPOINT` on
 container start:
 
-```dockerfile
-COPY ./docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
+```iechorfile
+COPY ./iechor-entrypoint.sh /
+ENTRYPOINT ["/iechor-entrypoint.sh"]
 CMD ["postgres"]
 ```
 
@@ -432,39 +432,39 @@ This script lets you interact with Postgres in several ways.
 It can simply start Postgres:
 
 ```console
-$ docker run postgres
+$ iechor run postgres
 ```
 
 Or, you can use it to run Postgres and pass parameters to the server:
 
 ```console
-$ docker run postgres postgres --help
+$ iechor run postgres postgres --help
 ```
 
 Lastly, you can use it to start a totally different tool, such as Bash:
 
 ```console
-$ docker run --rm -it postgres bash
+$ iechor run --rm -it postgres bash
 ```
 
-For more information about `ENTRYPOINT`, see [Dockerfile reference for the ENTRYPOINT instruction](../../reference/dockerfile.md#entrypoint).
+For more information about `ENTRYPOINT`, see [iEchorfile reference for the ENTRYPOINT instruction](../../reference/iechorfile.md#entrypoint).
 
 ### VOLUME
 
 You should use the `VOLUME` instruction to expose any database storage area,
-configuration storage, or files and folders created by your Docker container. You
+configuration storage, or files and folders created by your iEchor container. You
 are strongly encouraged to use `VOLUME` for any combination of mutable or user-serviceable
 parts of your image.
 
-For more information about `VOLUME`, see [Dockerfile reference for the VOLUME instruction](../../reference/dockerfile.md#volume).
+For more information about `VOLUME`, see [iEchorfile reference for the VOLUME instruction](../../reference/iechorfile.md#volume).
 
 ### USER
 
 If a service can run without privileges, use `USER` to change to a non-root
-user. Start by creating the user and group in the Dockerfile with something
+user. Start by creating the user and group in the iEchorfile with something
 like the following example:
 
-```dockerfile
+```iechorfile
 RUN groupadd -r postgres && useradd --no-log-init -r -g postgres postgres
 ```
 
@@ -480,7 +480,7 @@ RUN groupadd -r postgres && useradd --no-log-init -r -g postgres postgres
 >
 > Due to an [unresolved bug](https://github.com/golang/go/issues/13548) in the
 > Go archive/tar package's handling of sparse files, attempting to create a user
-> with a significantly large UID inside a Docker container can lead to disk
+> with a significantly large UID inside a iEchor container can lead to disk
 > exhaustion because `/var/log/faillog` in the container layer is filled with
 > NULL (\0) characters. A workaround is to pass the `--no-log-init` flag to
 > useradd. The Debian/Ubuntu `adduser` wrapper does not support this flag.
@@ -493,7 +493,7 @@ running it as non-`root`, consider using [“gosu”](https://github.com/tianon/
 Lastly, to reduce layers and complexity, avoid switching `USER` back and forth
 frequently.
 
-For more information about `USER`, see [Dockerfile reference for the USER instruction](../../reference/dockerfile.md#user).
+For more information about `USER`, see [iEchorfile reference for the USER instruction](../../reference/iechorfile.md#user).
 
 ### WORKDIR
 
@@ -502,22 +502,22 @@ For clarity and reliability, you should always use absolute paths for your
 like `RUN cd … && do-something`, which are hard to read, troubleshoot, and
 maintain.
 
-For more information about `WORKDIR`, see [Dockerfile reference for the WORKDIR instruction](../../reference/dockerfile.md#workdir).
+For more information about `WORKDIR`, see [iEchorfile reference for the WORKDIR instruction](../../reference/iechorfile.md#workdir).
 
 ### ONBUILD
 
-An `ONBUILD` command executes after the current Dockerfile build completes.
+An `ONBUILD` command executes after the current iEchorfile build completes.
 `ONBUILD` executes in any child image derived `FROM` the current image. Think
-of the `ONBUILD` command as an instruction that the parent Dockerfile gives
-to the child Dockerfile.
+of the `ONBUILD` command as an instruction that the parent iEchorfile gives
+to the child iEchorfile.
 
-A Docker build executes `ONBUILD` commands before any command in a child
-Dockerfile.
+A iEchor build executes `ONBUILD` commands before any command in a child
+iEchorfile.
 
 `ONBUILD` is useful for images that are going to be built `FROM` a given
 image. For example, you would use `ONBUILD` for a language stack image that
 builds arbitrary user software written in that language within the
-Dockerfile, as you can see in [Ruby’s `ONBUILD` variants](https://github.com/docker-library/ruby/blob/c43fef8a60cea31eb9e7d960a076d633cb62ba8d/2.4/jessie/onbuild/Dockerfile).
+iEchorfile, as you can see in [Ruby’s `ONBUILD` variants](https://github.com/iechor-library/ruby/blob/c43fef8a60cea31eb9e7d960a076d633cb62ba8d/2.4/jessie/onbuild/iEchorfile).
 
 Images built with `ONBUILD` should get a separate tag. For example,
 `ruby:1.9-onbuild` or `ruby:2.0-onbuild`.
@@ -525,6 +525,6 @@ Images built with `ONBUILD` should get a separate tag. For example,
 Be careful when putting `ADD` or `COPY` in `ONBUILD`. The onbuild image
 fails catastrophically if the new build's context is missing the resource being
 added. Adding a separate tag, as recommended above, helps mitigate this by
-allowing the Dockerfile author to make a choice.
+allowing the iEchorfile author to make a choice.
 
-For more information about `ONBUILD`, see [Dockerfile reference for the ONBUILD instruction](../../reference/dockerfile.md#onbuild).
+For more information about `ONBUILD`, see [iEchorfile reference for the ONBUILD instruction](../../reference/iechorfile.md#onbuild).

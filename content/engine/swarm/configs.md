@@ -1,12 +1,12 @@
 ---
-title: Store configuration data using Docker Configs
+title: Store configuration data using iEchor Configs
 description: How to store configuration data separate from the runtime
 keywords: swarm, configuration, configs
 ---
 
 ## About configs
 
-Docker swarm service configs  allow you to store non-sensitive information,
+iEchor swarm service configs  allow you to store non-sensitive information,
 such as configuration files, outside a service's image or running containers.
 This allows you to keep your images as generic as possible, without the need to
 bind-mount configuration files into the containers or use environment variables.
@@ -20,7 +20,7 @@ Config values can be generic strings or binary content (up to 500 kb in size).
 
 > **Note**
 >
-> Docker configs are only available to swarm services, not to
+> iEchor configs are only available to swarm services, not to
 > standalone containers. To use this feature, consider adapting your container
 > to run as a service with a scale of 1.
 
@@ -28,17 +28,17 @@ Configs are supported on both Linux and Windows services.
 
 ### Windows support
 
-Docker includes support for configs on Windows containers, but there are differences
+iEchor includes support for configs on Windows containers, but there are differences
 in the implementations, which are called out in the examples below. Keep the
 following notable differences in mind:
 
 - Config files with custom targets are not directly bind-mounted into Windows
   containers, since Windows does not support non-directory file bind-mounts.
   Instead, configs for a container are all mounted in
-  `C:\ProgramData\Docker\internal\configs` (an implementation detail which
+  `C:\ProgramData\iEchor\internal\configs` (an implementation detail which
   should not be relied upon by applications) within the container. Symbolic
   links are used to point from there to the desired target of the config within
-  the container. The default target is `C:\ProgramData\Docker\configs`.
+  the container. The default target is `C:\ProgramData\iEchor\configs`.
 
 - When creating a service which uses Windows containers, the options to specify
   UID, GID, and mode are not supported for configs. Configs are currently only
@@ -51,9 +51,9 @@ following notable differences in mind:
   to disk on worker nodes. For more information, refer to
   [Deploy services to a swarm](services.md#gmsa-for-swarm).
 
-## How Docker manages configs
+## How iEchor manages configs
 
-When you add a config to the swarm, Docker sends the config to the swarm manager
+When you add a config to the swarm, iEchor sends the config to the swarm manager
 over a mutual TLS connection. The config is stored in the Raft log, which is
 encrypted. The entire Raft log is replicated across the other managers, ensuring
 the same high availability guarantees for configs as for the rest of the swarm
@@ -62,7 +62,7 @@ management data.
 When you grant a newly-created or running service access to a config, the config
 is mounted as a file in the container. The location of the mount point within
 the container defaults to `/<config-name>` in Linux containers. In Windows
-containers, configs are all mounted into `C:\ProgramData\Docker\configs` and
+containers, configs are all mounted into `C:\ProgramData\iEchor\configs` and
 symbolic links are created to the desired location, which defaults to
 `C:\<config-name>`.
 
@@ -97,31 +97,31 @@ To update or roll back configs more easily, consider adding a version
 number or date to the config name. This is made easier by the ability to control
 the mount point of the config within a given container.
 
-To update a stack, make changes to your Compose file, then re-run `docker
+To update a stack, make changes to your Compose file, then re-run `iechor
 stack deploy -c <new-compose-file> <stack-name>`. If you use a new config in
 that file, your services start using them. Keep in mind that configurations
 are immutable, so you can't change the file for an existing service.
 Instead, you create a new config to use a different file
 
-You can run `docker stack rm` to stop the app and take down the stack. This
-removes any config that was created by `docker stack deploy` with the same stack
+You can run `iechor stack rm` to stop the app and take down the stack. This
+removes any config that was created by `iechor stack deploy` with the same stack
 name. This removes _all_ configs, including those not referenced by services and
-those remaining after a `docker service update --config-rm`.
+those remaining after a `iechor service update --config-rm`.
 
-## Read more about `docker config` commands
+## Read more about `iechor config` commands
 
 Use these links to read about specific commands, or continue to the
 [example about using configs with a service](#advanced-example-use-configs-with-a-nginx-service).
 
-- [`docker config create`](../../reference/cli/docker/config/create.md)
-- [`docker config inspect`](../../reference/cli/docker/config/inspect.md)
-- [`docker config ls`](../../reference/cli/docker/config/ls.md)
-- [`docker config rm`](../../reference/cli/docker/config/rm.md)
+- [`iechor config create`](../../reference/cli/iechor/config/create.md)
+- [`iechor config inspect`](../../reference/cli/iechor/config/inspect.md)
+- [`iechor config ls`](../../reference/cli/iechor/config/ls.md)
+- [`iechor config rm`](../../reference/cli/iechor/config/rm.md)
 
 ## Examples
 
 This section includes graduated examples which illustrate how to use
-Docker configs.
+iEchor configs.
 
 > **Note**
 >
@@ -131,8 +131,8 @@ Docker configs.
 
 ### Defining and using configs in compose files
 
-The `docker stack` command supports defining configs in a Compose file.
-However, the `configs` key is not supported for `docker compose`. See
+The `iechor stack` command supports defining configs in a Compose file.
+However, the `configs` key is not supported for `iechor compose`. See
 [the Compose file reference](../../compose/compose-file/legacy-versions.md) for details.
 
 ### Simple example: Get started with configs
@@ -141,12 +141,12 @@ This simple example shows how configs work in just a few commands. For a
 real-world example, continue to
 [Advanced example: Use configs with a Nginx service](#advanced-example-use-configs-with-a-nginx-service).
 
-1.  Add a config to Docker. The `docker config create` command reads standard
+1.  Add a config to iEchor. The `iechor config create` command reads standard
     input because the last argument, which represents the file to read the
     config from, is set to `-`.
 
     ```console
-    $ echo "This is a config" | docker config create my-config -
+    $ echo "This is a config" | iechor config create my-config -
     ```
 
 2.  Create a `redis` service and grant it access to the config. By default,
@@ -154,36 +154,36 @@ real-world example, continue to
     you can customize the file name on the container using the `target` option.
 
     ```console
-    $ docker service create --name redis --config my-config redis:alpine
+    $ iechor service create --name redis --config my-config redis:alpine
     ```
 
-3.  Verify that the task is running without issues using `docker service ps`. If
+3.  Verify that the task is running without issues using `iechor service ps`. If
     everything is working, the output looks similar to this:
 
     ```console
-    $ docker service ps redis
+    $ iechor service ps redis
 
     ID            NAME     IMAGE         NODE              DESIRED STATE  CURRENT STATE          ERROR  PORTS
     bkna6bpn8r1a  redis.1  redis:alpine  ip-172-31-46-109  Running        Running 8 seconds ago
     ```
 
-4.  Get the ID of the `redis` service task container using `docker ps`, so that
-    you can use `docker container exec` to connect to the container and read the contents
+4.  Get the ID of the `redis` service task container using `iechor ps`, so that
+    you can use `iechor container exec` to connect to the container and read the contents
     of the config data file, which defaults to being readable by all and has the
     same name as the name of the config. The first command below illustrates
     how to find the container ID, and the second and third commands use shell
     completion to do this automatically.
 
     ```console
-    $ docker ps --filter name=redis -q
+    $ iechor ps --filter name=redis -q
 
     5cb1c2348a59
 
-    $ docker container exec $(docker ps --filter name=redis -q) ls -l /my-config
+    $ iechor container exec $(iechor ps --filter name=redis -q) ls -l /my-config
 
     -r--r--r--    1 root     root            12 Jun  5 20:49 my-config
 
-    $ docker container exec $(docker ps --filter name=redis -q) cat /my-config
+    $ iechor container exec $(iechor ps --filter name=redis -q) cat /my-config
 
     This is a config
     ```
@@ -193,13 +193,13 @@ real-world example, continue to
 
     ```console
 
-    $ docker config ls
+    $ iechor config ls
 
     ID                          NAME                CREATED             UPDATED
     fzwcfuqjkvo5foqu7ts7ls578   hello               31 minutes ago      31 minutes ago
 
 
-    $ docker config rm my-config
+    $ iechor config rm my-config
 
     Error response from daemon: rpc error: code = 3 desc = config 'my-config' is
     in use by the following service: redis
@@ -209,7 +209,7 @@ real-world example, continue to
     service.
 
     ```console
-    $ docker service update --config-rm my-config redis
+    $ iechor service update --config-rm my-config redis
     ```
 
 7.  Repeat steps 3 and 4 again, verifying that the service no longer has access
@@ -217,23 +217,23 @@ real-world example, continue to
     `service update` command redeploys the service.
 
     ```none
-    $ docker container exec -it $(docker ps --filter name=redis -q) cat /my-config
+    $ iechor container exec -it $(iechor ps --filter name=redis -q) cat /my-config
 
     cat: can't open '/my-config': No such file or directory
     ```
 
-8.  Stop and remove the service, and remove the config from Docker.
+8.  Stop and remove the service, and remove the config from iEchor.
 
     ```console
-    $ docker service rm redis
+    $ iechor service rm redis
 
-    $ docker config rm my-config
+    $ iechor config rm my-config
     ```
 
 ### Simple example: Use configs in a Windows service
 
 This is a very simple example which shows how to use configs with a Microsoft
-IIS service running on Docker for Windows running Windows containers on
+IIS service running on iEchor for Windows running Windows containers on
 Microsoft Windows 10.  It is a naive example that stores the webpage in a config.
 
 This example assumes that you have PowerShell installed.
@@ -242,9 +242,9 @@ This example assumes that you have PowerShell installed.
 
     ```html
     <html lang="en">
-      <head><title>Hello Docker</title></head>
+      <head><title>Hello iEchor</title></head>
       <body>
-        <p>Hello Docker! You have deployed a HTML page.</p>
+        <p>Hello iEchor! You have deployed a HTML page.</p>
       </body>
     </html>
     ```
@@ -252,19 +252,19 @@ This example assumes that you have PowerShell installed.
 2.  If you have not already done so, initialize or join the swarm.
 
     ```powershell
-    docker swarm init
+    iechor swarm init
     ```
 
 3.  Save the `index.html` file as a swarm config named `homepage`.
 
     ```powershell
-    docker config create homepage index.html
+    iechor config create homepage index.html
     ```
 
 4.  Create an IIS service and grant it access to the `homepage` config.
 
     ```powershell
-    docker service create
+    iechor service create
         --name my-iis
         --publish published=8000,target=8000
         --config src=homepage,target="\inetpub\wwwroot\index.html"
@@ -277,9 +277,9 @@ This example assumes that you have PowerShell installed.
 6.  Remove the service and the config.
 
     ```powershell
-    docker service rm my-iis
+    iechor service rm my-iis
 
-    docker config rm homepage
+    iechor config rm homepage
     ```
 
 ### Example: Use a templated config
@@ -292,7 +292,7 @@ name as its argument. The template will be rendered when container is created.
 
     ```html
     <html lang="en">
-      <head><title>Hello Docker</title></head>
+      <head><title>Hello iEchor</title></head>
       <body>
         <p>Hello {{ env "HELLO" }}! I'm service {{ .Service.Name }}.</p>
       </body>
@@ -303,16 +303,16 @@ name as its argument. The template will be rendered when container is created.
     parameter `--template-driver` and specify `golang` as template engine.
 
     ```console
-    $ docker config create --template-driver golang homepage index.html.tmpl
+    $ iechor config create --template-driver golang homepage index.html.tmpl
     ```
 
 3.  Create a service that runs Nginx and has access to the environment variable
     HELLO and to the config.
 
     ```console
-    $ docker service create \
+    $ iechor service create \
          --name hello-template \
-         --env HELLO="Docker" \
+         --env HELLO="iEchor" \
          --config source=homepage,target=/usr/share/nginx/html/index.html \
          --publish published=3000,target=80 \
          nginx:alpine
@@ -325,9 +325,9 @@ name as its argument. The template will be rendered when container is created.
     $ curl http://0.0.0.0:3000
 
     <html lang="en">
-      <head><title>Hello Docker</title></head>
+      <head><title>Hello iEchor</title></head>
       <body>
-        <p>Hello Docker! I'm service hello-template.</p>
+        <p>Hello iEchor! I'm service hello-template.</p>
       </body>
     </html>
     ```
@@ -336,7 +336,7 @@ name as its argument. The template will be rendered when container is created.
 
 This example is divided into two parts.
 [The first part](#generate-the-site-certificate) is all about generating
-the site certificate and does not directly involve Docker configs at all, but
+the site certificate and does not directly involve iEchor configs at all, but
 it sets up [the second part](#configure-the-nginx-container), where you store
 and use the site certificate as a series of secrets and the Nginx configuration
 as a config. The example shows how to set options on the config, such as the
@@ -348,7 +348,7 @@ Generate a root CA and TLS certificate and key for your site. For production
 sites, you may want to use a service such as `Let’s Encrypt` to generate the
 TLS certificate and key, but this example uses command-line tools. This step
 is a little complicated, but is only a set-up step so that you have
-something to store as a Docker secret. If you want to skip these sub-steps,
+something to store as a iEchor secret. If you want to skip these sub-steps,
 you can [use Let's Encrypt](https://letsencrypt.org/getting-started/) to
 generate the site key and certificate, name the files `site.key` and
 `site.crt`, and skip to
@@ -366,7 +366,7 @@ generate the site key and certificate, name the files `site.key` and
     $ openssl req \
               -new -key "root-ca.key" \
               -out "root-ca.csr" -sha256 \
-              -subj '/C=US/ST=CA/L=San Francisco/O=Docker/CN=Swarm Secret Example CA'
+              -subj '/C=US/ST=CA/L=San Francisco/O=iEchor/CN=Swarm Secret Example CA'
     ```
 
 3.  Configure the root CA. Edit a new file called `root-ca.cnf` and paste
@@ -399,7 +399,7 @@ generate the site key and certificate, name the files `site.key` and
 
     ```console
     $ openssl req -new -key "site.key" -out "site.csr" -sha256 \
-              -subj '/C=US/ST=CA/L=San Francisco/O=Docker/CN=localhost'
+              -subj '/C=US/ST=CA/L=San Francisco/O=iEchor/CN=localhost'
     ```
 
 7.  Configure the site certificate. Edit a new file called `site.cnf` and
@@ -432,7 +432,7 @@ generate the site key and certificate, name the files `site.key` and
 #### Configure the Nginx container
 
 1.  Produce a very basic Nginx configuration that serves static files over HTTPS.
-    The TLS certificate and key are stored as Docker secrets so that they
+    The TLS certificate and key are stored as iEchor secrets so that they
     can be rotated easily.
 
     In the current directory, create a new file called `site.conf` with the
@@ -458,22 +458,22 @@ generate the site key and certificate, name the files `site.key` and
     In these examples, the secret name and the file name are the same.
 
     ```console
-    $ docker secret create site.key site.key
+    $ iechor secret create site.key site.key
 
-    $ docker secret create site.crt site.crt
+    $ iechor secret create site.crt site.crt
     ```
 
-3.  Save the `site.conf` file in a Docker config. The first parameter is the
+3.  Save the `site.conf` file in a iEchor config. The first parameter is the
     name of the config, and the second parameter is the file to read it from.
 
     ```console
-    $ docker config create site.conf site.conf
+    $ iechor config create site.conf site.conf
     ```
 
     List the configs:
 
     ```console
-    $ docker config ls
+    $ iechor config ls
 
     ID                          NAME                CREATED             UPDATED
     4ory233120ccg7biwvy11gl5z   site.conf           4 seconds ago       4 seconds ago
@@ -485,7 +485,7 @@ generate the site key and certificate, name the files `site.key` and
     owner and that owner's group, not the world.
 
     ```console
-    $ docker service create \
+    $ iechor service create \
          --name nginx \
          --secret site.key \
          --secret site.crt \
@@ -504,12 +504,12 @@ generate the site key and certificate, name the files `site.key` and
 5.  Verify that the Nginx service is running.
 
     ```console
-    $ docker service ls
+    $ iechor service ls
 
     ID            NAME   MODE        REPLICAS  IMAGE
     zeskcec62q24  nginx  replicated  1/1       nginx:latest
 
-    $ docker service ps nginx
+    $ iechor service ps nginx
 
     NAME                  IMAGE         NODE  DESIRED STATE  CURRENT STATE          ERROR  PORTS
     nginx.1.9ls3yo9ugcls  nginx:latest  moby  Running        Running 3 minutes ago
@@ -552,21 +552,21 @@ generate the site key and certificate, name the files `site.key` and
     $ openssl s_client -connect 0.0.0.0:3000 -CAfile root-ca.crt
 
     CONNECTED(00000003)
-    depth=1 /C=US/ST=CA/L=San Francisco/O=Docker/CN=Swarm Secret Example CA
+    depth=1 /C=US/ST=CA/L=San Francisco/O=iEchor/CN=Swarm Secret Example CA
     verify return:1
-    depth=0 /C=US/ST=CA/L=San Francisco/O=Docker/CN=localhost
+    depth=0 /C=US/ST=CA/L=San Francisco/O=iEchor/CN=localhost
     verify return:1
     ---
     Certificate chain
-     0 s:/C=US/ST=CA/L=San Francisco/O=Docker/CN=localhost
-       i:/C=US/ST=CA/L=San Francisco/O=Docker/CN=Swarm Secret Example CA
+     0 s:/C=US/ST=CA/L=San Francisco/O=iEchor/CN=localhost
+       i:/C=US/ST=CA/L=San Francisco/O=iEchor/CN=Swarm Secret Example CA
     ---
     Server certificate
     -----BEGIN CERTIFICATE-----
     …
     -----END CERTIFICATE-----
-    subject=/C=US/ST=CA/L=San Francisco/O=Docker/CN=localhost
-    issuer=/C=US/ST=CA/L=San Francisco/O=Docker/CN=Swarm Secret Example CA
+    subject=/C=US/ST=CA/L=San Francisco/O=iEchor/CN=localhost
+    issuer=/C=US/ST=CA/L=San Francisco/O=iEchor/CN=Swarm Secret Example CA
     ---
     No client certificate CA names sent
     ---
@@ -594,11 +594,11 @@ generate the site key and certificate, name the files `site.key` and
     config.
 
     ```console
-    $ docker service rm nginx
+    $ iechor service rm nginx
 
-    $ docker secret rm site.crt site.key
+    $ iechor secret rm site.crt site.key
 
-    $ docker config rm site.conf
+    $ iechor config rm site.conf
     ```
 
 You have now configured a Nginx service with its configuration decoupled from
@@ -630,38 +630,38 @@ configuration file.
     }
     ```
 
-2.  Create a new Docker config using the new `site.conf`, called `site-v2.conf`.
+2.  Create a new iEchor config using the new `site.conf`, called `site-v2.conf`.
 
     ```bah
-    $ docker config create site-v2.conf site.conf
+    $ iechor config create site-v2.conf site.conf
     ```
 
 3.  Update the `nginx` service to use the new config instead of the old one.
 
     ```console
-    $ docker service update \
+    $ iechor service update \
       --config-rm site.conf \
       --config-add source=site-v2.conf,target=/etc/nginx/conf.d/site.conf,mode=0440 \
       nginx
     ```
 
 4.  Verify that the `nginx` service is fully re-deployed, using
-    `docker service ps nginx`. When it is, you can remove the old `site.conf`
+    `iechor service ps nginx`. When it is, you can remove the old `site.conf`
     config.
 
     ```console
-    $ docker config rm site.conf
+    $ iechor config rm site.conf
     ```
 
 5.  To clean up, you can remove the `nginx` service, as well as the secrets and
     configs.
 
     ```console
-    $ docker service rm nginx
+    $ iechor service rm nginx
 
-    $ docker secret rm site.crt site.key
+    $ iechor secret rm site.crt site.key
 
-    $ docker config rm site-v2.conf
+    $ iechor config rm site-v2.conf
     ```
 
 You have now updated your `nginx` service's configuration without the need to

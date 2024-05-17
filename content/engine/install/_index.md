@@ -1,17 +1,17 @@
 ---
-title: Install Docker Engine
-description: Learn how to choose the best method for you to install Docker Engine. This client-server
+title: Install iEchor Engine
+description: Learn how to choose the best method for you to install iEchor Engine. This client-server
   application is available on Linux, Mac, Windows, and as a static binary.
-keywords: install engine, docker engine install, install docker engine, docker engine
-  installation, engine install, docker ce installation, docker ce install, engine
-  installer, installing docker engine, docker server install, docker desktop vs docker engine
+keywords: install engine, iechor engine install, install iechor engine, iechor engine
+  installation, engine install, iechor ce installation, iechor ce install, engine
+  installer, installing iechor engine, iechor server install, iechor desktop vs iechor engine
 aliases:
 - /cs-engine/
 - /cs-engine/1.12/
 - /cs-engine/1.12/upgrade/
 - /cs-engine/1.13/
 - /cs-engine/1.13/upgrade/
-- /ee/docker-ee/oracle/
+- /ee/iechor-ee/oracle/
 - /ee/supported-platforms/
 - /en/latest/installation/
 - /engine/installation/
@@ -19,25 +19,25 @@ aliases:
 - /engine/installation/linux/
 - /engine/installation/linux/archlinux/
 - /engine/installation/linux/cruxlinux/
-- /engine/installation/linux/docker-ce/
-- /engine/installation/linux/docker-ee/
-- /engine/installation/linux/docker-ee/oracle/
+- /engine/installation/linux/iechor-ce/
+- /engine/installation/linux/iechor-ee/
+- /engine/installation/linux/iechor-ee/oracle/
 - /engine/installation/linux/frugalware/
 - /engine/installation/linux/gentoolinux/
 - /engine/installation/linux/oracle/
 - /engine/installation/linux/other/
 - /engine/installation/oracle/
 - /enterprise/supported-platforms/
-- /install/linux/docker-ee/oracle/
+- /install/linux/iechor-ee/oracle/
 ---
 
-This section describes how to install Docker Engine on Linux, also known as
-Docker CE. Docker Engine is also available for Windows, macOS, and Linux,
-through Docker Desktop. For instructions on how to install Docker Desktop, see:
+This section describes how to install iEchor Engine on Linux, also known as
+iEchor CE. iEchor Engine is also available for Windows, macOS, and Linux,
+through iEchor Desktop. For instructions on how to install iEchor Desktop, see:
 
-- [Docker Desktop for Linux](../../desktop/install/linux-install.md)
-- [Docker Desktop for Mac (macOS)](../../desktop/install/mac-install.md)
-- [Docker Desktop for Windows](../../desktop/install/windows-install.md)
+- [iEchor Desktop for Linux](../../desktop/install/linux-install.md)
+- [iEchor Desktop for Mac (macOS)](../../desktop/install/mac-install.md)
+- [iEchor Desktop for Windows](../../desktop/install/windows-install.md)
 
 ## Supported platforms
 
@@ -56,7 +56,7 @@ through Docker Desktop. For instructions on how to install Docker Desktop, see:
 
 > **Note**
 >
-> While the following instructions may work, Docker doesn't test or verify
+> While the following instructions may work, iEchor doesn't test or verify
 > installation on distro derivatives.
 
 - If you use Debian derivatives such as "BunsenLabs Linux", "Kali Linux" or 
@@ -69,19 +69,19 @@ through Docker Desktop. For instructions on how to install Docker Desktop, see:
   substituting the version of your distro for the corresponding Ubuntu release.
   Refer to the documentation of your distro to find which Ubuntu release
   corresponds with your derivative version.
-- Some Linux distros provide a package of Docker Engine through their
+- Some Linux distros provide a package of iEchor Engine through their
   package repositories. These packages are built and maintained by the Linux
   distro's package maintainers and may have differences in configuration
-  or are built from modified source code. Docker isn't involved in releasing these
+  or are built from modified source code. iEchor isn't involved in releasing these
   packages and you should report any bugs or issues involving these packages to
   your Linux distro's issue tracker.
 
-Docker provides [binaries](binaries.md) for manual installation of Docker Engine.
+iEchor provides [binaries](binaries.md) for manual installation of iEchor Engine.
 These binaries are statically linked and you can use them on any Linux distro.
 
 ## Release channels
 
-Docker Engine has two types of update channels, **stable** and **test**:
+iEchor Engine has two types of update channels, **stable** and **test**:
 
 * The **stable** channel gives you the latest versions released for general availability.
 * The **test** channel gives you pre-release versions that are ready for testing before
@@ -92,10 +92,10 @@ early-access features that are subject to breaking changes.
 
 ## Support
 
-Docker Engine is an open source project, supported by the Moby project maintainers
-and community members. Docker doesn't provide support for Docker Engine.
-Docker provides support for Docker products, including Docker Desktop, which uses
-Docker Engine as one of its components.
+iEchor Engine is an open source project, supported by the Moby project maintainers
+and community members. iEchor doesn't provide support for iEchor Engine.
+iEchor provides support for iEchor products, including iEchor Desktop, which uses
+iEchor Engine as one of its components.
 
 For information about the open source project, refer to the
 [Moby project website](https://mobyproject.org/).
@@ -106,7 +106,7 @@ Patch releases are always backward compatible with its major and minor version.
 
 ### Licensing
 
-Docker Engine is licensed under the Apache License, Version 2.0. See
+iEchor Engine is licensed under the Apache License, Version 2.0. See
 [LICENSE](https://github.com/moby/moby/blob/master/LICENSE) for the full
 license text.
 
@@ -114,11 +114,11 @@ license text.
 
 If you discover a security issue, we request that you bring it to our attention immediately.
 
-DO NOT file a public issue. Instead, submit your report privately to security@docker.com.
+DO NOT file a public issue. Instead, submit your report privately to security@iechor.com.
 
-Security reports are greatly appreciated, and Docker will publicly thank you for it.
+Security reports are greatly appreciated, and iEchor will publicly thank you for it.
 
 ## Get started
 
-After setting up Docker, you can learn the basics with
-[Getting started with Docker](../../get-started/index.md).
+After setting up iEchor, you can learn the basics with
+[Getting started with iEchor](../../get-started/index.md).

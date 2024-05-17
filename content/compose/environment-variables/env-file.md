@@ -1,7 +1,7 @@
 ---
 description: Understand the accepted syntax for declaring environment variables with an environment file
-keywords: fig, composition, compose, docker, orchestration, environment, env file
-title: Syntax for environment files in Docker Compose
+keywords: fig, composition, compose, iechor, orchestration, environment, env file
+title: Syntax for environment files in iEchor Compose
 aliases:
 - /compose/env-file/
 ---

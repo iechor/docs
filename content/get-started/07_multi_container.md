@@ -1,7 +1,7 @@
 ---
 title: Multi container apps
 keywords: get started, setup, orientation, quickstart, intro, concepts, containers,
-  docker desktop
+  iechor desktop
 description: Using more than one container in your application
 ---
 
@@ -37,17 +37,17 @@ In the following steps, you'll create the network first and then attach the MySQ
 1. Create the network.
 
    ```console
-   $ docker network create todo-app
+   $ iechor network create todo-app
    ```
 
 2. Start a MySQL container and attach it to the network. You're also going to define a few environment variables that the
-   database will use to initialize the database. To learn more about the MySQL environment variables, see the "Environment Variables" section in the [MySQL Docker Hub listing](https://hub.docker.com/_/mysql/).
+   database will use to initialize the database. To learn more about the MySQL environment variables, see the "Environment Variables" section in the [MySQL iEchor Hub listing](https://hub.iechor.com/_/mysql/).
 
    {{< tabs >}}
    {{< tab name="Mac / Linux / Git Bash" >}}
    
    ```console
-   $ docker run -d \
+   $ iechor run -d \
        --network todo-app --network-alias mysql \
        -v todo-mysql-data:/var/lib/mysql \
        -e MYSQL_ROOT_PASSWORD=secret \
@@ -59,7 +59,7 @@ In the following steps, you'll create the network first and then attach the MySQ
    {{< tab name="PowerShell" >}}
 
    ```powershell
-   $ docker run -d `
+   $ iechor run -d `
        --network todo-app --network-alias mysql `
        -v todo-mysql-data:/var/lib/mysql `
        -e MYSQL_ROOT_PASSWORD=secret `
@@ -71,7 +71,7 @@ In the following steps, you'll create the network first and then attach the MySQ
    {{< tab name="Command Prompt" >}}
 
    ```console
-   $ docker run -d ^
+   $ iechor run -d ^
        --network todo-app --network-alias mysql ^
        -v todo-mysql-data:/var/lib/mysql ^
        -e MYSQL_ROOT_PASSWORD=secret ^
@@ -86,13 +86,13 @@ In the following steps, you'll create the network first and then attach the MySQ
 
    > **Tip**
    >
-   > You'll notice a volume named `todo-mysql-data` in the above command that is mounted at `/var/lib/mysql`, which is where MySQL stores its data. However, you never ran a `docker volume create` command. Docker recognizes you want to use a named volume and creates one automatically for you.
+   > You'll notice a volume named `todo-mysql-data` in the above command that is mounted at `/var/lib/mysql`, which is where MySQL stores its data. However, you never ran a `iechor volume create` command. iEchor recognizes you want to use a named volume and creates one automatically for you.
    { .tip }
 
 3. To confirm you have the database up and running, connect to the database and verify that it connects.
 
    ```console
-   $ docker exec -it <mysql-container-id> mysql -u root -p
+   $ iechor exec -it <mysql-container-id> mysql -u root -p
    ```
 
    When the password prompt comes up, type in `secret`. In the MySQL shell, list the databases and verify
@@ -136,7 +136,7 @@ which ships with a lot of tools that are useful for troubleshooting or debugging
 1. Start a new container using the nicolaka/netshoot image. Make sure to connect it to the same network.
 
    ```console
-   $ docker run -it --network todo-app nicolaka/netshoot
+   $ iechor run -it --network todo-app nicolaka/netshoot
    ```
 
 2. Inside the container, you're going to use the `dig` command, which is a useful DNS tool. You're going to look up
@@ -169,7 +169,7 @@ which ships with a lot of tools that are useful for troubleshooting or debugging
 
    In the "ANSWER SECTION", you will see an `A` record for `mysql` that resolves to `172.23.0.2`
    (your IP address will most likely have a different value). While `mysql` isn't normally a valid hostname,
-   Docker was able to resolve it to the IP address of the container that had that network alias. Remember, you used the
+   iEchor was able to resolve it to the IP address of the container that had that network alias. Remember, you used the
    `--network-alias` earlier.
 
    What this means is that your app only simply needs to connect to a host named `mysql` and it'll talk to the
@@ -187,7 +187,7 @@ The todo app supports the setting of a few environment variables to specify MySQ
 > **Note**
 >
 > While using env vars to set connection settings is generally accepted for development, it's highly discouraged
-> when running applications in production. Diogo Monica, a former lead of security at Docker,
+> when running applications in production. Diogo Monica, a former lead of security at iEchor,
 > [wrote a fantastic blog post](https://diogomonica.com/2017/03/27/why-you-shouldnt-use-env-variables-for-secret-data/)
 > explaining why.
 >
@@ -196,7 +196,7 @@ The todo app supports the setting of a few environment variables to specify MySQ
 > also support env vars with a `_FILE` suffix to point to a file containing the variable.
 >
 > As an example, setting the `MYSQL_PASSWORD_FILE` var will cause the app to use the contents of the referenced file
-> as the connection password. Docker doesn't do anything to support these env vars. Your app will need to know to look for
+> as the connection password. iEchor doesn't do anything to support these env vars. Your app will need to know to look for
 > the variable and get the file contents.
 
 You can now start your dev-ready container.
@@ -207,7 +207,7 @@ You can now start your dev-ready container.
    {{< tab name="Mac / Linux" >}}
 
    ```console
-   $ docker run -dp 127.0.0.1:3000:3000 \
+   $ iechor run -dp 127.0.0.1:3000:3000 \
      -w /app -v "$(pwd):/app" \
      --network todo-app \
      -e MYSQL_HOST=mysql \
@@ -223,7 +223,7 @@ You can now start your dev-ready container.
    In Windows, run this command in PowerShell.
 
    ```powershell
-   $ docker run -dp 127.0.0.1:3000:3000 `
+   $ iechor run -dp 127.0.0.1:3000:3000 `
      -w /app -v "$(pwd):/app" `
      --network todo-app `
      -e MYSQL_HOST=mysql `
@@ -239,7 +239,7 @@ You can now start your dev-ready container.
    In Windows, run this command in Command Prompt.
 
    ```console
-   $ docker run -dp 127.0.0.1:3000:3000 ^
+   $ iechor run -dp 127.0.0.1:3000:3000 ^
      -w /app -v "%cd%:/app" ^
      --network todo-app ^
      -e MYSQL_HOST=mysql ^
@@ -254,7 +254,7 @@ You can now start your dev-ready container.
    {{< tab name="Git Bash" >}}
 
    ```console
-   $ docker run -dp 127.0.0.1:3000:3000 \
+   $ iechor run -dp 127.0.0.1:3000:3000 \
      -w //app -v "/$(pwd):/app" \
      --network todo-app \
      -e MYSQL_HOST=mysql \
@@ -268,7 +268,7 @@ You can now start your dev-ready container.
    {{< /tab >}}
    {{< /tabs >}}
 
-2. If you look at the logs for the container (`docker logs -f <container-id>`), you should see a message similar to the following, which indicates it's
+2. If you look at the logs for the container (`iechor logs -f <container-id>`), you should see a message similar to the following, which indicates it's
    using the mysql database.
 
    ```console
@@ -287,7 +287,7 @@ You can now start your dev-ready container.
    is `secret`.
 
    ```console
-   $ docker exec -it <mysql-container-id> mysql -p todos
+   $ iechor exec -it <mysql-container-id> mysql -p todos
    ```
 
    And in the mysql shell, run the following:
@@ -310,7 +310,7 @@ At this point, you have an application that now stores its data in an external d
 container. You learned a little bit about container networking and service discovery using DNS.
 
 Related information:
- - [docker CLI reference](/reference/cli/docker/)
+ - [iechor CLI reference](/reference/cli/iechor/)
  - [Networking overview](../network/index.md)
 
 ## Next steps
@@ -319,7 +319,7 @@ There's a good chance you are starting to feel a little overwhelmed with everyth
 this application. You have to create a network, start containers, specify all of the environment variables, expose
 ports, and more. That's a lot to remember and it's certainly making things harder to pass along to someone else.
 
-In the next section, you'll learn about Docker Compose. With Docker Compose, you can share your application stacks in a
+In the next section, you'll learn about iEchor Compose. With iEchor Compose, you can share your application stacks in a
 much easier way and let others spin them up with a single, simple command.
 
-{{< button text="Use Docker Compose" url="08_using_compose.md" >}}
+{{< button text="Use iEchor Compose" url="08_using_compose.md" >}}

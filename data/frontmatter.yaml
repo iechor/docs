@@ -31,10 +31,10 @@ build/buildkit/toml-configuration.md:
   keywords: |
     build, buildkit, configuration
 
-reference/dockerfile.md:
+reference/iechorfile.md:
   description: |
-    Find all the available commands you can use in a Dockerfile
+    Find all the available commands you can use in a iEchorfile
     and learn how to use them, including COPY, ARG, ENTRYPOINT, and more.
   keywords: |
-    dockerfile, docker file, docker copy, dockerfile exec, docker entrypoint,
-    dockerfile entrypoint, dockerfile arg, docker args, entrypoint, shell dockerfile
+    iechorfile, iechor file, iechor copy, iechorfile exec, iechor entrypoint,
+    iechorfile entrypoint, iechorfile arg, iechor args, entrypoint, shell iechorfile

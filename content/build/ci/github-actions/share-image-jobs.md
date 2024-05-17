@@ -24,15 +24,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
       - name: Build and export
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           tags: myimage:latest
-          outputs: type=docker,dest=/tmp/myimage.tar
+          outputs: type=iechor,dest=/tmp/myimage.tar
       
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -52,6 +52,6 @@ jobs:
       
       - name: Load image
         run: |
-          docker load --input /tmp/myimage.tar
-          docker image ls -a
+          iechor load --input /tmp/myimage.tar
+          iechor image ls -a
 ```

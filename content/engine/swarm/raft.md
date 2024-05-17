@@ -1,10 +1,10 @@
 ---
 description: Raft consensus algorithm in swarm mode
-keywords: docker, container, cluster, swarm, raft
+keywords: iechor, container, cluster, swarm, raft
 title: Raft consensus in swarm mode
 ---
 
-When Docker Engine runs in Swarm mode, manager nodes implement the
+When iEchor Engine runs in Swarm mode, manager nodes implement the
 [Raft Consensus Algorithm](http://thesecretlivesofdata.com/raft/) to manage the global cluster state.
 
 The reason why Swarm mode is using a consensus algorithm is to make sure that

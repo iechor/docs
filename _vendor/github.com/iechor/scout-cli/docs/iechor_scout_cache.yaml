@@ -1,0 +1,38 @@
+command: iechor scout cache
+short: Manage iEchor Scout cache and temporary files
+long: Manage iEchor Scout cache and temporary files
+pname: iechor scout
+plink: iechor_scout.yaml
+cname:
+    - iechor scout cache df
+    - iechor scout cache prune
+clink:
+    - iechor_scout_cache_df.yaml
+    - iechor_scout_cache_prune.yaml
+inherited_options:
+    - option: debug
+      value_type: bool
+      default_value: "false"
+      description: Debug messages
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: verbose-debug
+      value_type: bool
+      default_value: "false"
+      description: Verbose debug
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

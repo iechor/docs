@@ -1,7 +1,7 @@
 ---
-title: Docker design principles
-description: Docker extension design
-keywords: Docker, extensions, design
+title: iEchor design principles
+description: iEchor extension design
+keywords: iEchor, extensions, design
 ---
 
 ## Provide actionable guidance

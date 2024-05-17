@@ -1,9 +1,9 @@
 ---
 description: Learn how to remove seats from your subscription
-keywords: Docker, Docker Hub, subscription, update, remove, seats, docker core
+keywords: iEchor, iEchor Hub, subscription, update, remove, seats, iechor core
 title: Remove seats from your subscription
 aliases:
-- /docker-hub/billing/remove-seats/
+- /iechor-hub/billing/remove-seats/
 - /subscription/remove-seats/
 ---
 
@@ -17,10 +17,10 @@ For example, if you receive your billing on the 8th of every month for 10 seats 
 
 >**Important**
 >
->If you have a [sales-assisted Docker Business subscription](details.md#sales-assisted), contact your account manager to remove seats from your subscription. 
+>If you have a [sales-assisted iEchor Business subscription](details.md#sales-assisted), contact your account manager to remove seats from your subscription. 
 { .important }
 
-1. Sign in to your [Docker Hub](https://hub.docker.com) account.
+1. Sign in to your [iEchor Hub](https://hub.iechor.com) account.
 
 2. Select **Organizations** and then choose your organization.
 

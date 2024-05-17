@@ -12,7 +12,7 @@ The top-level `volumes` declaration lets you configure named volumes that can be
 >
 > Working with large repositories or monorepos, or with virtual file systems that are no longer scaling with your codebase? 
 > Compose now takes advantage of [Synchronized file shares](../../desktop/synchronized-file-sharing.md) and automatically creates file shares for bind mounts. 
-> Ensure you're signed in to Docker with a paid subscription and have enabled both **Access experimental features** and **Manage Synchronized file shares with Compose** in Docker Desktop's settings.
+> Ensure you're signed in to iEchor with a paid subscription and have enabled both **Access experimental features** and **Manage Synchronized file shares with Compose** in iEchor Desktop's settings.
 { .tip }
 
 ## Example
@@ -38,7 +38,7 @@ volumes:
 
 The `db-data` volume is mounted at the `/var/lib/backup/data` and `/etc/data` container paths for backup and backend respectively.
 
-Running `docker compose up` creates the volume if it doesn't already exist. Otherwise, the existing volume is used and is recreated if it's manually deleted outside of Compose.
+Running `iechor compose up` creates the volume if it doesn't already exist. Otherwise, the existing volume is used and is recreated if it's manually deleted outside of Compose.
 
 ## Attributes
 
@@ -65,7 +65,7 @@ volumes:
     driver_opts:
       type: "nfs"
       o: "addr=10.40.0.199,nolock,soft,rw"
-      device: ":/docker/example"
+      device: ":/iechor/example"
 ```
 
 ### external
@@ -115,7 +115,7 @@ volumes:
       - "com.example.label-with-empty-value"
 ```
 
-Compose sets `com.docker.compose.project` and `com.docker.compose.volume` labels.
+Compose sets `com.iechor.compose.project` and `com.iechor.compose.volume` labels.
 
 ### name
 
@@ -138,7 +138,7 @@ volumes:
     name: ${DATABASE_VOLUME}
 ```
 
-Running `docker compose up` uses the volume called `my_volume_001`. 
+Running `iechor compose up` uses the volume called `my_volume_001`. 
 
 It can also be used in conjunction with the `external` property. This means the name of the volume used to lookup the actual volume on the platform is set separately from the name used to refer to it within the Compose file:
 

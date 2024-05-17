@@ -1,7 +1,7 @@
 ---
 title: Overview of the Extensions SDK
-description: Overall index for Docker Extensions SDK documentation
-keywords: Docker, Extensions, sdk
+description: Overall index for iEchor Extensions SDK documentation
+keywords: iEchor, Extensions, sdk
 aliases:
 - /desktop/extensions-sdk/dev/overview/
 grid:
@@ -10,11 +10,11 @@ grid:
     icon: "checklist"
     link: "/desktop/extensions-sdk/process/"
   - title: "Quickstart guide"
-    description: Follow the quickstart guide to create a basic Docker extension quickly.
+    description: Follow the quickstart guide to create a basic iEchor extension quickly.
     icon: "explore"
     link: "/desktop/extensions-sdk/quickstart/"
   - title: "View the design guidelines"
-    description: Ensure your extension aligns to Docker's design guidelines and principles.
+    description: Ensure your extension aligns to iEchor's design guidelines and principles.
     icon: "design_services"
     link: "/desktop/extensions-sdk/design/design-guidelines/"
   - title: "Publish your extension"
@@ -22,7 +22,7 @@ grid:
     icon: "publish"
     link: "/desktop/extensions-sdk/extensions/"
   - title: "Interacting with Kubernetes"
-    description: Find information on how to interact indirectly with a Kubernetes cluster from your Docker extension.
+    description: Find information on how to interact indirectly with a Kubernetes cluster from your iEchor extension.
     icon: "multiple_stop"
     link: "/desktop/extensions-sdk/dev/kubernetes/"
   - title: "Multi-arch extensions"
@@ -31,19 +31,19 @@ grid:
     link: "/desktop/extensions-sdk/extensions/multi-arch/"
 ---
 
-The resources in this section help you create your own Docker extension.
+The resources in this section help you create your own iEchor extension.
 
-The Docker CLI tool provides a set of commands to help you build and publish your extension, packaged as a 
-specially formatted Docker image.
+The iEchor CLI tool provides a set of commands to help you build and publish your extension, packaged as a 
+specially formatted iEchor image.
 
 At the root of the image filesystem is a `metadata.json` file which describes the content of the extension. 
-It's a fundamental element of a Docker extension.
+It's a fundamental element of a iEchor extension.
 
 An extension can contain a UI part and backend parts that run either on the host or in the Desktop virtual machine.
 For further information, see [Architecture](architecture/index.md).
 
-You distribute extensions through Docker Hub. However, you can develop them locally without the need to push 
-the extension to Docker Hub. See [Extensions distribution](extensions/DISTRIBUTION.md) for further details.
+You distribute extensions through iEchor Hub. However, you can develop them locally without the need to push 
+the extension to iEchor Hub. See [Extensions distribution](extensions/DISTRIBUTION.md) for further details.
 
 {{< include "extensions-form.md" >}}
 

@@ -11,7 +11,7 @@ body:
     attributes:
       label: Location
       description: Where did you find the broken link?
-      placeholder: https://docs.docker.com/
+      placeholder: https://docs.iechor.com/
     validations:
       required: true
   - type: input
@@ -19,7 +19,7 @@ body:
     attributes:
       label: Broken link
       description: Where does the broken link point to?
-      placeholder: https://docs.docker.com/
+      placeholder: https://docs.iechor.com/
     validations:
       required: true
   - type: textarea

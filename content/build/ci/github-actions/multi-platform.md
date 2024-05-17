@@ -9,9 +9,9 @@ the `platforms` option, as shown in the following example:
 
 > **Note**
 >
-> - For a list of available platforms, see the [Docker Setup Buildx](https://github.com/marketplace/actions/docker-setup-buildx)
+> - For a list of available platforms, see the [iEchor Setup Buildx](https://github.com/marketplace/actions/iechor-setup-buildx)
 >   action.
-> - If you want support for more platforms, you can use QEMU with the [Docker Setup QEMU](https://github.com/docker/setup-qemu-action)
+> - If you want support for more platforms, you can use QEMU with the [iEchor Setup QEMU](https://github.com/iechor/setup-qemu-action)
 >   action.
 
 ```yaml
@@ -21,26 +21,26 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: iechor/setup-qemu-action@v3
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -51,17 +51,17 @@ jobs:
 ## Distribute build across multiple runners
 
 In the previous example, each platform is built on the same runner which can
-take a long time depending on the number of platforms and your Dockerfile.
+take a long time depending on the number of platforms and your iEchorfile.
 
 To solve this issue you can use a matrix strategy to distribute the build for
 each platform across multiple runners and create manifest list using the
-[`buildx imagetools create` command](../../../reference/cli/docker/buildx/imagetools/create.md).
+[`buildx imagetools create` command](../../../reference/cli/iechor/buildx/imagetools/create.md).
 
 The following workflow will build the image for each platform on a dedicated
 runner using a matrix strategy and push by digest. Then, the `merge` job will
-create a manifest list and push it to Docker Hub.
+create a manifest list and push it to iEchor Hub.
 
-This example also uses the [`metadata` action](https://github.com/docker/metadata-action)
+This example also uses the [`metadata` action](https://github.com/iechor/metadata-action)
 to set tags and labels.
 
 ```yaml
@@ -93,27 +93,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Docker meta
+      - name: iEchor meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: ${{ env.REGISTRY_IMAGE }}
       
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: iechor/setup-qemu-action@v3
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       
       - name: Build and push by digest
         id: build
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           platforms: ${{ matrix.platform }}
@@ -146,38 +146,38 @@ jobs:
           pattern: digests-*
           merge-multiple: true
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
-      - name: Docker meta
+      - name: iEchor meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: ${{ env.REGISTRY_IMAGE }}
       
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       
       - name: Create manifest list and push
         working-directory: /tmp/digests
         run: |
-          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+          iechor buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$IECHOR_METADATA_OUTPUT_JSON") \
             $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
       
       - name: Inspect image
         run: |
-          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }}
+          iechor buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }}
 ```
 
 ### With Bake
 
 It's also possible to build on multiple runners using Bake, with the
-[bake action](https://github.com/docker/bake-action).
+[bake action](https://github.com/iechor/bake-action).
 
-You can find a live example [in this GitHub repository](https://github.com/crazy-max/docker-linguist).
+You can find a live example [in this GitHub repository](https://github.com/crazy-max/iechor-linguist).
 
 The following example achieves the same results as described in
 [the previous section](#distribute-build-across-multiple-runners).
@@ -187,8 +187,8 @@ variable "DEFAULT_TAG" {
   default = "app:local"
 }
 
-// Special target: https://github.com/docker/metadata-action#bake-definition
-target "docker-metadata-action" {
+// Special target: https://github.com/iechor/metadata-action#bake-definition
+target "iechor-metadata-action" {
   tags = ["${DEFAULT_TAG}"]
 }
 
@@ -198,12 +198,12 @@ group "default" {
 }
 
 target "image" {
-  inherits = ["docker-metadata-action"]
+  inherits = ["iechor-metadata-action"]
 }
 
 target "image-local" {
   inherits = ["image"]
-  output = ["type=docker"]
+  output = ["type=iechor"]
 }
 
 target "image-all" {
@@ -238,15 +238,15 @@ jobs:
       - name: Create matrix
         id: platforms
         run: |
-          echo "matrix=$(docker buildx bake image-all --print | jq -cr '.target."image-all".platforms')" >>${GITHUB_OUTPUT}
+          echo "matrix=$(iechor buildx bake image-all --print | jq -cr '.target."image-all".platforms')" >>${GITHUB_OUTPUT}
       
       - name: Show matrix
         run: |
           echo ${{ steps.platforms.outputs.matrix }}
       
-      - name: Docker meta
+      - name: iEchor meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: ${{ env.REGISTRY_IMAGE }}
       
@@ -286,23 +286,23 @@ jobs:
           path: /tmp
       
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: iechor/setup-qemu-action@v3
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       
       - name: Build
         id: bake
-        uses: docker/bake-action@v4
+        uses: iechor/bake-action@v4
         with:
           files: |
-            ./docker-bake.hcl
+            ./iechor-bake.hcl
             /tmp/bake-meta.json
           targets: image
           set: |
@@ -342,22 +342,22 @@ jobs:
           pattern: digests-*
           merge-multiple: true
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
-      - name: Login to DockerHub
-        uses: docker/login-action@v3
+      - name: Login to iEchorHub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       
       - name: Create manifest list and push
         working-directory: /tmp/digests
         run: |
-          docker buildx imagetools create $(jq -cr '.target."docker-metadata-action".tags | map(select(startswith("${{ env.REGISTRY_IMAGE }}")) | "-t " + .) | join(" ")' /tmp/bake-meta.json) \
+          iechor buildx imagetools create $(jq -cr '.target."iechor-metadata-action".tags | map(select(startswith("${{ env.REGISTRY_IMAGE }}")) | "-t " + .) | join(" ")' /tmp/bake-meta.json) \
             $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
       
       - name: Inspect image
         run: |
-          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:$(jq -r '.target."docker-metadata-action".args.DOCKER_META_VERSION' /tmp/bake-meta.json)
+          iechor buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:$(jq -r '.target."iechor-metadata-action".args.IECHOR_META_VERSION' /tmp/bake-meta.json)
 ```

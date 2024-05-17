@@ -1,6 +1,6 @@
 ---
-description: Learn how to use the Journald logging driver with Docker Engine
-keywords: journald, systemd-journald, docker, logging, driver
+description: Learn how to use the Journald logging driver with iEchor Engine
+keywords: journald, systemd-journald, iechor, logging, driver
 title: Journald logging driver
 aliases:
   - /engine/reference/logging/journald/
@@ -10,7 +10,7 @@ aliases:
 The `journald` logging driver sends container logs to the
 [`systemd` journal](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html).
 Log entries can be retrieved using the `journalctl` command, through use of the
-`journal` API, or using the `docker logs` command.
+`journal` API, or using the `iechor logs` command.
 
 In addition to the text of the log message itself, the `journald` log driver
 stores the following metadata in the journal with each message:
@@ -19,7 +19,7 @@ stores the following metadata in the journal with each message:
 | :----------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `CONTAINER_ID`                       | The container ID truncated to 12 characters.                                                                                                          |
 | `CONTAINER_ID_FULL`                  | The full 64-character container ID.                                                                                                                   |
-| `CONTAINER_NAME`                     | The container name at the time it was started. If you use `docker rename` to rename a container, the new name isn't reflected in the journal entries. |
+| `CONTAINER_NAME`                     | The container name at the time it was started. If you use `iechor rename` to rename a container, the new name isn't reflected in the journal entries. |
 | `CONTAINER_TAG`, `SYSLOG_IDENTIFIER` | The container tag ([log tag option documentation](log_tags.md)).                                                                                      |
 | `CONTAINER_PARTIAL_MESSAGE`          | A field that flags log integrity. Improve logging of long log lines.                                                                                  |
 
@@ -27,10 +27,10 @@ stores the following metadata in the journal with each message:
 
 To use the `journald` driver as the default logging driver, set the `log-driver`
 and `log-opts` keys to appropriate values in the `daemon.json` file, which is
-located in `/etc/docker/` on Linux hosts or
-`C:\ProgramData\docker\config\daemon.json` on Windows Server. For more about
-configuring Docker using `daemon.json`, see
-[daemon.json](../../../reference/cli/dockerd.md#daemon-configuration-file).
+located in `/etc/iechor/` on Linux hosts or
+`C:\ProgramData\iechor\config\daemon.json` on Windows Server. For more about
+configuring iEchor using `daemon.json`, see
+[daemon.json](../../../reference/cli/iechord.md#daemon-configuration-file).
 
 The following example sets the log driver to `journald`:
 
@@ -40,13 +40,13 @@ The following example sets the log driver to `journald`:
 }
 ```
 
-Restart Docker for the changes to take effect.
+Restart iEchor for the changes to take effect.
 
 To configure the logging driver for a specific container, use the `--log-driver`
-flag on the `docker run` command.
+flag on the `iechor run` command.
 
 ```console
-$ docker run --log-driver=journald ...
+$ iechor run --log-driver=journald ...
 ```
 
 ## Options
@@ -69,7 +69,7 @@ logging message.
 The following is an example of the logging options required to log to journald.
 
 ```console
-$ docker run \
+$ iechor run \
     --log-driver=journald \
     --log-opt labels=location \
     --log-opt env=TEST \
@@ -86,7 +86,7 @@ not be set in the journald log.
 ## Note regarding container names
 
 The value logged in the `CONTAINER_NAME` field is the name of the container that
-was set at startup. If you use `docker rename` to rename a container, the new
+was set at startup. If you use `iechor rename` to rename a container, the new
 name isn't reflected in the journal entries. Journal entries continue
 to use the original name.
 

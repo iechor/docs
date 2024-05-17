@@ -1,18 +1,18 @@
 ---
 title: Air-gapped containers
 description: Air-gapped containers - What it is, benefits, and how to configure it.
-keywords: air gapped, security, Docker Desktop, configuration, proxy, network
+keywords: air gapped, security, iEchor Desktop, configuration, proxy, network
 ---
 
 > **Beta feature**
 >
 > This feature is in [Beta](../../release-lifecycle.md/#beta).
-> It's available with Docker Desktop version 4.29 and later.
+> It's available with iEchor Desktop version 4.29 and later.
 { .experimental }
 
 Air-gapped containers allows administrators to restrict containers from accessing network resources, limiting where data can be uploaded to or downloaded from.
 
-Docker Desktop can apply a custom set of proxy rules to network traffic from containers. The proxy can be configured to:
+iEchor Desktop can apply a custom set of proxy rules to network traffic from containers. The proxy can be configured to:
 
 - Allow network connections
 - Reject network connections
@@ -69,7 +69,7 @@ function FindProxyForURL(url, host) {
 	if (isInNet(host, "192.168.0.0", "255.255.255.0")) {
 	    return "DIRECT";
 	}
-    return "PROXY reject.docker.internal:1234";
+    return "PROXY reject.iechor.internal:1234";
 }
 ```
 
@@ -82,8 +82,8 @@ The `FindProxyForURL` can return the following values:
 - `PROXY host_or_ip:port`: Tunnels this request through the HTTP proxy `host_or_ip:port`
 - `SOCKS5 host_or_ip:port`: Tunnels this request through the SOCKS proxy `host_or_ip:port`
 - `DIRECT`: Allows this request to go direct, without a proxy
-- `PROXY reject.docker.internal:any_port`: Rejects this request
+- `PROXY reject.iechor.internal:any_port`: Rejects this request
 
 In this particular example, HTTP and HTTPS requests for `internal.corp` are sent via the HTTP proxy `10.0.0.1:3128`. Requests to connect to IPs on the subnet `192.168.0.0/24` connect directly. All other requests are blocked.
 
-To restrict traffic connecting to ports on the developers local machine, [match the special hostname `host.docker.internal`](../networking.md#i-want-to-connect-from-a-container-to-a-service-on-the-host).
+To restrict traffic connecting to ports on the developers local machine, [match the special hostname `host.iechor.internal`](../networking.md#i-want-to-connect-from-a-container-to-a-service-on-the-host).

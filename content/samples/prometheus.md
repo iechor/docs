@@ -1,5 +1,5 @@
 ---
 title: Prometheus samples
-description: Docker samples for Prometheus.
+description: iEchor samples for Prometheus.
 service: prometheus
 ---

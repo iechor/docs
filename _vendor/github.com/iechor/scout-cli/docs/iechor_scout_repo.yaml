@@ -1,0 +1,40 @@
+command: iechor scout repo
+short: Commands to list, enable, and disable iEchor Scout on repositories
+long: Commands to list, enable, and disable iEchor Scout on repositories
+pname: iechor scout
+plink: iechor_scout.yaml
+cname:
+    - iechor scout repo disable
+    - iechor scout repo enable
+    - iechor scout repo list
+clink:
+    - iechor_scout_repo_disable.yaml
+    - iechor_scout_repo_enable.yaml
+    - iechor_scout_repo_list.yaml
+inherited_options:
+    - option: debug
+      value_type: bool
+      default_value: "false"
+      description: Debug messages
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: verbose-debug
+      value_type: bool
+      default_value: "false"
+      description: Verbose debug
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

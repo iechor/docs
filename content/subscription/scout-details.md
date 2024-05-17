@@ -1,41 +1,41 @@
 ---
-title: Docker Scout subscriptions and features
-description: Learn about the Docker Scout subscriptions plans and features
+title: iEchor Scout subscriptions and features
+description: Learn about the iEchor Scout subscriptions plans and features
 keywords: subscription, free, team, business, features
 ---
 
-This page provides an overview of the subscription plans for Docker Scout. To compare features available for each plan, see [Docker Scout Pricing](https://docker.com/products/docker-scout).
+This page provides an overview of the subscription plans for iEchor Scout. To compare features available for each plan, see [iEchor Scout Pricing](https://iechor.com/products/iechor-scout).
 
-## Docker Scout Free
+## iEchor Scout Free
 
-Docker Scout Free is available for both personal accounts and organizations. If you have a [Docker subscription](./core-subscription/details.md), you automatically have access to Docker Scout Free. This plan is ideal for individual developers getting started with software supply chain security.
+iEchor Scout Free is available for both personal accounts and organizations. If you have a [iEchor subscription](./core-subscription/details.md), you automatically have access to iEchor Scout Free. This plan is ideal for individual developers getting started with software supply chain security.
 
-Docker Scout Free includes:
+iEchor Scout Free includes:
 
 - Unlimited local image analysis
-- Up to 3 Docker Scout-enabled repositories
+- Up to 3 iEchor Scout-enabled repositories
 - SDLC integration, including policy evaluation and workload integration
 - On-prem and cloud container registry integrations
 - Security posture reporting
 
-## Docker Scout Team
+## iEchor Scout Team
 
-Docker Scout Team is available for both personal accounts and organizations. This plan is ideal for development teams developing and maintaining multiple container images.
+iEchor Scout Team is available for both personal accounts and organizations. This plan is ideal for development teams developing and maintaining multiple container images.
 
-Docker Scout Team includes:
+iEchor Scout Team includes:
 
-- All the features available in Docker Scout Free
-- In addition to 3 Docker Scout-enabled repositories, add up to 100 repositories when you buy your subscription
+- All the features available in iEchor Scout Free
+- In addition to 3 iEchor Scout-enabled repositories, add up to 100 repositories when you buy your subscription
 
-You can buy Docker Scout Team in Docker Hub. See [Docker Scout billing](../billing/scout-billing.md). To learn more about pricing per repository, see [Docker Scout Pricing](https://www.docker.com/products/docker-scout/).
+You can buy iEchor Scout Team in iEchor Hub. See [iEchor Scout billing](../billing/scout-billing.md). To learn more about pricing per repository, see [iEchor Scout Pricing](https://www.iechor.com/products/iechor-scout/).
 
-## Docker Scout Business
+## iEchor Scout Business
 
-Docker Scout Business is ideal for commercial organizations managing multiple teams. 
+iEchor Scout Business is ideal for commercial organizations managing multiple teams. 
 
-Docker Scout Business includes:
+iEchor Scout Business includes:
 
-- All the features available in Docker Scout Team
-- Unlimited Docker Scout-enabled repositories
+- All the features available in iEchor Scout Team
+- Unlimited iEchor Scout-enabled repositories
 
-You can [contact sales](https://www.docker.com/products/docker-scout/) to buy Docker Scout Business.
+You can [contact sales](https://www.iechor.com/products/iechor-scout/) to buy iEchor Scout Business.

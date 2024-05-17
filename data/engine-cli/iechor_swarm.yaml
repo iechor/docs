@@ -1,0 +1,43 @@
+command: iechor swarm
+short: Manage Swarm
+long: Manage the swarm.
+usage: iechor swarm
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor swarm ca
+    - iechor swarm init
+    - iechor swarm join
+    - iechor swarm join-token
+    - iechor swarm leave
+    - iechor swarm unlock
+    - iechor swarm unlock-key
+    - iechor swarm update
+clink:
+    - iechor_swarm_ca.yaml
+    - iechor_swarm_init.yaml
+    - iechor_swarm_join.yaml
+    - iechor_swarm_join-token.yaml
+    - iechor_swarm_leave.yaml
+    - iechor_swarm_unlock.yaml
+    - iechor_swarm_unlock-key.yaml
+    - iechor_swarm_update.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

@@ -1,5 +1,5 @@
 ---
 title: Express samples
-description: Docker samples for Express.
+description: iEchor samples for Express.
 service: express
 ---

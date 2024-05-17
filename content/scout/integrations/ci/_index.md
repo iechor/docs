@@ -1,14 +1,14 @@
 ---
-description: How to setup Docker Scout in continuous integration pipelines
+description: How to setup iEchor Scout in continuous integration pipelines
 keywords: scanning, vulnerabilities, Hub, supply chain, security, ci, continuous integration,
   github actions, gitlab
-title: Using Docker Scout in continuous integration
+title: Using iEchor Scout in continuous integration
 aliases:
 - /scout/ci/
 ---
 
-You can analyze Docker images in continuous integration pipelines as you build
-them using a GitHub action or the Docker Scout CLI plugin.
+You can analyze iEchor images in continuous integration pipelines as you build
+them using a GitHub action or the iEchor Scout CLI plugin.
 
 Available integrations:
 

@@ -1,6 +1,6 @@
 ---
-description: Learn about controlling and configuring the Docker daemon using systemd
-keywords: dockerd, daemon, systemd, configuration, proxy, networking
+description: Learn about controlling and configuring the iEchor daemon using systemd
+keywords: iechord, daemon, systemd, configuration, proxy, networking
 title: Configure the daemon with systemd
 aliases:
   - /articles/host_integration/
@@ -11,23 +11,23 @@ aliases:
 
 This page describes how to customize daemon settings when using systemd.
 
-## Custom Docker daemon options
+## Custom iEchor daemon options
 
-Most configuration options for the Docker daemon are set using the `daemon.json`
-configuration file. See [Docker daemon configuration overview](./index.md) for
+Most configuration options for the iEchor daemon are set using the `daemon.json`
+configuration file. See [iEchor daemon configuration overview](./index.md) for
 more information.
 
 ## Manually create the systemd unit files
 
 When installing the binary without a package manager, you may want to integrate
-Docker with systemd. For this, install the two unit files (`service` and
+iEchor with systemd. For this, install the two unit files (`service` and
 `socket`) from
 [the GitHub repository](https://github.com/moby/moby/tree/master/contrib/init/systemd)
 to `/etc/systemd/system`.
 
-### Configure the Docker daemon to use a proxy server {#httphttps-proxy}
+### Configure the iEchor daemon to use a proxy server {#httphttps-proxy}
 
-The Docker daemon uses the following environment variables in
+The iEchor daemon uses the following environment variables in
 its start-up environment to configure HTTP or HTTPS proxy behavior:
 
 - `HTTP_PROXY`
@@ -37,8 +37,8 @@ its start-up environment to configure HTTP or HTTPS proxy behavior:
 - `NO_PROXY`
 - `no_proxy`
 
-In Docker Engine version 23.0 and later versions, you may also configure proxy
-behavior for the daemon in the [`daemon.json` file](./index.md#configure-the-docker-daemon):
+In iEchor Engine version 23.0 and later versions, you may also configure proxy
+behavior for the daemon in the [`daemon.json` file](./index.md#configure-the-iechor-daemon):
 
 ```json
 {
@@ -50,7 +50,7 @@ behavior for the daemon in the [`daemon.json` file](./index.md#configure-the-doc
 }
 ```
 
-These configurations override the default `docker.service` systemd file.
+These configurations override the default `iechor.service` systemd file.
 
 If you're behind an HTTP or HTTPS proxy server, for example in corporate
 settings, the daemon proxy configurations must be specified in the systemd
@@ -58,24 +58,24 @@ service file, not in the `daemon.json` file or using environment variables.
 
 > **Note for rootless mode**
 >
-> The location of systemd configuration files are different when running Docker
+> The location of systemd configuration files are different when running iEchor
 > in [rootless mode](../../engine/security/rootless.md). When running in
-> rootless mode, Docker is started as a user-mode systemd service, and uses
+> rootless mode, iEchor is started as a user-mode systemd service, and uses
 > files stored in each users' home directory in
-> `~/.config/systemd/user/docker.service.d/`. In addition, `systemctl` must be
+> `~/.config/systemd/user/iechor.service.d/`. In addition, `systemctl` must be
 > executed without `sudo` and with the `--user` flag. Select the _"rootless
-> mode"_ tab below if you are running Docker in rootless mode.
+> mode"_ tab below if you are running iEchor in rootless mode.
 
 {{< tabs >}}
 {{< tab name="regular install" >}}
 
-1. Create a systemd drop-in directory for the `docker` service:
+1. Create a systemd drop-in directory for the `iechor` service:
 
    ```console
-   $ sudo mkdir -p /etc/systemd/system/docker.service.d
+   $ sudo mkdir -p /etc/systemd/system/iechor.service.d
    ```
 
-2. Create a file named `/etc/systemd/system/docker.service.d/http-proxy.conf`
+2. Create a file named `/etc/systemd/system/iechor.service.d/http-proxy.conf`
    that adds the `HTTP_PROXY` environment variable:
 
    ```systemd
@@ -110,7 +110,7 @@ service file, not in the `daemon.json` file or using environment variables.
    > Environment="HTTP_PROXY=http://domain%%5Cuser:complex%%23pass@proxy.example.com:3128/"
    > ```
 
-3. If you have internal Docker registries that you need to contact without
+3. If you have internal iEchor registries that you need to contact without
    proxying, you can specify them via the `NO_PROXY` environment variable.
 
    The `NO_PROXY` variable specifies a string that contains comma-separated
@@ -134,35 +134,35 @@ service file, not in the `daemon.json` file or using environment variables.
    [Service]
    Environment="HTTP_PROXY=http://proxy.example.com:3128"
    Environment="HTTPS_PROXY=https://proxy.example.com:3129"
-   Environment="NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp"
+   Environment="NO_PROXY=localhost,127.0.0.1,iechor-registry.example.com,.corp"
    ```
 
-4. Flush changes and restart Docker
+4. Flush changes and restart iEchor
 
    ```console
    $ sudo systemctl daemon-reload
-   $ sudo systemctl restart docker
+   $ sudo systemctl restart iechor
    ```
 
 5. Verify that the configuration has been loaded and matches the changes you
    made, for example:
 
    ```console
-   $ sudo systemctl show --property=Environment docker
+   $ sudo systemctl show --property=Environment iechor
 
-   Environment=HTTP_PROXY=http://proxy.example.com:3128 HTTPS_PROXY=https://proxy.example.com:3129 NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp
+   Environment=HTTP_PROXY=http://proxy.example.com:3128 HTTPS_PROXY=https://proxy.example.com:3129 NO_PROXY=localhost,127.0.0.1,iechor-registry.example.com,.corp
    ```
 
 {{< /tab >}}
 {{< tab name="rootless mode" >}}
 
-1. Create a systemd drop-in directory for the `docker` service:
+1. Create a systemd drop-in directory for the `iechor` service:
 
    ```console
-   $ mkdir -p ~/.config/systemd/user/docker.service.d
+   $ mkdir -p ~/.config/systemd/user/iechor.service.d
    ```
 
-2. Create a file named `~/.config/systemd/user/docker.service.d/http-proxy.conf`
+2. Create a file named `~/.config/systemd/user/iechor.service.d/http-proxy.conf`
    that adds the `HTTP_PROXY` environment variable:
 
    ```systemd
@@ -197,7 +197,7 @@ service file, not in the `daemon.json` file or using environment variables.
    > Environment="HTTP_PROXY=http://domain%%5Cuser:complex%%23pass@proxy.example.com:3128/"
    > ```
 
-3. If you have internal Docker registries that you need to contact without
+3. If you have internal iEchor registries that you need to contact without
    proxying, you can specify them via the `NO_PROXY` environment variable.
 
    The `NO_PROXY` variable specifies a string that contains comma-separated
@@ -221,23 +221,23 @@ service file, not in the `daemon.json` file or using environment variables.
    [Service]
    Environment="HTTP_PROXY=http://proxy.example.com:3128"
    Environment="HTTPS_PROXY=https://proxy.example.com:3129"
-   Environment="NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp"
+   Environment="NO_PROXY=localhost,127.0.0.1,iechor-registry.example.com,.corp"
    ```
 
-4. Flush changes and restart Docker
+4. Flush changes and restart iEchor
 
    ```console
    $ systemctl --user daemon-reload
-   $ systemctl --user restart docker
+   $ systemctl --user restart iechor
    ```
 
 5. Verify that the configuration has been loaded and matches the changes you
    made, for example:
 
    ```console
-   $ systemctl --user show --property=Environment docker
+   $ systemctl --user show --property=Environment iechor
 
-   Environment=HTTP_PROXY=http://proxy.example.com:3128 HTTPS_PROXY=https://proxy.example.com:3129 NO_PROXY=localhost,127.0.0.1,docker-registry.example.com,.corp
+   Environment=HTTP_PROXY=http://proxy.example.com:3128 HTTPS_PROXY=https://proxy.example.com:3129 NO_PROXY=localhost,127.0.0.1,iechor-registry.example.com,.corp
    ```
 
 {{< /tab >}}

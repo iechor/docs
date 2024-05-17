@@ -1,0 +1,25 @@
+command: iechor top
+aliases: iechor container top, iechor top
+short: Display the running processes of a container
+long: Display the running processes of a container
+usage: iechor top CONTAINER [ps OPTIONS]
+pname: iechor
+plink: iechor.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

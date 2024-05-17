@@ -1,5 +1,5 @@
 ---
-description: The Docker Scout Dashboard helps review and share the analysis of images.
+description: The iEchor Scout Dashboard helps review and share the analysis of images.
 keywords: scout, scanning, analysis, vulnerabilities, Hub, supply chain, security, report,
   reports, dashboard
 title: Dashboard
@@ -8,16 +8,16 @@ aliases:
 - /scout/web-app/
 ---
 
-The [Docker Scout Dashboard](https://scout.docker.com/) helps you share the
+The [iEchor Scout Dashboard](https://scout.iechor.com/) helps you share the
 analysis of images in an organization with your team. Developers can now see an
-overview of their security status across all their images from both Docker Hub
+overview of their security status across all their images from both iEchor Hub
 and Artifactory, and get remediation advice at their fingertips. It helps team
 members in roles such as security, compliance, and operations to know what
 vulnerabilities and issues they need to focus on.
 
 ## Overview
 
-![A screenshot of the Docker Scout Dashboard overview](./images/dashboard-overview.webp?border=true)
+![A screenshot of the iEchor Scout Dashboard overview](./images/dashboard-overview.webp?border=true)
 
 The **Overview** tab provides a summary for the repositories in the selected
 organization.
@@ -36,10 +36,10 @@ the selected environment over time. You can configure the timescale for the
 chart using the drop-down menu.
 
 Use the header menu at the top of the website to access the different main
-sections of the Docker Scout Dashboard:
+sections of the iEchor Scout Dashboard:
 
 - **Policies**: shows the policy compliance for the organization, see [Policies](#policies)
-- **Images**: lists all Docker Scout-enabled repositories in the organization, see [Images](#images)
+- **Images**: lists all iEchor Scout-enabled repositories in the organization, see [Images](#images)
 - **Base images**: lists all base images used by repositories in an organization
 - **Packages**: lists all packages across repositories in the organization
 - **Vulnerabilities**: lists all CVEs in the organization's images, see [Vulnerabilities](#vulnerabilities)
@@ -95,27 +95,27 @@ The CVSS score displayed here is the highest score out of all available [sources
 Selecting the links on this page opens the vulnerability details page,
 This page is a publicly visible page, and shows detailed information about a CVE.
 You can share the link to a particular CVE description with other people
-even if they're not a member of your Docker organization or signed in to Docker Scout.
+even if they're not a member of your iEchor organization or signed in to iEchor Scout.
 
 If you are signed in, the **My images** tab on this page lists all of your images
 affected by the CVE.
 
 ## Integrations
 
-The **Integrations** page lets you create and manage your Docker Scout
+The **Integrations** page lets you create and manage your iEchor Scout
 integrations, such as environment integrations and registry integrations. For
 more information on how to get started with integrations, see
-[Integrating Docker Scout with other systems](./integrations/_index.md).
+[Integrating iEchor Scout with other systems](./integrations/_index.md).
 
 ## Settings
 
-The settings menu in the Docker Scout Dashboard contains:
+The settings menu in the iEchor Scout Dashboard contains:
 
-- **Billing** for managing your Docker Scout subscription and payments
+- **Billing** for managing your iEchor Scout subscription and payments
 - **Repository settings** for enabling and disabling repositories
 
-When you enable Docker Scout for a repository,
-Docker Scout analyzes new tags automatically when you push to that repository.
+When you enable iEchor Scout for a repository,
+iEchor Scout analyzes new tags automatically when you push to that repository.
 To enable repositories in Amazon ECR, Azure ACR, or other third-party registries,
 you first need to integrate them.
 See [Container registry integrations](./integrations/_index.md#container-registries)

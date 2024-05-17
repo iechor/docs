@@ -6,42 +6,42 @@ aliases:
 - /ee/dtr/user/access-dtr/configure-your-notary-client/
 ---
 
-Delegations in Docker Content Trust (DCT) allow you to control who can and cannot sign
+Delegations in iEchor Content Trust (DCT) allow you to control who can and cannot sign
 an image tag. A delegation will have a pair of private and public delegation keys. A delegation 
 could contain multiple pairs of keys and contributors in order to a) allow multiple users 
 to be part of a delegation, and b) to support key rotation.  
 
-The most important delegation within Docker Content Trust is `targets/releases`.
+The most important delegation within iEchor Content Trust is `targets/releases`.
 This is seen as the canonical source of a trusted image tag, and without a 
 contributor's key being under this delegation, they will be unable to sign a tag.
 
-Fortunately when using the `$ docker trust` commands, we will automatically 
+Fortunately when using the `$ iechor trust` commands, we will automatically 
 initialize a repository, manage the repository keys, and add a collaborator's key to the 
-`targets/releases` delegation via `docker trust signer add`. 
+`targets/releases` delegation via `iechor trust signer add`. 
 
-## Configuring the Docker client
+## Configuring the iEchor client
 
-By default, the `$ docker trust` commands expect the notary server URL to be the
+By default, the `$ iechor trust` commands expect the notary server URL to be the
 same as the registry URL specified in the image tag (following a similar logic to
-`$ docker push`). When using Docker Hub or DTR, the notary
+`$ iechor push`). When using iEchor Hub or DTR, the notary
 server URL is the same as the registry URL. However, for self-hosted
 environments or 3rd party registries, you will need to specify an alternative
 URL for the notary server. This is done with:
 
 ```console
-$ export DOCKER_CONTENT_TRUST_SERVER=https://<URL>:<PORT>
+$ export IECHOR_CONTENT_TRUST_SERVER=https://<URL>:<PORT>
 ```
 
 If you do not export this variable in self-hosted environments, you may see 
 errors such as: 
 
 ```console
-$ docker trust signer add --key cert.pem jeff registry.example.com/admin/demo
+$ iechor trust signer add --key cert.pem jeff registry.example.com/admin/demo
 Adding signer "jeff" to registry.example.com/admin/demo...
 <...>
 Error: trust data missing for remote repository registry.example.com/admin/demo or remote repository not found: timestamp key trust data unavailable.  Has a notary repository been initialized?
 
-$ docker trust inspect registry.example.com/admin/demo --pretty
+$ iechor trust inspect registry.example.com/admin/demo --pretty
 WARN[0000] Error while downloading remote metadata, using cached timestamp - this might not be the latest version available remotely
 <...>
 ```
@@ -50,13 +50,13 @@ If you have enabled authentication for your notary server, or are using DTR, you
 before you can push data to the notary server. 
 
 ```console
-$ docker login registry.example.com/user/repo
+$ iechor login registry.example.com/user/repo
 Username: admin
 Password:
 
 Login Succeeded
 
-$ docker trust signer add --key cert.pem jeff registry.example.com/user/repo
+$ iechor trust signer add --key cert.pem jeff registry.example.com/user/repo
 Adding signer "jeff" to registry.example.com/user/repo...
 Initializing signed repository for registry.example.com/user/repo...
 Successfully initialized "registry.example.com/user/repo"
@@ -66,7 +66,7 @@ Successfully added signer: jeff to registry.example.com/user/repo
 If you do not log in, you will see:
 
 ```console
-$ docker trust signer add --key cert.pem jeff registry.example.com/user/repo
+$ iechor trust signer add --key cert.pem jeff registry.example.com/user/repo
 Adding signer "jeff" to registry.example.com/user/repo...
 Initializing signed repository for registry.example.com/user/repo...
 you are not authorized to perform this operation: server returned 401.
@@ -85,34 +85,34 @@ configure the Notary CLI:
 
 ```json
 {
-  "trust_dir" : "~/.docker/trust",
+  "trust_dir" : "~/.iechor/trust",
   "remote_server": {
     "url": "https://registry.example.com",
-    "root_ca": "../.docker/ca.pem"
+    "root_ca": "../.iechor/ca.pem"
   }
 }
 ```
 
-The newly created configuration file contains information about the location of your local Docker trust data and the notary server URL.
+The newly created configuration file contains information about the location of your local iEchor trust data and the notary server URL.
 
 For more detailed information about how to use notary outside of the
-Docker Content Trust use cases, refer to the Notary CLI documentation
+iEchor Content Trust use cases, refer to the Notary CLI documentation
 [here](https://github.com/theupdateframework/notary/blob/master/docs/command_reference.md) 
 
 ## Creating delegation keys
 
 A prerequisite to adding your first contributor is a pair of delegation keys. 
-These keys can either be generated locally using `$ docker trust`, generated by 
+These keys can either be generated locally using `$ iechor trust`, generated by 
 a certificate authority.
 
-### Using Docker Trust to generate keys
+### Using iEchor Trust to generate keys
 
-Docker trust has a built-in generator for a delegation key pair, 
-`$ docker trust generate <name>`. Running this command will automatically load 
-the delegation private key in to the local Docker trust store. 
+iEchor trust has a built-in generator for a delegation key pair, 
+`$ iechor trust generate <name>`. Running this command will automatically load 
+the delegation private key in to the local iEchor trust store. 
 
 ```console
-$ docker trust key generate jeff
+$ iechor trust key generate jeff
 
 Generating key for jeff...
 Enter passphrase for new jeff key with ID 9deed25: 
@@ -159,10 +159,10 @@ $ openssl x509 -req -sha256 -days 365 -in delegation.csr -signkey delegation.key
 Then they need to give you `delegation.crt`, whether it is self-signed or signed
 by a CA.
 
-Finally you will need to add the private key into your local Docker trust store.
+Finally you will need to add the private key into your local iEchor trust store.
 
 ```console
-$ docker trust key load delegation.key --name jeff
+$ iechor trust key load delegation.key --name jeff
 
 Loading key from "delegation.key"...
 Enter passphrase for new jeff key with ID 8ae710e: 
@@ -172,7 +172,7 @@ Successfully imported key from delegation.key
 
 ### Viewing local delegation keys 
 
-To list the keys that have been imported in to the local Docker trust store we 
+To list the keys that have been imported in to the local iEchor trust store we 
 can use the Notary CLI.
 
 ```console
@@ -180,13 +180,13 @@ $ notary key list
 
 ROLE       GUN                          KEY ID                                                              LOCATION
 ----       ---                          ------                                                              --------
-root                                    f6c6a4b00fefd8751f86194c7d87a3bede444540eb3378c4a11ce10852ab1f96    /home/ubuntu/.docker/trust/private
-jeff                                    9deed251daa1aa6f9d5f9b752847647cf8d705da0763aa5467650d0987ed5306    /home/ubuntu/.docker/trust/private
+root                                    f6c6a4b00fefd8751f86194c7d87a3bede444540eb3378c4a11ce10852ab1f96    /home/ubuntu/.iechor/trust/private
+jeff                                    9deed251daa1aa6f9d5f9b752847647cf8d705da0763aa5467650d0987ed5306    /home/ubuntu/.iechor/trust/private
 ```
 
 ## Managing delegations in a Notary Server
 
-When the first delegation is added to the Notary Server using `$ docker trust`,
+When the first delegation is added to the Notary Server using `$ iechor trust`,
 we automatically initiate trust data for the repository. This includes creating 
 the notary target and snapshots keys, and rotating the snapshot key to be 
 managed by the notary server. More information on these keys can be found 
@@ -194,7 +194,7 @@ managed by the notary server. More information on these keys can be found
 
 When initiating a repository, you will need the key and the passphrase of a local
 Notary Canonical Root Key. If you have not initiated a repository before, and 
-therefore don't have a Notary root key, `$ docker trust` will create one for you.
+therefore don't have a Notary root key, `$ iechor trust` will create one for you.
 
 > **Important**
 >
@@ -204,7 +204,7 @@ therefore don't have a Notary root key, `$ docker trust` will create one for you
 ### Initiating the repository
 
 To upload the first key to a delegation, at the same time initiating a 
-repository, you can use the `$ docker trust signer add` command. This will add 
+repository, you can use the `$ iechor trust signer add` command. This will add 
 the contributor's public key to the `targets/releases` delegation, and create a 
 second `targets/<name>` delegation. 
 
@@ -213,7 +213,7 @@ For DCT the name of the second delegation, in the below example
 advanced use cases of Notary additional delegations are used for hierarchy. 
 
 ```console
-$ docker trust signer add --key cert.pem jeff registry.example.com/admin/demo
+$ iechor trust signer add --key cert.pem jeff registry.example.com/admin/demo
 
 Adding signer "jeff" to registry.example.com/admin/demo...
 Initializing signed repository for registry.example.com/admin/demo...
@@ -225,10 +225,10 @@ Successfully added signer: jeff to registry.example.com/admin/demo
 ```
 
 You can see which keys have been pushed to the Notary server for each repository
-with the `$ docker trust inspect` command. 
+with the `$ iechor trust inspect` command. 
 
 ```console
-$ docker trust inspect --pretty registry.example.com/admin/demo
+$ iechor trust inspect --pretty registry.example.com/admin/demo
 
 No signatures for registry.example.com/admin/demo
 
@@ -259,16 +259,16 @@ targets/releases    "" <all paths>    1091060d7bfd938dfa5be703fa057974f9322a4fae
 
 ### Adding additional signers
 
-Docker Trust allows you to configure multiple delegations per repository, 
+iEchor Trust allows you to configure multiple delegations per repository, 
 allowing you to manage the lifecycle of delegations. When adding additional 
-delegations with `$ docker trust` the collaborators key is once again added to 
+delegations with `$ iechor trust` the collaborators key is once again added to 
 the `targets/release` role.
 
 > Note you will need the passphrase for the repository key; this would have been
 > configured when you first initiated the repository.
 
 ```console
-$ docker trust signer add --key ben.pub ben registry.example.com/admin/demo
+$ iechor trust signer add --key ben.pub ben registry.example.com/admin/demo
 
 Adding signer "ben" to registry.example.com/admin/demo...
 Enter passphrase for repository key with ID b0014f8: 
@@ -278,7 +278,7 @@ Successfully added signer: ben to registry.example.com/admin/demo
 Check to prove that there are now 2 delegations (Signer).
 
 ```console
-$ docker trust inspect --pretty registry.example.com/admin/demo
+$ iechor trust inspect --pretty registry.example.com/admin/demo
 
 No signatures for registry.example.com/admin/demo
 
@@ -298,7 +298,7 @@ Administrative keys for registry.example.com/admin/demo
 
 To support things like key rotation and expiring / retiring keys you can publish
 multiple contributor keys per delegation. The only prerequisite here is to make
-sure you use the same the delegation name, in this case `jeff`. Docker trust 
+sure you use the same the delegation name, in this case `jeff`. iEchor trust 
 will automatically handle adding this new key to `targets/releases`. 
 
 > **Note**
@@ -307,7 +307,7 @@ will automatically handle adding this new key to `targets/releases`.
 > configured when you first initiated the repository.
 
 ```console
-$ docker trust signer add --key cert2.pem jeff registry.example.com/admin/demo
+$ iechor trust signer add --key cert2.pem jeff registry.example.com/admin/demo
 
 Adding signer "jeff" to registry.example.com/admin/demo...
 Enter passphrase for repository key with ID b0014f8: 
@@ -317,7 +317,7 @@ Successfully added signer: jeff to registry.example.com/admin/demo
 Check to prove that the delegation (Signer) now contains multiple Key IDs. 
 
 ```console
-$ docker trust inspect --pretty registry.example.com/admin/demo
+$ iechor trust inspect --pretty registry.example.com/admin/demo
 
 No signatures for registry.example.com/admin/demo
 
@@ -337,7 +337,7 @@ Administrative keys for registry.example.com/admin/demo
 
 If you need to remove a delegation, including the contributor keys that are 
 attached to the `targets/releases` role, you can use the 
-`$ docker trust signer remove` command.
+`$ iechor trust signer remove` command.
 
 > **Note**
 >
@@ -345,7 +345,7 @@ attached to the `targets/releases` role, you can use the
 > by an active delegation
 
 ```console
-$ docker trust signer remove ben registry.example.com/admin/demo
+$ iechor trust signer remove ben registry.example.com/admin/demo
 Removing signer "ben" from registry.example.com/admin/demo...
 Enter passphrase for repository key with ID b0014f8: 
 Successfully removed ben from registry.example.com/admin/demo
@@ -354,7 +354,7 @@ Successfully removed ben from registry.example.com/admin/demo
 #### Troubleshooting
 
 1) If you see an error that there are no usable keys in `targets/releases`, you 
-   will need to add additional delegations using `docker trust signer add` before 
+   will need to add additional delegations using `iechor trust signer add` before 
    resigning images.
 
    ```text
@@ -439,30 +439,30 @@ and the role specific to that signer `targets/<name>`.
 ### Removing a local delegation private key
 
 As part of rotating delegation keys, you may need to remove a local delegation
-key from the local Docker trust store. This is done with the Notary CLI, using
+key from the local iEchor trust store. This is done with the Notary CLI, using
 the `$ notary key remove` command.
 
-1) We will need to get the Key ID from the local Docker Trust store
+1) We will need to get the Key ID from the local iEchor Trust store
 
    ```console
    $ notary key list
    
    ROLE       GUN                          KEY ID                                                              LOCATION
    ----       ---                          ------                                                              --------
-   root                                    f6c6a4b00fefd8751f86194c7d87a3bede444540eb3378c4a11ce10852ab1f96    /home/ubuntu/.docker/trust/private
-   admin                                   8fb597cbaf196f0781628b2f52bff6b3912e4e8075720378fda60d17232bbcf9    /home/ubuntu/.docker/trust/private
-   jeff                                    1091060d7bfd938dfa5be703fa057974f9322a4faef6f580334f3d6df44c02d1    /home/ubuntu/.docker/trust/private
-   targets    ...example.com/admin/demo    c819f2eda8fba2810ec6a7f95f051c90276c87fddfc3039058856fad061c009d    /home/ubuntu/.docker/trust/private
+   root                                    f6c6a4b00fefd8751f86194c7d87a3bede444540eb3378c4a11ce10852ab1f96    /home/ubuntu/.iechor/trust/private
+   admin                                   8fb597cbaf196f0781628b2f52bff6b3912e4e8075720378fda60d17232bbcf9    /home/ubuntu/.iechor/trust/private
+   jeff                                    1091060d7bfd938dfa5be703fa057974f9322a4faef6f580334f3d6df44c02d1    /home/ubuntu/.iechor/trust/private
+   targets    ...example.com/admin/demo    c819f2eda8fba2810ec6a7f95f051c90276c87fddfc3039058856fad061c009d    /home/ubuntu/.iechor/trust/private
    ```
 
-2) Remove the key from the local Docker Trust store
+2) Remove the key from the local iEchor Trust store
 
    ```console
    $ notary key remove 1091060d7bfd938dfa5be703fa057974f9322a4faef6f580334f3d6df44c02d1
    
-   Are you sure you want to remove 1091060d7bfd938dfa5be703fa057974f9322a4faef6f580334f3d6df44c02d1 (role jeff) from /home/ubuntu/.docker/trust/private?  (yes/no)  y
+   Are you sure you want to remove 1091060d7bfd938dfa5be703fa057974f9322a4faef6f580334f3d6df44c02d1 (role jeff) from /home/ubuntu/.iechor/trust/private?  (yes/no)  y
    
-   Deleted 1091060d7bfd938dfa5be703fa057974f9322a4faef6f580334f3d6df44c02d1 (role jeff) from /home/ubuntu/.docker/trust/private.
+   Deleted 1091060d7bfd938dfa5be703fa057974f9322a4faef6f580334f3d6df44c02d1 (role jeff) from /home/ubuntu/.iechor/trust/private.
    ```
 
 ## Removing all trust data from a repository
@@ -481,14 +481,14 @@ Enter username: admin
 Enter password: 
 Successfully deleted local and remote trust data for repository registry.example.com/admin/demo
 
-$ docker trust inspect --pretty registry.example.com/admin/demo
+$ iechor trust inspect --pretty registry.example.com/admin/demo
 
 No signatures or cannot access registry.example.com/admin/demo
 ```
 
 ## Related information
 
-* [Content trust in Docker](index.md)
+* [Content trust in iEchor](index.md)
 * [Manage keys for content trust](trust_key_mng.md)
 * [Automation with content trust](trust_automation.md)
 * [Play in a content trust sandbox](trust_sandbox.md)

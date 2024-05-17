@@ -21,18 +21,18 @@ In this section, you'll learn how to set up a development environment for your c
 
 You can use containers to set up local services, like a database.
 To do this for the sample application, you'll need to do the following:
-- Update the `Dockerfile` to install extensions to connect to the database
+- Update the `iEchorfile` to install extensions to connect to the database
 - Update the `compose.yaml` file to add a database service and volume to persist data
 
-### Update the Dockerfile to install extensions
+### Update the iEchorfile to install extensions
 
-To install PHP extensions, you need to update the `Dockerfile`. Open your
-Dockerfile in an IDE or text editor and then update the contents. The following
-`Dockerfile` includes one new line that installs the `pdo` and `pdo_mysql`
+To install PHP extensions, you need to update the `iEchorfile`. Open your
+iEchorfile in an IDE or text editor and then update the contents. The following
+`iEchorfile` includes one new line that installs the `pdo` and `pdo_mysql`
 extensions. All comments have been removed.
 
-```dockerfile {hl_lines=11}
-# syntax=docker/dockerfile:1
+```iechorfile {hl_lines=11}
+# syntax=iechor/iechorfile:1
 
 FROM composer:lts as deps
 WORKDIR /app
@@ -42,19 +42,19 @@ RUN --mount=type=bind,source=composer.json,target=composer.json \
     composer install --no-dev --no-interaction
 
 FROM php:8.2-apache as final
-RUN docker-php-ext-install pdo pdo_mysql
+RUN iechor-php-ext-install pdo pdo_mysql
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --from=deps app/vendor/ /var/www/html/vendor
 COPY ./src /var/www/html
 USER www-data
 ```
 
-For more details about installing PHP extensions, see the [Official Docker Image for PHP](https://hub.docker.com/_/php).
+For more details about installing PHP extensions, see the [Official iEchor Image for PHP](https://hub.iechor.com/_/php).
 
 ### Update the compose.yaml file to add a db and persist data
 
 Open the `compose.yaml` file in an IDE or text editor. You'll notice it
-already contains commented-out instructions for a PostgreSQL database and volume. For this application, you'll use MariaDB. For more details about MariaDB, see the [MariaDB Official Docker image](https://hub.docker.com/_/mariadb).
+already contains commented-out instructions for a PostgreSQL database and volume. For this application, you'll use MariaDB. For more details about MariaDB, see the [MariaDB Official iEchor image](https://hub.iechor.com/_/mariadb).
 
 Open the `src/database.php` file in an IDE or text editor. You'll notice that it reads environment variables in order to connect to the database.
 
@@ -117,7 +117,7 @@ Before you run the application using Compose, notice that this Compose file uses
 `secrets` and specifies a `password.txt` file to hold the database's password.
 You must create this file as it's not included in the source repository.
 
-In the `docker-php-sample` directory, create a new directory named `db` and
+In the `iechor-php-sample` directory, create a new directory named `db` and
 inside that directory create a file named `password.txt`. Open `password.txt` in an IDE or text editor and add the following password. The password must be on a single line, with no additional lines in the file.
 
 ```text
@@ -126,29 +126,29 @@ example
 
 Save and close the `password.txt` file.
 
-You should now have the following in your `docker-php-sample` directory.
+You should now have the following in your `iechor-php-sample` directory.
 
 ```text
-├── docker-php-sample/
+├── iechor-php-sample/
 │ ├── .git/
 │ ├── db/
 │ │ └── password.txt
 │ ├── src/
 │ ├── tests/
-│ ├── .dockerignore
+│ ├── .iechorignore
 │ ├── .gitignore
 │ ├── compose.yaml
 │ ├── composer.json
 │ ├── composer.lock
-│ ├── Dockerfile
-│ ├── README.Docker.md
+│ ├── iEchorfile
+│ ├── README.iEchor.md
 │ └── README.md
 ```
 
 Run the following command to start your application.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
 Open a browser and view the application at [http://localhost:9000/database.php](http://localhost:9000/database.php). You should see a simple web application with text and a counter that increments every time you refresh.
@@ -157,11 +157,11 @@ Press `ctrl+c` in the terminal to stop your application.
 
 ## Verify that data persists in the database
 
-In the terminal, run `docker compose rm` to remove your containers and then run `docker compose up` to run your application again.
+In the terminal, run `iechor compose rm` to remove your containers and then run `iechor compose up` to run your application again.
 
 ```console
-$ docker compose rm
-$ docker compose up --build
+$ iechor compose rm
+$ iechor compose up --build
 ```
 
 Refresh [http://localhost:9000/database.php](http://localhost:9000/database.php) in your browser and verify that the previous count still exists. Without a volume, the database data wouldn't persist after you remove the container.
@@ -172,7 +172,7 @@ Press `ctrl+c` in the terminal to stop your application.
 
 You can easily add services to your application stack by updating the `compose.yaml` file.
 
-Update your `compose.yaml` to add a new service for phpMyAdmin. For more details, see the [phpMyAdmin Official Docker Image](https://hub.docker.com/_/phpmyadmin). The following is the updated `compose.yaml` file.
+Update your `compose.yaml` to add a new service for phpMyAdmin. For more details, see the [phpMyAdmin Official iEchor Image](https://hub.iechor.com/_/phpmyadmin). The following is the updated `compose.yaml` file.
 
 ```yaml {hl_lines="35-42"}
 services:
@@ -224,10 +224,10 @@ secrets:
     file: db/password.txt
 ```
 
-In the terminal, run `docker compose up` to run your application again.
+In the terminal, run `iechor compose up` to run your application again.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
 Open [http://localhost:8080](http://localhost:8080) in your browser to access phpMyAdmin. Log in using `root` as the username and `example` as the password. You can now interact with the database through phpMyAdmin.
@@ -297,7 +297,7 @@ secrets:
 Run the following command to run your application with Compose Watch.
 
 ```console
-$ docker compose watch
+$ iechor compose watch
 ```
 
 Open a browser and verify that the application is running at [http://localhost:9000/hello.php](http://localhost:9000/hello.php).
@@ -305,30 +305,30 @@ Open a browser and verify that the application is running at [http://localhost:9
 Any changes to the application's source files on your local machine will now be
 immediately reflected in the running container.
 
-Open `hello.php` in an IDE or text editor and update the string `Hello, world!` to `Hello, Docker!`.
+Open `hello.php` in an IDE or text editor and update the string `Hello, world!` to `Hello, iEchor!`.
 
 Save the changes to `hello.php` and then wait a few seconds for the application to sync. Refresh [http://localhost:9000/hello.php](http://localhost:9000/hello.php) in your browser and verify that the updated text appears.
 
-Press `ctrl+c` in the terminal to stop Compose Watch. Run `docker compose down` in the terminal to stop the application.
+Press `ctrl+c` in the terminal to stop Compose Watch. Run `iechor compose down` in the terminal to stop the application.
 
 ## Create a development container
 
-At this point, when you run your containerized application, Composer isn't installing the dev dependencies. While this small image is good for production, it lacks the tools and dependencies you may need when developing and it doesn't include the `tests` directory. You can use multi-stage builds to build stages for both development and production in the same Dockerfile. For more details, see [Multi-stage builds](../../build/building/multi-stage.md).
+At this point, when you run your containerized application, Composer isn't installing the dev dependencies. While this small image is good for production, it lacks the tools and dependencies you may need when developing and it doesn't include the `tests` directory. You can use multi-stage builds to build stages for both development and production in the same iEchorfile. For more details, see [Multi-stage builds](../../build/building/multi-stage.md).
 
-In the `Dockerfile`, you'll need to update the following:
+In the `iEchorfile`, you'll need to update the following:
 1. Split the `deps` staged into two stages. One stage for production
    (`prod-deps`) and one stage (`dev-deps`) to install development dependencies.
 2. Create a common `base` stage.
 3. Create a new `development` stage for development.
 4. Update the `final` stage to copy dependencies from the new `prod-deps` stage.
 
-The following is the `Dockerfile` before and after the changes.
+The following is the `iEchorfile` before and after the changes.
 
 {{< tabs >}}
 {{< tab name="Before" >}}
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 FROM composer:lts as deps
 WORKDIR /app
@@ -338,7 +338,7 @@ RUN --mount=type=bind,source=composer.json,target=composer.json \
     composer install --no-dev --no-interaction
 
 FROM php:8.2-apache as final
-RUN docker-php-ext-install pdo pdo_mysql
+RUN iechor-php-ext-install pdo pdo_mysql
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY --from=deps app/vendor/ /var/www/html/vendor
 COPY ./src /var/www/html
@@ -347,8 +347,8 @@ USER www-data
 {{< /tab >}}
 {{< tab name="After" >}}
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 FROM composer:lts as prod-deps
 WORKDIR /app
@@ -365,7 +365,7 @@ RUN --mount=type=bind,source=./composer.json,target=composer.json \
     composer install --no-interaction
 
 FROM php:8.2-apache as base
-RUN docker-php-ext-install pdo pdo_mysql
+RUN iechor-php-ext-install pdo pdo_mysql
 COPY ./src /var/www/html
 
 FROM base as development
@@ -402,14 +402,14 @@ Your containerized application will now install the dev dependencies.
 Run the following command to start your application.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
-Open a browser and view the application at [http://localhost:9000/hello.php](http://localhost:9000/hello.php). You should still see the simple "Hello, Docker!" application.
+Open a browser and view the application at [http://localhost:9000/hello.php](http://localhost:9000/hello.php). You should still see the simple "Hello, iEchor!" application.
 
 Press `ctrl+c` in the terminal to stop your application.
 
-While the application appears the same, you can now make use of the dev dependencies. Continue to the next section to learn how you can run tests using Docker.
+While the application appears the same, you can now make use of the dev dependencies. Continue to the next section to learn how you can run tests using iEchor.
 
 ## Summary
 
@@ -417,14 +417,14 @@ In this section, you took a look at setting up your Compose file to add a local
 database and persist data. You also learned how to use Compose Watch to automatically sync your application when you update your code. And finally, you learned how to create a development container that contains the dependencies needed for development.
 
 Related information:
- - [Build with Docker guide](../../build/guide/index.md)
+ - [Build with iEchor guide](../../build/guide/index.md)
  - [Compose file reference](/compose/compose-file/)
  - [Compose file watch](../../compose/file-watch.md)
- - [Dockerfile reference](../../reference/dockerfile.md)
- - [Official Docker Image for PHP](https://hub.docker.com/_/php)
+ - [iEchorfile reference](../../reference/iechorfile.md)
+ - [Official iEchor Image for PHP](https://hub.iechor.com/_/php)
 
 ## Next steps
 
-In the next section, you'll learn how to run unit tests using Docker.
+In the next section, you'll learn how to run unit tests using iEchor.
 
 {{< button text="Run your tests" url="run-tests.md" >}}

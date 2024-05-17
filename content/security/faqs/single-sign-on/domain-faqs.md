@@ -1,6 +1,6 @@
 ---
 description: Single Sign-on domain FAQs
-keywords: Docker, Docker Hub, SSO FAQs, single sign-on, domains, domain verification
+keywords: iEchor, iEchor Hub, SSO FAQs, single sign-on, domains, domain verification
 title: Domains
 tags: [FAQ]
 aliases:
@@ -18,16 +18,16 @@ You can do it one time to add it to a connection. If your organization ever chan
 
 ### Is adding domain required to configure SSO? What domains should I be adding? And how do I add it?
 
-Adding and verifying a domain is required to enable and enforce SSO. Select **Add Domain** and specify the email domains that are allowed to authenticate through your server. This should include all email domains users will use to access Docker. Public domains are not permitted, such as gmail.com, outlook.com, etc. Also, the email domain should be set as the primary email.
+Adding and verifying a domain is required to enable and enforce SSO. Select **Add Domain** and specify the email domains that are allowed to authenticate through your server. This should include all email domains users will use to access iEchor. Public domains are not permitted, such as gmail.com, outlook.com, etc. Also, the email domain should be set as the primary email.
 
 ### If users are using their personal email, do they have to convert to using the organization's domain before they can be invited to join an organization? Is this just a quick change in their Hub account?
 
-No, they don't. Though they can add multiple emails to a Docker ID if they choose to. However, they can only use that email address once across Docker. The other thing to note is that (as of January 2022) SSO doesn't work for multi domains as an MVP and it doesn't work for personal emails either.
+No, they don't. Though they can add multiple emails to a iEchor ID if they choose to. However, they can only use that email address once across iEchor. The other thing to note is that (as of January 2022) SSO doesn't work for multi domains as an MVP and it doesn't work for personal emails either.
 
-### Since Docker ID is tracked from SAML, at what point is the login required to be tracked from SAML? Runtime or install time?
+### Since iEchor ID is tracked from SAML, at what point is the login required to be tracked from SAML? Runtime or install time?
 
-Runtime for Docker Desktop if they configure Docker Desktop to require authentication to their org.
+Runtime for iEchor Desktop if they configure iEchor Desktop to require authentication to their org.
 
 ### Do you support IdP-initiated authentication (e.g., Okta tile support)?
 
-We don't support IdP-initiated authentication. Users must initiate login through Docker Desktop or Hub.
+We don't support IdP-initiated authentication. Users must initiate login through iEchor Desktop or Hub.

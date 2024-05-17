@@ -1,24 +1,24 @@
 ---
 description: More details on the advisory database and CVE-to-package matching service
-  behind Docker Scout analysis.
+  behind iEchor Scout analysis.
 keywords: scout, scanning, analysis, vulnerabilities, Hub, supply chain, security, packages, repositories, ecosystem
 title: Advisory database sources and matching service
 ---
 
-Reliable information sources are key for Docker Scout's ability to
+Reliable information sources are key for iEchor Scout's ability to
 surface relevant and accurate assessments of your software artifacts.
 Given the diversity of sources and methodologies in the industry,
 discrepancies in vulnerability assessment results can and do happen.
-This page describes how the Docker Scout advisory database
+This page describes how the iEchor Scout advisory database
 and its CVE-to-package matching approach works to deal with these discrepancies.
 
 ## Advisory database sources
 
-Docker Scout aggregates vulnerability data from multiple sources.
+iEchor Scout aggregates vulnerability data from multiple sources.
 The data is continuously updated to ensure that your security posture
 is represented using the latest available information, in real-time.
 
-Docker Scout uses the following package repositories and security trackers:
+iEchor Scout uses the following package repositories and security trackers:
 
 - [Alpine secdb](https://secdb.alpinelinux.org/)
 - [AlmaLinux Security Advisory](https://errata.almalinux.org/)
@@ -47,8 +47,8 @@ Docker Scout uses the following package repositories and security trackers:
 - [Wolfi Security Feed](https://packages.wolfi.dev/os/security.json)
 - [Chainguard Security Feed](https://packages.cgr.dev/chainguard/security.json)
 
-When you enable Docker Scout for your Docker organization,
-a new database instance is provisioned on the Docker Scout platform.
+When you enable iEchor Scout for your iEchor organization,
+a new database instance is provisioned on the iEchor Scout platform.
 The database stores the Software Bill of Materials (SBOM) and other metadata about your images.
 When a security advisory has new information about a vulnerability,
 your SBOM is cross-referenced with the CVE information to detect how it affects you.
@@ -60,13 +60,13 @@ For more details on how image analysis works, see the [image analysis page](./im
 Traditional tools often rely on broad [Common Product Enumeration (CPE)](https://en.wikipedia.org/wiki/Common_Platform_Enumeration) matching,
 which can lead to many false-positive results.
 
-Docker Scout uses [Package URLs (PURLs)](https://github.com/package-url/purl-spec)
+iEchor Scout uses [Package URLs (PURLs)](https://github.com/package-url/purl-spec)
 to match packages against CVEs, which yields more precise identification of vulnerabilities.
 PURLs significantly reduce the chances of false positives, focusing only on genuinely affected packages.
 
 ## Supported package ecosystems
 
-Docker Scout supports the following package ecosystems:
+iEchor Scout supports the following package ecosystems:
 
 - .NET
 - GitHub packages

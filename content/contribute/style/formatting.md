@@ -19,7 +19,7 @@ Readers pay fractionally more attention to headings, bulleted lists, and links, 
 
 ## Page title
 
-Page titles should be action orientated. For example: - _Enable SCIM_ - _Install Docker Desktop_
+Page titles should be action orientated. For example: - _Enable SCIM_ - _Install iEchor Desktop_
 
 ### Best practice
 
@@ -66,7 +66,7 @@ For information on how to add links to your content, see [Useful component and f
 
 ## Code and code samples
 
-Format the following as code: Docker commands, instructions, and filenames (package names).
+Format the following as code: iEchor commands, instructions, and filenames (package names).
 
 To apply inline code style, wrap the text in a single backtick (`).
 
@@ -106,9 +106,9 @@ Use callouts to emphasize selected information on a page.
 | Text callout | Use case scenario                                                                                                                                                                   | Color or callout box |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
 | Warning      | Use a Warning tag to signal to the reader where actions may cause damage to hardware or software loss of data.                                                                      | Red                  |
-|              | ✅ Example: Warning: When you use the docker login command, your credentials are stored in your home directory in .docker/config.json. The password is base64-encoded in this file. |                      |
+|              | ✅ Example: Warning: When you use the iechor login command, your credentials are stored in your home directory in .iechor/config.json. The password is base64-encoded in this file. |                      |
 | Important    | Use an Important tag to signal to the reader where actions may cause issues of a lower magnitude.                                                                                   | Yellow               |
-|              | ✅ Example: Update to the Docker Desktop terms                                                                                                                                      |                      |
+|              | ✅ Example: Update to the iEchor Desktop terms                                                                                                                                      |                      |
 | Note         | Use the Note tag for information that may not apply to all readers, or if the information is tangential to a topic.                                                                 | Blue                 |
 |              | ✅ Example: Deleting a repository deletes all the images it contains and its build settings. This action cannot be undone.                                                          |                      |
 
@@ -116,7 +116,7 @@ For information on how to add callouts to your content, see [Useful component an
 
 ## Navigation
 
-When documenting how to navigate through the Docker Desktop or Docker Hub UI:
+When documenting how to navigate through the iEchor Desktop or iEchor Hub UI:
 
 - Always use location, then action. For example:
   _From the **Visibility** drop-down list (location), select Public (action)._
@@ -141,7 +141,7 @@ You might want to provide a command or configuration that uses specific values.
 
 In these cases, use < and > to call out where a reader must replace text with their own value. For example:
 
-`docker extension install <name-of-your-extension>`
+`iechor extension install <name-of-your-extension>`
 
 ## Tables
 

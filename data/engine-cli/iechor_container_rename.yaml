@@ -1,0 +1,29 @@
+command: iechor container rename
+aliases: iechor container rename, iechor rename
+short: Rename a container
+long: The `iechor rename` command renames a container.
+usage: iechor container rename CONTAINER NEW_NAME
+pname: iechor container
+plink: iechor_container.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ```console
+    $ iechor rename my_container my_new_container
+    ```
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

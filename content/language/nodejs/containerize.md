@@ -10,8 +10,8 @@ aliases:
 
 ## Prerequisites
 
-* You have installed the latest version of [Docker
-  Desktop](../../get-docker.md).
+* You have installed the latest version of [iEchor
+  Desktop](../../get-iechor.md).
 * You have a [git client](https://git-scm.com/downloads). The examples in this
   section use a command-line based git client, but you can use any client.
 
@@ -27,33 +27,33 @@ directory to a directory that you want to work in, and run the following command
 to clone the repository:
 
 ```console
-$ git clone https://github.com/docker/docker-nodejs-sample
+$ git clone https://github.com/iechor/iechor-nodejs-sample
 ```
 
-## Initialize Docker assets
+## Initialize iEchor assets
 
-Now that you have an application, you can create the necessary Docker assets to
-containerize your application. You can use Docker Desktop's built-in Docker Init
+Now that you have an application, you can create the necessary iEchor assets to
+containerize your application. You can use iEchor Desktop's built-in iEchor Init
 feature to help streamline the process, or you can manually create the assets.
 
 {{< tabs >}}
-{{< tab name="Use Docker Init" >}}
+{{< tab name="Use iEchor Init" >}}
 
-Inside the `docker-nodejs-sample` directory, run
-the `docker init` command in a terminal. `docker init` provides some default
+Inside the `iechor-nodejs-sample` directory, run
+the `iechor init` command in a terminal. `iechor init` provides some default
 configuration, but you'll need to answer a few questions about your application.
-Refer to the following example to answer the prompts from `docker init` and use
+Refer to the following example to answer the prompts from `iechor init` and use
 the same answers for your prompts.
 
 ```console
-$ docker init
-Welcome to the Docker Init CLI!
+$ iechor init
+Welcome to the iEchor Init CLI!
 
 This utility will walk you through creating the following files with sensible defaults for your project:
-  - .dockerignore
-  - Dockerfile
+  - .iechorignore
+  - iEchorfile
   - compose.yaml
-  - README.Docker.md
+  - README.iEchor.md
 
 Let's get started!
 
@@ -67,16 +67,16 @@ Let's get started!
 {{< /tab >}}
 {{< tab name="Manually create assets" >}}
 
-If you don't have Docker Desktop installed or prefer creating the assets manually, you can create the following files in your project directory.
+If you don't have iEchor Desktop installed or prefer creating the assets manually, you can create the following files in your project directory.
 
-Create a file named `Dockerfile` with the following contents.
+Create a file named `iEchorfile` with the following contents.
 
-```dockerfile {collapse=true,title=Dockerfile}
-# syntax=docker/dockerfile:1
+```iechorfile {collapse=true,title=iEchorfile}
+# syntax=iechor/iechorfile:1
 
 # Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Dockerfile reference guide at
-# https://docs.docker.com/go/dockerfile-reference/
+# If you need more help, visit the iEchorfile reference guide at
+# https://docs.iechor.com/go/iechorfile-reference/
 
 # Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
 
@@ -90,7 +90,7 @@ ENV NODE_ENV production
 
 WORKDIR /usr/src/app
 
-# Download dependencies as a separate step to take advantage of Docker's caching.
+# Download dependencies as a separate step to take advantage of iEchor's caching.
 # Leverage a cache mount to /root/.npm to speed up subsequent builds.
 # Leverage a bind mounts to package.json and package-lock.json to avoid having to copy them into
 # into this layer.
@@ -116,14 +116,14 @@ Create a file named `compose.yaml` with the following contents.
 
 ```yaml {collapse=true,title=compose.yaml}
 # Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Docker Compose reference guide at
-# https://docs.docker.com/go/compose-spec-reference/
+# If you need more help, visit the iEchor Compose reference guide at
+# https://docs.iechor.com/go/compose-spec-reference/
 
 # Here the instructions define your application as a service called "server".
-# This service is built from the Dockerfile in the current directory.
+# This service is built from the iEchorfile in the current directory.
 # You can add other services your application may depend on here, such as a
 # database or a cache. For examples, see the Awesome Compose repository:
-# https://github.com/docker/awesome-compose
+# https://github.com/iechor/awesome-compose
 services:
   server:
     build:
@@ -134,11 +134,11 @@ services:
       - 3000:3000
 
 # The commented out section below is an example of how to define a PostgreSQL
-# database that your application can use. `depends_on` tells Docker Compose to
+# database that your application can use. `depends_on` tells iEchor Compose to
 # start the database before your application. The `db-data` volume persists the
 # database data between container restarts. The `db-password` secret is used
 # to set the database password. You must create `db/password.txt` and add
-# a password of your choosing to it before running `docker-compose up`.
+# a password of your choosing to it before running `iechor-compose up`.
 #     depends_on:
 #       db:
 #         condition: service_healthy
@@ -167,17 +167,17 @@ services:
 #     file: db/password.txt
 ```
 
-Create a file named `.dockerignore` with the following contents.
+Create a file named `.iechorignore` with the following contents.
 
-```text {collapse=true,title=".dockerignore"}
+```text {collapse=true,title=".iechorignore"}
 # Include any files or directories that you don't want to be copied to your
 # container here (e.g., local build artifacts, temporary files, etc.).
 #
-# For more help, visit the .dockerignore file reference guide at
-# https://docs.docker.com/go/build-context-dockerignore/
+# For more help, visit the .iechorignore file reference guide at
+# https://docs.iechor.com/go/build-context-iechorignore/
 
 **/.classpath
-**/.dockerignore
+**/.iechorignore
 **/.env
 **/.git
 **/.gitignore
@@ -192,9 +192,9 @@ Create a file named `.dockerignore` with the following contents.
 **/*.dbmdl
 **/*.jfm
 **/charts
-**/docker-compose*
+**/iechor-compose*
 **/compose.y*ml
-**/Dockerfile*
+**/iEchorfile*
 **/node_modules
 **/npm-debug.log
 **/obj
@@ -211,34 +211,34 @@ README.md
 
 
 You should now have at least the following contents in your
-`docker-nodejs-sample` directory.
+`iechor-nodejs-sample` directory.
 
 ```text
-├── docker-nodejs-sample/
+├── iechor-nodejs-sample/
 │ ├── spec/
 │ ├── src/
-│ ├── .dockerignore
+│ ├── .iechorignore
 │ ├── .gitignore
 │ ├── compose.yaml
-│ ├── Dockerfile
+│ ├── iEchorfile
 │ ├── package-lock.json
 │ ├── package.json
 │ └── README.md
 ```
 
 To learn more about the files, see the following:
- - [Dockerfile](../../reference/dockerfile.md)
- - [.dockerignore](../../reference/dockerfile.md#dockerignore-file)
+ - [iEchorfile](../../reference/iechorfile.md)
+ - [.iechorignore](../../reference/iechorfile.md#iechorignore-file)
  - [compose.yaml](../../compose/compose-file/_index.md)
 
 
 ## Run the application
 
-Inside the `docker-nodejs-sample` directory, run the following command in a
+Inside the `iechor-nodejs-sample` directory, run the following command in a
 terminal.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
 Open a browser and view the application at [http://localhost:3000](http://localhost:3000). You should see a simple todo application.
@@ -248,11 +248,11 @@ In the terminal, press `ctrl`+`c` to stop the application.
 ### Run the application in the background
 
 You can run the application detached from the terminal by adding the `-d`
-option. Inside the `docker-nodejs-sample` directory, run the following command
+option. Inside the `iechor-nodejs-sample` directory, run the following command
 in a terminal.
 
 ```console
-$ docker compose up --build -d
+$ iechor compose up --build -d
 ```
 
 Open a browser and view the application at [http://localhost:3000](http://localhost:3000).
@@ -262,7 +262,7 @@ You should see a simple todo application.
 In the terminal, run the following command to stop the application.
 
 ```console
-$ docker compose down
+$ iechor compose down
 ```
 
 For more information about Compose commands, see the [Compose CLI
@@ -271,13 +271,13 @@ reference](../../compose/reference/_index.md).
 ## Summary
 
 In this section, you learned how you can containerize and run your Node.js
-application using Docker.
+application using iEchor.
 
 Related information:
- - [Dockerfile reference](../../reference/dockerfile.md)
- - [Build with Docker guide](../../build/guide/index.md)
- - [.dockerignore file reference](../../reference/dockerfile.md#dockerignore-file)
- - [Docker Compose overview](../../compose/_index.md)
+ - [iEchorfile reference](../../reference/iechorfile.md)
+ - [Build with iEchor guide](../../build/guide/index.md)
+ - [.iechorignore file reference](../../reference/iechorfile.md#iechorignore-file)
+ - [iEchor Compose overview](../../compose/_index.md)
 
 ## Next steps
 

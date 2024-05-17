@@ -1,6 +1,6 @@
 ---
 description: Language-specific guides overview
-keywords: guides, docker, language, node, java, python, R, go, golang, .net
+keywords: guides, iechor, language, node, java, python, R, go, golang, .net
 title: Language-specific guides overview
 toc_min: 1
 toc_max: 2
@@ -12,16 +12,16 @@ The language-specific guides walk you through the process of:
 * Configuring a CI/CD pipeline
 * Deploying an application locally using Kubernetes
 
-In addition to the language-specific modules, Docker documentation also provides guidelines to build images and efficiently manage your development environment. For more information, refer to the following topics:
+In addition to the language-specific modules, iEchor documentation also provides guidelines to build images and efficiently manage your development environment. For more information, refer to the following topics:
 
-* [Best practices for writing Dockerfiles](../develop/develop-images/dockerfile_best-practices.md)
-* [Docker development best practices](../develop/dev-best-practices.md)
+* [Best practices for writing iEchorfiles](../develop/develop-images/iechorfile_best-practices.md)
+* [iEchor development best practices](../develop/dev-best-practices.md)
 * [Build images with BuildKit](../build/buildkit/index.md#getting-started)
-* [Build with Docker](../build/guide/_index.md)
+* [Build with iEchor](../build/guide/_index.md)
 
 ## Language-specific guides
 
-Learn how to containerize your applications and start developing using Docker. Choose one of the following languages to get started.
+Learn how to containerize your applications and start developing using iEchor. Choose one of the following languages to get started.
 
 <div class="grid grid-cols-2 md:grid-cols-3 h-auto gap-4">
     <div class="flex items-center flex-1 shadow p-4">

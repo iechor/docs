@@ -1,5 +1,5 @@
 ---
 title: React samples
-description: Docker samples for React.
+description: iEchor samples for React.
 service: react
 ---

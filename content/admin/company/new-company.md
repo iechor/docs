@@ -3,20 +3,20 @@ title: Create a company
 description: Learn how to create a company.
 keywords: company, hub, organization, company owner, Admin Console, company management
 aliases:
-- /docker-hub/new-company/
+- /iechor-hub/new-company/
 ---
 
-You can create a new company in Docker Hub or Docker Admin Console. Before you begin, make sure you're the owner of the organization you want to add to the new company. The organization also needs to have a Docker Business subscription.
+You can create a new company in iEchor Hub or iEchor Admin Console. Before you begin, make sure you're the owner of the organization you want to add to the new company. The organization also needs to have a iEchor Business subscription.
 
 {{< tabs >}}
 
-{{< tab name="Docker Hub" >}}
+{{< tab name="iEchor Hub" >}}
 
 ## Create a company
 
 To create a new company:
 
-1. In Docker Hub, navigate to the organization you want to place under a company. The organization must have a Business subscription, and you must be an owner of the organization.
+1. In iEchor Hub, navigate to the organization you want to place under a company. The organization must have a Business subscription, and you must be an owner of the organization.
 2. Select **Settings**.
 3. Near the bottom of the **General** tab, select **Create a company**.
 4. Enter a unique name for your company, then select **Continue**.

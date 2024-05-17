@@ -1,0 +1,68 @@
+command: iechor trust key generate
+short: Generate and load a signing key-pair
+long: |-
+    `iechor trust key generate` generates a key-pair to be used with signing,
+     and loads the private key into the local iEchor trust keystore.
+usage: iechor trust key generate NAME
+pname: iechor trust key
+plink: iechor_trust_key.yaml
+options:
+    - option: dir
+      value_type: string
+      description: Directory to generate key in, defaults to current directory
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### Generate a key-pair
+
+    ```console
+    $ iechor trust key generate alice
+
+    Generating key for alice...
+    Enter passphrase for new alice key with ID 17acf3c:
+    Repeat passphrase for new alice key with ID 17acf3c:
+    Successfully generated and loaded private key. Corresponding public key available: alice.pub
+    $ ls
+    alice.pub
+    ```
+
+    The private signing key is encrypted by the passphrase and loaded into the iEchor trust keystore.
+    All passphrase requests to sign with the key will be referred to by the provided `NAME`.
+
+    The public key component `alice.pub` will be available in the current working directory, and can
+    be used directly by `iechor trust signer add`.
+
+    Provide the `--dir` argument to specify a directory to generate the key in:
+
+    ```console
+    $ iechor trust key generate alice --dir /foo
+
+    Generating key for alice...
+    Enter passphrase for new alice key with ID 17acf3c:
+    Repeat passphrase for new alice key with ID 17acf3c:
+    Successfully generated and loaded private key. Corresponding public key available: alice.pub
+    $ ls /foo
+    alice.pub
+    ```
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

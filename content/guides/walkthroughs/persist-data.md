@@ -6,13 +6,13 @@ description: Learn how to persist container data
 
 This walkthrough shows you how to persist data between containers. To better understand some concepts in this walkthrough, complete the [Run multi-container applications](./multi-container-apps.md) walkthrough first.
 
-Docker isolates all content, code, and data in a container from your local filesystem. When you delete a container, Docker deletes all the content within that container.
+iEchor isolates all content, code, and data in a container from your local filesystem. When you delete a container, iEchor deletes all the content within that container.
 
 ![Data isolation diagram](images/getting-started-isolation.webp?w=400)
 
 Sometimes, you may want to persist the data that a container generates. To do this, you can use volumes.
 
-{{< include "guides-get-docker.md" >}}
+{{< include "guides-get-iechor.md" >}}
 
 ## Step 1: Get the sample application
 
@@ -24,7 +24,7 @@ If you have git, you can clone the repository for the sample application. Otherw
 Use the following command in a terminal to clone the sample application repository.
 
 ```console
-$ git clone https://github.com/docker/multi-container-app
+$ git clone https://github.com/iechor/multi-container-app
 ```
 
 {{< /tab >}}
@@ -32,14 +32,14 @@ $ git clone https://github.com/docker/multi-container-app
 
 Download the source and extract it.
 
-{{< button url="https://github.com/docker/multi-container-app/archive/refs/heads/main.zip" text="Download the source" >}}
+{{< button url="https://github.com/iechor/multi-container-app/archive/refs/heads/main.zip" text="Download the source" >}}
 
 {{< /tab >}}
 {{< /tabs >}}
 
 ## Step 2: Add a volume to persist data
 
-To persist data after you delete a container, use a volume. A volume is a location in your local filesystem, automatically managed by Docker Desktop.
+To persist data after you delete a container, use a volume. A volume is a location in your local filesystem, automatically managed by iEchor Desktop.
 
 ![Volume diagram](images/getting-started-volume.webp?w=400)
 
@@ -70,33 +70,33 @@ To run the multi-container application, open a terminal and run the following co
 $ cd /path/to/multi-container-app/
 ```
 ```console
-$ docker compose up -d
+$ iechor compose up -d
 ```
 
 ## Step 4: View the frontend and add todos
 
-In the **Containers** tab of Docker Desktop, you should now have an application stack with two containers running (the todo-app, and todo-database).
+In the **Containers** tab of iEchor Desktop, you should now have an application stack with two containers running (the todo-app, and todo-database).
 
 To view the frontend and add todos:
 
-1. In Docker Desktop, expand the application stack in **Containers**.
+1. In iEchor Desktop, expand the application stack in **Containers**.
 2. Select the link to port **3000** in the **Port(s)** column or open [http://localhost:3000](http://localhost:3000)⁠.
 3. Add some todo tasks in the frontend.
 
 ## Step 5: Delete the application stack and run new containers
 
-Now, no matter how often you delete and recreate the containers, Docker Desktop persists your data and it's accessible to any container on your system by mounting the `database` volume. Docker Desktop looks for the `database` volume and creates it if it doesn't exist.
+Now, no matter how often you delete and recreate the containers, iEchor Desktop persists your data and it's accessible to any container on your system by mounting the `database` volume. iEchor Desktop looks for the `database` volume and creates it if it doesn't exist.
 
 To delete the application stack:
 
-1. Open the **Containers** tab of Docker Desktop
+1. Open the **Containers** tab of iEchor Desktop
 2. Select the Delete icon next to your application stack.
 
 ![Deleting the application stack](images/getting-started-delete-stack.webp?border=true)
 
 After you delete the application stack, follow the steps from [Step 3: Run the
 application](#step-3-run-the-application) to run the application again. Note
-that when you delete the containers and run them again, Docker Desktop persists any todos that you created.
+that when you delete the containers and run them again, iEchor Desktop persists any todos that you created.
 
 ## Summary
 
@@ -106,7 +106,7 @@ Related information:
 
 - Deep dive into [volumes](../../storage/volumes.md)
 - Learn about using volumes in Compose in the [Compose file reference](../../compose/compose-file/_index.md)
-- Explore using volumes via the CLI in the [docker volume CLI reference](../../reference/cli/docker/volume/create.md) and [Docker run reference](/reference/run/)
+- Explore using volumes via the CLI in the [iechor volume CLI reference](../../reference/cli/iechor/volume/create.md) and [iEchor run reference](/reference/run/)
 
 ## Next steps
 

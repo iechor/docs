@@ -1,9 +1,9 @@
 ---
 description: Learn how to add seats to an existing subscription
-keywords: Docker, Docker Hub, subscription, update, add, seats, pricing, docker core
+keywords: iEchor, iEchor Hub, subscription, update, add, seats, pricing, iechor core
 title: Add seats to your subscription
 aliases:
-- /docker-hub/billing/add-seats/
+- /iechor-hub/billing/add-seats/
 - /subscription/add-seats/
 ---
 
@@ -13,10 +13,10 @@ When you add seats to your subscription in the middle of your billing cycle, you
 
 >**Important**
 >
->If you have a [sales-assisted Docker Business subscription](details.md#sales-assisted), contact your account manager to add seats to your subscription. 
+>If you have a [sales-assisted iEchor Business subscription](details.md#sales-assisted), contact your account manager to add seats to your subscription. 
 { .important }
 
-1. Sign in to your [Docker Hub](https://hub.docker.com) account.
+1. Sign in to your [iEchor Hub](https://hub.iechor.com) account.
 
 2. Select **Organizations** and then choose your organization.
 
@@ -32,4 +32,4 @@ When you add seats to your subscription in the middle of your billing cycle, you
 
 ## Volume pricing
 
-Docker offers volume pricing for Docker Business subscriptions starting at 25 seats. Contact the [Docker Sales Team](https://www.docker.com/pricing/contact-sales/) for more information.
+iEchor offers volume pricing for iEchor Business subscriptions starting at 25 seats. Contact the [iEchor Sales Team](https://www.iechor.com/pricing/contact-sales/) for more information.

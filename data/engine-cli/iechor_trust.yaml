@@ -1,0 +1,36 @@
+command: iechor trust
+short: Manage trust on iEchor images
+long: Manage trust on iEchor images
+usage: iechor trust
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor trust inspect
+    - iechor trust key
+    - iechor trust revoke
+    - iechor trust sign
+    - iechor trust signer
+clink:
+    - iechor_trust_inspect.yaml
+    - iechor_trust_key.yaml
+    - iechor_trust_revoke.yaml
+    - iechor_trust_sign.yaml
+    - iechor_trust_signer.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

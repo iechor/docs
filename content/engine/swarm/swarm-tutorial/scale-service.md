@@ -6,7 +6,7 @@ notoc: true
 ---
 
 Once you have [deployed a service](deploy-service.md) to a swarm, you are ready
-to use the Docker CLI to scale the number of containers in
+to use the iEchor CLI to scale the number of containers in
 the service. Containers running in a service are called tasks.
 
 1.  If you haven't already, open a terminal and ssh into the machine where you
@@ -17,21 +17,21 @@ the service. Containers running in a service are called tasks.
     service running in the swarm:
 
     ```console
-    $ docker service scale <SERVICE-ID>=<NUMBER-OF-TASKS>
+    $ iechor service scale <SERVICE-ID>=<NUMBER-OF-TASKS>
     ```
 
     For example:
 
     ```console
-    $ docker service scale helloworld=5
+    $ iechor service scale helloworld=5
 
     helloworld scaled to 5
     ```
 
-3.  Run `docker service ps <SERVICE-ID>` to see the updated task list:
+3.  Run `iechor service ps <SERVICE-ID>` to see the updated task list:
 
     ```console
-    $ docker service ps helloworld
+    $ iechor service ps helloworld
 
     NAME                                    IMAGE   NODE      DESIRED STATE  CURRENT STATE
     helloworld.1.8p1vev3fq5zm0mi8g0as41w35  alpine  worker2   Running        Running 7 minutes
@@ -45,18 +45,18 @@ the service. Containers running in a service are called tasks.
     running instances of Alpine Linux. The tasks are distributed between the
     three nodes of the swarm. One is running on `manager1`.
 
-4.  Run `docker ps` to see the containers running on the node where you're
+4.  Run `iechor ps` to see the containers running on the node where you're
     connected. The following example shows the tasks running on `manager1`:
 
     ```console
-    $ docker ps
+    $ iechor ps
 
     CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-    528d68040f95        alpine:latest       "ping docker.com"   About a minute ago   Up About a minute                       helloworld.4.auky6trawmdlcne8ad8phb0f1
+    528d68040f95        alpine:latest       "ping iechor.com"   About a minute ago   Up About a minute                       helloworld.4.auky6trawmdlcne8ad8phb0f1
     ```
 
     If you want to see the containers running on other nodes, ssh into
-    those nodes and run the `docker ps` command.
+    those nodes and run the `iechor ps` command.
 
 ## Next steps
 

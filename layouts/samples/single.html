@@ -13,10 +13,10 @@
       <p>
         Samples compatible with
         <a href="{{ absURL "/desktop/dev-environments/" }}"
-          >Docker Dev Environments</a
+          >iEchor Dev Environments</a
         >
         require
-        <a href="{{ absURL "/get-docker/" }}">Docker Desktop</a>
+        <a href="{{ absURL "/get-iechor/" }}">iEchor Desktop</a>
         version 4.10 or later.
       </p>
     </blockquote>
@@ -25,7 +25,7 @@
         <tr>
           <th>Name</th>
           <th>Description</th>
-          <th>Docker Dev Environment (if compatible)</th>
+          <th>iEchor Dev Environment (if compatible)</th>
         </tr>
       </thead>
       <tbody>
@@ -36,7 +36,7 @@
               <td>{{ .description }}</td>
               <td>
                 {{ if .dev_env }}
-                  {{ printf "[Open in Docker Dev Environment](https://open.docker.com/dashboard/dev-envs?url=%s)" .url | markdownify }}
+                  {{ printf "[Open in iEchor Dev Environment](https://open.iechor.com/dashboard/dev-envs?url=%s)" .url | markdownify }}
                 {{ end }}
               </td>
             </tr>
@@ -47,20 +47,20 @@
 
     <h2>Looking for more samples?</h2>
 
-    <p>Visit the following GitHub repositories for more Docker samples.</p>
+    <p>Visit the following GitHub repositories for more iEchor samples.</p>
 
     <ul>
       <li>
         <p>
-          {{ markdownify "[Awesome Compose](https://github.com/docker/awesome-compose)" }}:
-          A curated repository containing over 30 Docker Compose samples. These
+          {{ markdownify "[Awesome Compose](https://github.com/iechor/awesome-compose)" }}:
+          A curated repository containing over 30 iEchor Compose samples. These
           samples offer a starting point for how to integrate different services
           using a Compose file.
         </p>
       </li>
       <li>
         <p>
-          {{ markdownify "[Docker Samples](https://github.com/dockersamples?q=&type=all&language=&sort=stargazers)" }}:
+          {{ markdownify "[iEchor Samples](https://github.com/iechorsamples?q=&type=all&language=&sort=stargazers)" }}:
           A collection of over 30 repositories that offer sample containerized
           demo applications, tutorials, and labs.
         </p>

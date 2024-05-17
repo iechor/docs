@@ -8,7 +8,7 @@ keywords: build, buildkit
 
 [BuildKit](https://github.com/moby/buildkit)
 is an improved backend to replace the legacy builder. BuildKit is the default builder
-for users on Docker Desktop, and Docker Engine as of version 23.0.
+for users on iEchor Desktop, and iEchor Engine as of version 23.0.
 
 BuildKit provides new functionality and improves your builds' performance.
 It also introduces support for handling more complex scenarios:
@@ -19,7 +19,7 @@ It also introduces support for handling more complex scenarios:
   [build context](../building/context.md) between builds
 - Detect and skip transferring unused files in your
   [build context](../building/context.md)
-- Use [Dockerfile frontend](../dockerfile/frontend.md) implementations with many
+- Use [iEchorfile frontend](../iechorfile/frontend.md) implementations with many
   new features
 - Avoid side effects with rest of the API (intermediate images and containers)
 - Prioritize your build cache for automatic pruning
@@ -39,7 +39,7 @@ At the core of BuildKit is a
 [Low-Level Build (LLB)](https://github.com/moby/buildkit#exploring-llb) definition format. LLB is an intermediate binary format
 that allows developers to extend BuildKit. LLB defines a content-addressable
 dependency graph that can be used to put together very complex build
-definitions. It also supports features not exposed in Dockerfiles, like direct
+definitions. It also supports features not exposed in iEchorfiles, like direct
 data mounting and nested invocation.
 
 {{< figure src="../images/buildkit-dag.svg" class="invertible" >}}
@@ -65,33 +65,33 @@ it to LLB so BuildKit can execute it. Frontends can be distributed as images,
 and the user can target a specific version of a frontend that is guaranteed to
 work for the features used by their definition.
 
-For example, to build a [Dockerfile](../../reference/dockerfile.md) with
+For example, to build a [iEchorfile](../../reference/iechorfile.md) with
 BuildKit, you would
-[use an external Dockerfile frontend](../dockerfile/frontend.md).
+[use an external iEchorfile frontend](../iechorfile/frontend.md).
 
 ## Getting started
 
-BuildKit is the default builder for users on Docker Desktop and Docker Engine
+BuildKit is the default builder for users on iEchor Desktop and iEchor Engine
 v23.0 and later.
 
-If you have installed Docker Desktop, you don't need to enable BuildKit. If you
-are running a version of Docker Engine version earlier than 23.0, you can enable
+If you have installed iEchor Desktop, you don't need to enable BuildKit. If you
+are running a version of iEchor Engine version earlier than 23.0, you can enable
 BuildKit either by setting an environment variable, or by making BuildKit the
 default setting in the daemon configuration.
 
-To set the BuildKit environment variable when running the `docker build`
+To set the BuildKit environment variable when running the `iechor build`
 command, run:
 
 ```console
-$ DOCKER_BUILDKIT=1 docker build .
+$ IECHOR_BUILDKIT=1 iechor build .
 ```
 
 > **Note**
 >
 > [Buildx](../architecture.md#buildx) always uses BuildKit.
 
-To use Docker BuildKit by default, edit the Docker daemon configuration in
-`/etc/docker/daemon.json` as follows, and restart the daemon.
+To use iEchor BuildKit by default, edit the iEchor daemon configuration in
+`/etc/iechor/daemon.json` as follows, and restart the daemon.
 
 ```json
 {
@@ -101,8 +101,8 @@ To use Docker BuildKit by default, edit the Docker daemon configuration in
 }
 ```
 
-If the `/etc/docker/daemon.json` file doesn't exist, create new file called
-`daemon.json` and then add the following to the file. And restart the Docker
+If the `/etc/iechor/daemon.json` file doesn't exist, create new file called
+`daemon.json` and then add the following to the file. And restart the iEchor
 daemon.
 
 ## BuildKit on Windows
@@ -129,7 +129,7 @@ We appreciate any feedback you submit by [opening an issue here](https://github.
 - Supported OS: Windows Server 2019, Windows Server 2022, Windows 11.
 - Base images: `ServerCore:ltsc2019`, `ServerCore:ltsc2022`, `NanoServer:ltsc2022`.
   See the [compatibility map here](https://learn.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/version-compatibility?tabs=windows-server-2019%2Cwindows-11#windows-server-host-os-compatibility).
-- Docker Desktop version 4.29 or later
+- iEchor Desktop version 4.29 or later
 
 ### Steps
 
@@ -146,9 +146,9 @@ We appreciate any feedback you submit by [opening an issue here](https://github.
    If you see `RestartNeeded` as `True`, restart your machine and re-open a PowerShell terminal as an administrator.
    Otherwise, continue with the next step.
 
-2. Switch to Windows containers in Docker Desktop.
+2. Switch to Windows containers in iEchor Desktop.
 
-   Select the Docker icon in the taskbar, and then **Switch to Windows containers...**.
+   Select the iEchor icon in the taskbar, and then **Switch to Windows containers...**.
 
 3. Install containerd version 1.7.7 or later following the setup instructions [here](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#installing-containerd-on-windows).
 
@@ -190,17 +190,17 @@ We appreciate any feedback you submit by [opening an issue here](https://github.
 
    > **Note**
    >
-   > This requires Docker Desktop version 4.29 or later.
+   > This requires iEchor Desktop version 4.29 or later.
 
    ```console
-   > docker buildx create --name buildkit-exp --use --driver=remote npipe:////./pipe/buildkitd
+   > iechor buildx create --name buildkit-exp --use --driver=remote npipe:////./pipe/buildkitd
    buildkit-exp
    ```
 
-8. Verify the builder connection by running `docker buildx inspect`.
+8. Verify the builder connection by running `iechor buildx inspect`.
 
    ```console
-   > docker buildx inspect
+   > iechor buildx inspect
    ```
 
    The output should indicate that the builder platform is Windows,
@@ -219,12 +219,12 @@ We appreciate any feedback you submit by [opening an issue here](https://github.
    ...
    ```
 
-9. Create a Dockerfile and build a `hello-world` image.
+9. Create a iEchorfile and build a `hello-world` image.
 
    ```console
-   > mkdir sample_dockerfile
-   > cd sample_dockerfile
-   > Set-Content Dockerfile @"
+   > mkdir sample_iechorfile
+   > cd sample_iechorfile
+   > Set-Content iEchorfile @"
    FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
    USER ContainerAdministrator
    COPY hello.txt C:/
@@ -240,11 +240,11 @@ We appreciate any feedback you submit by [opening an issue here](https://github.
 10. Build and push the image to a registry.
 
     ```console
-    > docker buildx build --push -t <username>/hello-buildkit .
+    > iechor buildx build --push -t <username>/hello-buildkit .
     ```
 
-11. After pushing to the registry, run the image with `docker run`.
+11. After pushing to the registry, run the image with `iechor run`.
 
     ```console
-    > docker run <username>/hello-world
+    > iechor run <username>/hello-world
     ```

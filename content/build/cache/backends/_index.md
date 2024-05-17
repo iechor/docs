@@ -17,7 +17,7 @@ An external cache becomes almost essential in CI/CD build environments. Such
 environments usually have little-to-no persistence between runs, but it's still
 important to keep the runtime of image builds as low as possible.
 
-The default `docker` driver supports the `inline` and `local` cache backends.
+The default `iechor` driver supports the `inline` and `local` cache backends.
 Other cache backends require you to select a different
 [driver](../../drivers/index.md).
 
@@ -25,7 +25,7 @@ Other cache backends require you to select a different
 >
 > If you use secrets or credentials inside your build process, ensure you
 > manipulate them using the dedicated
-> [`--secret` option](../../../reference/cli/docker/buildx/build.md#secret).
+> [`--secret` option](../../../reference/cli/iechor/buildx/build.md#secret).
 > Manually managing secrets using `COPY` or `ARG` could result in leaked
 > credentials.
 { .warning }
@@ -57,9 +57,9 @@ Buildx supports the following cache storage backends:
 ## Command syntax
 
 To use any of the cache backends, you first need to specify it on build with the
-[`--cache-to` option](../../../reference/cli/docker/buildx/build.md#cache-to)
+[`--cache-to` option](../../../reference/cli/iechor/buildx/build.md#cache-to)
 to export the cache to your storage backend of choice. Then, use the
-[`--cache-from` option](../../../reference/cli/docker/buildx/build.md#cache-from)
+[`--cache-from` option](../../../reference/cli/iechor/buildx/build.md#cache-from)
 to import the cache from the storage backend into the current build. Unlike the
 local BuildKit cache (which is always enabled), all of the cache storage
 backends must be explicitly exported to, and explicitly imported from.
@@ -68,7 +68,7 @@ Example `buildx` command using the `registry` backend, using import and export
 cache:
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --cache-to type=registry,ref=<registry>/<cache-image>[,parameters...] \
   --cache-from type=registry,ref=<registry>/<cache-image>[,parameters...] .
 ```
@@ -90,7 +90,7 @@ following example shows importing cache from multiple locations using the
 registry cache backend:
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --cache-to type=registry,ref=<registry>/<cache-image>:<branch> \
   --cache-from type=registry,ref=<registry>/<cache-image>:<branch> \
   --cache-from type=registry,ref=<registry>/<cache-image>:main .
@@ -120,7 +120,7 @@ Mode can be set to either of two options: `mode=min` or `mode=max`. For example,
 to build the cache with `mode=max` with the registry backend:
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --cache-to type=registry,ref=<registry>/<cache-image>,mode=max \
   --cache-from type=registry,ref=<registry>/<cache-image> .
 ```
@@ -147,7 +147,7 @@ supported by the `local` and `registry` cache backends.
 For example, to compress the `registry` cache with `zstd` compression:
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --cache-to type=registry,ref=<registry>/<cache-image>,compression=zstd \
   --cache-from type=registry,ref=<registry>/<cache-image> .
 ```
@@ -161,7 +161,7 @@ supported by the `local` and `registry` cache backends.
 For example, to export OCI media type cache, use the `oci-mediatypes` property:
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --cache-to type=registry,ref=<registry>/<cache-image>,oci-mediatypes=true \
   --cache-from type=registry,ref=<registry>/<cache-image> .
 ```

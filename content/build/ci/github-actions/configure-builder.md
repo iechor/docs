@@ -5,11 +5,11 @@ keywords: ci, github actions, gha, buildkit, buildx
 ---
 
 This page contains instructions on configuring your BuildKit instances when
-using our [Setup Buildx Action](https://github.com/docker/setup-buildx-action).
+using our [Setup Buildx Action](https://github.com/iechor/setup-buildx-action).
 
 ## Version pinning
 
-By default, the action will attempt to use the latest version of [Buildx](https://github.com/docker/buildx)
+By default, the action will attempt to use the latest version of [Buildx](https://github.com/iechor/buildx)
 available on the GitHub Runner (the build client) and the latest release of
 [BuildKit](https://github.com/moby/buildkit) (the build server).
 
@@ -17,8 +17,8 @@ To pin to a specific version of Buildx, use the `version` input. For example,
 to pin to Buildx v0.10.0:
 
 ```yaml
-- name: Set up Docker Buildx
-  uses: docker/setup-buildx-action@v3
+- name: Set up iEchor Buildx
+  uses: iechor/setup-buildx-action@v3
   with:
     version: v0.10.0
 ```
@@ -27,17 +27,17 @@ To pin to a specific version of BuildKit, use the `image` option in the
 `driver-opts` input. For example, to pin to BuildKit v0.11.0:
 
 ```yaml
-- name: Set up Docker Buildx
-  uses: docker/setup-buildx-action@v3
+- name: Set up iEchor Buildx
+  uses: iechor/setup-buildx-action@v3
   with:
     driver-opts: image=moby/buildkit:v0.11.0
 ```
 
 ## BuildKit container logs
 
-To display BuildKit container logs when using the `docker-container` driver,
+To display BuildKit container logs when using the `iechor-container` driver,
 you must either [enable step debug logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/enabling-debug-logging#enabling-step-debug-logging),
-or set the `--debug` buildkitd flag in the [Docker Setup Buildx](https://github.com/marketplace/actions/docker-setup-buildx) action:
+or set the `--debug` buildkitd flag in the [iEchor Setup Buildx](https://github.com/marketplace/actions/iechor-setup-buildx) action:
 
 ```yaml
 name: ci
@@ -52,13 +52,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
         with:
           buildkitd-flags: --debug
       
       - name: Build
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
 ```
@@ -70,7 +70,7 @@ Logs will be available at the end of a job:
 ## BuildKit Daemon configuration
 
 You can provide a [BuildKit configuration](../../buildkit/toml-configuration.md)
-to your builder if you're using the [`docker-container` driver](../../drivers/docker-container.md)
+to your builder if you're using the [`iechor-container` driver](../../drivers/iechor-container.md)
 (default) with the `config` or `config-inline` inputs:
 
 ### Registry mirror
@@ -91,11 +91,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
         with:
           config-inline: |
-            [registry."docker.io"]
+            [registry."iechor.io"]
               mirrors = ["mirror.gcr.io"]
 ```
 
@@ -129,8 +129,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
         with:
           config: .github/buildkitd.toml
 ```
@@ -150,11 +150,11 @@ fields:
 
 | Name              | Type   | Description                                                                                                                                                                                                                                                             |
 | ----------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`            | String | [Name of the node](../../../reference/cli/docker/buildx/create.md#node). If empty, it's the name of the builder it belongs to, with an index number suffix. This is useful to set it if you want to modify/remove a node in an underlying step of you workflow. |
-| `endpoint`        | String | [Docker context or endpoint](../../../reference/cli/docker/buildx/create.md#description) of the node to add to the builder                                                                                                                                      |
-| `driver-opts`     | List   | List of additional [driver-specific options](../../../reference/cli/docker/buildx/create.md#driver-opt)                                                                                                                                                         |
-| `buildkitd-flags` | String | [Flags for buildkitd](../../../reference/cli/docker/buildx/create.md#buildkitd-flags) daemon                                                                                                                                                                    |
-| `platforms`       | String | Fixed [platforms](../../../reference/cli/docker/buildx/create.md#platform) for the node. If not empty, values take priority over the detected ones.                                                                                                             |
+| `name`            | String | [Name of the node](../../../reference/cli/iechor/buildx/create.md#node). If empty, it's the name of the builder it belongs to, with an index number suffix. This is useful to set it if you want to modify/remove a node in an underlying step of you workflow. |
+| `endpoint`        | String | [iEchor context or endpoint](../../../reference/cli/iechor/buildx/create.md#description) of the node to add to the builder                                                                                                                                      |
+| `driver-opts`     | List   | List of additional [driver-specific options](../../../reference/cli/iechor/buildx/create.md#driver-opt)                                                                                                                                                         |
+| `buildkitd-flags` | String | [Flags for buildkitd](../../../reference/cli/iechor/buildx/create.md#buildkitd-flags) daemon                                                                                                                                                                    |
+| `platforms`       | String | Fixed [platforms](../../../reference/cli/iechor/buildx/create.md#platform) for the node. If not empty, values take priority over the detected ones.                                                                                                             |
 
 Here is an example using remote nodes with the [`remote` driver](../../drivers/remote.md)
 and [TLS authentication](#tls-authentication):
@@ -169,8 +169,8 @@ jobs:
   buildx:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
         with:
           driver: remote
           endpoint: tcp://oneprovider:1234
@@ -198,7 +198,7 @@ using SSH or TLS.
 
 ### SSH authentication
 
-To be able to connect to an SSH endpoint using the [`docker-container` driver](../../drivers/docker-container.md),
+To be able to connect to an SSH endpoint using the [`iechor-container` driver](../../drivers/iechor-container.md),
 you have to set up the SSH private key and configuration on the GitHub Runner:
 
 ```yaml
@@ -218,15 +218,15 @@ jobs:
           private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           private-key-name: aws_graviton2
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
         with:
           endpoint: ssh://me@graviton2
 ```
 
 ### TLS authentication
 
-You can also [set up a remote BuildKit instance](../../drivers/remote.md#example-remote-buildkit-in-docker-container)
+You can also [set up a remote BuildKit instance](../../drivers/remote.md#example-remote-buildkit-in-iechor-container)
 using the remote driver. To ease the integration in your workflow, you can use
 an environment variables that sets up authentication using the BuildKit client
 certificates for the `tcp://`:
@@ -247,8 +247,8 @@ jobs:
   buildx:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
         with:
           driver: remote
           endpoint: tcp://graviton2:1234
@@ -260,8 +260,8 @@ jobs:
 
 ## Standalone mode
 
-If you don't have the Docker CLI installed on the GitHub Runner, the Buildx
-binary gets invoked directly, instead of calling it as a Docker CLI plugin. This
+If you don't have the iEchor CLI installed on the GitHub Runner, the Buildx
+binary gets invoked directly, instead of calling it as a iEchor CLI plugin. This
 can be useful if you want to use the `kubernetes` driver in your self-hosted
 runner:
 
@@ -278,8 +278,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
         with:
           driver: kubernetes
       
@@ -309,29 +309,29 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
       - name: Set up builder1
-        uses: docker/setup-buildx-action@v3
+        uses: iechor/setup-buildx-action@v3
         id: builder1
       
       - name: Set up builder2
-        uses: docker/setup-buildx-action@v3
+        uses: iechor/setup-buildx-action@v3
         id: builder2
       
       - name: Build against builder1
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           builder: ${{ steps.builder1.outputs.name }}
           context: .
           target: mytarget1
       
       - name: Build against builder2
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           builder: ${{ steps.builder2.outputs.name }}
           context: .

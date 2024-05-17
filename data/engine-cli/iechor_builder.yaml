@@ -1,0 +1,31 @@
+command: iechor builder
+short: Manage builds
+long: Manage builds
+usage: iechor builder
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor builder build
+    - iechor builder prune
+clink:
+    - iechor_builder_build.yaml
+    - iechor_builder_prune.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+min_api_version: "1.31"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

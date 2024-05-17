@@ -1,7 +1,7 @@
-{{ $product_link := "[Docker Hub](https://hub.docker.com)" }}
+{{ $product_link := "[iEchor Hub](https://hub.iechor.com)" }}
 {{ $audit_navigation := "Select **Organizations**, your organization, and then **Activity**." }}
 {{ if eq (.Get "product") "admin" }}
-  {{ $product_link = "the [Admin Console](https://admin.docker.com)" }}
+  {{ $product_link = "the [Admin Console](https://admin.iechor.com)" }}
   {{ $audit_navigation = "Select your organization in the left navigation drop-down menu, and then select **Activity logs**." }}
 {{ end }}
 
@@ -14,7 +14,7 @@ To view the activity logs:
 
 > **Note**
 >
-> Docker retains the activity data for a period of three months.
+> iEchor retains the activity data for a period of three months.
 
 ### Customize the activity logs
 
@@ -22,8 +22,8 @@ By default, all activities that occur are displayed on the **Activity** tab. Use
 
 > **Note**
 >
-> Activities created by the Docker Support team as part of resolving customer issues appear in the activity logs as **dockersupport**.
+> Activities created by the iEchor Support team as part of resolving customer issues appear in the activity logs as **iechorsupport**.
 
-Select the **All Activities** drop-down to view activities that are specific to an organization, repository, or billing. In Docker Hub, if you select the **Activities** tab from the **Repository** view, you can only filter repository-level activities.
+Select the **All Activities** drop-down to view activities that are specific to an organization, repository, or billing. In iEchor Hub, if you select the **Activities** tab from the **Repository** view, you can only filter repository-level activities.
 
 After choosing **Organization**, **Repository**, or **Billing**, you can further refine the results using the **All Actions** drop-down.

@@ -22,12 +22,12 @@ You'll need to clone a new repository to get a sample application that includes 
 Change to a directory where you want to clone the repository and run the following command.
 
 ```console
-$ git clone https://github.com/mfranzon/r-docker-dev.git
+$ git clone https://github.com/mfranzon/r-iechor-dev.git
 ```
 
 ## Configure the application to use the database
 
-To try the connection between the Shiny application and the local database you have to modify the `Dockerfile` changing the `COPY` instruction:
+To try the connection between the Shiny application and the local database you have to modify the `iEchorfile` changing the `COPY` instruction:
 
 ```diff
 -RUN src/ .
@@ -49,7 +49,7 @@ services:
   shiny-app:
     build:
       context: .
-      dockerfile: Dockerfile
+      iechorfile: iEchorfile
     ports:
       - 3838:3838
     environment:
@@ -99,11 +99,11 @@ mysecretpassword
 
 Save and close the `password.txt` file.
 
-You should now have the following contents in your `r-docker-dev`
+You should now have the following contents in your `r-iechor-dev`
 directory.
 
 ```text
-├── r-docker-dev/
+├── r-iechor-dev/
 │ ├── db/
 │ │ └── password.txt
 │ ├── src/
@@ -111,17 +111,17 @@ directory.
 │ ├── src_db/
 │ │ └── app_db.R
 │ ├── requirements.txt
-│ ├── .dockerignore
+│ ├── .iechorignore
 │ ├── compose.yaml
-│ ├── Dockerfile
-│ ├── README.Docker.md
+│ ├── iEchorfile
+│ ├── README.iEchor.md
 │ └── README.md
 ```
 
-Now, run the following `docker compose up` command to start your application.
+Now, run the following `iechor compose up` command to start your application.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
 Now test your DB connection opening a browser at:
@@ -145,7 +145,7 @@ Use Compose Watch to automatically update your running Compose services as you
 edit and save your code. For more details about Compose Watch, see [Use Compose
 Watch](../../compose/file-watch.md).
 
-Lines 15 to 18 in the `compose.yaml` file contain properties that trigger Docker
+Lines 15 to 18 in the `compose.yaml` file contain properties that trigger iEchor
 to rebuild the image when a file in the current working directory is changed:
 
 ```yaml {hl_lines="15-18",linenos=true}
@@ -153,7 +153,7 @@ services:
   shiny-app:
     build:
       context: .
-      dockerfile: Dockerfile
+      iechorfile: iEchorfile
     ports:
       - 3838:3838
     environment:
@@ -195,7 +195,7 @@ secrets:
 Run the following command to run your application with Compose Watch.
 
 ```console
-$ docker compose watch
+$ iechor compose watch
 ```
 
 Now, if you modify your `app.R` you will see the changes in real time without re-building the image!

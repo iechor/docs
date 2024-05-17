@@ -19,7 +19,7 @@ The `builder.id` field is set to the URL of the build, if available.
 
 ```json
     "builder": {
-      "id": "https://github.com/docker/buildx/actions/runs/3709599520"
+      "id": "https://github.com/iechor/buildx/actions/runs/3709599520"
     },
 ```
 
@@ -53,7 +53,7 @@ Describes the config that initialized the build.
         "digest": {
           "sha1": "4b220de5058abfd01ff619c9d2ff6b09a049bea0"
         },
-        "entryPoint": "Dockerfile"
+        "entryPoint": "iEchorfile"
       },
       ...
     },
@@ -61,7 +61,7 @@ Describes the config that initialized the build.
 
 For builds initialized from a remote context, like a Git or HTTP URL, this
 object defines the context URL and its immutable digest in the `uri` and `digest` fields.
-For builds using a local frontend, such as a Dockerfile, the `entryPoint` field defines the path
+For builds using a local frontend, such as a iEchorfile, the `entryPoint` field defines the path
 for the frontend file that initialized the build (`filename` frontend option).
 
 ## `invocation.parameters`
@@ -79,7 +79,7 @@ Describes build inputs passed to the build.
         "args": {
           "build-arg:BUILDKIT_CONTEXT_KEEP_GIT_DIR": "1",
           "label:FOO": "bar",
-          "source": "docker/dockerfile-upstream:master",
+          "source": "iechor/iechorfile-upstream:master",
           "target": "release"
         },
         "secrets": [
@@ -101,7 +101,7 @@ The following fields are included with both `mode=min` and `mode=max`:
 - `locals` lists any local sources used in the build, including the build
   context and frontend file.
 - `frontend` defines type of BuildKit frontend used for the build. Currently,
-  this can be `dockerfile.v0` or `gateway.v0`.
+  this can be `iechorfile.v0` or `gateway.v0`.
 - `args` defines the build arguments passed to the BuildKit frontend.
 
   The keys inside the `args` object reflect the options as BuildKit receives
@@ -146,10 +146,10 @@ depends on the type of artifact:
 
 - The URL of Git repositories containing source code for the image
 - HTTP URLs if you are building from a remote tarball, or that was included
-  using an `ADD` command in Dockerfile
-- Any Docker images used during the build
+  using an `ADD` command in iEchorfile
+- Any iEchor images used during the build
 
-The URLs to the Docker images will be in
+The URLs to the iEchor images will be in
 [Package URL](https://github.com/package-url/purl-spec) format.
 
 All the build materials will include the immutable checksum of the artifact.
@@ -159,7 +159,7 @@ determine if the artifact has been updated compared to when the build ran.
 ```json
     "materials": [
       {
-        "uri": "pkg:docker/alpine@3.17?platform=linux%2Famd64",
+        "uri": "pkg:iechor/alpine@3.17?platform=linux%2Famd64",
         "digest": {
           "sha256": "8914eb54f968791faf6a8638949e480fef81e697984fba772b3976835194c6d4"
         }
@@ -325,7 +325,7 @@ value can be set by the user with the `reproducible=true` attestation parameter.
 Included with `mode=min` and `mode=max`.
 
 This extension field is set to true if the build was hermetic and did not access
-the network. In Dockerfiles, a build is hermetic if it does not use `RUN`
+the network. In iEchorfiles, a build is hermetic if it does not use `RUN`
 commands or disables network with `--network=none` flag.
 
 ```json
@@ -359,8 +359,8 @@ Only included with `mode=max`.
 
 Defines a source mapping of LLB build steps, defined in the
 `buildConfig.llbDefinition` field, to their original source code (for example,
-Dockerfile commands). The `source.locations` field contains the ranges of all
-the Dockerfile commands ran in an LLB step. `source.infos` array contains the
+iEchorfile commands). The `source.locations` field contains the ranges of all
+the iEchorfile commands ran in an LLB step. `source.infos` array contains the
 source code itself. This mapping is present if the BuildKit frontend provided it
 when creating the LLB definition.
 
@@ -391,11 +391,11 @@ as such they can't be trusted and should only be used as a metadata hint.
 ## Output
 
 To inspect the provenance that was generated and attached to a container image,
-you can use the `docker buildx imagetools` command to inspect the image in a
+you can use the `iechor buildx imagetools` command to inspect the image in a
 registry. Inspecting the attestation displays the format described in the
 [attestation storage specification](./attestation-storage.md).
 
-For example, inspecting a simple Docker image based on `alpine:latest` results
+For example, inspecting a simple iEchor image based on `alpine:latest` results
 in a provenance attestation similar to the following, for a `mode=min` build:
 
 ```json
@@ -404,7 +404,7 @@ in a provenance attestation similar to the following, for a `mode=min` build:
   "predicateType": "https://slsa.dev/provenance/v0.2",
   "subject": [
     {
-      "name": "pkg:docker/<registry>/<image>@<tag/digest>?platform=<platform>",
+      "name": "pkg:iechor/<registry>/<image>@<tag/digest>?platform=<platform>",
       "digest": {
         "sha256": "e8275b2b76280af67e26f068e5d585eb905f8dfd2f1918b3229db98133cb4862"
       }
@@ -417,7 +417,7 @@ in a provenance attestation similar to the following, for a `mode=min` build:
     "buildType": "https://mobyproject.org/buildkit@v1",
     "materials": [
       {
-        "uri": "pkg:docker/alpine@latest?platform=linux%2Famd64",
+        "uri": "pkg:iechor/alpine@latest?platform=linux%2Famd64",
         "digest": {
           "sha256": "8914eb54f968791faf6a8638949e480fef81e697984fba772b3976835194c6d4"
         }
@@ -425,17 +425,17 @@ in a provenance attestation similar to the following, for a `mode=min` build:
     ],
     "invocation": {
       "configSource": {
-        "entryPoint": "Dockerfile"
+        "entryPoint": "iEchorfile"
       },
       "parameters": {
-        "frontend": "dockerfile.v0",
+        "frontend": "iechorfile.v0",
         "args": {},
         "locals": [
           {
             "name": "context"
           },
           {
-            "name": "dockerfile"
+            "name": "iechorfile"
           }
         ]
       },
@@ -467,7 +467,7 @@ For a similar build, but with `mode=max`:
   "predicateType": "https://slsa.dev/provenance/v0.2",
   "subject": [
     {
-      "name": "pkg:docker/<registry>/<image>@<tag/digest>?platform=<platform>",
+      "name": "pkg:iechor/<registry>/<image>@<tag/digest>?platform=<platform>",
       "digest": {
         "sha256": "e8275b2b76280af67e26f068e5d585eb905f8dfd2f1918b3229db98133cb4862"
       }
@@ -480,7 +480,7 @@ For a similar build, but with `mode=max`:
     "buildType": "https://mobyproject.org/buildkit@v1",
     "materials": [
       {
-        "uri": "pkg:docker/alpine@latest?platform=linux%2Famd64",
+        "uri": "pkg:iechor/alpine@latest?platform=linux%2Famd64",
         "digest": {
           "sha256": "8914eb54f968791faf6a8638949e480fef81e697984fba772b3976835194c6d4"
         }
@@ -488,17 +488,17 @@ For a similar build, but with `mode=max`:
     ],
     "invocation": {
       "configSource": {
-        "entryPoint": "Dockerfile"
+        "entryPoint": "iEchorfile"
       },
       "parameters": {
-        "frontend": "dockerfile.v0",
+        "frontend": "iechorfile.v0",
         "args": {},
         "locals": [
           {
             "name": "context"
           },
           {
-            "name": "dockerfile"
+            "name": "iechorfile"
           }
         ]
       },
@@ -513,7 +513,7 @@ For a similar build, but with `mode=max`:
           "op": {
             "Op": {
               "source": {
-                "identifier": "docker-image://docker.io/library/alpine:latest@sha256:8914eb54f968791faf6a8638949e480fef81e697984fba772b3976835194c6d4"
+                "identifier": "iechor-image://iechor.io/library/alpine:latest@sha256:8914eb54f968791faf6a8638949e480fef81e697984fba772b3976835194c6d4"
               }
             },
             "platform": {
@@ -564,7 +564,7 @@ For a similar build, but with `mode=max`:
           },
           "infos": [
             {
-              "filename": "Dockerfile",
+              "filename": "iEchorfile",
               "data": "RlJPTSBhbHBpbmU6bGF0ZXN0Cg==",
               "llbDefinition": [
                 {
@@ -572,12 +572,12 @@ For a similar build, but with `mode=max`:
                   "op": {
                     "Op": {
                       "source": {
-                        "identifier": "local://dockerfile",
+                        "identifier": "local://iechorfile",
                         "attrs": {
                           "local.differ": "none",
-                          "local.followpaths": "[\"Dockerfile\",\"Dockerfile.dockerignore\",\"dockerfile\"]",
+                          "local.followpaths": "[\"iEchorfile\",\"iEchorfile.iechorignore\",\"iechorfile\"]",
                           "local.session": "q2jnwdkas0i0iu4knchd92jaz",
-                          "local.sharedkeyhint": "dockerfile"
+                          "local.sharedkeyhint": "iechorfile"
                         }
                       }
                     },

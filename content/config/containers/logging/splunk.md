@@ -1,6 +1,6 @@
 ---
-description: Learn how to use the Splunk logging driver with Docker Engine
-keywords: splunk, docker, logging, driver
+description: Learn how to use the Splunk logging driver with iEchor Engine
+keywords: splunk, iechor, logging, driver
 title: Splunk logging driver
 aliases:
   - /engine/reference/logging/splunk/
@@ -13,12 +13,12 @@ in Splunk Enterprise and Splunk Cloud.
 
 ## Usage
 
-You can configure Docker logging to use the `splunk` driver by default or on a
+You can configure iEchor logging to use the `splunk` driver by default or on a
 per-container basis.
 
 To use the `splunk` driver as the default logging driver, set the keys
 `log-driver` and `log-opts` to appropriate values in the `daemon.json`
-configuration file and restart Docker. For example:
+configuration file and restart iEchor. For example:
 
 ```json
 {
@@ -31,10 +31,10 @@ configuration file and restart Docker. For example:
 }
 ```
 
-The daemon.json file is located in `/etc/docker/` on Linux hosts or
-`C:\ProgramData\docker\config\daemon.json` on Windows Server. For more about
-configuring Docker using `daemon.json`, see
-[daemon.json](../../../reference/cli/dockerd.md#daemon-configuration-file).
+The daemon.json file is located in `/etc/iechor/` on Linux hosts or
+`C:\ProgramData\iechor\config\daemon.json` on Windows Server. For more about
+configuring iEchor using `daemon.json`, see
+[daemon.json](../../../reference/cli/iechord.md#daemon-configuration-file).
 
 > **Note**
 >
@@ -44,19 +44,19 @@ configuring Docker using `daemon.json`, see
 > (`"`).
 
 To use the `splunk` driver for a specific container, use the commandline flags
-`--log-driver` and `log-opt` with `docker run`:
+`--log-driver` and `log-opt` with `iechor run`:
 
 ```console
-$ docker run --log-driver=splunk --log-opt splunk-token=VALUE --log-opt splunk-url=VALUE ...
+$ iechor run --log-driver=splunk --log-opt splunk-token=VALUE --log-opt splunk-url=VALUE ...
 ```
 
 ## Splunk options
 
 The following properties let you configure the Splunk logging driver.
 
-- To configure the `splunk` driver across the Docker environment, edit
+- To configure the `splunk` driver across the iEchor environment, edit
   `daemon.json` with the key, `"log-opts": {"NAME": "VALUE", ...}`.
-- To configure the `splunk` driver for an individual container, use `docker run`
+- To configure the `splunk` driver for an individual container, use `iechor run`
   with the flag, `--log-opt NAME=VALUE ...`.
 
 | Option                      | Required | Description                                                                                                                                                                                                                                                                                                                                |
@@ -70,7 +70,7 @@ The following properties let you configure the Splunk logging driver.
 | `splunk-caname`             | optional | Name to use for validating server certificate; by default the hostname of the `splunk-url` is used.                                                                                                                                                                                                                                        |
 | `splunk-insecureskipverify` | optional | Ignore server certificate validation.                                                                                                                                                                                                                                                                                                      |
 | `splunk-format`             | optional | Message format. Can be `inline`, `json` or `raw`. Defaults to `inline`.                                                                                                                                                                                                                                                                    |
-| `splunk-verify-connection`  | optional | Verify on start, that Docker can connect to Splunk server. Defaults to true.                                                                                                                                                                                                                                                               |
+| `splunk-verify-connection`  | optional | Verify on start, that iEchor can connect to Splunk server. Defaults to true.                                                                                                                                                                                                                                                               |
 | `splunk-gzip`               | optional | Enable/disable gzip compression to send events to Splunk Enterprise or Splunk Cloud instance. Defaults to false.                                                                                                                                                                                                                           |
 | `splunk-gzip-level`         | optional | Set compression level for gzip. Valid values are -1 (default), 0 (no compression), 1 (best speed) ... 9 (best compression). Defaults to [DefaultCompression](https://golang.org/pkg/compress/gzip/#DefaultCompression).                                                                                                                    |
 | `tag`                       | optional | Specify tag for message, which interpret some markup. Default value is `{{.ID}}` (12 characters of the container ID). Refer to the [log tag option documentation](log_tags.md) for customizing the log tag format.                                                                                                                         |
@@ -85,14 +85,14 @@ logging message.
 
 Below is an example of the logging options specified for the Splunk Enterprise
 instance. The instance is installed locally on the same machine on which the
-Docker daemon is running.
+iEchor daemon is running.
 
 The path to the root certificate and Common Name is specified using an HTTPS
 scheme. This is used for verification. The `SplunkServerDefaultCert` is
 automatically generated by Splunk certificates.
 
 ```console
-$ docker run \
+$ iechor run \
     --log-driver=splunk \
     --log-opt splunk-token=176FCEBF-4CF5-4EDF-91BC-703796522D20 \
     --log-opt splunk-url=https://splunkhost:8088 \
@@ -196,7 +196,7 @@ MyImage/MyContainer env1=val1 label1=label1 {"foo": "bar"}
 ## Advanced options
 
 The Splunk logging driver lets you configure a few advanced options by setting
-environment variables for the Docker daemon.
+environment variables for the iEchor daemon.
 
 | Environment variable name                        | Default value | Description                                                                                                                              |
 | :----------------------------------------------- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |

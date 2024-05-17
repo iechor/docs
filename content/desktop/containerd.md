@@ -1,36 +1,36 @@
 ---
 title: containerd image store
-description: How to activate the containerd integration feature in Docker Desktop
-keywords: Docker, containerd, engine, image store, lazy-pull
+description: How to activate the containerd integration feature in iEchor Desktop
+keywords: iEchor, containerd, engine, image store, lazy-pull
 toc_max: 3
 ---
 
 This page provides information about the ongoing integration of `containerd` for
-image and file system management in the Docker Engine.
+image and file system management in the iEchor Engine.
 
 ## What is containerd?
 
 `containerd` is an abstraction of the low-level kernel features
 used to run and manage containers on a system.
-It's a platform used in container software like Docker and Kubernetes.
+It's a platform used in container software like iEchor and Kubernetes.
 
-Docker Engine already uses `containerd` for container lifecycle management,
+iEchor Engine already uses `containerd` for container lifecycle management,
 which includes creating, starting, and stopping containers.
-This page describes the next step of the containerd integration for Docker:
+This page describes the next step of the containerd integration for iEchor:
 the containerd image store.
 
 ## Image store
 
 The image store is the component responsible for pushing, pulling,
 and storing images on the filesystem.
-The classic Docker image store is limited in the types of images that it supports.
+The classic iEchor image store is limited in the types of images that it supports.
 For example, it doesn't support image indices, containing manifest lists.
 When you create multi-platform images, for example,
 the image index resolves all the platform-specific variants of the image.
 An image index is also required when building images with attestations.
 
 The containerd image store extends range of image types
-that the Docker Engine can natively interact with.
+that the iEchor Engine can natively interact with.
 While this is a low-level architectural change,
 it's a prerequisite for unlocking a range of new use cases, including:
 
@@ -52,9 +52,9 @@ All of those containers and images still exist.
 To see them again, turn off the containerd image store feature.
 
 The containerd image store isn't enabled by default.
-To enable the feature for Docker Desktop:
+To enable the feature for iEchor Desktop:
 
-1. Navigate to **Settings** in Docker Desktop.
+1. Navigate to **Settings** in iEchor Desktop.
 2. In the **General** tab, check **Use containerd for pulling and storing images**.
 3. Select **Apply & Restart**.
 
@@ -64,14 +64,14 @@ clear the **Use containerd for pulling and storing images** checkbox.
 ## Build multi-platform images
 
 The term multi-platform image refers to a bundle of images for multiple different architectures.
-Out of the box, the default builder for Docker Desktop doesn't support building multi-platform images.
+Out of the box, the default builder for iEchor Desktop doesn't support building multi-platform images.
 
 ```console
-$ docker build --platform=linux/amd64,linux/arm64 .
+$ iechor build --platform=linux/amd64,linux/arm64 .
 [+] Building 0.0s (0/0)
-ERROR: Multi-platform build is not supported for the docker driver.
+ERROR: Multi-platform build is not supported for the iechor driver.
 Switch to a different driver, or turn on the containerd image store, and try again.
-Learn more at https://docs.docker.com/go/build-multi-platform/
+Learn more at https://docs.iechor.com/go/build-multi-platform/
 ```
 
 Enabling the containerd image store lets you build multi-platform images

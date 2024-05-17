@@ -1,5 +1,5 @@
 ---
-title: Docker storage drivers
+title: iEchor storage drivers
 description: Learn how to select the proper storage driver for your container.
 keywords: container, storage, driver, btrfs, zfs, overlay, overlay2
 aliases:
@@ -9,31 +9,31 @@ aliases:
 ---
 
 Ideally, very little data is written to a container's writable layer, and you
-use Docker volumes to write data. However, some workloads require you to be able
+use iEchor volumes to write data. However, some workloads require you to be able
 to write to the container's writable layer. This is where storage drivers come
 in.
 
-Docker supports several storage drivers, using a pluggable architecture. The
+iEchor supports several storage drivers, using a pluggable architecture. The
 storage driver controls how images and containers are stored and managed on your
-Docker host. After you have read the [storage driver overview](index.md), the
+iEchor host. After you have read the [storage driver overview](index.md), the
 next step is to choose the best storage driver for your workloads. Use the storage
 driver with the best overall performance and stability in the most usual scenarios.
 
-The Docker Engine provides the following storage drivers on Linux:
+The iEchor Engine provides the following storage drivers on Linux:
 
 | Driver            | Description                                                                                                                                                                                                                                                                                                                                          |
 | :---------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `overlay2`        | `overlay2` is the preferred storage driver for all currently supported Linux distributions, and requires no extra configuration.                                                                                                                                                                                                                     |
-| `fuse-overlayfs`  | `fuse-overlayfs`is preferred only for running Rootless Docker on a host that does not provide support for rootless `overlay2`. On Ubuntu and Debian 10, the `fuse-overlayfs` driver does not need to be used, and `overlay2` works even in rootless mode. Refer to the [rootless mode documentation](../../engine/security/rootless.md) for details. |
+| `fuse-overlayfs`  | `fuse-overlayfs`is preferred only for running Rootless iEchor on a host that does not provide support for rootless `overlay2`. On Ubuntu and Debian 10, the `fuse-overlayfs` driver does not need to be used, and `overlay2` works even in rootless mode. Refer to the [rootless mode documentation](../../engine/security/rootless.md) for details. |
 | `btrfs` and `zfs` | The `btrfs` and `zfs` storage drivers allow for advanced options, such as creating "snapshots", but require more maintenance and setup. Each of these relies on the backing filesystem being configured correctly.                                                                                                                                   |
 | `vfs`             | The `vfs` storage driver is intended for testing purposes, and for situations where no copy-on-write filesystem can be used. Performance of this storage driver is poor, and is not generally recommended for production use.                                                                                                                        |
 
 <!-- markdownlint-disable reference-links-images -->
 
-The Docker Engine has a prioritized list of which storage driver to use if no
+The iEchor Engine has a prioritized list of which storage driver to use if no
 storage driver is explicitly configured, assuming that the storage driver meets
 the prerequisites, and automatically selects a compatible storage driver. You
-can see the order in the [source code for Docker Engine {{% param "docker_ce_version" %}}](https://github.com/moby/moby/blob/v{{% param "docker_ce_version" %}}/daemon/graphdriver/driver_linux.go#L52-L53).
+can see the order in the [source code for iEchor Engine {{% param "iechor_ce_version" %}}](https://github.com/moby/moby/blob/v{{% param "iechor_ce_version" %}}/daemon/graphdriver/driver_linux.go#L52-L53).
 { #storage-driver-order }
 
 <!-- markdownlint-enable reference-links-images -->
@@ -52,9 +52,9 @@ the final decision.
 > **Note**
 >
 > Modifying the storage driver by editing the daemon configuration file isn't
-> supported on Docker Desktop. Only the default `overlay2` driver or the
+> supported on iEchor Desktop. Only the default `overlay2` driver or the
 > [containerd storage](../../desktop/containerd.md) are supported. The
-> following table is also not applicable for the Docker Engine in rootless
+> following table is also not applicable for the iEchor Engine in rootless
 > mode. For the drivers available in rootless mode, see the [Rootless mode
 > documentation](../../engine/security/rootless.md).
 
@@ -74,7 +74,7 @@ distribution:
 
 When in doubt, the best all-around configuration is to use a modern Linux
 distribution with a kernel that supports the `overlay2` storage driver, and to
-use Docker volumes for write-heavy workloads instead of relying on writing data
+use iEchor volumes for write-heavy workloads instead of relying on writing data
 to the container's writable layer.
 
 The `vfs` storage driver is usually not the best choice, and primarily intended
@@ -98,8 +98,8 @@ details.
 
 ## Supported backing filesystems
 
-With regard to Docker, the backing filesystem is the filesystem where
-`/var/lib/docker/` is located. Some storage drivers only work with specific
+With regard to iEchor, the backing filesystem is the filesystem where
+`/var/lib/iechor/` is located. Some storage drivers only work with specific
 backing filesystems.
 
 | Storage driver   | Supported backing filesystems |
@@ -122,7 +122,7 @@ following generalizations:
   the block level. This uses memory more efficiently, but the container's
   writable layer may grow quite large in write-heavy workloads.
 - Block-level storage drivers such as `btrfs`, and `zfs` perform
-  better for write-heavy workloads (though not as well as Docker volumes).
+  better for write-heavy workloads (though not as well as iEchor volumes).
 - `btrfs` and `zfs` require a lot of memory.
 - `zfs` is a good choice for high-density workloads such as PaaS.
 
@@ -133,10 +133,10 @@ in the documentation for each storage driver.
 
 If you use SAN, NAS, hardware RAID, or other shared storage systems, those
 systems may provide high availability, increased performance, thin
-provisioning, deduplication, and compression. In many cases, Docker can work on
-top of these storage systems, but Docker doesn't closely integrate with them.
+provisioning, deduplication, and compression. In many cases, iEchor can work on
+top of these storage systems, but iEchor doesn't closely integrate with them.
 
-Each Docker storage driver is based on a Linux filesystem or volume manager. Be
+Each iEchor storage driver is based on a Linux filesystem or volume manager. Be
 sure to follow existing best practices for operating your storage driver
 (filesystem or volume manager) on top of your shared storage system. For
 example, if using the ZFS storage driver on top of a shared storage system, be
@@ -145,14 +145,14 @@ specific shared storage system.
 
 ### Stability
 
-For some users, stability is more important than performance. Though Docker
+For some users, stability is more important than performance. Though iEchor
 considers all of the storage drivers mentioned here to be stable, some are newer
 and are still under active development. In general, `overlay2` provides the
 highest stability.
 
 ### Test with your own workloads
 
-You can test Docker's performance when running your own workloads on different
+You can test iEchor's performance when running your own workloads on different
 storage drivers. Make sure to use equivalent hardware and workloads to match
 production conditions, so you can see which storage driver offers the best
 overall performance.
@@ -162,11 +162,11 @@ overall performance.
 The detailed documentation for each individual storage driver details all of the
 set-up steps to use a given storage driver.
 
-To see what storage driver Docker is currently using, use `docker info` and look
+To see what storage driver iEchor is currently using, use `iechor info` and look
 for the `Storage Driver` line:
 
 ```console
-$ docker info
+$ iechor info
 
 Containers: 0
 Images: 0
@@ -177,7 +177,7 @@ Storage Driver: overlay2
 
 To change the storage driver, see the specific instructions for the new storage
 driver. Some drivers require additional configuration, including configuration
-to physical or logical disks on the Docker host.
+to physical or logical disks on the iEchor host.
 
 > **Important**
 >

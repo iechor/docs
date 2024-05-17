@@ -1,6 +1,6 @@
 ---
-description: How to use Docker Compose's include top-level element
-keywords: compose, docker, include, compose file
+description: How to use iEchor Compose's include top-level element
+keywords: compose, iechor, include, compose file
 title: Include
 ---
 

@@ -1,0 +1,105 @@
+command: iechor scout repo enable
+short: Enable iEchor Scout
+long: The iechor scout repo enable command enables iEchor Scout on repositories.
+usage: iechor scout repo enable [REPOSITORY]
+pname: iechor scout repo
+plink: iechor_scout_repo.yaml
+options:
+    - option: all
+      value_type: bool
+      default_value: "false"
+      description: |
+        Enable all repositories of the organization. Can not be used with --filter.
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: filter
+      value_type: string
+      description: Regular expression to filter repositories by name
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: integration
+      value_type: string
+      description: Name of the integration to use for enabling an image
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: org
+      value_type: string
+      description: Namespace of the iEchor organization
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: registry
+      value_type: string
+      description: Container Registry
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: debug
+      value_type: bool
+      default_value: "false"
+      description: Debug messages
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: verbose-debug
+      value_type: bool
+      default_value: "false"
+      description: Verbose debug
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### Enable a specific repository
+
+    ```console
+    $ iechor scout repo enable my/repository
+    ```
+
+    ### Enable all repositories of the organization
+
+    ```console
+    $ iechor scout repo enable --all
+    ```
+
+    ### Enable some repositories based on a filter
+
+    ```console
+    $ iechor scout repo enable --filter namespace/backend
+    ```
+
+    ### Enable a repository from a specific registry
+
+    ```console
+    $ iechor scout repo enable my/repository --registry 123456.dkr.ecr.us-east-1.amazonaws.com
+    ```
+deprecated: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

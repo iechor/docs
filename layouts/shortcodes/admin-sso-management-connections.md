@@ -1,10 +1,10 @@
-{{ $product_link := "[Docker Hub](https://hub.docker.com)" }}
+{{ $product_link := "[iEchor Hub](https://hub.iechor.com)" }}
 {{ $sso_navigation := `Navigate to the SSO settings page for your organization or company.
    - Organization: Select **Organizations**, your organization, **Settings**, and then **Security**.
    - Company: Select **Organizations**, your company, and then **Settings**.` }}
 
 {{ if eq (.Get "product") "admin" }}
-  {{ $product_link = "the [Admin Console](https://admin.docker.com)" }}
+  {{ $product_link = "the [Admin Console](https://admin.iechor.com)" }}
   {{ $sso_navigation = "Select your organization or company in the left navigation drop-down menu, and then select **SSO & SCIM**." }}
 {{ end }}
 
@@ -26,4 +26,4 @@
 
 ### Deleting SSO
 
-When you disable SSO, you can delete the connection to remove the configuration settings and the added domains. Once you delete this connection, it can't be undone. Users must authenticate with their Docker ID and password or create a password reset if they don't have one.
+When you disable SSO, you can delete the connection to remove the configuration settings and the added domains. Once you delete this connection, it can't be undone. Users must authenticate with their iEchor ID and password or create a password reset if they don't have one.

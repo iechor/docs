@@ -1,5 +1,5 @@
 ---
-description: Learn how to use the Amazon CloudWatch Logs logging driver with Docker Engine
+description: Learn how to use the Amazon CloudWatch Logs logging driver with iEchor Engine
 keywords: AWS, Amazon, CloudWatch, logging, driver
 title: Amazon CloudWatch Logs logging driver
 aliases:
@@ -17,10 +17,10 @@ and Command Line Tools](https://docs.aws.amazon.com/cli/latest/reference/logs/in
 
 To use the `awslogs` driver as the default logging driver, set the `log-driver`
 and `log-opt` keys to appropriate values in the `daemon.json` file, which is
-located in `/etc/docker/` on Linux hosts or
-`C:\ProgramData\docker\config\daemon.json` on Windows Server. For more about
-configuring Docker using `daemon.json`, see
-[daemon.json](../../../reference/cli/dockerd.md#daemon-configuration-file).
+located in `/etc/iechor/` on Linux hosts or
+`C:\ProgramData\iechor\config\daemon.json` on Windows Server. For more about
+configuring iEchor using `daemon.json`, see
+[daemon.json](../../../reference/cli/iechord.md#daemon-configuration-file).
 The following example sets the log driver to `awslogs` and sets the
 `awslogs-region` option.
 
@@ -33,16 +33,16 @@ The following example sets the log driver to `awslogs` and sets the
 }
 ```
 
-Restart Docker for the changes to take effect.
+Restart iEchor for the changes to take effect.
 
 You can set the logging driver for a specific container by using the
-`--log-driver` option to `docker run`:
+`--log-driver` option to `iechor run`:
 
 ```console
-$ docker run --log-driver=awslogs ...
+$ iechor run --log-driver=awslogs ...
 ```
 
-If you are using Docker Compose, set `awslogs` using the following declaration example:
+If you are using iEchor Compose, set `awslogs` using the following declaration example:
 
 ```yaml
 myservice:
@@ -54,24 +54,24 @@ myservice:
 
 ## Amazon CloudWatch Logs options
 
-You can add logging options to the `daemon.json` to set Docker-wide defaults,
+You can add logging options to the `daemon.json` to set iEchor-wide defaults,
 or use the `--log-opt NAME=VALUE` flag to specify Amazon CloudWatch Logs
 logging driver options when starting a container.
 
 ### awslogs-region
 
-The `awslogs` logging driver sends your Docker logs to a specific region. Use
+The `awslogs` logging driver sends your iEchor logs to a specific region. Use
 the `awslogs-region` log option or the `AWS_REGION` environment variable to set
-the region. By default, if your Docker daemon is running on an EC2 instance
+the region. By default, if your iEchor daemon is running on an EC2 instance
 and no region is set, the driver uses the instance's region.
 
 ```console
-$ docker run --log-driver=awslogs --log-opt awslogs-region=us-east-1 ...
+$ iechor run --log-driver=awslogs --log-opt awslogs-region=us-east-1 ...
 ```
 
 ### awslogs-endpoint
 
-By default, Docker uses either the `awslogs-region` log option or the
+By default, iEchor uses either the `awslogs-region` log option or the
 detected region to construct the remote CloudWatch Logs API endpoint.
 Use the `awslogs-endpoint` log option to override the default endpoint
 with the provided endpoint.
@@ -90,7 +90,7 @@ for the `awslogs` logging driver. You can specify the log group with the
 `awslogs-group` log option:
 
 ```console
-$ docker run --log-driver=awslogs --log-opt awslogs-region=us-east-1 --log-opt awslogs-group=myLogGroup ...
+$ iechor run --log-driver=awslogs --log-opt awslogs-region=us-east-1 --log-opt awslogs-group=myLogGroup ...
 ```
 
 ### awslogs-stream
@@ -113,7 +113,7 @@ Log driver returns an error by default if the log group doesn't exist. However, 
 The `awslogs-create-group` option defaults to `false`.
 
 ```console
-$ docker run \
+$ iechor run \
     --log-driver=awslogs \
     --log-opt awslogs-region=us-east-1 \
     --log-opt awslogs-group=myLogGroup \
@@ -162,7 +162,7 @@ The format can be expressed as a `strftime` expression of
 that expression:
 
 ```console
-$ docker run \
+$ iechor run \
     --log-driver=awslogs \
     --log-opt awslogs-region=us-east-1 \
     --log-opt awslogs-group=myLogGroup \
@@ -236,7 +236,7 @@ INFO Another message was logged
 You can use the regular expression of `^INFO`:
 
 ```console
-$ docker run \
+$ iechor run \
     --log-driver=awslogs \
     --log-opt awslogs-region=us-east-1 \
     --log-opt awslogs-group=myLogGroup \
@@ -262,7 +262,7 @@ INFO Another message was logged
 
 Specify `tag` as an alternative to the `awslogs-stream` option. `tag` interprets
 Go template markup, such as `{{.ID}}`, `{{.FullID}}`
-or `{{.Name}}` `docker.{{.ID}}`. See
+or `{{.Name}}` `iechor.{{.ID}}`. See
 the [tag option documentation](log_tags.md) for details on supported template
 substitutions.
 
@@ -275,7 +275,7 @@ If not specified, the container ID is used as the log stream.
 >
 > The CloudWatch log API doesn't support `:` in the log name. This can cause
 > some issues when using the `{{ .ImageName }}` as a tag,
-> since a Docker image has a format of `IMAGE:TAG`, such as `alpine:latest`.
+> since a iEchor image has a format of `IMAGE:TAG`, such as `alpine:latest`.
 > Template markup can be used to get the proper format. To get the image name
 > and the first 12 characters of the container ID, you can use:
 >
@@ -303,11 +303,11 @@ Default is 4K.
 
 ## Credentials
 
-You must provide AWS credentials to the Docker daemon to use the `awslogs`
+You must provide AWS credentials to the iEchor daemon to use the `awslogs`
 logging driver. You can provide these credentials with the `AWS_ACCESS_KEY_ID`,
 `AWS_SECRET_ACCESS_KEY`, and `AWS_SESSION_TOKEN` environment variables, the
 default AWS shared credentials file (`~/.aws/credentials` of the root user), or
-if you are running the Docker daemon on an Amazon EC2 instance, the Amazon EC2
+if you are running the iEchor daemon on an Amazon EC2 instance, the Amazon EC2
 instance profile.
 
 Credentials must have a policy applied that allows the `logs:CreateLogStream`

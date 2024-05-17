@@ -10,27 +10,27 @@ multi-platform builds via emulation and cross-compilation.
 
 The easiest way to get started with building for multiple platforms is using
 emulation. With emulation, you can build your app to multiple architectures
-without having to make any changes to your Dockerfile. All you need to do is to
+without having to make any changes to your iEchorfile. All you need to do is to
 pass the `--platform` flag to the build command, specifying the OS and
 architecture you want to build for.
 
 The following command builds the server image for the `linux/arm/v7` platform:
 
 ```console
-$ docker build --target=server --platform=linux/arm/v7 .
+$ iechor build --target=server --platform=linux/arm/v7 .
 ```
 
 You can also use emulation to produce outputs for multiple platforms at once.
-However, the default image store in Docker Engine doesn't support building
+However, the default image store in iEchor Engine doesn't support building
 and loading multi-platform images. You need to enable the containerd image store
 which supports concurrent multi-platform builds.
 
 ## Enable the containerd image store
 
 {{< tabs >}}
-{{< tab name="Docker Desktop" >}}
+{{< tab name="iEchor Desktop" >}}
 
-To enable the containerd image store in Docker Desktop,
+To enable the containerd image store in iEchor Desktop,
 go to **Settings** and select **Use containerd for pulling and storing images**
 in the **General** tab.
 
@@ -40,11 +40,11 @@ Those resources still exist, but to view them, you'll need to
 disable the containerd image store.
 
 {{< /tab >}}
-{{< tab name="Docker Engine" >}}
+{{< tab name="iEchor Engine" >}}
 
-If you're not using Docker Desktop,
+If you're not using iEchor Desktop,
 enable the containerd image store by adding the following feature configuration
-to your `/etc/docker/daemon.json` configuration file.
+to your `/etc/iechor/daemon.json` configuration file.
 
 ```json {hl_lines=3}
 {
@@ -57,7 +57,7 @@ to your `/etc/docker/daemon.json` configuration file.
 Restart the daemon after updating the configuration file.
 
 ```console
-$ systemctl restart docker
+$ systemctl restart iechor
 ```
 
 {{< /tab >}}
@@ -65,12 +65,12 @@ $ systemctl restart docker
 
 ## Build using emulation
 
-To run multi-platform builds, invoke the `docker build` command,
+To run multi-platform builds, invoke the `iechor build` command,
 and pass it the same arguments as you did before.
 Only this time, also add a `--platform` flag specifying multiple architectures.
 
 ```console {hl_lines=4}
-$ docker build \
+$ iechor build \
     --target=binaries \
     --output=bin \
     --platform=linux/amd64,linux/arm64,linux/arm/v7 .
@@ -125,7 +125,7 @@ to a number of other target platforms.
 ### Platform build arguments
 
 This approach involves using a few pre-defined build arguments that you have
-access to in your Docker builds: `BUILDPLATFORM` and `TARGETPLATFORM` (and
+access to in your iEchor builds: `BUILDPLATFORM` and `TARGETPLATFORM` (and
 derivatives, like `TARGETOS`). These build arguments reflect the values you pass
 to the `--platform` flag.
 
@@ -143,9 +143,9 @@ pipeline runs per platform.
 
 ![Build pipelines using cross-compilation](./images/cross-compilation.png)
 
-### Update the Dockerfile
+### Update the iEchorfile
 
-To build the app using the cross-compilation technique, update the Dockerfile as
+To build the app using the cross-compilation technique, update the iEchorfile as
 follows:
 
 - Add `--platform=$BUILDPLATFORM` to the `FROM` instruction for the initial
@@ -158,7 +158,7 @@ follows:
   cross-compilation.
 
 ```diff
-  # syntax=docker/dockerfile:1
+  # syntax=iechor/iechorfile:1
   ARG GO_VERSION={{% param "example_go_version" %}}
   ARG GOLANGCI_LINT_VERSION={{% param "example_golangci_lint_version" %}}
 - FROM golang:${GO_VERSION}-alpine AS base
@@ -210,7 +210,7 @@ illustrates how to build, and export, binaries for Mac (ARM64), Windows, and
 Linux:
 
 ```console
-$ docker build \
+$ iechor build \
   --target=binaries \
   --output=bin \
   --platform=darwin/arm64,windows/amd64,linux/amd64 .
@@ -240,16 +240,16 @@ using emulation and cross-compilation.
 Related information:
 
 - [Multi-platfom images](../building/multi-platform.md)
-- [containerd image store (Docker Desktop)](../../desktop/containerd.md)
-- [containerd image store (Docker Engine)](../../storage/containerd.md)
+- [containerd image store (iEchor Desktop)](../../desktop/containerd.md)
+- [containerd image store (iEchor Engine)](../../storage/containerd.md)
 
 You may also want to consider checking out
-[xx - Dockerfile cross-compilation helpers](https://github.com/tonistiigi/xx).
-`xx` is a Docker image containing utility scripts that make cross-compiling with Docker builds easier.
+[xx - iEchorfile cross-compilation helpers](https://github.com/tonistiigi/xx).
+`xx` is a iEchor image containing utility scripts that make cross-compiling with iEchor builds easier.
 
 ## Next steps
 
-This section is the final part of the Build with Docker guide. The following
+This section is the final part of the Build with iEchor guide. The following
 page contains some pointers for where to go next.
 
 {{< button text="Next steps" url="next-steps.md" >}}

@@ -6,7 +6,7 @@ keywords: compose, compose specification, compose file reference, compose develo
 
 > **Note:** 
 >
-> Develop is an optional part of the Compose Specification. It's available with Docker Compose version 2.22.0 and later.
+> Develop is an optional part of the Compose Specification. It's available with iEchor Compose version 2.22.0 and later.
 
 ## Introduction
 
@@ -58,20 +58,20 @@ Compose to monitor source code for changes. For more information, see [Use Compo
 - `sync`, Compose keeps the existing service container(s) running, but synchronizes source files with container content according to the `target` attribute.
 - `sync+restart`, Compose synchronizes source files with container content according to the `target` attribute, and then restarts the container.
 
-> `sync+restart` attribute is available with Docker Compose version 2.23.0 and later.
+> `sync+restart` attribute is available with iEchor Compose version 2.23.0 and later.
 
 #### ignore
 
 The `ignore` attribute can be used to define a list of patterns for paths to be ignored. Any updated file
 that matches a pattern, or belongs to a folder that matches a pattern, won't trigger services to be re-created. 
-The syntax is the same as `.dockerignore` file: 
+The syntax is the same as `.iechorignore` file: 
 
 - `*` matches 0 or more characters in a file name. 
 - `?` matches a single character in file name. 
 - `*/*` matches two nested folders with arbitrary names
 - `**` matches an arbitrary number of nested folders
 
-If the build context includes a `.dockerignore` file, the patterns in this file is loaded as implicit content
+If the build context includes a `.iechorignore` file, the patterns in this file is loaded as implicit content
 for the `ignores` file, and values set in the Compose model are appended.
 
 #### path

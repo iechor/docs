@@ -1,15 +1,15 @@
 ---
-description: Overview of Docker Compose Bridge
+description: Overview of iEchor Compose Bridge
 keywords: compose, orchestration, kubernetes, bridge
-title: Overview of Docker Compose Bridge
+title: Overview of iEchor Compose Bridge
 ---
 
 {{< include "compose-bridge-early-access.md" >}}
 
 ## Introduction
 
-Docker Compose makes it easy to define a multi-container application
-to be run on a single-node Docker Engine, relying on a `compose.yaml` file to
+iEchor Compose makes it easy to define a multi-container application
+to be run on a single-node iEchor Engine, relying on a `compose.yaml` file to
 describe resources with a simple abstraction.
 
 Compose Bridge lets you reuse this exact same `compose.yaml` file but
@@ -21,7 +21,7 @@ specific needs and requirements.
 
 Compose Bridge is a command line tool that consumes a `compose.yaml` file  
 and runs a transformation to produce resource definitions for another platform.
-[By default](transformation.md), it produces Kubernetes manifests and a Kustomize overlay for Docker Desktop. For example: 
+[By default](transformation.md), it produces Kubernetes manifests and a Kustomize overlay for iEchor Desktop. For example: 
 ```console
 $ compose-bridge -f compose.yaml convert
 Kubernetes resource api-deployment.yaml created
@@ -50,7 +50,7 @@ the standard deployment command `kubectl apply -k out/overlays/desktop/`.
 ## Customization
 
 The Kubernetes manifests produced by Compose Bridge 
-are designed to allow deployment on Docker Desktop with Kubernetes enabled. 
+are designed to allow deployment on iEchor Desktop with Kubernetes enabled. 
 
 Kubernetes is such a versatile platform that there are many ways
 to map Compose concepts into a Kubernetes resource definitions. Compose
@@ -60,17 +60,17 @@ decisions and preferences, with various level of flexibility / investment.
 
 ### Modify the default templates
 
-You can extract templates used by default transformation `docker/compose-bridge-kubernetes`
-by running `compose-bridge transformations create my-template --from docker/compose-bridge-kubernetes` 
+You can extract templates used by default transformation `iechor/compose-bridge-kubernetes`
+by running `compose-bridge transformations create my-template --from iechor/compose-bridge-kubernetes` 
 and adjusting those to match your needs.
 
 The templates will be extracted into a directory named after your template name (ie `my-template`).  
-Inside, you will find a Dockerfile that allows you to create your own image to distribute your template, as well as a directory containing the templating files.  
+Inside, you will find a iEchorfile that allows you to create your own image to distribute your template, as well as a directory containing the templating files.  
 You are free to edit the existing files, delete them, or [add new ones](#add-your-own-templates) to subsequently generate Kubernetes manifests that meet your needs.  
-You can then use the generated Dockerfile to package your changes into a new Transformer image, which you can then use with Compose Bridge:
+You can then use the generated iEchorfile to package your changes into a new Transformer image, which you can then use with Compose Bridge:
 
 ```console
-$ docker build --tag mycompany/transform --push .
+$ iechor build --tag mycompany/transform --push .
 ```
 
 You can then use your transformation as a replacement:
@@ -118,13 +118,13 @@ spec:
 {{ end }}
 ```
 
-Once packaged into a Docker image, you can use this custom template
+Once packaged into a iEchor image, you can use this custom template
 when transforming Compose models into Kubernetes in addition to other
 transformations:
 
 ```console
 $ compose-bridge -f compose.yaml convert \
-    --transformation docker/compose-bridge-kubernetes \
+    --transformation iechor/compose-bridge-kubernetes \
     --transformation mycompany/transform 
 ```
 
@@ -133,12 +133,12 @@ $ compose-bridge -f compose.yaml convert \
 While Compose Bridge templates make it easy to customize with minimal changes,
 you may want to make significant changes, or rely on an existing conversion tool.
 
-A Compose Bridge transformation is a Docker image that is designed to get a Compose model
+A Compose Bridge transformation is a iEchor image that is designed to get a Compose model
 from `/in/compose.yaml` and produce platform manifests under `/out`. This simple 
 contract makes it easy to bundle an alternate transformation, as illustrated below using 
 [Kompose](https://kompose.io/):
 
-```Dockerfile
+```iEchorfile
 FROM alpine
 
 # Get kompose from github release page
@@ -153,7 +153,7 @@ RUN chmod +x /usr/bin/kompose
 CMD ["/usr/bin/kompose", "convert", "-f", "/in/compose.yaml", "--out", "/out"]
 ```
 
-This Dockerfile bundles Kompose and defines the command to run this tool according
+This iEchorfile bundles Kompose and defines the command to run this tool according
 to the Compose Bridge transformation contract.
 
 ## Use `compose-bridge` as a `kubectl` plugin

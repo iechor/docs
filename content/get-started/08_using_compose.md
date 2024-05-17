@@ -1,11 +1,11 @@
 ---
-title: Use Docker Compose
+title: Use iEchor Compose
 keywords: get started, setup, orientation, quickstart, intro, concepts, containers,
-  docker desktop
-description: Using Docker Compose for multi-container applications
+  iechor desktop
+description: Using iEchor Compose for multi-container applications
 ---
 
-[Docker Compose](../compose/index.md) is a tool that helps you define and
+[iEchor Compose](../compose/index.md) is a tool that helps you define and
 share multi-container applications. With Compose, you can create a YAML file to define the services
 and with a single command, you can spin everything up or tear it all down.
 
@@ -20,7 +20,7 @@ In the `getting-started-app` directory, create a file named `compose.yaml`.
 
 ```text
 ├── getting-started-app/
-│ ├── Dockerfile
+│ ├── iEchorfile
 │ ├── compose.yaml
 │ ├── node_modules/
 │ ├── package.json
@@ -34,7 +34,7 @@ In the `getting-started-app` directory, create a file named `compose.yaml`.
 In [part 7](./07_multi_container.md), you used the following command to start the application service.
 
 ```console
-$ docker run -dp 127.0.0.1:3000:3000 \
+$ iechor run -dp 127.0.0.1:3000:3000 \
   -w /app -v "$(pwd):/app" \
   --network todo-app \
   -e MYSQL_HOST=mysql \
@@ -79,7 +79,7 @@ You'll now define this service in the `compose.yaml` file.
 4. Next, migrate both the working directory (`-w /app`) and the volume mapping
    (`-v "$(pwd):/app"`) by using the `working_dir` and `volumes` definitions.
 
-    One advantage of Docker Compose volume definitions is you can use relative paths from the current directory.
+    One advantage of iEchor Compose volume definitions is you can use relative paths from the current directory.
 
    ```yaml
    services:
@@ -117,7 +117,7 @@ You'll now define this service in the `compose.yaml` file.
 Now, it's time to define the MySQL service. The command that you used for that container was the following:
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   --network todo-app --network-alias mysql \
   -v todo-mysql-data:/var/lib/mysql \
   -e MYSQL_ROOT_PASSWORD=secret \
@@ -136,8 +136,8 @@ $ docker run -d \
        image: mysql:8.0
    ```
 
-2. Next, define the volume mapping. When you ran the container with `docker
-   run`, Docker created the named volume automatically. However, that doesn't
+2. Next, define the volume mapping. When you ran the container with `iechor
+   run`, iEchor created the named volume automatically. However, that doesn't
    happen when running with Compose. You need to define the volume in the
    top-level `volumes:` section and then specify the mountpoint in the service
    config. By simply providing only the volume name, the default options are
@@ -209,13 +209,13 @@ volumes:
 
 Now that you have your `compose.yaml` file, you can start your application.
 
-1. Make sure no other copies of the containers are running first. Use `docker ps` to list the containers and `docker rm -f <ids>` to remove them.
+1. Make sure no other copies of the containers are running first. Use `iechor ps` to list the containers and `iechor rm -f <ids>` to remove them.
 
-2. Start up the application stack using the `docker compose up` command. Add the
+2. Start up the application stack using the `iechor compose up` command. Add the
    `-d` flag to run everything in the background.
 
    ```console
-   $ docker compose up -d
+   $ iechor compose up -d
    ```
 
     When you run the previous command, you should see output like the following:
@@ -227,9 +227,9 @@ Now that you have your `compose.yaml` file, you can start your application.
    Creating app_mysql_1 ... done
    ```
 
-    You'll notice that Docker Compose created the volume as well as a network. By default, Docker Compose automatically creates a network specifically for the application stack (which is why you didn't define one in the Compose file).
+    You'll notice that iEchor Compose created the volume as well as a network. By default, iEchor Compose automatically creates a network specifically for the application stack (which is why you didn't define one in the Compose file).
 
-3. Look at the logs using the `docker compose logs -f` command. You'll see the logs from each of the services interleaved
+3. Look at the logs using the `iechor compose logs -f` command. You'll see the logs from each of the services interleaved
     into a single stream. This is incredibly useful when you want to watch for timing-related issues. The `-f` flag follows the
     log, so will give you live output as it's generated.
 
@@ -244,13 +244,13 @@ Now that you have your `compose.yaml` file, you can start your application.
 
     The service name is displayed at the beginning of the line (often colored) to help distinguish messages. If you want to
     view the logs for a specific service, you can add the service name to the end of the logs command (for example,
-    `docker compose logs -f app`).
+    `iechor compose logs -f app`).
 
 4. At this point, you should be able to open your app in your browser on [http://localhost:3000](http://localhost:3000) and see it running.
 
-## See the app stack in Docker Dashboard
+## See the app stack in iEchor Dashboard
 
-If you look at the Docker Dashboard, you'll see that there is a group named **getting-started-app**. This is the project name from Docker
+If you look at the iEchor Dashboard, you'll see that there is a group named **getting-started-app**. This is the project name from iEchor
 Compose and used to group the containers together. By default, the project name is simply the name of the directory that the
 `compose.yaml` was located in.
 
@@ -260,20 +260,20 @@ quickly see what container is your app and which container is the mysql database
 
 ## Tear it all down
 
-When you're ready to tear it all down, simply run `docker compose down` or hit the trash can on the Docker Dashboard
+When you're ready to tear it all down, simply run `iechor compose down` or hit the trash can on the iEchor Dashboard
 for the entire app. The containers will stop and the network will be removed.
 
 >**Warning**
 >
->By default, named volumes in your compose file are not removed when you run `docker compose down`. If you want to
+>By default, named volumes in your compose file are not removed when you run `iechor compose down`. If you want to
 >remove the volumes, you need to add the `--volumes` flag.
 >
->The Docker Dashboard does not remove volumes when you delete the app stack.
+>The iEchor Dashboard does not remove volumes when you delete the app stack.
 { .warning }
 
 ## Summary
 
-In this section, you learned about Docker Compose and how it helps you simplify
+In this section, you learned about iEchor Compose and how it helps you simplify
 the way you define and share multi-service applications.
 
 Related information:
@@ -283,6 +283,6 @@ Related information:
 
 ## Next steps
 
-Next, you'll learn about a few best practices you can use to improve your Dockerfile.
+Next, you'll learn about a few best practices you can use to improve your iEchorfile.
 
 {{< button text="Image-building best practices" url="09_image_best.md" >}}

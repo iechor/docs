@@ -1,16 +1,16 @@
 ---
 title: Enable IPv6 support
-description: How to enable IPv6 support in the Docker daemon
+description: How to enable IPv6 support in the iEchor daemon
 keywords: daemon, network, networking, ipv6
 aliases:
 - /engine/userguide/networking/default_network/ipv6/
 ---
 
-Before you can use IPv6 in Docker containers, you need to
-enable IPv6 support in the Docker daemon. Afterward, you can choose to use
+Before you can use IPv6 in iEchor containers, you need to
+enable IPv6 support in the iEchor daemon. Afterward, you can choose to use
 either IPv4 or IPv6 (or both) with any container or network.
 
-IPv6 is only supported on Docker daemons running on Linux hosts.
+IPv6 is only supported on iEchor daemons running on Linux hosts.
 
 > **Note**
 >
@@ -20,10 +20,10 @@ IPv6 is only supported on Docker daemons running on Linux hosts.
 
 ## Create an IPv6 network
 
-The following steps show you how to create a Docker network that uses IPv6.
+The following steps show you how to create a iEchor network that uses IPv6.
 
-1. Edit the Docker daemon configuration file,
-   located at `/etc/docker/daemon.json`. Configure the following parameters:
+1. Edit the iEchor daemon configuration file,
+   located at `/etc/iechor/daemon.json`. Configure the following parameters:
 
    ```json
    {
@@ -37,21 +37,21 @@ The following steps show you how to create a Docker network that uses IPv6.
    set to `true`.
 
 2. Save the configuration file.
-3. Restart the Docker daemon for your changes to take effect.
+3. Restart the iEchor daemon for your changes to take effect.
 
    ```console
-   $ sudo systemctl restart docker
+   $ sudo systemctl restart iechor
    ```
 
 4. Create a new IPv6 network.
 
-   - Using `docker network create`:
+   - Using `iechor network create`:
 
      ```console
-     $ docker network create --ipv6 --subnet 2001:0DB8::/112 ip6net
+     $ iechor network create --ipv6 --subnet 2001:0DB8::/112 ip6net
      ```
 
-   - Using a Docker Compose file:
+   - Using a iEchor Compose file:
 
      ```yaml
       networks:
@@ -65,7 +65,7 @@ The following steps show you how to create a Docker network that uses IPv6.
 You can now run containers that attach to the `ip6net` network.
 
 ```console
-$ docker run --rm --network ip6net -p 80:80 traefik/whoami
+$ iechor run --rm --network ip6net -p 80:80 traefik/whoami
 ```
 
 This publishes port 80 on both IPv6 and IPv4.
@@ -90,8 +90,8 @@ Accept: */*
 
 The following steps show you how to use IPv6 on the default bridge network.
 
-1. Edit the Docker daemon configuration file,
-   located at `/etc/docker/daemon.json`. Configure the following parameters:
+1. Edit the iEchor daemon configuration file,
+   located at `/etc/iechor/daemon.json`. Configure the following parameters:
 
    ```json
    {
@@ -110,16 +110,16 @@ The following steps show you how to use IPv6 on the default bridge network.
      set to `true`.
 
 2. Save the configuration file.
-3. Restart the Docker daemon for your changes to take effect.
+3. Restart the iEchor daemon for your changes to take effect.
 
    ```console
-   $ sudo systemctl restart docker
+   $ sudo systemctl restart iechor
    ```
 
 You can now run containers on the default bridge network.
 
 ```console
-$ docker run --rm -p 80:80 traefik/whoami
+$ iechor run --rm -p 80:80 traefik/whoami
 ```
 
 This publishes port 80 on both IPv6 and IPv4.
@@ -143,10 +143,10 @@ Accept: */*
 ## Dynamic IPv6 subnet allocation
 
 If you don't explicitly configure subnets for user-defined networks,
-using `docker network create --subnet=<your-subnet>`,
+using `iechor network create --subnet=<your-subnet>`,
 those networks use the default address pools of the daemon as a fallback.
 The default address pools are all IPv4 pools.
-This also applies to networks created from a Docker Compose file,
+This also applies to networks created from a iEchor Compose file,
 with `enable_ipv6` set to `true`.
 
 To enable dynamic subnet allocation for user-defined IPv6 networks,
@@ -181,7 +181,7 @@ subnet supports 65 536 IPv6 addresses.
 > Be aware that the following known limitations exist for IPv6 pools:
 >
 > - The `base` value for IPv6 needs a minimum prefix length of `/64`.
->   This is due to an integer overflow in the Docker daemon.
+>   This is due to an integer overflow in the iEchor daemon.
 >   See [moby/moby#42801](https://github.com/moby/moby/issues/42801).
 > - The difference between the pool length and the pool size can't be larger
 >   than 24. Defining an excessive number of subnets causes the daemon to

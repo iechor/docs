@@ -6,39 +6,39 @@ description: Learn how to develop your Rust application locally.
 
 ## Prerequisites
 
-* You have installed the latest version of [Docker Desktop](../../get-docker.md).
-* You have completed the walkthroughs in the Docker Desktop [Learning Center](../../desktop/get-started.md) to learn about Docker concepts.
+* You have installed the latest version of [iEchor Desktop](../../get-iechor.md).
+* You have completed the walkthroughs in the iEchor Desktop [Learning Center](../../desktop/get-started.md) to learn about iEchor concepts.
 * You have a [git client](https://git-scm.com/downloads). The examples in this section use a command-line based git client, but you can use any client.
 
 ## Overview
 
-In this section, you’ll learn how to use volumes and networking in Docker. You’ll also use Docker to build your images and Docker Compose to make everything a whole lot easier.
+In this section, you’ll learn how to use volumes and networking in iEchor. You’ll also use iEchor to build your images and iEchor Compose to make everything a whole lot easier.
 
 First, you’ll take a look at running a database in a container and how you can use volumes and networking to persist your data and let your application talk with the database. Then you’ll pull everything together into a Compose file which lets you set up and run a local development environment with one command.
 
 ## Run a database in a container
 
-Instead of downloading PostgreSQL, installing, configuring, and then running the PostgreSQL database as a service, you can use the Docker Official Image for PostgreSQL and run it in a container.
+Instead of downloading PostgreSQL, installing, configuring, and then running the PostgreSQL database as a service, you can use the iEchor Official Image for PostgreSQL and run it in a container.
 
-Before you run PostgreSQL in a container, create a volume that Docker can manage to store your persistent data and configuration. Use the named volumes feature that Docker provides instead of using bind mounts.
+Before you run PostgreSQL in a container, create a volume that iEchor can manage to store your persistent data and configuration. Use the named volumes feature that iEchor provides instead of using bind mounts.
 
 Run the following command to create your volume.
 
 ```console
-$ docker volume create db-data
+$ iechor volume create db-data
 ```
 
 Now create a network that your application and database will use to talk to each other. The network is called a user-defined bridge network and gives you a nice DNS lookup service which you can use when creating your connection string.
 
 ```console
-$ docker network create postgresnet
+$ iechor network create postgresnet
 ```
 
-Now you can run PostgreSQL in a container and attach to the volume and network that you created previously. Docker pulls the image from Hub and runs it for you locally.
-In the following command, option `--mount` is for starting the container with a volume. For more information, see [Docker volumes](../../storage/volumes.md).
+Now you can run PostgreSQL in a container and attach to the volume and network that you created previously. iEchor pulls the image from Hub and runs it for you locally.
+In the following command, option `--mount` is for starting the container with a volume. For more information, see [iEchor volumes](../../storage/volumes.md).
 
 ```console
-$ docker run --rm -d --mount \
+$ iechor run --rm -d --mount \
   "type=volume,src=db-data,target=/var/lib/postgresql/data" \
   -p 5432:5432 \
   --network postgresnet \
@@ -51,7 +51,7 @@ $ docker run --rm -d --mount \
 Now, make sure that your PostgreSQL database is running and that you can connect to it. Connect to the running PostgreSQL database inside the container.
 
 ```console
-$ docker exec -it db psql -U postgres
+$ iechor exec -it db psql -U postgres
 ```
 
 You should see output like the following.
@@ -68,25 +68,25 @@ In the previous command, you logged in to the PostgreSQL database by passing the
 
 ## Get and run the sample application
 
-For the sample application, you'll use a variation of the backend from the react-rust-postgres application from [Awesome Compose](https://github.com/docker/awesome-compose/tree/master/react-rust-postgres).
+For the sample application, you'll use a variation of the backend from the react-rust-postgres application from [Awesome Compose](https://github.com/iechor/awesome-compose/tree/master/react-rust-postgres).
 
 1. Clone the sample application repository using the following command.
 
    ```console
-   $ git clone https://github.com/docker/docker-rust-postgres
+   $ git clone https://github.com/iechor/iechor-rust-postgres
    ```
 
-2. In the cloned repository's directory, run `docker init` to create the necessary Docker files. Refer to the following example to answer the prompts from `docker init`.
+2. In the cloned repository's directory, run `iechor init` to create the necessary iEchor files. Refer to the following example to answer the prompts from `iechor init`.
 
    ```console
-   $ docker init
-   Welcome to the Docker Init CLI!
+   $ iechor init
+   Welcome to the iEchor Init CLI!
 
    This utility will walk you through creating the following files with sensible defaults for your project:
-     - .dockerignore
-     - Dockerfile
+     - .iechorignore
+     - iEchorfile
      - compose.yaml
-     - README.Docker.md
+     - README.iEchor.md
 
    Let's get started!
 
@@ -95,16 +95,16 @@ For the sample application, you'll use a variation of the backend from the react
    ? What port does your server listen on? 8000
    ```
 
-3. In the cloned repository's directory, open the `Dockerfile` in an IDE or text editor to update it.
+3. In the cloned repository's directory, open the `iEchorfile` in an IDE or text editor to update it.
 
-   `docker init` handled creating most of the instructions in the Dockerfile, but you'll need to update it for your unique application. In addition to a `src` directory, this application includes a `migrations` directory to initialize the database. Add a bind mount for the `migrations` directory to the build stage in the Dockerfile. The following is the updated Dockerfile.
+   `iechor init` handled creating most of the instructions in the iEchorfile, but you'll need to update it for your unique application. In addition to a `src` directory, this application includes a `migrations` directory to initialize the database. Add a bind mount for the `migrations` directory to the build stage in the iEchorfile. The following is the updated iEchorfile.
 
-   ```dockerfile {hl_lines="28"}
-   # syntax=docker/dockerfile:1
+   ```iechorfile {hl_lines="28"}
+   # syntax=iechor/iechorfile:1
 
    # Comments are provided throughout this file to help you get started.
-   # If you need more help, visit the Dockerfile reference guide at
-   # https://docs.docker.com/reference/dockerfile/
+   # If you need more help, visit the iEchorfile reference guide at
+   # https://docs.iechor.com/reference/iechorfile/
    
    ################################################################################
    # Create a stage for building the application.
@@ -142,13 +142,13 @@ For the sample application, you'll use a variation of the backend from the react
    #
    # The example below uses the debian bullseye image as the foundation for    running the app.
    # By specifying the "bullseye-slim" tag, it will also use whatever happens to    be the
-   # most recent version of that tag when you build your Dockerfile. If
+   # most recent version of that tag when you build your iEchorfile. If
    # reproducability is important, consider using a digest
    # (e.g.,    debian@sha256:ac707220fbd7b67fc19b112cee8170b41a9e97f703f588b2cdbbcdcecdd8af57).
    FROM debian:bullseye-slim AS final
    
    # Create a non-privileged user that the app will run under.
-   # See https://docs.docker.com/develop/develop-images/dockerfile_best-practices/   #user
+   # See https://docs.iechor.com/develop/develop-images/iechorfile_best-practices/   #user
    ARG UID=10001
    RUN adduser \
        --disabled-password \
@@ -170,19 +170,19 @@ For the sample application, you'll use a variation of the backend from the react
    CMD ["/bin/server"]
    ```
 
-4. In the cloned repository's directory, run `docker build` to build the image.
+4. In the cloned repository's directory, run `iechor build` to build the image.
 
    ```console
-   $ docker build -t rust-backend-image .
+   $ iechor build -t rust-backend-image .
    ```
 
-5. Run `docker run` with the following options to run the image as a container on the same network as the database.
+5. Run `iechor run` with the following options to run the image as a container on the same network as the database.
 
    ```console
-   $ docker run \
+   $ iechor run \
      --rm -d \
      --network postgresnet \
-     --name docker-develop-rust-container \
+     --name iechor-develop-rust-container \
      -p 3001:8000 \
      -e PG_DBNAME=example \
      -e PG_HOST=db \
@@ -207,11 +207,11 @@ For the sample application, you'll use a variation of the backend from the react
 
 ## Use Compose to develop locally
 
-When you run `docker init`, in addition to a `Dockerfile`, it also creates a `compose.yaml` file.
+When you run `iechor init`, in addition to a `iEchorfile`, it also creates a `compose.yaml` file.
 
-This Compose file is super convenient as you don't have to type all the parameters to pass to the `docker run` command. You can declaratively do that using a Compose file.
+This Compose file is super convenient as you don't have to type all the parameters to pass to the `iechor run` command. You can declaratively do that using a Compose file.
 
-In the cloned repository's directory, open the `compose.yaml` file in an IDE or text editor. `docker init` handled creating most of the instructions, but you'll need to update it for your unique application.
+In the cloned repository's directory, open the `compose.yaml` file in an IDE or text editor. `iechor init` handled creating most of the instructions, but you'll need to update it for your unique application.
 
 You need to update the following items in the `compose.yaml` file:
  - Uncomment all of the database instructions.
@@ -221,14 +221,14 @@ The following is the updated `compose.yaml` file.
 
 ```yaml {hl_lines=["17-23","30-55"]}
 # Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Docker compose reference guide at
-# https://docs.docker.com/compose/compose-file/
+# If you need more help, visit the iEchor compose reference guide at
+# https://docs.iechor.com/compose/compose-file/
 
 # Here the instructions define your application as a service called "server".
-# This service is built from the Dockerfile in the current directory.
+# This service is built from the iEchorfile in the current directory.
 # You can add other services your application may depend on here, such as a
 # database or a cache. For examples, see the Awesome Compose repository:
-# https://github.com/docker/awesome-compose
+# https://github.com/iechor/awesome-compose
 services:
   server:
     build:
@@ -244,11 +244,11 @@ services:
       - ADDRESS=0.0.0.0:8000
       - RUST_LOG=debug
 # The commented out section below is an example of how to define a PostgreSQL
-# database that your application can use. `depends_on` tells Docker Compose to
+# database that your application can use. `depends_on` tells iEchor Compose to
 # start the database before your application. The `db-data` volume persists the
 # database data between container restarts. The `db-password` secret is used
 # to set the database password. You must create `db/password.txt` and add
-# a password of your choosing to it before running `docker compose up`.
+# a password of your choosing to it before running `iechor compose up`.
     depends_on:
       db:
         condition: service_healthy
@@ -289,13 +289,13 @@ mysecretpassword
 
 If you have any other containers running from the previous sections, [stop](./run-containers.md/#stop-start-and-name-containers) them now.
 
-Now, run the following `docker compose up` command to start your application.
+Now, run the following `iechor compose up` command to start your application.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
-The command passes the `--build` flag so Docker will compile your image and then start the containers.
+The command passes the `--build` flag so iEchor will compile your image and then start the containers.
 
 Now test your API endpoint. Open a new terminal then make a request to the server using the curl commands:
 
@@ -314,7 +314,7 @@ You should receive the following response:
 In this section, you took a look at setting up your Compose file to run your Rust application and database with a single command.
 
 Related information:
- - [Docker volumes](../../storage/volumes.md)
+ - [iEchor volumes](../../storage/volumes.md)
  - [Compose overview](../../compose/index.md)
 
 ## Next steps

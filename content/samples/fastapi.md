@@ -1,5 +1,5 @@
 ---
 title: FastAPI samples
-description: Docker samples for .NET.
+description: iEchor samples for .NET.
 service: fastapi
 ---

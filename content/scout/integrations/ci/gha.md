@@ -1,23 +1,23 @@
 ---
-description: How to integrate Docker Scout with GitHub Actions
+description: How to integrate iEchor Scout with GitHub Actions
 keywords: supply chain, security, ci, continuous integration, github actions
-title: Integrate Docker Scout with GitHub Actions
+title: Integrate iEchor Scout with GitHub Actions
 ---
 
-The following example shows how to set up a Docker Scout workflow with GitHub
+The following example shows how to set up a iEchor Scout workflow with GitHub
 Actions. Triggered by a pull request, the action builds the image and uses
-Docker Scout to compare the new version to the version of that image running in
+iEchor Scout to compare the new version to the version of that image running in
 production.
 
 This workflow uses the
-[docker/scout-action](https://github.com/docker/scout-action) GitHub Action to
-run the `docker scout compare` command to visualize how images for pull request
+[iechor/scout-action](https://github.com/iechor/scout-action) GitHub Action to
+run the `iechor scout compare` command to visualize how images for pull request
 stack up against the image you run in production.
 
 ## Prerequisites
 
-- This example assumes that you have an existing image repository, in Docker Hub
-  or in another registry, where you've enabled Docker Scout.
+- This example assumes that you have an existing image repository, in iEchor Hub
+  or in another registry, where you've enabled iEchor Scout.
 - This example makes use of [environments](../environment/_index.md), to compare
   the image built in the pull request with a different version of the same image
   in an environment called `production`.
@@ -25,13 +25,13 @@ stack up against the image you run in production.
 ## Steps
 
 First, set up the GitHub Action workflow to build an image. This isn't specific
-to Docker Scout here, but you'll need to build an image to have
+to iEchor Scout here, but you'll need to build an image to have
 something to compare with.
 
 Add the following to a GitHub Actions YAML file:
 
 ```yaml
-name: Docker
+name: iEchor
 
 on:
   push:
@@ -43,7 +43,7 @@ on:
 
 env:
   # Hostname of your registry
-  REGISTRY: docker.io
+  REGISTRY: iechor.io
   # Image repository, without hostname and tag
   IMAGE_NAME: ${{ github.repository }}
   SHA: ${{ github.event.pull_request.head.sha || github.event.after }}
@@ -60,21 +60,21 @@ jobs:
         with:
           ref: ${{ env.SHA }}
 
-      - name: Setup Docker buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Setup iEchor buildx
+        uses: iechor/setup-buildx-action@v3
 
       # Authenticate to the container registry
       - name: Authenticate to registry ${{ env.REGISTRY }}
-        uses: docker/login-action@v3
+        uses: iechor/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_TOKEN }}
 
-      # Extract metadata (tags, labels) for Docker
-      - name: Extract Docker metadata
+      # Extract metadata (tags, labels) for iEchor
+      - name: Extract iEchor metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           labels: |
@@ -84,11 +84,11 @@ jobs:
             type=semver,pattern=v{{version}}
             type=sha,prefix=,suffix=,format=short
 
-      # Build and push Docker image with Buildx
+      # Build and push iEchor image with Buildx
       # (don't push on PR, load instead)
-      - name: Build and push Docker image
+      - name: Build and push iEchor image
         id: build-and-push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           sbom: ${{ github.event_name != 'pull_request' }}
@@ -104,10 +104,10 @@ jobs:
 This creates workflow steps to:
 
 1. Check out the repository.
-2. Set up Docker buildx.
+2. Set up iEchor buildx.
 3. Authenticate to the registry.
 4. Extract metadata from Git reference and GitHub events.
-5. Build and push the Docker image to the registry.
+5. Build and push the iEchor image to the registry.
 
 > **Note**
 >
@@ -124,19 +124,19 @@ With this setup out of the way, you can add the following steps to run the
 image comparison:
 
 ```yaml
-      # You can skip this step if Docker Hub is your registry
+      # You can skip this step if iEchor Hub is your registry
       # and you already authenticated before
-      - name: Authenticate to Docker
-        uses: docker/login-action@v3
+      - name: Authenticate to iEchor
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PAT }}
+          username: ${{ secrets.IECHOR_USER }}
+          password: ${{ secrets.IECHOR_PAT }}
 
       # Compare the image built in the pull request with the one in production
-      - name: Docker Scout
-        id: docker-scout
+      - name: iEchor Scout
+        id: iechor-scout
         if: ${{ github.event_name == 'pull_request' }}
-        uses: docker/scout-action@v1
+        uses: iechor/scout-action@v1
         with:
           command: compare
           image: ${{ steps.meta.outputs.tags }}
@@ -155,7 +155,7 @@ showing only what's changed.
 The GitHub Action outputs the comparison results in a pull request comment by
 default.
 
-![A screenshot showing the results of Docker Scout output in a GitHub Action](../../images/gha-output.webp)
+![A screenshot showing the results of iEchor Scout output in a GitHub Action](../../images/gha-output.webp)
 
 Expand the **Policies** section to view the difference in policy compliance
 between the two images. Note that while the new image in this example isn't

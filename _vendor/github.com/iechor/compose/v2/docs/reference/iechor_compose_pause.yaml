@@ -1,0 +1,25 @@
+command: iechor compose pause
+short: Pause services
+long: |
+    Pauses running containers of a service. They can be unpaused with `iechor compose unpause`.
+usage: iechor compose pause [SERVICE...]
+pname: iechor compose
+plink: iechor_compose.yaml
+inherited_options:
+    - option: dry-run
+      value_type: bool
+      default_value: "false"
+      description: Execute command in dry run mode
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

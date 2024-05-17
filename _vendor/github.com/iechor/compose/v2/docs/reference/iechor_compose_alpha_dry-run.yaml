@@ -1,0 +1,14 @@
+command: iechor compose alpha dry-run
+short: |
+    EXPERIMENTAL - Dry run command allow you to test a command without applying changes
+long: |
+    EXPERIMENTAL - Dry run command allow you to test a command without applying changes
+usage: iechor compose alpha dry-run -- [COMMAND...]
+pname: iechor compose alpha
+plink: iechor_compose_alpha.yaml
+deprecated: false
+experimental: false
+experimentalcli: true
+kubernetes: false
+swarm: false
+

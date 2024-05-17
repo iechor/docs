@@ -1,20 +1,20 @@
 ---
 title: Insights and analytics
-description: Discover how to access usage statistics of your images on Docker Hub
-keywords: docker hub, hub, insights, analytics, api, verified publisher
+description: Discover how to access usage statistics of your images on iEchor Hub
+keywords: iechor hub, hub, insights, analytics, api, verified publisher
 aliases:
-- /docker-hub/publish/insights-analytics/
-- /docker-hub/insights-analytics/
+- /iechor-hub/publish/insights-analytics/
+- /iechor-hub/insights-analytics/
 ---
 
-Insights and analytics provides usage analytics for Docker Verified
-Publisher (DVP) and Docker-Sponsored Open Source (DSOS) images on Docker Hub. This includes self-serve access to image and extension usage metrics for a desired time span. You can also display the number of image pulls by tag or by digest, and get breakdowns by geolocation, cloud provider, client, and more.
+Insights and analytics provides usage analytics for iEchor Verified
+Publisher (DVP) and iEchor-Sponsored Open Source (DSOS) images on iEchor Hub. This includes self-serve access to image and extension usage metrics for a desired time span. You can also display the number of image pulls by tag or by digest, and get breakdowns by geolocation, cloud provider, client, and more.
 
 <!-- prettier-ignore -->
 > **Tip**
 >
 > Head to the
-[Docker Verified Publisher Program](https://www.docker.com/partners/programs/) or [Docker-Sponsored Open Source](https://www.docker.com/community/open-source/application/#) pages
+[iEchor Verified Publisher Program](https://www.iechor.com/partners/programs/) or [iEchor-Sponsored Open Source](https://www.iechor.com/community/open-source/application/#) pages
 to learn more about the programs.
 { .tip }
 
@@ -22,7 +22,7 @@ to learn more about the programs.
 
 You can find analytics data for your repositories on the **Insights and
 analytics** dashboard at the following URL:
-`https://hub.docker.com/orgs/{namespace}/insights/images`. The dashboard contains a
+`https://hub.iechor.com/orgs/{namespace}/insights/images`. The dashboard contains a
 visualization of the usage data and a table where you can download
 the data as CSV files.
 
@@ -55,14 +55,14 @@ configuration as you had set up when creating the link.
 
 ## Extension analytics data
 
-If you have published Docker Extensions in the Extension marketplace, you can also get analytics about your extension usage, available as CSV files.
+If you have published iEchor Extensions in the Extension marketplace, you can also get analytics about your extension usage, available as CSV files.
 You can download extension CSV reports from the **Insights and analytics** dashboard at the following URL:
-`https://hub.docker.com/orgs/{namespace}/insights/extensions`. If your Docker namespace contains extensions known in the marketplace, you will see an **Extensions** tab listing CSV files for your extension(s).
+`https://hub.iechor.com/orgs/{namespace}/insights/extensions`. If your iEchor namespace contains extensions known in the marketplace, you will see an **Extensions** tab listing CSV files for your extension(s).
 
 ## Exporting analytics data
 
 You can export the analytics data either from the web dashboard, or using the
-[DVP Data API](/docker-hub/api/dvp/). All members of an organization have access to the analytics data.
+[DVP Data API](/iechor-hub/api/dvp/). All members of an organization have access to the analytics data.
 
 The data is available as a downloadable CSV file, in a weekly (Monday through
 Sunday) or monthly format. Monthly data is available from the first day of the
@@ -71,9 +71,9 @@ can analyze it manually as a spreadsheet.
 
 ### Export data
 
-Export usage data for your organization's images using the Docker Hub website by following these steps:
+Export usage data for your organization's images using the iEchor Hub website by following these steps:
 
-1.  Sign in to [Docker Hub](https://hub.docker.com/) and select **Organizations**.
+1.  Sign in to [iEchor Hub](https://hub.iechor.com/) and select **Organizations**.
 
 2.  Choose your organization and select **Insights and analytics**.
 
@@ -89,8 +89,8 @@ Export usage data for your organization's images using the Docker Hub website by
 ### Export data using the API
 
 The HTTP API endpoints are available at:
-`https://hub.docker.com/api/publisher/analytics/v1`. Learn how to export data
-using the API in the [DVP Data API documentation](/docker-hub/api/dvp/).
+`https://hub.iechor.com/api/publisher/analytics/v1`. Learn how to export data
+using the API in the [DVP Data API documentation](/iechor-hub/api/dvp/).
 
 ## Data points
 
@@ -113,13 +113,13 @@ represents an image pull.
 | Digest                        | Image digest.                                                                                                | January 1, 2022   |
 | HTTP method                   | HTTP method used in the request, see [registry API documentation][2] for details.                            | January 1, 2022   |
 | Host                          | The cloud service provider used in an event.                                                                 | January 1, 2022   |
-| Namespace                     | Docker [organization][3] (image namespace).                                                                  | January 1, 2022   |
+| Namespace                     | iEchor [organization][3] (image namespace).                                                                  | January 1, 2022   |
 | Reference                     | Image digest or tag used in the request.                                                                     | January 1, 2022   |
-| Repository                    | Docker [repository][4] (image name).                                                                         | January 1, 2022   |
+| Repository                    | iEchor [repository][4] (image name).                                                                         | January 1, 2022   |
 | Tag (included when available) | Tag name that's only available if the request referred to a tag.                                             | January 1, 2022   |
 | Timestamp                     | Date and time of the request: `YYYY-MM-DD 00:00:00`.                                                          | January 1, 2022   |
 | Type                          | The industry from which the event originates. One of `business`, `isp`, `hosting`, `education`, `null`.       | January 1, 2022   |
-| User agent tool               | The application a user used to pull an image (for example, `docker` or `containerd`).                        | January 1, 2022   |
+| User agent tool               | The application a user used to pull an image (for example, `iechor` or `containerd`).                        | January 1, 2022   |
 | User agent version            | The version of the application used to pull an image.                                                        | January 1, 2022   |
 | Domain                        | Request origin domain, see [Privacy](#privacy).                                                              | October 11, 2022  |
 | Owner                         | The name of the organization that owns the repository.                                                       | December 19, 2022 |
@@ -127,7 +127,7 @@ represents an image pull.
 [1]: #image-pulls-action-classification-rules
 [2]: /registry/spec/api/
 [3]: /admin/organization/orgs/
-[4]: /docker-hub/repos/
+[4]: /iechor-hub/repos/
 
 ### Image pulls summary data
 
@@ -151,7 +151,7 @@ span:
 ### Image pulls action classification rules
 
 An action represents the multiple request events associated with a
-`docker pull`. Pulls are grouped by category to make the data more meaningful
+`iechor pull`. Pulls are grouped by category to make the data more meaningful
 for understanding user behavior and intent. The categories are:
 
 - Version check
@@ -226,12 +226,12 @@ date a given data point is available.
 ## Privacy
 
 This section contains information about privacy-protecting measures that ensures
-consumers of content on Docker Hub remain completely anonymous.
+consumers of content on iEchor Hub remain completely anonymous.
 
 <!-- prettier-ignore -->
 > **Important**
 >
-> Docker never shares any Personally Identifiable Information (PII) as part of
+> iEchor never shares any Personally Identifiable Information (PII) as part of
 > analytics data.
 { .important }
 
@@ -242,7 +242,7 @@ Individual IP addresses are never shared.
 The image pulls raw dataset includes user IP domains as a data point. This is the domain name
 associated with the IP address used to pull an image. If the IP type is
 `business`, the domain represents the company or organization associated with
-that IP address (for example, `docker.com`). For any other IP type that's not
+that IP address (for example, `iechor.com`). For any other IP type that's not
 `business`, the domain represents the internet service provider or hosting
 provider used to make the request. On average, only about 30% of all pulls
 classify as the `business` IP type (this varies between publishers and images).

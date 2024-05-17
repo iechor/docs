@@ -18,7 +18,7 @@ everything that the inline cache can do, and more:
 - It works with other exporters for more flexibility, instead of only the
   `image` exporter.
 
-This cache storage backend is not supported with the default `docker` driver.
+This cache storage backend is not supported with the default `iechor` driver.
 To use this feature, create a new builder using a different driver. See
 [Build drivers](../../drivers/_index.md) for more information.
 
@@ -28,7 +28,7 @@ Unlike the simpler `inline` cache, the `registry` cache supports several
 configuration parameters:
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --cache-to type=registry,ref=<registry>/<cache-image>[,parameters...] \
   --cache-from type=registry,ref=<registry>/<cache-image> .
 ```
@@ -55,7 +55,7 @@ You can choose any valid value for `ref`, as long as it's not the same as the
 target location that you push your image to. You might choose different tags
 (e.g. `foo/bar:latest` and `foo/bar:build-cache`), separate image names (e.g.
 `foo/bar` and `foo/bar-cache`), or even different repositories (e.g.
-`docker.io/foo/bar` and `ghcr.io/foo/bar`). It's up to you to decide the
+`iechor.io/foo/bar` and `ghcr.io/foo/bar`). It's up to you to decide the
 strategy that you want to use for separating your image from your cache images.
 
 If the `--cache-from` target doesn't exist, then the cache import step will
@@ -63,7 +63,7 @@ fail, but the build continues.
 
 ## Further reading
 
-For an introduction to caching see [Docker build cache](../_index.md).
+For an introduction to caching see [iEchor build cache](../_index.md).
 
 For more information on the `registry` cache backend, see the
 [BuildKit README](https://github.com/moby/buildkit#registry-push-image-and-cache-separately).

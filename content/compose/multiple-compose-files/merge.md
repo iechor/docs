@@ -1,10 +1,10 @@
 ---
 description: How merging Compose files works
-keywords: compose, docker, merge, compose file
+keywords: compose, iechor, merge, compose file
 title: Merge Compose files
 ---
 
-Docker Compose lets you merge and override a set of Compose files together to create a composite Compose file.
+iEchor Compose lets you merge and override a set of Compose files together to create a composite Compose file.
 
 By default, Compose reads two files, a `compose.yml` and an optional
 `compose.override.yml` file. By convention, the `compose.yml`
@@ -28,7 +28,7 @@ add to their predecessors.
 For example:
 
 ```console
-$ docker compose -f compose.yml -f compose.admin.yml run backup_db
+$ iechor compose -f compose.yml -f compose.admin.yml run backup_db
 ```
 
 The `compose.yml` file might specify a `webapp` service.
@@ -85,7 +85,7 @@ relative to the base file.
 
 - You can use a `-f` with `-` (dash) as the filename to read the configuration from `stdin`. For example: 
    ```console
-   $ docker compose -f - <<EOF
+   $ iechor compose -f - <<EOF
      webapp:
        image: examples/web
        ports:
@@ -101,12 +101,12 @@ relative to the base file.
    
 - You can use the `-f` flag to specify a path to a Compose file that is not located in the current directory, either from the command line or by setting up a [COMPOSE_FILE environment variable](../environment-variables/envvars.md#compose_file) in your shell or in an environment file.
 
-   For example, if you are running the [Compose Rails sample](https://github.com/docker/awesome-compose/tree/master/official-documentation-samples/rails/README.md), and have a `compose.yml` file in a directory called `sandbox/rails`. You can use a command like [docker compose pull](../../reference/cli/docker/compose/pull.md) to get the postgres image for the `db` service from anywhere by using the `-f` flag as follows: `docker compose -f ~/sandbox/rails/compose.yml pull db`
+   For example, if you are running the [Compose Rails sample](https://github.com/iechor/awesome-compose/tree/master/official-documentation-samples/rails/README.md), and have a `compose.yml` file in a directory called `sandbox/rails`. You can use a command like [iechor compose pull](../../reference/cli/iechor/compose/pull.md) to get the postgres image for the `db` service from anywhere by using the `-f` flag as follows: `iechor compose -f ~/sandbox/rails/compose.yml pull db`
 
    Here's the full example:
 
    ```console
-   $ docker compose -f ~/sandbox/rails/compose.yml pull db
+   $ iechor compose -f ~/sandbox/rails/compose.yml pull db
    Pulling db (postgres:latest)...
    latest: Pulling from library/postgres
    ef0380f84d05: Pull complete
@@ -329,7 +329,7 @@ services:
       - 6379:6379
 ```
 
-When you run `docker compose up` it reads the overrides automatically.
+When you run `iechor compose up` it reads the overrides automatically.
 
 To use this Compose app in a production environment, another override file is created, which might be stored in a different git
 repo or managed by a different team.
@@ -352,7 +352,7 @@ services:
 To deploy with this production Compose file you can run
 
 ```console
-$ docker compose -f compose.yml -f compose.prod.yml up -d
+$ iechor compose -f compose.yml -f compose.prod.yml up -d
 ```
 
 This deploys all three services using the configuration in
@@ -363,7 +363,7 @@ For more information, see [Using Compose in production](../production.md).
 
 ## Limitations
 
-Docker Compose supports relative paths for the many resources to be included in the application model: build context for service images, location of file defining environment variables, path to a local directory used in a bind-mounted volume.
+iEchor Compose supports relative paths for the many resources to be included in the application model: build context for service images, location of file defining environment variables, path to a local directory used in a bind-mounted volume.
 With such a constraint, code organization in a monorepo can become hard as a natural choice would be to have dedicated folders per team or component, but then the Compose files relative paths become irrelevant. 
 
 ## Reference information

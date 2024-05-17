@@ -1,28 +1,28 @@
 ---
 description: Automating content push pulls with trust
-keywords: trust, security, docker, documentation, automation
+keywords: trust, security, iechor, documentation, automation
 title: Automation with content trust
 ---
 
-It is very common for Docker Content Trust to be built into existing automation
-systems. To allow tools to wrap Docker and push trusted content, there are 
+It is very common for iEchor Content Trust to be built into existing automation
+systems. To allow tools to wrap iEchor and push trusted content, there are 
 environment variables that can be passed through to the client. 
 
 This guide follows the steps as described in
-[Signing images with Docker Content Trust](index.md#signing-images-with-docker-content-trust). Make sure you understand and follow the prerequisites.
+[Signing images with iEchor Content Trust](index.md#signing-images-with-iechor-content-trust). Make sure you understand and follow the prerequisites.
 
 When working directly with the Notary client, it uses its [own set of environment variables](https://github.com/theupdateframework/notary/blob/master/docs/reference/client-config.md#environment-variables-optional).
 
 ## Add a delegation private key
 
-To automate importing a delegation private key to the local Docker trust store, we 
+To automate importing a delegation private key to the local iEchor trust store, we 
 need to pass a passphrase for the new key. This passphrase will be required 
 everytime that delegation signs a tag. 
 
 ```console
-$ export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="mypassphrase123"
+$ export IECHOR_CONTENT_TRUST_REPOSITORY_PASSPHRASE="mypassphrase123"
 
-$ docker trust key load delegation.key --name jeff
+$ iechor trust key load delegation.key --name jeff
 Loading key from "delegation.key"...
 Successfully imported key from delegation.key
 ```
@@ -36,13 +36,13 @@ been initiated then you only need the repositories passphrase.
 
 ```console
 # Export the Local Root Key Passphrase if required.
-$ export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="rootpassphrase123"
+$ export IECHOR_CONTENT_TRUST_ROOT_PASSPHRASE="rootpassphrase123"
 
 # Export the Repository Passphrase
-$ export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="repopassphrase123"
+$ export IECHOR_CONTENT_TRUST_REPOSITORY_PASSPHRASE="repopassphrase123"
 
 # Initialise Repo and Push Delegation
-$ docker trust signer add --key delegation.crt jeff registry.example.com/admin/demo
+$ iechor trust signer add --key delegation.crt jeff registry.example.com/admin/demo
 Adding signer "jeff" to registry.example.com/admin/demo...
 Initializing signed repository for registry.example.com/admin/demo...
 Successfully initialized "registry.example.com/admin/demo"
@@ -52,13 +52,13 @@ Successfully added signer: registry.example.com/admin/demo
 ## Sign an image
 
 Finally when signing an image, we will need to export the passphrase of the 
-signing key. This was created when the key was loaded into the local Docker 
-trust store with `$ docker trust key load`.
+signing key. This was created when the key was loaded into the local iEchor 
+trust store with `$ iechor trust key load`.
 
 ```console
-$ export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="mypassphrase123"
+$ export IECHOR_CONTENT_TRUST_REPOSITORY_PASSPHRASE="mypassphrase123"
 
-$ docker trust sign registry.example.com/admin/demo:1
+$ iechor trust sign registry.example.com/admin/demo:1
 Signing and pushing trust data for local image registry.example.com/admin/demo:1, may overwrite remote trust data
 The push refers to repository [registry.example.com/admin/demo]
 428c97da766c: Layer already exists
@@ -69,13 +69,13 @@ Successfully signed registry.example.com/admin/demo:1
 
 ## Build with content trust
 
-You can also build with content trust. Before running the `docker build` command, 
-you should set the environment variable `DOCKER_CONTENT_TRUST` either manually or 
-in a scripted fashion. Consider the simple Dockerfile below.
+You can also build with content trust. Before running the `iechor build` command, 
+you should set the environment variable `IECHOR_CONTENT_TRUST` either manually or 
+in a scripted fashion. Consider the simple iEchorfile below.
 
-```dockerfile
-# syntax=docker/dockerfile:1
-FROM docker/trusttest:latest
+```iechorfile
+# syntax=iechor/iechorfile:1
+FROM iechor/trusttest:latest
 RUN echo
 ```
 
@@ -84,26 +84,26 @@ The `FROM` tag is pulling a signed image. You cannot build an image that has a
 data exists for the tag `latest`, the following build should succeed:
 
 ```console
-$  docker build -t docker/trusttest:testing .
+$  iechor build -t iechor/trusttest:testing .
 Using default tag: latest
-latest: Pulling from docker/trusttest
+latest: Pulling from iechor/trusttest
 
 b3dbab3810fc: Pull complete
 a9539b34a6ab: Pull complete
 Digest: sha256:d149ab53f871
 ```
 
-If content trust is enabled, building from a Dockerfile that relies on tag 
+If content trust is enabled, building from a iEchorfile that relies on tag 
 without trust data, causes the build command to fail:
 
 ```console
-$  docker build -t docker/trusttest:testing .
-unable to process Dockerfile: No trust data for notrust
+$  iechor build -t iechor/trusttest:testing .
+unable to process iEchorfile: No trust data for notrust
 ```
 
 ## Related information
 
 * [Delegations for content trust](trust_delegation.md)
-* [Content trust in Docker](index.md)
+* [Content trust in iEchor](index.md)
 * [Manage keys for content trust](trust_key_mng.md)
 * [Play in a content trust sandbox](trust_sandbox.md)

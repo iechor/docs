@@ -6,19 +6,19 @@ notoc: true
 ---
 
 When you have [deployed a service](deploy-service.md) to your swarm, you can use
-the Docker CLI to see details about the service running in the swarm.
+the iEchor CLI to see details about the service running in the swarm.
 
 1.  If you haven't already, open a terminal and ssh into the machine where you
     run your manager node. For example, the tutorial uses a machine named
     `manager1`.
 
-2.  Run `docker service inspect --pretty <SERVICE-ID>` to display the details
+2.  Run `iechor service inspect --pretty <SERVICE-ID>` to display the details
     about a service in an easily readable format.
 
     To see the details on the `helloworld` service:
 
     ```console
-    [manager1]$ docker service inspect --pretty helloworld
+    [manager1]$ iechor service inspect --pretty helloworld
 
     ID:		9uk4639qpg7npwf3fn2aasksr
     Name:		helloworld
@@ -29,7 +29,7 @@ the Docker CLI to see details about the service running in the swarm.
      Parallelism:	1
     ContainerSpec:
      Image:		alpine
-     Args:	ping docker.com
+     Args:	ping iechor.com
     Resources:
     Endpoint Mode:  vip
     ```
@@ -41,7 +41,7 @@ the Docker CLI to see details about the service running in the swarm.
     { .tip }
 
     ```console
-    [manager1]$ docker service inspect helloworld
+    [manager1]$ iechor service inspect helloworld
     [
     {
         "ID": "9uk4639qpg7npwf3fn2aasksr",
@@ -57,7 +57,7 @@ the Docker CLI to see details about the service running in the swarm.
                     "Image": "alpine",
                     "Args": [
                         "ping",
-                        "docker.com"
+                        "iechor.com"
                     ]
                 },
                 "Resources": {
@@ -89,11 +89,11 @@ the Docker CLI to see details about the service running in the swarm.
     ]
     ```
 
-3.  Run `docker service ps <SERVICE-ID>` to see which nodes are running the
+3.  Run `iechor service ps <SERVICE-ID>` to see which nodes are running the
     service:
 
     ```console
-    [manager1]$ docker service ps helloworld
+    [manager1]$ iechor service ps helloworld
 
     NAME                                    IMAGE   NODE     DESIRED STATE  CURRENT STATE           ERROR               PORTS
     helloworld.1.8p1vev3fq5zm0mi8g0as41w35  alpine  worker2  Running        Running 3 minutes
@@ -107,7 +107,7 @@ the Docker CLI to see details about the service running in the swarm.
     task so you can see if tasks are running according to the service
     definition.
 
-4.  Run `docker ps` on the node where the task is running to see details about
+4.  Run `iechor ps` on the node where the task is running to see details about
     the container for the task.
 
     >**Tip**
@@ -117,10 +117,10 @@ the Docker CLI to see details about the service running in the swarm.
     { .tip }
 
     ```console
-    [worker2]$ docker ps
+    [worker2]$ iechor ps
 
     CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-    e609dde94e47        alpine:latest       "ping docker.com"   3 minutes ago       Up 3 minutes                            helloworld.1.8p1vev3fq5zm0mi8g0as41w35
+    e609dde94e47        alpine:latest       "ping iechor.com"   3 minutes ago       Up 3 minutes                            helloworld.1.8p1vev3fq5zm0mi8g0as41w35
     ```
 
 ## Next steps

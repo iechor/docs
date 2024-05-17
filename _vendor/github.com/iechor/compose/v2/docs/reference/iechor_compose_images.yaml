@@ -1,0 +1,46 @@
+command: iechor compose images
+short: List images used by the created containers
+long: List images used by the created containers
+usage: iechor compose images [OPTIONS] [SERVICE...]
+pname: iechor compose
+plink: iechor_compose.yaml
+options:
+    - option: format
+      value_type: string
+      default_value: table
+      description: 'Format the output. Values: [table | json]'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: quiet
+      shorthand: q
+      value_type: bool
+      default_value: "false"
+      description: Only display IDs
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: dry-run
+      value_type: bool
+      default_value: "false"
+      description: Execute command in dry run mode
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

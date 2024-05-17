@@ -1,0 +1,53 @@
+command: iechor container wait
+aliases: iechor container wait, iechor wait
+short: Block until one or more containers stop, then print their exit codes
+long: Block until one or more containers stop, then print their exit codes
+usage: iechor container wait CONTAINER [CONTAINER...]
+pname: iechor container
+plink: iechor_container.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    Start a container in the background.
+
+    ```console
+    $ iechor run -dit --name=my_container ubuntu bash
+    ```
+
+    Run `iechor wait`, which should block until the container exits.
+
+    ```console
+    $ iechor wait my_container
+    ```
+
+    In another terminal, stop the first container. The `iechor wait` command above
+    returns the exit code.
+
+    ```console
+    $ iechor stop my_container
+    ```
+
+    This is the same `iechor wait` command from above, but it now exits, returning
+    `0`.
+
+    ```console
+    $ iechor wait my_container
+
+    0
+    ```
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

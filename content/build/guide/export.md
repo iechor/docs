@@ -1,18 +1,18 @@
 ---
 title: Export binaries
-description: Using Docker builds to create and export executable binaries
+description: Using iEchor builds to create and export executable binaries
 keywords: build, buildkit, buildx, guide, tutorial, build arguments, arg
 ---
 
-Did you know that you can use Docker to build your application to standalone
+Did you know that you can use iEchor to build your application to standalone
 binaries? Sometimes, you don’t want to package and distribute your application
-as a Docker image. Use Docker to build your application, and use exporters to
+as a iEchor image. Use iEchor to build your application, and use exporters to
 save the output to disk.
 
-The default output format for `docker build` is a container image. That image is
+The default output format for `iechor build` is a container image. That image is
 automatically loaded to your local image store, where you can run a container
 from that image, or push it to a registry. Under the hood, this uses the default
-exporter, called the `docker` exporter.
+exporter, called the `iechor` exporter.
 
 To export your build results as files instead, you can use the `local` exporter.
 The `local` exporter saves the filesystem of the build container to the
@@ -20,7 +20,7 @@ specified directory on the host machine.
 
 ## Export binaries
 
-To use the `local` exporter, pass the `--output` option to the `docker build`
+To use the `local` exporter, pass the `--output` option to the `iechor build`
 command. The `--output` flag takes one argument: the destination on the host
 machine where you want to save the files.
 
@@ -28,7 +28,7 @@ The following commands exports the files from of the `server` target to the
 current working directory on the host filesystem:
 
 ```console
-$ docker build --output=. --target=server .
+$ iechor build --output=. --target=server .
 ```
 
 Running this command creates a binary at `./bin/server`. It’s created under the
@@ -42,11 +42,11 @@ total 14576
 ```
 
 If you want to create a build that exports both binaries, you can create another
-build stage in the Dockerfile that copies both of the binaries from each build
+build stage in the iEchorfile that copies both of the binaries from each build
 stage:
 
 ```diff
-  # syntax=docker/dockerfile:1
+  # syntax=iechor/iechorfile:1
   ARG GO_VERSION={{% param "example_go_version" %}}
   FROM golang:${GO_VERSION}-alpine AS base
   WORKDIR /src
@@ -83,7 +83,7 @@ Now you can build the `binaries` target using the `--output` option to export
 both the client and server binaries.
 
 ```console
-$ docker build --output=bin --target=binaries .
+$ iechor build --output=bin --target=binaries .
 $ ls -l ./bin
 total 29392
 -rwxr-xr-x  1 user  user  7581933 Apr  6 09:33 client
@@ -92,9 +92,9 @@ total 29392
 
 ## Summary
 
-This section has demonstrated how you can use Docker to build and export
+This section has demonstrated how you can use iEchor to build and export
 standalone binaries. These binaries can be distributed freely, and don’t require
-a container runtime like the Docker daemon.
+a container runtime like the iEchor daemon.
 
 The binaries you've generated so far are Linux binaries. That's because the
 build environment is Linux. If your host OS is Linux, you can run these files.
@@ -103,12 +103,12 @@ This is explored later on in this guide.
 
 Related information:
 
-- [`docker build --output` CLI reference](../../reference/cli/docker/image/build.md#output)
+- [`iechor build --output` CLI reference](../../reference/cli/iechor/image/build.md#output)
 - [Build exporters](../exporters/index.md)
 
 ## Next steps
 
-The next topic of this guide is testing: how you can use Docker to run
+The next topic of this guide is testing: how you can use iEchor to run
 application tests.
 
 {{< button text="Test" url="test.md" >}}

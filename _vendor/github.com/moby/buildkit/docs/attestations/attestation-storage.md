@@ -20,7 +20,7 @@ Attestation manifests are attached to the root image index object, under a
 separate [OCI image manifest](https://github.com/opencontainers/image-spec/blob/main/manifest.md).
 Each attestation manifest can contain multiple [attestation blobs](#attestation-blob),
 with all the of the attestations in a manifest applying to a single platform
-manifest. All properties of standard OCI and Docker manifests continue to
+manifest. All properties of standard OCI and iEchor manifests continue to
 apply.
 
 The image `config` descriptor will point to a valid [image config](https://github.com/opencontainers/image-spec/blob/main/config.md),
@@ -81,7 +81,7 @@ The contents of each layer will be a blob dependent on its `mediaType`.
 
 Attestation manifests are attached to the root [image index](https://github.com/opencontainers/image-spec/blob/main/image-index.md),
 in the `manifests` key, after all the original runnable manifests. All
-properties of standard OCI and Docker manifest descriptors continue to apply.
+properties of standard OCI and iEchor manifest descriptors continue to apply.
 
 To prevent container runtimes from accidentally pulling or running the image
 described in the manifest, the `platform` property of the attestation manifest
@@ -97,13 +97,13 @@ will be set to `unknown/unknown`, as follows:
 To assist index traversal, the following annotations will be set on the
 manifest descriptor descriptor:
 
-- `vnd.docker.reference.type`
+- `vnd.iechor.reference.type`
 
   This annotation describes the type of the artifact, and will be set
   to `attestation-manifest`. If any other value is specified, the entire
   manifest should be ignored.
 
-- `vnd.docker.reference.digest`
+- `vnd.iechor.reference.digest`
 
   This annotation will contain the digest of the object in the image index that
   the attestation manifest refers to.
@@ -138,8 +138,8 @@ This image index defines two descriptors: an AMD64 image `sha256:23678f31..` and
       "digest": "sha256:02cb9aa7600e73fcf41ee9f0f19cc03122b2d8be43d41ce4b21335118f5dd943",
       "size": 1234,
       "annotations": {
-        "vnd.docker.reference.digest": "sha256:23678f31b3b3586c4fb318aecfe64a96a1f0916ba8faf9b2be2abee63fa9e827",
-        "vnd.docker.reference.type": "attestation-manifest"
+        "vnd.iechor.reference.digest": "sha256:23678f31b3b3586c4fb318aecfe64a96a1f0916ba8faf9b2be2abee63fa9e827",
+        "vnd.iechor.reference.type": "attestation-manifest"
       },
       "platform": {
          "architecture": "unknown",

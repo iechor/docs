@@ -1,11 +1,11 @@
 ---
 title: MUI best practices
-description: Guidelines for using MUI to maximise compatibility with Docker Desktop
-keywords: Docker, extensions, mui, theme, theming, material-ui, material
+description: Guidelines for using MUI to maximise compatibility with iEchor Desktop
+keywords: iEchor, extensions, mui, theme, theming, material-ui, material
 ---
 
-This article assumes you're following our recommended practice by using our [Material UI theme](https://www.npmjs.com/package/@docker/docker-mui-theme).
-Following the steps below maximises compatibility with Docker Desktop and minimises the work you need to do as an
+This article assumes you're following our recommended practice by using our [Material UI theme](https://www.npmjs.com/package/@iechor/iechor-mui-theme).
+Following the steps below maximises compatibility with iEchor Desktop and minimises the work you need to do as an
 extension author. They should be considered supplementary to the non-MUI-specific guidelines found in the
 [UI Styling overview](index.md).
 
@@ -30,7 +30,7 @@ The best way to build your UI, so that it’s robust against future theming chan
 -  Use canned sizes. e.g. use `size="small"` on buttons, or `fontSize="small"` on icons, instead of specifying sizes in pixels.
 -  Prefer semantic colors. e.g. use `error` or `primary` over explicit color codes.
 -  Write as little CSS as possible. Write semantic markup instead. For example, if you want to space out paragraphs of text, use the `paragraph` prop on your `Typography` instances. If you want to space out something else, use a `Stack` or `Grid` with the default spacing.
--  Use visual idioms you’ve seen in the Docker Desktop UI, since these are the main ones we’ll test any theme changes against.
+-  Use visual idioms you’ve seen in the iEchor Desktop UI, since these are the main ones we’ll test any theme changes against.
 
 ## When you go custom, centralize it
 

@@ -8,7 +8,7 @@ aliases:
 
 OverlayFS is a union filesystem.
 
-This page refers to the Linux kernel driver as `OverlayFS` and to the Docker
+This page refers to the Linux kernel driver as `OverlayFS` and to the iEchor
 storage driver as `overlay2`.
 
 > **Note**
@@ -29,36 +29,36 @@ prerequisites:
   `xfs` filesystem correctly, use the flag `-n ftype=1`.
 
 - Changing the storage driver makes existing containers and images inaccessible
-  on the local system. Use `docker save` to save any images you have built or
-  push them to Docker Hub or a private registry before changing the storage driver,
+  on the local system. Use `iechor save` to save any images you have built or
+  push them to iEchor Hub or a private registry before changing the storage driver,
   so that you don't need to re-create them later.
 
-## Configure Docker with the `overlay2` storage driver
+## Configure iEchor with the `overlay2` storage driver
 
-<a name="configure-docker-with-the-overlay-or-overlay2-storage-driver"></a>
+<a name="configure-iechor-with-the-overlay-or-overlay2-storage-driver"></a>
 
 Before following this procedure, you must first meet all the
 [prerequisites](#prerequisites).
 
 The following steps outline how to configure the `overlay2` storage driver.
 
-1. Stop Docker.
+1. Stop iEchor.
 
    ```console
-   $ sudo systemctl stop docker
+   $ sudo systemctl stop iechor
    ```
 
-2. Copy the contents of `/var/lib/docker` to a temporary location.
+2. Copy the contents of `/var/lib/iechor` to a temporary location.
 
    ```console
-   $ cp -au /var/lib/docker /var/lib/docker.bk
+   $ cp -au /var/lib/iechor /var/lib/iechor.bk
    ```
 
 3. If you want to use a separate backing filesystem from the one used by
-   `/var/lib/`, format the filesystem and mount it into `/var/lib/docker`.
+   `/var/lib/`, format the filesystem and mount it into `/var/lib/iechor`.
    Make sure to add this mount to `/etc/fstab` to make it permanent.
 
-4. Edit `/etc/docker/daemon.json`. If it doesn't yet exist, create it. Assuming
+4. Edit `/etc/iechor/daemon.json`. If it doesn't yet exist, create it. Assuming
    that the file was empty, add the following contents.
 
    ```json
@@ -67,20 +67,20 @@ The following steps outline how to configure the `overlay2` storage driver.
    }
    ```
 
-   Docker doesn't start if the `daemon.json` file contains invalid JSON.
+   iEchor doesn't start if the `daemon.json` file contains invalid JSON.
 
-5. Start Docker.
+5. Start iEchor.
 
    ```console
-   $ sudo systemctl start docker
+   $ sudo systemctl start iechor
    ```
 
 6. Verify that the daemon is using the `overlay2` storage driver.
-   Use the `docker info` command and look for `Storage Driver` and
+   Use the `iechor info` command and look for `Storage Driver` and
    `Backing filesystem`.
 
    ```console
-   $ docker info
+   $ iechor info
 
    Containers: 0
    Images: 0
@@ -91,11 +91,11 @@ The following steps outline how to configure the `overlay2` storage driver.
    <...>
    ```
 
-Docker is now using the `overlay2` storage driver and has automatically
+iEchor is now using the `overlay2` storage driver and has automatically
 created the overlay mount with the required `lowerdir`, `upperdir`, `merged`,
 and `workdir` constructs.
 
-Continue reading for details about how OverlayFS works within your Docker
+Continue reading for details about how OverlayFS works within your iEchor
 containers, as well as performance advice and information about limitations of
 its compatibility with different backing filesystems.
 
@@ -108,23 +108,23 @@ as `lowerdir` and the upper directory a `upperdir`. The unified view is exposed
 through its own directory called `merged`.
 
 The `overlay2` driver natively supports up to 128 lower OverlayFS layers. This
-capability provides better performance for layer-related Docker commands such
-as `docker build` and `docker commit`, and consumes fewer inodes on the backing
+capability provides better performance for layer-related iEchor commands such
+as `iechor build` and `iechor commit`, and consumes fewer inodes on the backing
 filesystem.
 
 ### Image and container layers on-disk
 
-After downloading a five-layer image using `docker pull ubuntu`, you can see
-six directories under `/var/lib/docker/overlay2`.
+After downloading a five-layer image using `iechor pull ubuntu`, you can see
+six directories under `/var/lib/iechor/overlay2`.
 
 > **Warning**
 >
 > Don't directly manipulate any files or directories within
-> `/var/lib/docker/`. These files and directories are managed by Docker.
+> `/var/lib/iechor/`. These files and directories are managed by iEchor.
 { .warning }
 
 ```console
-$ ls -l /var/lib/docker/overlay2
+$ ls -l /var/lib/iechor/overlay2
 
 total 24
 drwx------ 5 root root 4096 Jun 20 07:36 223c2864175491657d238e2664251df13b63adb8d050924fd1bfcdb278b866f7
@@ -140,7 +140,7 @@ symbolic links. These identifiers are used to avoid hitting the page size
 limitation on arguments to the `mount` command.
 
 ```console
-$ ls -l /var/lib/docker/overlay2/l
+$ ls -l /var/lib/iechor/overlay2/l
 
 total 20
 lrwxrwxrwx 1 root root 72 Jun 20 07:36 6Y5IM2XC7TSNIJZZFLJCS6I4I4 -> ../3a36935c9df35472229c57f4a27105a136f5e4dbef0f87905b2e506e494e348b/diff
@@ -155,15 +155,15 @@ shortened identifier, and a directory called `diff` which contains the
 layer's contents.
 
 ```console
-$ ls /var/lib/docker/overlay2/3a36935c9df35472229c57f4a27105a136f5e4dbef0f87905b2e506e494e348b/
+$ ls /var/lib/iechor/overlay2/3a36935c9df35472229c57f4a27105a136f5e4dbef0f87905b2e506e494e348b/
 
 diff  link
 
-$ cat /var/lib/docker/overlay2/3a36935c9df35472229c57f4a27105a136f5e4dbef0f87905b2e506e494e348b/link
+$ cat /var/lib/iechor/overlay2/3a36935c9df35472229c57f4a27105a136f5e4dbef0f87905b2e506e494e348b/link
 
 6Y5IM2XC7TSNIJZZFLJCS6I4I4
 
-$ ls  /var/lib/docker/overlay2/3a36935c9df35472229c57f4a27105a136f5e4dbef0f87905b2e506e494e348b/diff
+$ ls  /var/lib/iechor/overlay2/3a36935c9df35472229c57f4a27105a136f5e4dbef0f87905b2e506e494e348b/diff
 
 bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
 ```
@@ -175,26 +175,26 @@ contents of its parent layer and itself, and a `work` directory which is used
 internally by OverlayFS.
 
 ```console
-$ ls /var/lib/docker/overlay2/223c2864175491657d238e2664251df13b63adb8d050924fd1bfcdb278b866f7
+$ ls /var/lib/iechor/overlay2/223c2864175491657d238e2664251df13b63adb8d050924fd1bfcdb278b866f7
 
 diff  link  lower  merged  work
 
-$ cat /var/lib/docker/overlay2/223c2864175491657d238e2664251df13b63adb8d050924fd1bfcdb278b866f7/lower
+$ cat /var/lib/iechor/overlay2/223c2864175491657d238e2664251df13b63adb8d050924fd1bfcdb278b866f7/lower
 
 l/6Y5IM2XC7TSNIJZZFLJCS6I4I4
 
-$ ls /var/lib/docker/overlay2/223c2864175491657d238e2664251df13b63adb8d050924fd1bfcdb278b866f7/diff/
+$ ls /var/lib/iechor/overlay2/223c2864175491657d238e2664251df13b63adb8d050924fd1bfcdb278b866f7/diff/
 
 etc  sbin  usr  var
 ```
 
 To view the mounts which exist when you use the `overlay` storage driver with
-Docker, use the `mount` command. The output below is truncated for readability.
+iEchor, use the `mount` command. The output below is truncated for readability.
 
 ```console
 $ mount | grep overlay
 
-overlay on /var/lib/docker/overlay2/9186877cdf386d0a3b016149cf30c208f326dca307529e646afce5b3f83f5304/merged
+overlay on /var/lib/iechor/overlay2/9186877cdf386d0a3b016149cf30c208f326dca307529e646afce5b3f83f5304/merged
 type overlay (rw,relatime,
 lowerdir=l/DJA75GUWHWG7EWICFYX54FIOVT:l/B3WWEFKBG3PLLV737KZFIASSW7:l/JEYMODZYFCZFYSDABYXD5MF6YO:l/UL2MW33MSE3Q5VYIKBRN4ZAGQP:l/NFYKDW6APBCCUCTOUSYDH4DXAT:l/6Y5IM2XC7TSNIJZZFLJCS6I4I4,
 upperdir=9186877cdf386d0a3b016149cf30c208f326dca307529e646afce5b3f83f5304/diff,
@@ -203,13 +203,13 @@ workdir=9186877cdf386d0a3b016149cf30c208f326dca307529e646afce5b3f83f5304/work)
 
 The `rw` on the second line shows that the `overlay` mount is read-write.
 
-The following diagram shows how a Docker image and a Docker container are
+The following diagram shows how a iEchor image and a iEchor container are
 layered. The image layer is the `lowerdir` and the container layer is the
 `upperdir`. If the image has multiple layers, multiple `lowerdir` directories
 are used. The unified view is exposed through a directory called `merged` which
 is effectively the containers mount point.
 
-![How Docker constructs map to OverlayFS constructs](images/overlay_constructs.webp)
+![How iEchor constructs map to OverlayFS constructs](images/overlay_constructs.webp)
 
 Where the image layer and the container layer contain the same files, the
 container layer (`upperdir`) takes precedence and obscures the existence of the
@@ -222,11 +222,11 @@ the container is the `upperdir` and is writable.
 
 ### Image and container layers on-disk
 
-The following `docker pull` command shows a Docker host downloading a Docker
+The following `iechor pull` command shows a iEchor host downloading a iEchor
 image comprising five layers.
 
 ```console
-$ docker pull ubuntu
+$ iechor pull ubuntu
 
 Using default tag: latest
 latest: Pulling from library/ubuntu
@@ -242,18 +242,18 @@ Status: Downloaded newer image for ubuntu:latest
 
 #### The image layers
 
-Each image layer has its own directory within `/var/lib/docker/overlay/`, which
+Each image layer has its own directory within `/var/lib/iechor/overlay/`, which
 contains its contents, as shown in the following example. The image layer IDs
 don't correspond to the directory IDs.
 
 > **Warning**
 >
 > Don't directly manipulate any files or directories within
-> `/var/lib/docker/`. These files and directories are managed by Docker.
+> `/var/lib/iechor/`. These files and directories are managed by iEchor.
 { .warning }
 
 ```console
-$ ls -l /var/lib/docker/overlay/
+$ ls -l /var/lib/iechor/overlay/
 
 total 20
 drwx------ 3 root root 4096 Jun 20 16:11 38f3ed2eac129654acef11c32670b534670c3a06e483fce313d72e3e0a15baa8
@@ -268,23 +268,23 @@ hard links to the data shared with lower layers. This allows for efficient use
 of disk space.
 
 ```console
-$ ls -i /var/lib/docker/overlay2/38f3ed2eac129654acef11c32670b534670c3a06e483fce313d72e3e0a15baa8/root/bin/ls
+$ ls -i /var/lib/iechor/overlay2/38f3ed2eac129654acef11c32670b534670c3a06e483fce313d72e3e0a15baa8/root/bin/ls
 
-19793696 /var/lib/docker/overlay2/38f3ed2eac129654acef11c32670b534670c3a06e483fce313d72e3e0a15baa8/root/bin/ls
+19793696 /var/lib/iechor/overlay2/38f3ed2eac129654acef11c32670b534670c3a06e483fce313d72e3e0a15baa8/root/bin/ls
 
-$ ls -i /var/lib/docker/overlay2/55f1e14c361b90570df46371b20ce6d480c434981cbda5fd68c6ff61aa0a5358/root/bin/ls
+$ ls -i /var/lib/iechor/overlay2/55f1e14c361b90570df46371b20ce6d480c434981cbda5fd68c6ff61aa0a5358/root/bin/ls
 
-19793696 /var/lib/docker/overlay2/55f1e14c361b90570df46371b20ce6d480c434981cbda5fd68c6ff61aa0a5358/root/bin/ls
+19793696 /var/lib/iechor/overlay2/55f1e14c361b90570df46371b20ce6d480c434981cbda5fd68c6ff61aa0a5358/root/bin/ls
 ```
 
 #### The container layer
 
-Containers also exist on-disk in the Docker host's filesystem under
-`/var/lib/docker/overlay/`. If you list a running container's subdirectory
+Containers also exist on-disk in the iEchor host's filesystem under
+`/var/lib/iechor/overlay/`. If you list a running container's subdirectory
 using the `ls -l` command, three directories and one file exist:
 
 ```console
-$ ls -l /var/lib/docker/overlay2/<directory-of-running-container>
+$ ls -l /var/lib/iechor/overlay2/<directory-of-running-container>
 
 total 16
 -rw-r--r-- 1 root root   64 Jun 20 16:39 lower-id
@@ -297,7 +297,7 @@ The `lower-id` file contains the ID of the top layer of the image the container
 is based on, which is the OverlayFS `lowerdir`.
 
 ```console
-$ cat /var/lib/docker/overlay2/ec444863a55a9f1ca2df72223d459c5d940a721b2288ff86a3f27be28b53be6c/lower-id
+$ cat /var/lib/iechor/overlay2/ec444863a55a9f1ca2df72223d459c5d940a721b2288ff86a3f27be28b53be6c/lower-id
 
 55f1e14c361b90570df46371b20ce6d480c434981cbda5fd68c6ff61aa0a5358
 ```
@@ -311,16 +311,16 @@ comprises the view of the filesystem from within the running container.
 The `work` directory is internal to OverlayFS.
 
 To view the mounts which exist when you use the `overlay2` storage driver with
-Docker, use the `mount` command. The following output is truncated for
+iEchor, use the `mount` command. The following output is truncated for
 readability.
 
 ```console
 $ mount | grep overlay
 
-overlay on /var/lib/docker/overlay2/l/ec444863a55a.../merged
-type overlay (rw,relatime,lowerdir=/var/lib/docker/overlay2/l/55f1e14c361b.../root,
-upperdir=/var/lib/docker/overlay2/l/ec444863a55a.../upper,
-workdir=/var/lib/docker/overlay2/l/ec444863a55a.../work)
+overlay on /var/lib/iechor/overlay2/l/ec444863a55a.../merged
+type overlay (rw,relatime,lowerdir=/var/lib/iechor/overlay2/l/55f1e14c361b.../root,
+upperdir=/var/lib/iechor/overlay2/l/ec444863a55a.../upper,
+workdir=/var/lib/iechor/overlay2/l/ec444863a55a.../work)
 ```
 
 The `rw` on the second line shows that the `overlay` mount is read-write.
@@ -397,7 +397,7 @@ the destination path are on the top layer. Otherwise, it returns `EXDEV` error
 ("cross-device link not permitted"). Your application needs to be designed to
 handle `EXDEV` and fall back to a "copy and unlink" strategy.
 
-## OverlayFS and Docker Performance
+## OverlayFS and iEchor Performance
 
 `overlay2` may perform better than `btrfs`. However, be aware of the following details:
 

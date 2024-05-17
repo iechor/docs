@@ -19,7 +19,7 @@ Run the following command to create a new builder, named `kube`, that uses the
 Kubernetes driver:
 
 ```console
-$ docker buildx create \
+$ iechor buildx create \
   --bootstrap \
   --name=kube \
   --driver=kubernetes \
@@ -33,7 +33,7 @@ can pass to `--driver-opt`:
 | ---------------------------- | ----------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | `image`                      | String            |                                         | Sets the image to use for running BuildKit.                                                                                          |
 | `namespace`                  | String            | Namespace in current Kubernetes context | Sets the Kubernetes namespace.                                                                                                       |
-| `default-load`               | Boolean           | `false`                                 | Automatically load images to the Docker Engine image store.                                                                          |
+| `default-load`               | Boolean           | `false`                                 | Automatically load images to the iEchor Engine image store.                                                                          |
 | `replicas`                   | Integer           | 1                                       | Sets the number of Pod replicas to create. See [scaling BuildKit][1]                                                                 |
 | `requests.cpu`               | CPU units         |                                         | Sets the request CPU value specified in units of Kubernetes CPU. For example `requests.cpu=100m` or `requests.cpu=2`                 |
 | `requests.memory`            | Memory size       |                                         | Sets the request memory value specified in bytes or with a valid suffix. For example `requests.memory=500Mi` or `requests.memory=4G` |
@@ -78,7 +78,7 @@ is configurable using the following driver options:
 For example, to create 4 replica BuildKit pods:
 
 ```console
-$ docker buildx create \
+$ iechor buildx create \
   --bootstrap \
   --name=kube \
   --driver=kubernetes \
@@ -107,7 +107,7 @@ replicas. `sticky` (the default) attempts to connect the same build performed
 multiple times to the same node each time, ensuring better use of local cache.
 
 For more information on scalability, see the options for
-[`docker buildx create`](../../reference/cli/docker/buildx/create.md#driver-opt).
+[`iechor buildx create`](../../reference/cli/iechor/buildx/create.md#driver-opt).
 
 ## Node assignment
 
@@ -132,7 +132,7 @@ shell commands, you must wrap the values in single quotes. You can even wrap all
 of `--driver-opt` in single quotes, for example:
 
 ```console
-$ docker buildx create \
+$ iechor buildx create \
   --bootstrap \
   --name=kube \
   --driver=kubernetes \
@@ -147,7 +147,7 @@ either using QEMU or by leveraging the native architecture of nodes.
 
 ### QEMU
 
-Like the `docker-container` driver, the Kubernetes driver also supports using
+Like the `iechor-container` driver, the Kubernetes driver also supports using
 [QEMU](https://www.qemu.org/) (user
 mode) to build images for non-native platforms. Include the `--platform` flag
 and specify which platforms you want to output to.
@@ -155,7 +155,7 @@ and specify which platforms you want to output to.
 For example, to build a Linux image for `amd64` and `arm64`:
 
 ```console
-$ docker buildx build \
+$ iechor buildx build \
   --builder=kube \
   --platform=linux/amd64,linux/arm64 \
   -t <user>/<image> \
@@ -174,7 +174,7 @@ require that you explicitly turn on QEMU using the `qemu.install` option when
 creating the builder:
 
 ```console
-$ docker buildx create \
+$ iechor buildx create \
   --bootstrap \
   --name=kube \
   --driver=kubernetes \
@@ -185,13 +185,13 @@ $ docker buildx create \
 
 If you have access to cluster nodes of different architectures, the Kubernetes
 driver can take advantage of these for native builds. To do this, use the
-`--append` flag of `docker buildx create`.
+`--append` flag of `iechor buildx create`.
 
 First, create your builder with explicit support for a single architecture, for
 example `amd64`:
 
 ```console
-$ docker buildx create \
+$ iechor buildx create \
   --bootstrap \
   --name=kube \
   --driver=kubernetes \
@@ -212,7 +212,7 @@ With the `kube` builder created, you can now introduce another architecture into
 the mix using `--append`. For example, to add `arm64`:
 
 ```console
-$ docker buildx create \
+$ iechor buildx create \
   --append \
   --bootstrap \
   --name=kube \
@@ -225,7 +225,7 @@ $ docker buildx create \
 Listing your builders shows both nodes for the `kube` builder:
 
 ```console
-$ docker buildx ls
+$ iechor buildx ls
 NAME/NODE       DRIVER/ENDPOINT                                         STATUS   PLATFORMS
 kube            kubernetes
   builder-amd64 kubernetes:///kube?deployment=builder-amd64&kubeconfig= running  linux/amd64*, linux/amd64/v2, linux/amd64/v3, linux/386
@@ -236,7 +236,7 @@ You can now build multi-arch `amd64` and `arm64` images, by specifying those
 platforms together in your build command:
 
 ```console
-$ docker buildx build --builder=kube --platform=linux/amd64,linux/arm64 -t <user>/<image> --push .
+$ iechor buildx build --builder=kube --platform=linux/amd64,linux/arm64 -t <user>/<image> --push .
 ```
 
 You can repeat the `buildx create --append` command for as many architectures
@@ -251,7 +251,7 @@ rootless mode works, and it's requirements, see
 To turn it on in your cluster, you can use the `rootless=true` driver option:
 
 ```console
-$ docker buildx create \
+$ iechor buildx create \
   --name=kube \
   --driver=kubernetes \
   --driver-opt=namespace=buildkit,rootless=true
@@ -293,7 +293,7 @@ Prerequisites:
 2. Create a new builder with the Kubernetes driver:
 
    ```console
-   $ docker buildx create \
+   $ iechor buildx create \
      --bootstrap \
      --name=kube \
      --driver=kubernetes \
@@ -304,14 +304,14 @@ Prerequisites:
    >
    > Remember to specify the namespace in driver options.
 
-3. List available builders using `docker buildx ls`
+3. List available builders using `iechor buildx ls`
 
    ```console
-   $ docker buildx ls
+   $ iechor buildx ls
    NAME/NODE                DRIVER/ENDPOINT STATUS  PLATFORMS
    kube                     kubernetes
      kube0-6977cdcb75-k9h9m                 running linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/386
-   default *                docker
+   default *                iechor
      default                default         running linux/amd64, linux/386
    ```
 
@@ -335,9 +335,9 @@ Prerequisites:
    commands. For example: :
 
    ```console
-   # Replace <registry> with your Docker username
+   # Replace <registry> with your iEchor username
    # and <image> with the name of the image you want to build
-   docker buildx build \
+   iechor buildx build \
      --builder=kube \
      -t <registry>/<image> \
      --push .
@@ -348,4 +348,4 @@ That's it! You've now built an image from a Kubernetes pod, using Buildx!
 ## Further reading
 
 For more information on the Kubernetes driver, see the
-[buildx reference](../../reference/cli/docker/buildx/create.md#driver).
+[buildx reference](../../reference/cli/iechor/buildx/create.md#driver).

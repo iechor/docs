@@ -1,6 +1,6 @@
 ---
 title: View billing history
-description: Discover how to view your billing history in Docker Hub
+description: Discover how to view your billing history in iEchor Hub
 keywords: payments, billing, subscription, invoices, renewals, invoice management, billing administration
 aliases:
 - /billing/history/
@@ -43,7 +43,7 @@ You receive your invoice when the subscription renews. To verify your renewal da
 
 Update your billing information to include your VAT number:
 
-1. Sign in to Docker Hub.
+1. Sign in to iEchor Hub.
 2. For user accounts, Select your avatar in the top-right corner, then **Billing**. For organizations, select the name of the organization.
 3. Select the **Payment methods and billing history** link.
 4. In the **Billing Information** section, select **Update information**.
@@ -58,7 +58,7 @@ You can view the billing history and download past invoices for a personal accou
 
 ### Personal account
 
-1. Select your avatar in the top-right corner of Docker Hub.
+1. Select your avatar in the top-right corner of iEchor Hub.
 2. From the drop-down menu select **Billing**.
 3. Select the **Payment methods and billing history** link.
     You can find your past invoices in the **Invoice History** section.
@@ -71,7 +71,7 @@ From here you can download an invoice.
 >
 > You must be an owner of the organization to view the billing history. 
 
-1. Select your avatar in the top-right corner of Docker Hub.
+1. Select your avatar in the top-right corner of iEchor Hub.
 2. From the drop-down menu select **Billing**.
 3. Select the organization that you want to change the payment method for. 
 4. Select the **Payment methods and billing history** link.

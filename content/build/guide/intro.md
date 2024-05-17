@@ -1,20 +1,20 @@
 ---
 title: Introduction
-description: An introduction to the Docker Build guide
+description: An introduction to the iEchor Build guide
 keywords: build, buildkit, buildx, guide, tutorial, introduction
 ---
 
 The starting resources for this guide include a simple Go project and a
-Dockerfile. From this starting point, the guide illustrates various ways that
-you can improve how you build the application with Docker.
+iEchorfile. From this starting point, the guide illustrates various ways that
+you can improve how you build the application with iEchor.
 
 ## Environment setup
 
 To follow this guide:
 
-1. Install [Docker Desktop or Docker Engine](../../get-docker.md)
+1. Install [iEchor Desktop or iEchor Engine](../../get-iechor.md)
 2. Clone or create a new repository from the
-   [application example on GitHub](https://github.com/dockersamples/buildme)
+   [application example on GitHub](https://github.com/iechorsamples/buildme)
 
 ## The application
 
@@ -25,7 +25,7 @@ Here’s an overview of the files included in the project:
 
 ```text
 .
-├── Dockerfile
+├── iEchorfile
 ├── cmd
 │   ├── client
 │   │   ├── main.go
@@ -43,16 +43,16 @@ client and server. The client is a user interface for writing, sending, and
 receiving messages. The server receives messages from clients, translates them,
 and sends them back to the client.
 
-## The Dockerfile
+## The iEchorfile
 
-A Dockerfile is a text document in which you define the build steps for your
-application. You write the Dockerfile in a domain-specific language, called the
-Dockerfile syntax.
+A iEchorfile is a text document in which you define the build steps for your
+application. You write the iEchorfile in a domain-specific language, called the
+iEchorfile syntax.
 
-Here's the Dockerfile used as the starting point for this guide:
+Here's the iEchorfile used as the starting point for this guide:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM golang:{{% param "example_go_version" %}}-alpine
 WORKDIR /src
 COPY . .
@@ -62,15 +62,15 @@ RUN go build -o /bin/server ./cmd/server
 ENTRYPOINT [ "/bin/server" ]
 ```
 
-Here’s what this Dockerfile does:
+Here’s what this iEchorfile does:
 
-1. `# syntax=docker/dockerfile:1`
+1. `# syntax=iechor/iechorfile:1`
 
    This comment is a
-   [Dockerfile parser directive](../../reference/dockerfile.md#parser-directives).
-   It specifies which version of the Dockerfile syntax to use. This file uses
-   the `dockerfile:1` syntax which is best practice: it ensures that you have
-   access to the latest Docker build features.
+   [iEchorfile parser directive](../../reference/iechorfile.md#parser-directives).
+   It specifies which version of the iEchorfile syntax to use. This file uses
+   the `iechorfile:1` syntax which is best practice: it ensures that you have
+   access to the latest iEchor build features.
 
 2. `FROM golang:{{% param "example_go_version" %}}-alpine`
 
@@ -108,13 +108,13 @@ Here’s what this Dockerfile does:
 
 ## Build the image
 
-To build an image using a Dockerfile, you use the `docker` command-line tool.
-The command for building an image is `docker build`.
+To build an image using a iEchorfile, you use the `iechor` command-line tool.
+The command for building an image is `iechor build`.
 
 Run the following command to build the image.
 
 ```console
-$ docker build --tag=buildme .
+$ iechor build --tag=buildme .
 ```
 
 This creates an image with the tag `buildme`. An image tag is the name of the
@@ -126,12 +126,12 @@ The image you just built contains two binaries, one for the server and one for
 the client. To see the translation service in action, run a container that hosts
 the server component, and then run another container that invokes the client.
 
-To run a container, you use the `docker run` command.
+To run a container, you use the `iechor run` command.
 
 1. Run a container from the image in detached mode.
 
    ```console
-   $ docker run --name=buildme --rm --detach buildme
+   $ iechor run --name=buildme --rm --detach buildme
    ```
 
    This starts a container named `buildme`.
@@ -139,29 +139,29 @@ To run a container, you use the `docker run` command.
 2. Run a new command in the `buildme` container that invokes the client binary.
 
    ```console
-   $ docker exec -it buildme /bin/client
+   $ iechor exec -it buildme /bin/client
    ```
 
-The `docker exec` command opens a terminal user interface where you can submit
+The `iechor exec` command opens a terminal user interface where you can submit
 messages for the backend (server) process to translate.
 
 When you're done testing, you can stop the container:
 
 ```console
-$ docker stop buildme
+$ iechor stop buildme
 ```
 
 ## Summary
 
 This section gave you an overview of the example application used in this guide,
-an introduction to Dockerfiles and building. You've successfully built a
+an introduction to iEchorfiles and building. You've successfully built a
 container image and created a container from it.
 
 Related information:
 
-- [Dockerfile reference](../../reference/dockerfile.md)
-- [`docker build` CLI reference](../../reference/cli/docker/image/build.md)
-- [`docker run` CLI reference](../../reference/cli/docker/container/run.md)
+- [iEchorfile reference](../../reference/iechorfile.md)
+- [`iechor build` CLI reference](../../reference/cli/iechor/image/build.md)
+- [`iechor run` CLI reference](../../reference/cli/iechor/container/run.md)
 
 ## Next steps
 

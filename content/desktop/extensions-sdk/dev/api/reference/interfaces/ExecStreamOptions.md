@@ -1,6 +1,6 @@
 ---
-description: Docker extension API reference
-keywords: Docker, extensions, sdk, API, reference
+description: iEchor extension API reference
+keywords: iEchor, extensions, sdk, API, reference
 ---
 
 # Interface: ExecStreamOptions

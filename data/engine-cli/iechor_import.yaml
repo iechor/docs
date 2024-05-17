@@ -1,0 +1,56 @@
+command: iechor import
+aliases: iechor image import, iechor import
+short: Import the contents from a tarball to create a filesystem image
+long: Import the contents from a tarball to create a filesystem image
+usage: iechor import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]
+pname: iechor
+plink: iechor.yaml
+options:
+    - option: change
+      shorthand: c
+      value_type: list
+      description: Apply iEchorfile instruction to the created image
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: message
+      shorthand: m
+      value_type: string
+      description: Set commit message for imported image
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: platform
+      value_type: string
+      description: Set platform if server is multi-platform capable
+      deprecated: false
+      hidden: false
+      min_api_version: "1.32"
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

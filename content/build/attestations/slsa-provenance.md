@@ -23,10 +23,10 @@ For more information about how BuildKit populates these provenance properties, r
 ## Create provenance attestations
 
 To create a provenance attestation, pass the `--attest type=provenance` option
-to the `docker buildx build` command:
+to the `iechor buildx build` command:
 
 ```console
-$ docker buildx build --tag <namespace>/<image>:<version> \
+$ iechor buildx build --tag <namespace>/<image>:<version> \
     --attest type=provenance,mode=[min,max] .
 ```
 
@@ -67,7 +67,7 @@ attestations created using the `min` mode:
   "predicateType": "https://slsa.dev/provenance/v0.2",
   "subject": [
     {
-      "name": "pkg:docker/<registry>/<image>@<tag/digest>?platform=<platform>",
+      "name": "pkg:iechor/<registry>/<image>@<tag/digest>?platform=<platform>",
       "digest": {
         "sha256": "e8275b2b76280af67e26f068e5d585eb905f8dfd2f1918b3229db98133cb4862"
       }
@@ -78,28 +78,28 @@ attestations created using the `min` mode:
     "buildType": "https://mobyproject.org/buildkit@v1",
     "materials": [
       {
-        "uri": "pkg:docker/docker/dockerfile@1",
+        "uri": "pkg:iechor/iechor/iechorfile@1",
         "digest": {
           "sha256": "9ba7531bd80fb0a858632727cf7a112fbfd19b17e94c4e84ced81e24ef1a0dbc"
         }
       },
       {
-        "uri": "pkg:docker/golang@1.19.4-alpine?platform=linux%2Farm64",
+        "uri": "pkg:iechor/golang@1.19.4-alpine?platform=linux%2Farm64",
         "digest": {
           "sha256": "a9b24b67dc83b3383d22a14941c2b2b2ca6a103d805cac6820fd1355943beaf1"
         }
       }
     ],
     "invocation": {
-      "configSource": { "entryPoint": "Dockerfile" },
+      "configSource": { "entryPoint": "iEchorfile" },
       "parameters": {
         "frontend": "gateway.v0",
         "args": {
-          "cmdline": "docker/dockerfile:1",
-          "source": "docker/dockerfile:1",
+          "cmdline": "iechor/iechorfile:1",
+          "source": "iechor/iechorfile:1",
           "target": "binaries"
         },
-        "locals": [{ "name": "context" }, { "name": "dockerfile" }]
+        "locals": [{ "name": "context" }, { "name": "iechorfile" }]
       },
       "environment": { "platform": "linux/arm64" }
     },
@@ -131,7 +131,7 @@ well as:
 
 - The LLB definition of the build. These show the exact steps taken to produce
   the image.
-- Information about the Dockerfile, including a full base64-encoded version of
+- Information about the iEchorfile, including a full base64-encoded version of
   the file.
 - Source maps describing the relationship between build steps and image layers.
 
@@ -141,25 +141,25 @@ detailed information for analysis.
 > **Warning**
 >
 > Note that `mode=max` exposes the values of
-> [build arguments](../../reference/cli/docker/buildx/build.md#build-arg).
+> [build arguments](../../reference/cli/iechor/buildx/build.md#build-arg).
 >
 > If you're misusing build arguments to pass credentials, authentication
 > tokens, or other secrets, you should refactor your build to pass the secrets using
-> [secret mounts](../../reference/cli/docker/buildx/build.md#secret) instead.
+> [secret mounts](../../reference/cli/iechor/buildx/build.md#secret) instead.
 > Secret mounts don't leak outside of the build and are never included in provenance attestations.
 {.warning}
 
 ## Inspecting Provenance
 
 To explore created Provenance exported through the `image` exporter, you can
-use [`imagetools inspect`](../../reference/cli/docker/buildx/imagetools/inspect.md).
+use [`imagetools inspect`](../../reference/cli/iechor/buildx/imagetools/inspect.md).
 
 Using the `--format` option, you can specify a template for the output. All
 provenance-related data is available under the `.Provenance` attribute. For
 example, to get the raw contents of the Provenance in the SLSA format:
 
 ```console
-$ docker buildx imagetools inspect <namespace>/<image>:<version> \
+$ iechor buildx imagetools inspect <namespace>/<image>:<version> \
     --format "{{ json .Provenance.SLSA }}"
 {
   "buildType": "https://mobyproject.org/buildkit@v1",
@@ -169,11 +169,11 @@ $ docker buildx imagetools inspect <namespace>/<image>:<version> \
 
 You can also construct more complex expressions using the full functionality of
 Go templates. For example, for provenance generated with `mode=max`, you can
-extract the full source code of the Dockerfile used to build the image:
+extract the full source code of the iEchorfile used to build the image:
 
 ```console
-$ docker buildx imagetools inspect <namespace>/<image>:<version> \
-    --format '{{ range (index .Provenance.SLSA.metadata "https://mobyproject.org/buildkit@v1#metadata").source.infos }}{{ if eq .filename "Dockerfile" }}{{ .data }}{{ end }}{{ end }}' | base64 -d
+$ iechor buildx imagetools inspect <namespace>/<image>:<version> \
+    --format '{{ range (index .Provenance.SLSA.metadata "https://mobyproject.org/buildkit@v1#metadata").source.infos }}{{ if eq .filename "iEchorfile" }}{{ .data }}{{ end }}{{ end }}' | base64 -d
 FROM ubuntu:20.04
 RUN apt-get update
 ...
@@ -192,7 +192,7 @@ attestation with `mode=max` looks like:
   "predicateType": "https://slsa.dev/provenance/v0.2",
   "subject": [
     {
-      "name": "pkg:docker/<registry>/<image>@<tag/digest>?platform=<platform>",
+      "name": "pkg:iechor/<registry>/<image>@<tag/digest>?platform=<platform>",
       "digest": {
         "sha256": "e8275b2b76280af67e26f068e5d585eb905f8dfd2f1918b3229db98133cb4862"
       }
@@ -203,13 +203,13 @@ attestation with `mode=max` looks like:
     "buildType": "https://mobyproject.org/buildkit@v1",
     "materials": [
       {
-        "uri": "pkg:docker/docker/dockerfile@1",
+        "uri": "pkg:iechor/iechor/iechorfile@1",
         "digest": {
           "sha256": "9ba7531bd80fb0a858632727cf7a112fbfd19b17e94c4e84ced81e24ef1a0dbc"
         }
       },
       {
-        "uri": "pkg:docker/golang@1.19.4-alpine?platform=linux%2Farm64",
+        "uri": "pkg:iechor/golang@1.19.4-alpine?platform=linux%2Farm64",
         "digest": {
           "sha256": "a9b24b67dc83b3383d22a14941c2b2b2ca6a103d805cac6820fd1355943beaf1"
         }
@@ -297,7 +297,7 @@ attestation with `mode=max` looks like:
           },
           "infos": [
             {
-              "filename": "Dockerfile",
+              "filename": "iEchorfile",
               "data": "RlJPTSBhbHBpbmU6bGF0ZXN0Cg==",
               "llbDefinition": [
                 {
@@ -305,12 +305,12 @@ attestation with `mode=max` looks like:
                   "op": {
                     "Op": {
                       "source": {
-                        "identifier": "local://dockerfile",
+                        "identifier": "local://iechorfile",
                         "attrs": {
                           "local.differ": "none",
-                          "local.followpaths": "[\"Dockerfile\",\"Dockerfile.dockerignore\",\"dockerfile\"]",
+                          "local.followpaths": "[\"iEchorfile\",\"iEchorfile.iechorignore\",\"iechorfile\"]",
                           "local.session": "s4j58ngehdal1b5hn7msiqaqe",
-                          "local.sharedkeyhint": "dockerfile"
+                          "local.sharedkeyhint": "iechorfile"
                         }
                       }
                     },
@@ -326,22 +326,22 @@ attestation with `mode=max` looks like:
           "step2:0": [
             [
               {
-                "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                "mediaType": "application/vnd.iechor.image.rootfs.diff.tar.gzip",
                 "digest": "sha256:261da4162673b93e5c0e7700a3718d40bcc086dbf24b1ec9b54bca0b82300626",
                 "size": 3259190
               },
               {
-                "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                "mediaType": "application/vnd.iechor.image.rootfs.diff.tar.gzip",
                 "digest": "sha256:bc729abf26b5aade3c4426d388b5ea6907fe357dec915ac323bb2fa592d6288f",
                 "size": 286218
               },
               {
-                "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                "mediaType": "application/vnd.iechor.image.rootfs.diff.tar.gzip",
                 "digest": "sha256:7f1d6579712341e8062db43195deb2d84f63b0f2d1ed7c3d2074891085ea1b56",
                 "size": 116878653
               },
               {
-                "mediaType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+                "mediaType": "application/vnd.iechor.image.rootfs.diff.tar.gzip",
                 "digest": "sha256:652874aefa1343799c619d092ab9280b25f96d97939d5d796437e7288f5599c9",
                 "size": 156
               }

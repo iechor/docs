@@ -1,14 +1,14 @@
 ---
 description: Extensions
-keywords: Docker Extensions, Docker Desktop, Linux, Mac, Windows, Marketplace
+keywords: iEchor Extensions, iEchor Desktop, Linux, Mac, Windows, Marketplace
 title: Marketplace extensions
 ---
 
 There are two types of extensions available in the Extensions Marketplace:
-- Docker-reviewed extensions
+- iEchor-reviewed extensions
 - Self-published extensions
 
-Docker-reviewed extensions are manually reviewed by the Docker Extensions team to ensure an extra level of trust
+iEchor-reviewed extensions are manually reviewed by the iEchor Extensions team to ensure an extra level of trust
 and quality. They appear as **Reviewed** in the Marketplace.
 
 Self-published extensions are autonomously published by extension developers and go through an automated validation process. They appear as **Not reviewed** in the Marketplace.
@@ -21,7 +21,7 @@ Self-published extensions are autonomously published by extension developers and
 
 To install an extension:
 
-1. Open Docker Desktop.
+1. Open iEchor Desktop.
 2. From the Dashboard, select **Add Extensions** in the menu bar.
    The Extensions Marketplace opens on the **Browse** tab.
 3. Browse the available extensions.
@@ -32,9 +32,9 @@ From here, you can select **Open** to access the extension or install additional
 
 ## Update an extension
 
-You can update any extension outside of Docker Desktop releases. To update an extension to the latest version:
+You can update any extension outside of iEchor Desktop releases. To update an extension to the latest version:
 
-1. Navigate to Docker Dashboard, and from the menu bar select the ellipsis to the right of **Extensions**.
+1. Navigate to iEchor Dashboard, and from the menu bar select the ellipsis to the right of **Extensions**.
 2. Select **Manage**.
    The **Manage** tab displays with all your installed extensions. If an extension has a new version available, it displays an **Update** button.
 3. Select **Update**.

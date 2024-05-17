@@ -27,19 +27,19 @@ You can use containers to set up local services, like a database. In this sectio
 
    > **Important**
    >
-   > For this section, don't run `docker compose up` until you are instructed to. Running the command at intermediate points may incorrectly initialize your database.
+   > For this section, don't run `iechor compose up` until you are instructed to. Running the command at intermediate points may incorrectly initialize your database.
    { .important }
 
    ```yaml {hl_lines="26-51",collapse=true,title=compose.yaml}
    # Comments are provided throughout this file to help you get started.
-   # If you need more help, visit the Docker Compose reference guide at
-   # https://docs.docker.com/go/compose-spec-reference/
+   # If you need more help, visit the iEchor Compose reference guide at
+   # https://docs.iechor.com/go/compose-spec-reference/
 
    # Here the instructions define your application as a service called "server".
-   # This service is built from the Dockerfile in the current directory.
+   # This service is built from the iEchorfile in the current directory.
    # You can add other services your application may depend on here, such as a
    # database or a cache. For examples, see the Awesome Compose repository:
-   # https://github.com/docker/awesome-compose
+   # https://github.com/iechor/awesome-compose
    services:
      server:
        build:
@@ -50,11 +50,11 @@ You can use containers to set up local services, like a database. In this sectio
          - 3000:3000
    
    # The commented out section below is an example of how to define a PostgreSQL
-   # database that your application can use. `depends_on` tells Docker Compose to
+   # database that your application can use. `depends_on` tells iEchor Compose to
    # start the database before your application. The `db-data` volume persists the
    # database data between container restarts. The `db-password` secret is used
    # to set the database password. You must create `db/password.txt` and add
-   # a password of your choosing to it before running `docker-compose up`.
+   # a password of your choosing to it before running `iechor-compose up`.
        
        depends_on:
          db:
@@ -99,14 +99,14 @@ have these variables defined yet.
 
    ```yaml {hl_lines="16-19",collapse=true,title=compose.yaml}
    # Comments are provided throughout this file to help you get started.
-   # If you need more help, visit the Docker Compose reference guide at
-   # https://docs.docker.com/go/compose-spec-reference/
+   # If you need more help, visit the iEchor Compose reference guide at
+   # https://docs.iechor.com/go/compose-spec-reference/
 
    # Here the instructions define your application as a service called "server".
-   # This service is built from the Dockerfile in the current directory.
+   # This service is built from the iEchorfile in the current directory.
    # You can add other services your application may depend on here, such as a
    # database or a cache. For examples, see the Awesome Compose repository:
-   # https://github.com/docker/awesome-compose
+   # https://github.com/iechor/awesome-compose
    services:
      server:
        build:
@@ -121,11 +121,11 @@ have these variables defined yet.
          - 3000:3000
    
    # The commented out section below is an example of how to define a PostgreSQL
-   # database that your application can use. `depends_on` tells Docker Compose to
+   # database that your application can use. `depends_on` tells iEchor Compose to
    # start the database before your application. The `db-data` volume persists the
    # database data between container restarts. The `db-password` secret is used
    # to set the database password. You must create `db/password.txt` and add
-   # a password of your choosing to it before running `docker-compose up`.
+   # a password of your choosing to it before running `iechor-compose up`.
        
        depends_on:
          db:
@@ -159,14 +159,14 @@ have these variables defined yet.
 
    ```yaml {hl_lines="33-34",collapse=true,title=compose.yaml}
    # Comments are provided throughout this file to help you get started.
-   # If you need more help, visit the Docker Compose reference guide at
-   # https://docs.docker.com/go/compose-spec-reference/
+   # If you need more help, visit the iEchor Compose reference guide at
+   # https://docs.iechor.com/go/compose-spec-reference/
 
    # Here the instructions define your application as a service called "server".
-   # This service is built from the Dockerfile in the current directory.
+   # This service is built from the iEchorfile in the current directory.
    # You can add other services your application may depend on here, such as a
    # database or a cache. For examples, see the Awesome Compose repository:
-   # https://github.com/docker/awesome-compose
+   # https://github.com/iechor/awesome-compose
    services:
      server:
        build:
@@ -181,11 +181,11 @@ have these variables defined yet.
          - 3000:3000
    
    # The commented out section below is an example of how to define a PostgreSQL
-   # database that your application can use. `depends_on` tells Docker Compose to
+   # database that your application can use. `depends_on` tells iEchor Compose to
    # start the database before your application. The `db-data` volume persists the
    # database data between container restarts. The `db-password` secret is used
    # to set the database password. You must create `db/password.txt` and add
-   # a password of your choosing to it before running `docker-compose up`.
+   # a password of your choosing to it before running `iechor-compose up`.
        
        depends_on:
          db:
@@ -217,23 +217,23 @@ have these variables defined yet.
        file: db/password.txt
    ```
 
-6. In the `docker-nodejs-sample` directory, create a directory named `db`.
+6. In the `iechor-nodejs-sample` directory, create a directory named `db`.
 7. In the `db` directory, create a file named `password.txt`. This file will
    contain your database password.
    
    You should now have at least the following contents in your
-   `docker-nodejs-sample` directory.
+   `iechor-nodejs-sample` directory.
 
    ```text
-   ├── docker-nodejs-sample/
+   ├── iechor-nodejs-sample/
    │ ├── db/
    │ │ └── password.txt
    │ ├── spec/
    │ ├── src/
-   │ ├── .dockerignore
+   │ ├── .iechorignore
    │ ├── .gitignore
    │ ├── compose.yaml
-   │ ├── Dockerfile
+   │ ├── iEchorfile
    │ ├── package-lock.json
    │ ├── package.json
    │ └── README.md
@@ -247,7 +247,7 @@ have these variables defined yet.
 10. Run the following command to start your application.
 
     ```console
-    $ docker compose up --build
+    $ iechor compose up --build
     ```
 
 11. Open a browser and verify that the application is running at
@@ -255,16 +255,16 @@ have these variables defined yet.
 12. Add some items to the todo list to test data persistence.
 13. After adding some items to the todo list, press `ctrl+c` in the terminal to
     stop your application.
-14. In the terminal, run `docker compose rm` to remove your containers.
+14. In the terminal, run `iechor compose rm` to remove your containers.
 
     ```console
-    $ docker compose rm
+    $ iechor compose rm
     ```
 
-15. Run `docker compose up` to run your application again.
+15. Run `iechor compose up` to run your application again.
 
     ```console
-    $ docker compose up --build
+    $ iechor compose up --build
     ```
 
 16. Refresh [http://localhost:3000](http://localhost:3000) in your browser and verify that the todo items persisted, even after the containers were removed and ran again.
@@ -273,22 +273,22 @@ have these variables defined yet.
 
 You can use a bind mount to mount your source code into the container. The container can then see the changes you make to the code immediately, as soon as you save a file. This means that you can run processes, like nodemon, in the container that watch for filesystem changes and respond to them. To learn more about bind mounts, see [Storage overview](../../storage/index.md).
 
-In addition to adding a bind mount, you can configure your Dockerfile and `compose.yaml` file to install development dependencies and run development tools.
+In addition to adding a bind mount, you can configure your iEchorfile and `compose.yaml` file to install development dependencies and run development tools.
 
-### Update your Dockerfile for development
+### Update your iEchorfile for development
 
-Open the Dockerfile in an IDE or text editor. Note that the Dockerfile doesn't
+Open the iEchorfile in an IDE or text editor. Note that the iEchorfile doesn't
 install development dependencies and doesn't run nodemon. You'll
-need to update your Dockerfile to install the development dependencies and run
+need to update your iEchorfile to install the development dependencies and run
 nodemon.
 
-Rather than creating one Dockerfile for production, and another Dockerfile for
-development, you can use one multi-stage Dockerfile for both.
+Rather than creating one iEchorfile for production, and another iEchorfile for
+development, you can use one multi-stage iEchorfile for both.
 
-Update your Dockerfile to the following multi-stage Dockerfile.
+Update your iEchorfile to the following multi-stage iEchorfile.
 
-```dockerfile {hl_lines="5-26",collapse=true,title=Dockerfile}
-# syntax=docker/dockerfile:1
+```iechorfile {hl_lines="5-26",collapse=true,title=iEchorfile}
+# syntax=iechor/iechorfile:1
 
 ARG NODE_VERSION=18.0.0
 
@@ -315,7 +315,7 @@ COPY . .
 CMD node src/index.js
 ```
 
-In the Dockerfile, you first add a label `as base` to the `FROM
+In the iEchorfile, you first add a label `as base` to the `FROM
 node:${NODE_VERSION}-alpine` statement. This lets you refer to this build stage
 in other build stages. Next, you add a new build stage labeled `dev` to install
 your development dependencies and start the container using `npm run dev`.
@@ -330,7 +330,7 @@ Next, you'll need to update your Compose file to use the new stage.
 To run the `dev` stage with Compose, you need to update your `compose.yaml`
 file. Open your `compose.yaml` file in an IDE or text editor, and then add the
 `target: dev` instruction to target the `dev` stage from your multi-stage
-Dockerfile.
+iEchorfile.
 
 Also, add a new volume to the server service for the bind mount. For this application, you'll mount `./src` from your local machine to `/usr/src/app/src` in the container.
 
@@ -387,10 +387,10 @@ secrets:
 
 ### Run your development container and debug your application
 
-Run the following command to run your application with the new changes to the `Dockerfile` and `compose.yaml` file.
+Run the following command to run your application with the new changes to the `iEchorfile` and `compose.yaml` file.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
 Open a browser and verify that the application is running at [http://localhost:3000](http://localhost:3000).
@@ -398,7 +398,7 @@ Open a browser and verify that the application is running at [http://localhost:3
 Any changes to the application's source files on your local machine will now be
 immediately reflected in the running container.
 
-Open `docker-nodejs-sample/src/static/js/app.js` in an IDE or text editor and update the button text on line 109 from `Add Item` to `Add`.
+Open `iechor-nodejs-sample/src/static/js/app.js` in an IDE or text editor and update the button text on line 109 from `Add Item` to `Add`.
 
 ```diff
 +                         {submitting ? 'Adding...' : 'Add'}
@@ -415,7 +415,7 @@ documentation](https://nodejs.org/en/docs/guides/debugging-getting-started).
 
 In this section, you took a look at setting up your Compose file to add a mock
 database and persist data. You also learned how to create a multi-stage
-Dockerfile and set up a bind mount for development.
+iEchorfile and set up a bind mount for development.
 
 Related information:
  - [Volumes top-level element](/compose/compose-file/07-volumes/)
@@ -424,6 +424,6 @@ Related information:
 
 ## Next steps
 
-In the next section, you'll learn how to run unit tests using Docker.
+In the next section, you'll learn how to run unit tests using iEchor.
 
 {{< button text="Run your tests" url="run-tests.md" >}}

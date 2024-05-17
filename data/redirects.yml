@@ -4,8 +4,8 @@
 #
 
 "/desktop/":
-  - /docker-for-mac/docker-toolbox/
-  - /docker-for-windows/docker-toolbox/
+  - /iechor-for-mac/iechor-toolbox/
+  - /iechor-for-windows/iechor-toolbox/
   - /kitematic/
   - /kitematic/faq/
   - /kitematic/known-issues/
@@ -68,7 +68,7 @@
   - /machine/reference/upgrade/
   - /machine/reference/url/
   - /machine/release-notes/
-  - /mackit/docker-toolbox/
+  - /mackit/iechor-toolbox/
   - /toolbox/
   - /toolbox/faqs/
   - /toolbox/faqs/troubleshoot/
@@ -77,9 +77,9 @@
   - /toolbox/toolbox_install_windows/
 
 # Use the `/go/` URL prefix to provide "vanity" URLs linking to the
-# documentation. These URLs can be used in (for example) the `docker` CLI to
+# documentation. These URLs can be used in (for example) the `iechor` CLI to
 # provide a short, permanent link to refer to a topic in the documentation.
-# For example, the docker CLI can output https://docs.docker.com/go/some-topic
+# For example, the iechor CLI can output https://docs.iechor.com/go/some-topic
 # in its help output, which can be redirected to elsewhere in the documentation.
 "/security/for-developers/access-tokens/":
   - /go/access-tokens/
@@ -92,57 +92,57 @@
   - /engine/api/v1.21/
   - /engine/api/v1.22/
   - /engine/api/v1.23/
-  - /engine/reference/api/docker_remote_api_v1.18/
-  - /engine/reference/api/docker_remote_api_v1.19/
-  - /engine/reference/api/docker_remote_api_v1.20/
-  - /engine/reference/api/docker_remote_api_v1.21/
-  - /engine/reference/api/docker_remote_api_v1.22/
-  - /engine/reference/api/docker_remote_api_v1.23/
-  - /reference/api/docker_remote_api_v1.18/
-  - /reference/api/docker_remote_api_v1.19/
-  - /reference/api/docker_remote_api_v1.20/
-  - /reference/api/docker_remote_api_v1.21/
-  - /reference/api/docker_remote_api_v1.22/
-  - /reference/api/docker_remote_api_v1.23/
-# redirect for old location of dockerd reference
-"/reference/cli/dockerd/":
-  - /engine/reference/commandline/dockerd/
+  - /engine/reference/api/iechor_remote_api_v1.18/
+  - /engine/reference/api/iechor_remote_api_v1.19/
+  - /engine/reference/api/iechor_remote_api_v1.20/
+  - /engine/reference/api/iechor_remote_api_v1.21/
+  - /engine/reference/api/iechor_remote_api_v1.22/
+  - /engine/reference/api/iechor_remote_api_v1.23/
+  - /reference/api/iechor_remote_api_v1.18/
+  - /reference/api/iechor_remote_api_v1.19/
+  - /reference/api/iechor_remote_api_v1.20/
+  - /reference/api/iechor_remote_api_v1.21/
+  - /reference/api/iechor_remote_api_v1.22/
+  - /reference/api/iechor_remote_api_v1.23/
+# redirect for old location of iechord reference
+"/reference/cli/iechord/":
+  - /engine/reference/commandline/iechord/
 
-"/engine/security/#docker-daemon-attack-surface":
-  # Details about the "Docker Daemon attack surface". This redirect is currently
-  # used in warnings printed by the Docker Engine, and in the installation script
-  # at "get.docker.com"
+"/engine/security/#iechor-daemon-attack-surface":
+  # Details about the "iEchor Daemon attack surface". This redirect is currently
+  # used in warnings printed by the iEchor Engine, and in the installation script
+  # at "get.iechor.com"
   - /go/attack-surface/
 "/engine/security/protect-access/":
-  # Details about how to protect the Docker daemon socket.
-  # This redirect is used in warnings printed by the Docker Engine.
+  # Details about how to protect the iEchor daemon socket.
+  # This redirect is used in warnings printed by the iEchor Engine.
   - /go/api-security/
 "/registry/spec/deprecated-schema-v1/":
   # Details about deprecated image manifest formats. This redirect is currently
-  # used in warnings printed by the Docker Engine when pulling deprecated image
+  # used in warnings printed by the iEchor Engine when pulling deprecated image
   # formats:
   #
-  #   - Docker Image Specification v1.0.0 (https://github.com/moby/moby/blob/v25.0.0/image/spec/v1.md)
-  #   - Docker Image manifest version 2, schema 1 (https://github.com/distribution/distribution/blob/ff2bce27319a0a0bca924820c353fae3b9046e91/docs/spec/manifest-v2-1.md)
+  #   - iEchor Image Specification v1.0.0 (https://github.com/moby/moby/blob/v25.0.0/image/spec/v1.md)
+  #   - iEchor Image manifest version 2, schema 1 (https://github.com/distribution/distribution/blob/ff2bce27319a0a0bca924820c353fae3b9046e91/docs/spec/manifest-v2-1.md)
   #
   # TODO(thaJeztah) We need a better page describing the image formats (and deprecated ones)
   - /go/deprecated-image-specs/
 "/build/buildkit/#getting-started":
   - /go/buildkit/
 "/build/architecture/#install-buildx":
-  # Instructions on installing Buildx. Redirect used in Docker CLI.
+  # Instructions on installing Buildx. Redirect used in iEchor CLI.
   - /go/buildx/
-"/reference/cli/docker/compose/build/":
+"/reference/cli/iechor/compose/build/":
   - /go/compose-native-build/
-"/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user":
-  # Details about how to give "non-root" users access to a privileged Docker
-  # Daemon/ This redirect is currently in the installation script at "get.docker.com"
+"/engine/install/linux-postinstall/#manage-iechor-as-a-non-root-user":
+  # Details about how to give "non-root" users access to a privileged iEchor
+  # Daemon/ This redirect is currently in the installation script at "get.iechor.com"
   - /go/daemon-access/
 "/engine/deprecated/#deprecated-engine-features-1":
   - /go/deprecated/
 "/engine/reference/commandline/cli/#experimental-features":
   - /go/experimental/
-"/reference/cli/docker/login/#credential-stores":
+"/reference/cli/iechor/login/#credential-stores":
   - /go/credential-store/
 "/cloud/ecs-integration/":
   - /go/compose-ecs-eol/
@@ -151,7 +151,7 @@
 "/config/formatting/":
   # Instructions on using Go templates to format CLI output with --format
   - /go/formatting/
-"/?utm_source=docker&utm_medium=inproductad&utm_campaign=20-11nurturecli_docs":
+"/?utm_source=iechor&utm_medium=inproductad&utm_campaign=20-11nurturecli_docs":
   - /go/guides/
 "/desktop/get-started/#credentials-management-for-linux-users":
   - /go/linux-credentials/
@@ -161,435 +161,435 @@
 "/desktop/settings/mac/#file-sharing":
   - /go/mac-file-sharing/
 "/engine/security/rootless/":
-  # Instructions on running docker in rootless mode. This redirect is currently
-  # used in the installation script at "get.docker.com"
+  # Instructions on running iechor in rootless mode. This redirect is currently
+  # used in the installation script at "get.iechor.com"
   - /go/rootless/
 "/storage/storagedriver/select-storage-driver/":
   - /go/storage-driver/
-"/docker-hub/vulnerability-scanning/":
+"/iechor-hub/vulnerability-scanning/":
   - /go/tip-scanning/
 "/desktop/windows/wsl/":
-  # Link used by Docker Desktop to refer users on how to activate WSL 2
+  # Link used by iEchor Desktop to refer users on how to activate WSL 2
   - /go/wsl2/
 # samples
-"https://hub.docker.com/_/adminer/":
+"https://hub.iechor.com/_/adminer/":
   - /samples/adminer
   - /samples/library/adminer
-"https://hub.docker.com/_/adoptopenjdk/":
+"https://hub.iechor.com/_/adoptopenjdk/":
   - /samples/adoptopenjdk
   - /samples/library/adoptopenjdk
-"https://hub.docker.com/_/aerospike/":
+"https://hub.iechor.com/_/aerospike/":
   - /samples/aerospike
   - /samples/library/aerospike
-"https://hub.docker.com/_/alpine/":
+"https://hub.iechor.com/_/alpine/":
   - /samples/alpine
   - /samples/library/alpine
-"https://hub.docker.com/_/alt/":
+"https://hub.iechor.com/_/alt/":
   - /samples/alt
   - /samples/library/alt
-"https://hub.docker.com/_/amazoncorretto/":
+"https://hub.iechor.com/_/amazoncorretto/":
   - /samples/amazoncorretto
   - /samples/library/amazoncorretto
-"https://hub.docker.com/_/amazonlinux/":
+"https://hub.iechor.com/_/amazonlinux/":
   - /samples/amazonlinux
   - /samples/library/amazonlinux
-"https://hub.docker.com/_/arangodb/":
+"https://hub.iechor.com/_/arangodb/":
   - /samples/arangodb
   - /samples/library/arangodb
-"https://hub.docker.com/_/backdrop/":
+"https://hub.iechor.com/_/backdrop/":
   - /samples/backdrop
   - /samples/library/backdrop
-"https://hub.docker.com/_/bash/":
+"https://hub.iechor.com/_/bash/":
   - /samples/bash
   - /samples/library/bash
-"https://hub.docker.com/_/bonita/":
+"https://hub.iechor.com/_/bonita/":
   - /samples/bonita
   - /samples/library/bonita
-"https://hub.docker.com/_/buildpack-deps/":
+"https://hub.iechor.com/_/buildpack-deps/":
   - /samples/buildpack-deps
   - /samples/library/buildpack-deps
-"https://hub.docker.com/_/busybox/":
+"https://hub.iechor.com/_/busybox/":
   - /samples/busybox
   - /samples/library/busybox
-"https://hub.docker.com/_/cassandra/":
+"https://hub.iechor.com/_/cassandra/":
   - /samples/cassandra
   - /samples/library/cassandra
-"https://hub.docker.com/_/centos/":
+"https://hub.iechor.com/_/centos/":
   - /samples/centos
   - /samples/library/centos
-"https://hub.docker.com/_/chronograf/":
+"https://hub.iechor.com/_/chronograf/":
   - /samples/chronograf
   - /samples/library/chronograf
-"https://hub.docker.com/_/cirros/":
+"https://hub.iechor.com/_/cirros/":
   - /samples/cirros
   - /samples/library/cirros
-"https://hub.docker.com/_/clearlinux/":
+"https://hub.iechor.com/_/clearlinux/":
   - /samples/clearlinux
   - /samples/library/clearlinux
-"https://hub.docker.com/_/clefos/":
+"https://hub.iechor.com/_/clefos/":
   - /samples/clefos
   - /samples/library/clefos
-"https://hub.docker.com/_/clojure/":
+"https://hub.iechor.com/_/clojure/":
   - /samples/clojure
   - /samples/library/clojure
-"https://hub.docker.com/_/composer/":
+"https://hub.iechor.com/_/composer/":
   - /samples/composer
   - /samples/library/composer
-"https://hub.docker.com/_/consul/":
+"https://hub.iechor.com/_/consul/":
   - /samples/consul
   - /samples/library/consul
-"https://hub.docker.com/_/convertigo/":
+"https://hub.iechor.com/_/convertigo/":
   - /samples/convertigo
   - /samples/library/convertigo
-"https://hub.docker.com/_/couchbase/":
+"https://hub.iechor.com/_/couchbase/":
   - /samples/couchbase
   - /samples/library/couchbase
   - /samples/couchdb_data_volumes
-"https://hub.docker.com/_/couchdb/":
+"https://hub.iechor.com/_/couchdb/":
   - /samples/couchdb
   - /samples/library/couchdb
-"https://hub.docker.com/_/crate/":
+"https://hub.iechor.com/_/crate/":
   - /samples/crate
   - /samples/library/crate
-"https://hub.docker.com/_/crux/":
+"https://hub.iechor.com/_/crux/":
   - /samples/crux
   - /samples/library/crux
-"https://hub.docker.com/_/debian/":
+"https://hub.iechor.com/_/debian/":
   - /samples/debian
   - /samples/library/debian
-"https://hub.docker.com/_/docker/":
-  - /samples/docker
-  - /samples/library/docker
-"https://hub.docker.com/_/drupal/":
+"https://hub.iechor.com/_/iechor/":
+  - /samples/iechor
+  - /samples/library/iechor
+"https://hub.iechor.com/_/drupal/":
   - /samples/drupal
   - /samples/library/drupal
-"https://hub.docker.com/_/eclipse-mosquitto/":
+"https://hub.iechor.com/_/eclipse-mosquitto/":
   - /samples/eclipse-mosquitto
   - /samples/library/eclipse-mosquitto
-"https://hub.docker.com/_/eggdrop/":
+"https://hub.iechor.com/_/eggdrop/":
   - /samples/eggdrop
   - /samples/library/eggdrop
-"https://hub.docker.com/_/elasticsearch/":
+"https://hub.iechor.com/_/elasticsearch/":
   - /samples/library/elasticsearch
-"https://hub.docker.com/_/elixir/":
+"https://hub.iechor.com/_/elixir/":
   - /samples/elixir
   - /samples/library/elixir
-"https://hub.docker.com/_/erlang/":
+"https://hub.iechor.com/_/erlang/":
   - /samples/erlang
   - /samples/library/erlang
-"https://hub.docker.com/_/euleros/":
+"https://hub.iechor.com/_/euleros/":
   - /samples/euleros
   - /samples/library/euleros
-"https://hub.docker.com/_/express-gateway/":
+"https://hub.iechor.com/_/express-gateway/":
   - /samples/express-gateway
   - /samples/library/express-gateway
-"https://hub.docker.com/_/fedora/":
+"https://hub.iechor.com/_/fedora/":
   - /samples/fedora
   - /samples/library/fedora
-"https://hub.docker.com/_/flink/":
+"https://hub.iechor.com/_/flink/":
   - /samples/flink
   - /samples/library/flink
-"https://hub.docker.com/_/fluentd/":
+"https://hub.iechor.com/_/fluentd/":
   - /samples/fluentd
   - /samples/library/fluentd
-"https://hub.docker.com/_/fsharp/":
+"https://hub.iechor.com/_/fsharp/":
   - /samples/fsharp
   - /samples/library/fsharp
-"https://hub.docker.com/_/gazebo/":
+"https://hub.iechor.com/_/gazebo/":
   - /samples/gazebo
   - /samples/library/gazebo
-"https://hub.docker.com/_/gcc/":
+"https://hub.iechor.com/_/gcc/":
   - /samples/gcc
   - /samples/library/gcc
-"https://hub.docker.com/_/geonetwork/":
+"https://hub.iechor.com/_/geonetwork/":
   - /samples/geonetwork
   - /samples/library/geonetwork
-"https://hub.docker.com/_/ghost/":
+"https://hub.iechor.com/_/ghost/":
   - /samples/ghost
   - /samples/library/ghost
-"https://hub.docker.com/_/golang/":
+"https://hub.iechor.com/_/golang/":
   - /samples/golang
   - /samples/library/golang
-"https://hub.docker.com/_/gradle/":
+"https://hub.iechor.com/_/gradle/":
   - /samples/gradle
   - /samples/library/gradle
-"https://hub.docker.com/_/groovy/":
+"https://hub.iechor.com/_/groovy/":
   - /samples/groovy
   - /samples/library/groovy
-"https://hub.docker.com/_/haproxy/":
+"https://hub.iechor.com/_/haproxy/":
   - /samples/haproxy
   - /samples/library/haproxy
-"https://hub.docker.com/_/haskell/":
+"https://hub.iechor.com/_/haskell/":
   - /samples/haskell
   - /samples/library/haskell
-"https://hub.docker.com/_/haxe/":
+"https://hub.iechor.com/_/haxe/":
   - /samples/haxe
   - /samples/library/haxe
-"https://hub.docker.com/_/hello-world/":
+"https://hub.iechor.com/_/hello-world/":
   - /samples/hello-world
   - /samples/library/hello-world
-"https://hub.docker.com/_/httpd/":
+"https://hub.iechor.com/_/httpd/":
   - /samples/httpd
   - /samples/library/httpd
-"https://hub.docker.com/_/hylang/":
+"https://hub.iechor.com/_/hylang/":
   - /samples/hylang
   - /samples/library/hylang
-"https://hub.docker.com/_/ibmjava/":
+"https://hub.iechor.com/_/ibmjava/":
   - /samples/ibmjava
   - /samples/library/ibmjava
-"https://hub.docker.com/_/influxdb/":
+"https://hub.iechor.com/_/influxdb/":
   - /samples/influxdb
   - /samples/library/influxdb
-"https://hub.docker.com/_/irssi/":
+"https://hub.iechor.com/_/irssi/":
   - /samples/irssi
   - /samples/library/irssi
-"https://hub.docker.com/_/jetty/":
+"https://hub.iechor.com/_/jetty/":
   - /samples/jetty
   - /samples/library/jetty
-"https://hub.docker.com/_/jobber/":
+"https://hub.iechor.com/_/jobber/":
   - /samples/jobber
   - /samples/library/jobber
-"https://hub.docker.com/_/joomla/":
+"https://hub.iechor.com/_/joomla/":
   - /samples/joomla
   - /samples/library/joomla
-"https://hub.docker.com/_/jruby/":
+"https://hub.iechor.com/_/jruby/":
   - /samples/jruby
   - /samples/library/jruby
-"https://hub.docker.com/_/julia/":
+"https://hub.iechor.com/_/julia/":
   - /samples/julia
   - /samples/library/julia
-"https://hub.docker.com/_/kaazing-gateway/":
+"https://hub.iechor.com/_/kaazing-gateway/":
   - /samples/kaazing-gateway
   - /samples/library/kaazing-gateway
-"https://hub.docker.com/_/kapacitor/":
+"https://hub.iechor.com/_/kapacitor/":
   - /samples/kapacitor
   - /samples/library/kapacitor
-"https://hub.docker.com/_/kibana/":
+"https://hub.iechor.com/_/kibana/":
   - /samples/kibana
   - /samples/library/kibana
-"https://hub.docker.com/_/known/":
+"https://hub.iechor.com/_/known/":
   - /samples/known
   - /samples/library/known
-"https://hub.docker.com/_/kong/":
+"https://hub.iechor.com/_/kong/":
   - /samples/kong
   - /samples/library/kong
-"https://hub.docker.com/_/lightstreamer/":
+"https://hub.iechor.com/_/lightstreamer/":
   - /samples/lightstreamer
   - /samples/library/lightstreamer
-"https://hub.docker.com/_/logstash/":
+"https://hub.iechor.com/_/logstash/":
   - /samples/logstash
   - /samples/library/logstash
-"https://hub.docker.com/_/mageia/":
+"https://hub.iechor.com/_/mageia/":
   - /samples/mageia
   - /samples/library/mageia
-"https://hub.docker.com/_/mariadb/":
+"https://hub.iechor.com/_/mariadb/":
   - /samples/library/mariadb
-"https://hub.docker.com/_/matomo/":
+"https://hub.iechor.com/_/matomo/":
   - /samples/matomo
   - /samples/library/matomo
-"https://hub.docker.com/_/maven/":
+"https://hub.iechor.com/_/maven/":
   - /samples/maven
   - /samples/library/maven
-"https://hub.docker.com/_/mediawiki/":
+"https://hub.iechor.com/_/mediawiki/":
   - /samples/mediawiki
   - /samples/library/mediawiki
-"https://hub.docker.com/_/memcached/":
+"https://hub.iechor.com/_/memcached/":
   - /samples/memcached
   - /samples/library/memcached
-"https://hub.docker.com/_/mongo/":
+"https://hub.iechor.com/_/mongo/":
   - /samples/mongo
   - /samples/library/mongo
-"https://hub.docker.com/_/mongo-express/":
+"https://hub.iechor.com/_/mongo-express/":
   - /samples/mongo-express
   - /samples/library/mongo-express
-"https://hub.docker.com/_/mono/":
+"https://hub.iechor.com/_/mono/":
   - /samples/mono
   - /samples/library/mono
-"https://hub.docker.com/_/mysql/":
+"https://hub.iechor.com/_/mysql/":
   - /samples/library/mysql
-"https://hub.docker.com/_/nats/":
+"https://hub.iechor.com/_/nats/":
   - /samples/nats
   - /samples/library/nats
-"https://hub.docker.com/_/nats-streaming/":
+"https://hub.iechor.com/_/nats-streaming/":
   - /samples/nats-streaming
   - /samples/library/nats-streaming
-"https://hub.docker.com/_/neo4j/":
+"https://hub.iechor.com/_/neo4j/":
   - /samples/neo4j
   - /samples/library/neo4j
-"https://hub.docker.com/_/neurodebian/":
+"https://hub.iechor.com/_/neurodebian/":
   - /samples/neurodebian
   - /samples/library/neurodebian
-"https://hub.docker.com/_/nextcloud/":
+"https://hub.iechor.com/_/nextcloud/":
   - /samples/library/nextcloud
-"https://hub.docker.com/_/nginx/":
+"https://hub.iechor.com/_/nginx/":
   - /samples/library/nginx
-"https://hub.docker.com/_/node/":
+"https://hub.iechor.com/_/node/":
   - /samples/node
   - /samples/library/node
-"https://hub.docker.com/_/notary/":
+"https://hub.iechor.com/_/notary/":
   - /samples/notary
   - /samples/library/notary
-"https://hub.docker.com/_/nuxeo/":
+"https://hub.iechor.com/_/nuxeo/":
   - /samples/nuxeo
   - /samples/library/nuxeo
-"https://hub.docker.com/_/odoo/":
+"https://hub.iechor.com/_/odoo/":
   - /samples/odoo
   - /samples/library/odoo
-"https://hub.docker.com/_/open-liberty/":
+"https://hub.iechor.com/_/open-liberty/":
   - /samples/open-liberty
   - /samples/library/open-liberty
-"https://hub.docker.com/_/openjdk/":
+"https://hub.iechor.com/_/openjdk/":
   - /samples/openjdk
   - /samples/library/openjdk
-"https://hub.docker.com/_/opensuse/":
+"https://hub.iechor.com/_/opensuse/":
   - /samples/opensuse
   - /samples/library/opensuse
-"https://hub.docker.com/_/oraclelinux/":
+"https://hub.iechor.com/_/oraclelinux/":
   - /samples/oraclelinux
   - /samples/library/oraclelinux
-"https://hub.docker.com/_/orientdb/":
+"https://hub.iechor.com/_/orientdb/":
   - /samples/orientdb
   - /samples/library/orientdb
-"https://hub.docker.com/_/percona/":
+"https://hub.iechor.com/_/percona/":
   - /samples/percona
   - /samples/library/percona
-"https://hub.docker.com/_/perl/":
+"https://hub.iechor.com/_/perl/":
   - /samples/perl
   - /samples/library/perl
-"https://hub.docker.com/_/photon/":
+"https://hub.iechor.com/_/photon/":
   - /samples/photon
   - /samples/library/photon
-"https://hub.docker.com/_/php/":
+"https://hub.iechor.com/_/php/":
   - /samples/library/php
-"https://hub.docker.com/_/php-zendserver/":
+"https://hub.iechor.com/_/php-zendserver/":
   - /samples/php-zendserver
   - /samples/library/php-zendserver
-"https://hub.docker.com/_/plone/":
+"https://hub.iechor.com/_/plone/":
   - /samples/plone
   - /samples/library/plone
-"https://hub.docker.com/_/postfixadmin/":
+"https://hub.iechor.com/_/postfixadmin/":
   - /samples/postfixadmin
   - /samples/library/postfixadmin
-"https://hub.docker.com/_/postgres/":
+"https://hub.iechor.com/_/postgres/":
   - /samples/library/postgres
-"https://hub.docker.com/_/pypy/":
+"https://hub.iechor.com/_/pypy/":
   - /samples/pypy
   - /samples/library/pypy
-"https://hub.docker.com/_/python/":
+"https://hub.iechor.com/_/python/":
   - /samples/library/python
-"https://hub.docker.com/_/r-base/":
+"https://hub.iechor.com/_/r-base/":
   - /samples/r-base
   - /samples/library/r-base
-"https://hub.docker.com/_/rabbitmq/":
+"https://hub.iechor.com/_/rabbitmq/":
   - /samples/rabbitmq
   - /samples/library/rabbitmq
-"https://hub.docker.com/_/rakudo-star/":
+"https://hub.iechor.com/_/rakudo-star/":
   - /samples/rakudo-star
   - /samples/library/rakudo-star
-"https://hub.docker.com/_/rapidoid/":
+"https://hub.iechor.com/_/rapidoid/":
   - /samples/rapidoid
   - /samples/library/rapidoid
-"https://hub.docker.com/_/redis/":
+"https://hub.iechor.com/_/redis/":
   - /samples/library/redis
-"https://hub.docker.com/_/redmine/":
+"https://hub.iechor.com/_/redmine/":
   - /samples/redmine
   - /samples/library/redmine
-"https://hub.docker.com/_/registry/":
+"https://hub.iechor.com/_/registry/":
   - /samples/registry
   - /samples/library/registry
-"https://hub.docker.com/_/rethinkdb/":
+"https://hub.iechor.com/_/rethinkdb/":
   - /samples/rethinkdb
   - /samples/library/rethinkdb
-"https://hub.docker.com/_/rocket.chat/":
+"https://hub.iechor.com/_/rocket.chat/":
   - /samples/rocket.chat
   - /samples/library/rocket.chat
-"https://hub.docker.com/_/ros/":
+"https://hub.iechor.com/_/ros/":
   - /samples/ros
   - /samples/library/ros
-"https://hub.docker.com/_/ruby/":
+"https://hub.iechor.com/_/ruby/":
   - /samples/library/ruby
-"https://hub.docker.com/_/rust/":
+"https://hub.iechor.com/_/rust/":
   - /samples/library/rust
-"https://hub.docker.com/_/sapmachine/":
+"https://hub.iechor.com/_/sapmachine/":
   - /samples/sapmachine
   - /samples/library/sapmachine
-"https://hub.docker.com/_/scratch/":
+"https://hub.iechor.com/_/scratch/":
   - /samples/scratch
   - /samples/library/scratch
-"https://hub.docker.com/_/sentry/":
+"https://hub.iechor.com/_/sentry/":
   - /samples/sentry
   - /samples/library/sentry
-"https://hub.docker.com/_/silverpeas/":
+"https://hub.iechor.com/_/silverpeas/":
   - /samples/silverpeas
   - /samples/library/silverpeas
-"https://hub.docker.com/_/sl/":
+"https://hub.iechor.com/_/sl/":
   - /samples/sl
   - /samples/library/sl
-"https://hub.docker.com/_/solr/":
+"https://hub.iechor.com/_/solr/":
   - /samples/solr
   - /samples/library/solr
-"https://hub.docker.com/_/sonarqube/":
+"https://hub.iechor.com/_/sonarqube/":
   - /samples/sonarqube
   - /samples/library/sonarqube
-"https://hub.docker.com/_/sourcemage/":
+"https://hub.iechor.com/_/sourcemage/":
   - /samples/sourcemage
   - /samples/library/sourcemage
-"https://hub.docker.com/_/spiped/":
+"https://hub.iechor.com/_/spiped/":
   - /samples/spiped
   - /samples/library/spiped
-"https://hub.docker.com/_/storm/":
+"https://hub.iechor.com/_/storm/":
   - /samples/storm
   - /samples/library/storm
-"https://hub.docker.com/_/swarm/":
+"https://hub.iechor.com/_/swarm/":
   - /samples/swarm
   - /samples/library/swarm
-"https://hub.docker.com/_/swift/":
+"https://hub.iechor.com/_/swift/":
   - /samples/swift
   - /samples/library/swift
-"https://hub.docker.com/_/swipl/":
+"https://hub.iechor.com/_/swipl/":
   - /samples/swipl
   - /samples/library/swipl
-"https://hub.docker.com/_/teamspeak/":
+"https://hub.iechor.com/_/teamspeak/":
   - /samples/teamspeak
   - /samples/library/teamspeak
-"https://hub.docker.com/_/telegraf/":
+"https://hub.iechor.com/_/telegraf/":
   - /samples/telegraf
   - /samples/library/telegraf
-"https://hub.docker.com/_/thrift/":
+"https://hub.iechor.com/_/thrift/":
   - /samples/thrift
   - /samples/library/thrift
-"https://hub.docker.com/_/tomcat/":
+"https://hub.iechor.com/_/tomcat/":
   - /samples/tomcat
   - /samples/library/tomcat
-"https://hub.docker.com/_/tomee/":
+"https://hub.iechor.com/_/tomee/":
   - /samples/tomee
   - /samples/library/tomee
-"https://hub.docker.com/_/traefik/":
+"https://hub.iechor.com/_/traefik/":
   - /samples/library/traefik
-"https://hub.docker.com/_/ubuntu/":
+"https://hub.iechor.com/_/ubuntu/":
   - /samples/ubuntu
   - /samples/library/ubuntu
-"https://hub.docker.com/_/varnish/":
+"https://hub.iechor.com/_/varnish/":
   - /samples/varnish
   - /samples/library/varnish
-"https://hub.docker.com/_/vault/":
+"https://hub.iechor.com/_/vault/":
   - /samples/vault
   - /samples/library/vault
-"https://hub.docker.com/_/websphere-liberty/":
+"https://hub.iechor.com/_/websphere-liberty/":
   - /samples/websphere-liberty
   - /samples/library/websphere-liberty
-"https://hub.docker.com/_/wordpress/":
+"https://hub.iechor.com/_/wordpress/":
   - /samples/library/wordpress
-"https://hub.docker.com/_/xwiki/":
+"https://hub.iechor.com/_/xwiki/":
   - /samples/xwiki
   - /samples/library/xwiki
-"https://hub.docker.com/_/yourls/":
+"https://hub.iechor.com/_/yourls/":
   - /samples/yourls
   - /samples/library/yourls
-"https://hub.docker.com/_/znc/":
+"https://hub.iechor.com/_/znc/":
   - /samples/znc
   - /samples/library/znc
-"https://hub.docker.com/_/zookeeper/":
+"https://hub.iechor.com/_/zookeeper/":
   - /samples/zookeeper
   - /samples/library/zookeeper
 
@@ -598,17 +598,17 @@
   - /feedback/extension/
 "https://docs.google.com/forms/u/1/d/e/1FAIpQLScgzKwqQyr7BmnphdrcGTO3wkye_McHJVsWzOIgEESfqmditQ/formResponse":
   - /feedback/runtime/
-"https://docker.qualtrics.com/jfe/form/SV_3OGeFazYFGv4Zj8":
+"https://iechor.qualtrics.com/jfe/form/SV_3OGeFazYFGv4Zj8":
   - /feedback/desktop-build/
-"https://docker.qualtrics.com/jfe/form/SV_3F9hnsKdzmlIr6m":
+"https://iechor.qualtrics.com/jfe/form/SV_3F9hnsKdzmlIr6m":
   - /feedback/gha-build-summary/
 
-# Docker Scout
-"https://deploy-preview-19873--docsdocker.netlify.app/scout/dashboard/#notification-settings":
+# iEchor Scout
+"https://deploy-preview-19873--docsiechor.netlify.app/scout/dashboard/#notification-settings":
   - /go/scout-notifications/
 "/scout/":
   - /go/scout/
-  - /go/docker-scout/
+  - /go/iechor-scout/
 "/scout/quickstart/":
   - /go/scout-quickstart/
 "/scout/dashboard/":
@@ -678,41 +678,41 @@
   - /go/build-secrets/
 "/build/building/secrets/#ssh-mounts":
   - /go/build-ssh/
-"/reference/cli/docker/buildx/build/#build-context":
+"/reference/cli/iechor/buildx/build/#build-context":
   - /go/build-additional-context/
 "/config/labels-custom-metadata/":
   - /go/labels/
 
 # Build links (external)
-"https://www.docker.com/build-early-access-program/?utm_campaign=onboard-30-customer-zero&utm_medium=in-product-ad&utm_source=desktop_v4":
+"https://www.iechor.com/build-early-access-program/?utm_campaign=onboard-30-customer-zero&utm_medium=in-product-ad&utm_source=desktop_v4":
   - /go/build-eap/
-"https://www.docker.com/products/build-cloud/?utm_campaign=2024-02-02-banner_dbc_ga&utm_medium=in-product-ad&utm_source=desktop_v4":
+"https://www.iechor.com/products/build-cloud/?utm_campaign=2024-02-02-banner_dbc_ga&utm_medium=in-product-ad&utm_source=desktop_v4":
   - /go/build-ga/
-"https://www.docker.com/products/build-cloud/?utm_campaign=2024-02-02-dbc_cli&utm_medium=in-product-ad&utm_source=desktop_v4":
-  - /go/docker-build-cloud/
+"https://www.iechor.com/products/build-cloud/?utm_campaign=2024-02-02-dbc_cli&utm_medium=in-product-ad&utm_source=desktop_v4":
+  - /go/iechor-build-cloud/
 
 # CLI backlinks
 "/config/filter/":
   - /go/filter/
 
-# Docker Init
+# iEchor Init
 "/develop/develop-images/instructions/#user":
-  - /go/dockerfile-user-best-practices/
+  - /go/iechorfile-user-best-practices/
 "/develop/develop-images/instructions/#apt-get":
-  - /go/dockerfile-aptget-best-practices/
-"/build/building/context/#dockerignore-files":
-  - /go/build-context-dockerignore/
+  - /go/iechorfile-aptget-best-practices/
+"/build/building/context/#iechorignore-files":
+  - /go/build-context-iechorignore/
 "/compose/compose-file":
   - /go/compose-spec-reference/
-"/reference/dockerfile":
-  - /go/dockerfile-reference/
+"/reference/iechorfile":
+  - /go/iechorfile-reference/
   - /engine/reference/builder/
   - /reference/builder/
 "/get-started/04_sharing_app":
   - /go/get-started-sharing/
 
-## Docker Debug
-"/reference/cli/docker/debug/":
+## iEchor Debug
+"/reference/cli/iechor/debug/":
   - /go/debug-cli/
 "/desktop/use-desktop/container/#integrated-terminal":
   - /go/debug-gui/

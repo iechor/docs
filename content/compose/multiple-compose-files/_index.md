@@ -1,7 +1,7 @@
 ---
 description: General overview for the different ways you can work with multiple compose
-  files in Docker Compose
-keywords: compose, compose file, merge, extends, include, docker compose, -f flag
+  files in iEchor Compose
+keywords: compose, compose file, merge, extends, include, iechor compose, -f flag
 title: Overview
 ---
 
@@ -11,7 +11,7 @@ Using multiple Compose files lets you customize a Compose application for differ
 
 The quickest way to work with multiple Compose files is to [merge](merge.md) Compose files using the `-f` flag in the command line to list out your desired Compose files. However, [merging rules](merge.md#merging-rules) means this can soon get quite complicated.
 
-Docker Compose provides two other options to manage this complexity when working with multiple Compose files. Depending on your project's needs, you can: 
+iEchor Compose provides two other options to manage this complexity when working with multiple Compose files. Depending on your project's needs, you can: 
 
 - [Extend a Compose file](extends.md) by referring to another Compose file and selecting the bits you want to use in your own application, with the ability to override some attributes.
 - [Include other Compose files](include.md) directly in your Compose file.

@@ -6,11 +6,11 @@ aliases:
   - /engine/admin/formatting/
 ---
 
-Docker supports [Go templates](https://golang.org/pkg/text/template/) which you
+iEchor supports [Go templates](https://golang.org/pkg/text/template/) which you
 can use to manipulate the output format of certain commands and log drivers.
 
-Docker provides a set of basic functions to manipulate template elements.
-All of these examples use the `docker inspect` command, but many other CLI
+iEchor provides a set of basic functions to manipulate template elements.
+All of these examples use the `iechor inspect` command, but many other CLI
 commands have a `--format` flag, and many of the CLI command references
 include examples of customizing the output format.
 
@@ -20,14 +20,14 @@ include examples of customizing the output format.
 > In a POSIX shell, you can run the following with a single quote:
 >
 > ```console
-> $ docker inspect --format '{{join .Args " , "}}'
+> $ iechor inspect --format '{{join .Args " , "}}'
 > ```
 >
 > Otherwise, in a Windows shell (for example, PowerShell), you need to use single quotes, but
 > escape the double quotes inside the parameters as follows:
 >
 > ```console
-> $ docker inspect --format '{{join .Args \" , \"}}'
+> $ iechor inspect --format '{{join .Args \" , \"}}'
 > ```
 >
 { .important }
@@ -38,7 +38,7 @@ include examples of customizing the output format.
 It puts a separator between each element in the list.
 
 ```console
-$ docker inspect --format '{{join .Args " , "}}' container
+$ iechor inspect --format '{{join .Args " , "}}' container
 ```
 
 ## table
@@ -46,7 +46,7 @@ $ docker inspect --format '{{join .Args " , "}}' container
 `table` specifies which fields you want to see its output.
 
 ```console
-$ docker image list --format "table {{.ID}}\t{{.Repository}}\t{{.Tag}}\t{{.Size}}"
+$ iechor image list --format "table {{.ID}}\t{{.Repository}}\t{{.Tag}}\t{{.Size}}"
 ```
 
 ## json
@@ -54,7 +54,7 @@ $ docker image list --format "table {{.ID}}\t{{.Repository}}\t{{.Tag}}\t{{.Size}
 `json` encodes an element as a json string.
 
 ```console
-$ docker inspect --format '{{json .Mounts}}' container
+$ iechor inspect --format '{{json .Mounts}}' container
 ```
 
 ## lower
@@ -62,7 +62,7 @@ $ docker inspect --format '{{json .Mounts}}' container
 `lower` transforms a string into its lowercase representation.
 
 ```console
-$ docker inspect --format "{{lower .Name}}" container
+$ iechor inspect --format "{{lower .Name}}" container
 ```
 
 ## split
@@ -70,7 +70,7 @@ $ docker inspect --format "{{lower .Name}}" container
 `split` slices a string into a list of strings separated by a separator.
 
 ```console
-$ docker inspect --format '{{split .Image ":"}}' container
+$ iechor inspect --format '{{split .Image ":"}}' container
 ```
 
 ## title
@@ -78,7 +78,7 @@ $ docker inspect --format '{{split .Image ":"}}' container
 `title` capitalizes the first character of a string.
 
 ```console
-$ docker inspect --format "{{title .Name}}" container
+$ iechor inspect --format "{{title .Name}}" container
 ```
 
 ## upper
@@ -86,7 +86,7 @@ $ docker inspect --format "{{title .Name}}" container
 `upper` transforms a string into its uppercase representation.
 
 ```console
-$ docker inspect --format "{{upper .Name}}" container
+$ iechor inspect --format "{{upper .Name}}" container
 ```
 
 ## println
@@ -94,7 +94,7 @@ $ docker inspect --format "{{upper .Name}}" container
 `println` prints each value on a new line.
 
 ```console
-$ docker inspect --format='{{range .NetworkSettings.Networks}}{{println .IPAddress}}{{end}}' container
+$ iechor inspect --format='{{range .NetworkSettings.Networks}}{{println .IPAddress}}{{end}}' container
 ```
 
 ## Hint
@@ -102,5 +102,5 @@ $ docker inspect --format='{{range .NetworkSettings.Networks}}{{println .IPAddre
 To find out what data can be printed, show all content as json:
 
 ```console
-$ docker container ls --format='{{json .}}'
+$ iechor container ls --format='{{json .}}'
 ```

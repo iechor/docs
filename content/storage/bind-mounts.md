@@ -6,22 +6,22 @@ aliases:
 - /engine/admin/volumes/bind-mounts/
 ---
 
-Bind mounts have been around since the early days of Docker. Bind mounts have
+Bind mounts have been around since the early days of iEchor. Bind mounts have
 limited functionality compared to [volumes](volumes.md). When you use a bind
 mount, a file or directory on the host machine is mounted into a container.
 The file or directory is referenced by its absolute path on the host
 machine. By contrast, when you use a volume, a new directory is created within
-Docker's storage directory on the host machine, and Docker manages that
+iEchor's storage directory on the host machine, and iEchor manages that
 directory's contents.
 
-The file or directory does not need to exist on the Docker host already. It is
+The file or directory does not need to exist on the iEchor host already. It is
 created on demand if it does not yet exist. Bind mounts are very performant, but
 they rely on the host machine's filesystem having a specific directory structure
-available. If you are developing new Docker applications, consider using
-[named volumes](volumes.md) instead. You can't use Docker CLI commands to directly
+available. If you are developing new iEchor applications, consider using
+[named volumes](volumes.md) instead. You can't use iEchor CLI commands to directly
 manage bind mounts.
 
-![Bind mounts on the Docker host](images/types-of-mounts-bind.webp?w=450&h=300)
+![Bind mounts on the iEchor host](images/types-of-mounts-bind.webp?w=450&h=300)
 
 > **Tip**
 >
@@ -60,7 +60,7 @@ syntax separates them. Here is a comparison of the syntax for each flag.
   - The `type` of the mount, which can be `bind`, `volume`, or `tmpfs`. This
     topic discusses bind mounts, so the type is always `bind`.
   - The `source` of the mount. For bind mounts, this is the path to the file
-    or directory on the Docker daemon host. May be specified as `source` or
+    or directory on the iEchor daemon host. May be specified as `source` or
     `src`.
   - The `destination` takes as its value the path where the file or directory
     is mounted in the container. May be specified as `destination`, `dst`,
@@ -78,16 +78,16 @@ The examples below show both the `--mount` and `-v` syntax where possible, and
 
 ### Differences between `-v` and `--mount` behavior
 
-Because the `-v` and `--volume` flags have been a part of Docker for a long
+Because the `-v` and `--volume` flags have been a part of iEchor for a long
 time, their behavior cannot be changed. This means that there is one behavior
 that is different between `-v` and `--mount`.
 
 If you use `-v` or `--volume` to bind-mount a file or directory that does not
-yet exist on the Docker host, `-v` creates the endpoint for you. It is
+yet exist on the iEchor host, `-v` creates the endpoint for you. It is
 always created as a directory.
 
 If you use `--mount` to bind-mount a file or directory that does not
-yet exist on the Docker host, Docker does not automatically create it for
+yet exist on the iEchor host, iEchor does not automatically create it for
 you, but generates an error.
 
 ## Start a container with a bind mount
@@ -110,7 +110,7 @@ first one.
 {{< tab name="`--mount`" >}}
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name devtest \
   --mount type=bind,source="$(pwd)"/target,target=/app \
@@ -121,7 +121,7 @@ $ docker run -d \
 {{< tab name="`-v`" >}}
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name devtest \
   -v "$(pwd)"/target:/app \
@@ -131,7 +131,7 @@ $ docker run -d \
 {{< /tab >}}
 {{< /tabs >}}
 
-Use `docker inspect devtest` to verify that the bind mount was created
+Use `iechor inspect devtest` to verify that the bind mount was created
 correctly. Look for the `Mounts` section:
 
 ```json
@@ -154,9 +154,9 @@ set to `rprivate`.
 Stop the container:
 
 ```console
-$ docker container stop devtest
+$ iechor container stop devtest
 
-$ docker container rm devtest
+$ iechor container rm devtest
 ```
 
 ### Mount into a non-empty directory on the container
@@ -165,7 +165,7 @@ If you bind-mount a directory into a non-empty directory on the container, the d
 existing contents are obscured by the bind mount. This can be beneficial,
 such as when you want to test a new version of your application without
 building a new image. However, it can also be surprising and this behavior
-differs from that of [docker volumes](volumes.md).
+differs from that of [iechor volumes](volumes.md).
 
 This example is contrived to be extreme, but replaces the contents of the
 container's `/usr/` directory with the `/tmp/` directory on the host machine. In
@@ -177,13 +177,13 @@ The `--mount` and `-v` examples have the same end result.
 {{< tab name="`--mount`" >}}
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name broken-container \
   --mount type=bind,source=/tmp,target=/usr \
   nginx:latest
 
-docker: Error response from daemon: oci runtime error: container_linux.go:262:
+iechor: Error response from daemon: oci runtime error: container_linux.go:262:
 starting container process caused "exec: \"nginx\": executable file not found in $PATH".
 ```
 
@@ -191,13 +191,13 @@ starting container process caused "exec: \"nginx\": executable file not found in
 {{< tab name="`-v`" >}}
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name broken-container \
   -v /tmp:/usr \
   nginx:latest
 
-docker: Error response from daemon: oci runtime error: container_linux.go:262:
+iechor: Error response from daemon: oci runtime error: container_linux.go:262:
 starting container process caused "exec: \"nginx\": executable file not found in $PATH".
 ```
 
@@ -207,14 +207,14 @@ starting container process caused "exec: \"nginx\": executable file not found in
 The container is created but does not start. Remove it:
 
 ```console
-$ docker container rm broken-container
+$ iechor container rm broken-container
 ```
 
 ## Use a read-only bind mount
 
 For some development applications, the container needs to
 write into the bind mount, so changes are propagated back to the
-Docker host. At other times, the container only needs read access.
+iEchor host. At other times, the container only needs read access.
 
 This example modifies the one above but mounts the directory as a read-only
 bind mount, by adding `ro` to the (empty by default) list of options, after the
@@ -227,7 +227,7 @@ The `--mount` and `-v` examples have the same result.
 {{< tab name="`--mount`" >}}
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name devtest \
   --mount type=bind,source="$(pwd)"/target,target=/app,readonly \
@@ -238,7 +238,7 @@ $ docker run -d \
 {{< tab name="`-v`" >}}
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name devtest \
   -v "$(pwd)"/target:/app:ro \
@@ -248,7 +248,7 @@ $ docker run -d \
 {{< /tab >}}
 {{< /tabs >}}
 
-Use `docker inspect devtest` to verify that the bind mount was created
+Use `iechor inspect devtest` to verify that the bind mount was created
 correctly. Look for the `Mounts` section:
 
 ```json
@@ -267,9 +267,9 @@ correctly. Look for the `Mounts` section:
 Stop the container:
 
 ```console
-$ docker container stop devtest
+$ iechor container stop devtest
 
-$ docker container rm devtest
+$ iechor container rm devtest
 ```
 
 ## Recursive mounts
@@ -279,7 +279,7 @@ also included in the bind mount by default. This behavior is configurable,
 using the `bind-recursive` option for `--mount`. This option is only supported
 with the `--mount` flag, not with `-v` or `--volume`.
 
-If the bind mount is read-only, the Docker Engine makes a best-effort attempt
+If the bind mount is read-only, the iEchor Engine makes a best-effort attempt
 at making the submounts read-only as well. This is referred to as recursive
 read-only mounts. Recursive read-only mounts require Linux kernel version 5.12
 or later. If you're running an older kernel version, submounts are
@@ -312,7 +312,7 @@ control whether `/mnt/a` and/or `/tmp/a` would exist.
 
 > **Warning**
 >
-> Mount propagation doesn't work with Docker Desktop.
+> Mount propagation doesn't work with iEchor Desktop.
 { .warning }
 
 | Propagation setting | Description                                                                                                                                                                                                         |
@@ -340,7 +340,7 @@ The `--mount` and `-v` examples have the same result.
 {{< tab name="`--mount`" >}}
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name devtest \
   --mount type=bind,source="$(pwd)"/target,target=/app \
@@ -352,7 +352,7 @@ $ docker run -d \
 {{< tab name="`-v`" >}}
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name devtest \
   -v "$(pwd)"/target:/app \
@@ -370,7 +370,7 @@ Now if you create `/app/foo/`, `/app2/foo/` also exists.
 If you use `selinux` you can add the `z` or `Z` options to modify the selinux
 label of the host file or directory being mounted into the container. This
 affects the file or directory on the host machine itself and can have
-consequences outside of the scope of Docker.
+consequences outside of the scope of iEchor.
 
 - The `z` option indicates that the bind mount content is shared among multiple
   containers.
@@ -393,7 +393,7 @@ the bind mount's contents:
 It is not possible to modify the selinux label using the `--mount` flag.
 
 ```console
-$ docker run -d \
+$ iechor run -d \
   -it \
   --name devtest \
   -v "$(pwd)"/target:/app:z \
@@ -403,7 +403,7 @@ $ docker run -d \
 
 ## Use a bind mount with compose
 
-A single Docker Compose service with a bind mount looks like this:
+A single iEchor Compose service with a bind mount looks like this:
 
 ```yaml
 services:

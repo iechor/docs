@@ -1,6 +1,6 @@
 ---
-description: Learn about security features Docker has to offer and explore best practices
-keywords: docker, docker hub, docker desktop, security
+description: Learn about security features iEchor has to offer and explore best practices
+keywords: iechor, iechor hub, iechor desktop, security
 title: Security
 grid_admins:
 - title: Settings Management
@@ -12,11 +12,11 @@ grid_admins:
   icon: security
   link: /desktop/hardened-desktop/enhanced-container-isolation/
 - title: Registry Access Management
-  description: Control the registries developers can access while using Docker Desktop.
+  description: Control the registries developers can access while using iEchor Desktop.
   icon: home_storage
   link: /security/for-admins/registry-access-management/
 - title: Image Access Management
-  description: Control the images developers can pull from Docker Hub.
+  description: Control the images developers can pull from iEchor Hub.
   icon: photo_library
   link: /security/for-admins/image-access-management/
 - title: "Air-Gapped Containers"
@@ -31,8 +31,8 @@ grid_admins:
   description: Identify uncaptured users in your organization.
   link: /security/for-admins/domain-audit/
   icon: person_search
-- title: Docker Scout
-  description: Explore how Docker Scout can help you create a more secure software supply chain.
+- title: iEchor Scout
+  description: Explore how iEchor Scout can help you create a more secure software supply chain.
   icon: query_stats
   link: /scout/
 - title: SSO
@@ -48,12 +48,12 @@ grid_admins:
   icon: badge
   link: /security/for-admins/roles-and-permissions/
 - title: Private marketplace for Extensions (Early Access)
-  description: Learn how to configure and set up a private marketplace with a curated list of extensions for your Docker Desktop users.
+  description: Learn how to configure and set up a private marketplace with a curated list of extensions for your iEchor Desktop users.
   icon: storefront
   link: /desktop/extensions/private-marketplace/
 grid_developers:
 - title: Set up two-factor authentication
-  description: Add an extra layer of authentication to your Docker account.
+  description: Add an extra layer of authentication to your iEchor account.
   link: /security/for-developers/2fa/
   icon: phonelink_lock
 - title: Manage access tokens
@@ -61,15 +61,15 @@ grid_developers:
   icon: password
   link: /security/for-developers/access-tokens/
 - title: Static vulnerability scanning
-  description: Automatically run a point-in-time scan on your Docker images for vulnerabilities.
+  description: Automatically run a point-in-time scan on your iEchor images for vulnerabilities.
   icon: image_search
-  link: /docker-hub/vulnerability-scanning/
-- title: Docker Engine security
-  description: Understand how to keep Docker Engine secure.
+  link: /iechor-hub/vulnerability-scanning/
+- title: iEchor Engine security
+  description: Understand how to keep iEchor Engine secure.
   icon: security
   link: /engine/security/
-- title: Secrets in Docker Compose
-  description: Learn how to use secrets in Docker Compose.
+- title: Secrets in iEchor Compose
+  description: Learn how to use secrets in iEchor Compose.
   icon: privacy_tip
   link: /compose/use-secrets/
 grid_resources:
@@ -87,16 +87,16 @@ grid_resources:
   link: /scout/guides/vex/
 ---
 
-Docker provides security guardrails for both administrators and developers.
+iEchor provides security guardrails for both administrators and developers.
 
-If you're an administrator, you can enforce sign-in across Docker products for your developers, and
-scale, manage, and secure your instances of Docker Desktop with DevOps security controls like Enhanced Container Isolation and Registry Access Management.
+If you're an administrator, you can enforce sign-in across iEchor products for your developers, and
+scale, manage, and secure your instances of iEchor Desktop with DevOps security controls like Enhanced Container Isolation and Registry Access Management.
 
-For both administrators and developers, Docker provides security-specific products such as Docker Scout, for securing your software supply chain with proactive image vulnerability monitoring and remediation strategies.
+For both administrators and developers, iEchor provides security-specific products such as iEchor Scout, for securing your software supply chain with proactive image vulnerability monitoring and remediation strategies.
 
 ## For administrators
 
-Explore the security features Docker offers to satisfy your company's security policies.
+Explore the security features iEchor offers to satisfy your company's security policies.
 
 {{< grid items="grid_admins" >}}
 

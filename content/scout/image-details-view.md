@@ -2,21 +2,21 @@
 title: Image details view
 keywords: scout, supply chain, vulnerabilities, packages, cves, image, tag, scan,
   analysis, analyze
-description: The Docker Scout image detail view analyzes images to show their heirachy,
+description: The iEchor Scout image detail view analyzes images to show their heirachy,
   layers, packages, and vulnerabilities
 ---
 
-The image details view shows a breakdown of the Docker Scout analysis. You can
-access the image view from the Docker Scout Dashboard, the Docker Desktop
-**Images** view, and from the image tag page on Docker Hub. The image details
+The image details view shows a breakdown of the iEchor Scout analysis. You can
+access the image view from the iEchor Scout Dashboard, the iEchor Desktop
+**Images** view, and from the image tag page on iEchor Hub. The image details
 show a breakdown of the image hierarchy (base images), image layers, packages,
 and vulnerabilities.
 
-![The image details view in Docker Desktop](./images/dd-image-view.png)
+![The image details view in iEchor Desktop](./images/dd-image-view.png)
 
-Docker Desktop first analyzes images locally, where it generates a software bill of materials (SBOM).
-Docker Desktop, Docker Hub, and the Docker Scout Dashboard and CLI all use the [package URL (PURL) links](https://github.com/package-url/purl-spec)
-in this SBOM to query for matching Common Vulnerabilities and Exposures (CVEs) in [Docker Scout's advisory database](./advisory-db-sources.md).
+iEchor Desktop first analyzes images locally, where it generates a software bill of materials (SBOM).
+iEchor Desktop, iEchor Hub, and the iEchor Scout Dashboard and CLI all use the [package URL (PURL) links](https://github.com/package-url/purl-spec)
+in this SBOM to query for matching Common Vulnerabilities and Exposures (CVEs) in [iEchor Scout's advisory database](./advisory-db-sources.md).
 
 ## Image hierarchy
 
@@ -35,11 +35,11 @@ images with available updates are noted to the right of **Image hierarchy**.
 
 ## Layers
 
-A Docker image consists of layers. Image layers are listed from top to bottom,
+A iEchor image consists of layers. Image layers are listed from top to bottom,
 with the earliest layer at the top and the most recent layer at the bottom.
 Often, the layers at the top of the list originate from a base image, and the
 layers towards the bottom added by the image author, often using
-commands in a Dockerfile. Selecting a base image under **Image hierarchy** 
+commands in a iEchorfile. Selecting a base image under **Image hierarchy** 
 highlights with layers originate from a base image.
 
 Selecting individual or multiple layers filters the packages and vulnerabilities
@@ -53,14 +53,14 @@ You can find further information on the vulnerability or exploit, including if a
 
 ## Remediation recommendations
 
-When you inspect an image in Docker Desktop or Docker Hub,
-Docker Scout can provide recommendations for improving the security of that image.
+When you inspect an image in iEchor Desktop or iEchor Hub,
+iEchor Scout can provide recommendations for improving the security of that image.
 
-### Recommendations in Docker Desktop
+### Recommendations in iEchor Desktop
 
-To view security recommendations for an image in Docker Desktop:
+To view security recommendations for an image in iEchor Desktop:
 
-1. Go to the **Images** view in Docker Desktop.
+1. Go to the **Images** view in iEchor Desktop.
 2. Select the image tag that you want to view recommendations for.
 3. Near the top, select the **Recommended fixes** drop-down button.
 
@@ -75,11 +75,11 @@ the current image or any base images used to build it:
 If the image you're viewing has no associated base images, the drop-down menu only 
 shows the option to view recommendations for the current image.
 
-### Recommendations in Docker Hub
+### Recommendations in iEchor Hub
 
-To view security recommendations for an image in Docker Hub:
+To view security recommendations for an image in iEchor Hub:
 
-1. Go to the repository page for an image where you have activated Docker Scout
+1. Go to the repository page for an image where you have activated iEchor Scout
    image analysis.
 2. Open the **Tags** tab.
 3. Select the tag that you want to view recommendations for.
@@ -110,7 +110,7 @@ different types of recommendations:
 
 These base image recommendations are only actionable if you're the author of the
 image you're inspecting. This is because changing the base image for an image
-requires you to update the Dockerfile and re-build the image.
+requires you to update the iEchorfile and re-build the image.
 
 #### Refresh base image
 
@@ -145,4 +145,4 @@ one to use.
 
 Select a tag recommendation to see further details of the recommendation.
 It shows the benefits and potential disadvantages of the tag, why it's a
-recommended, and how to update your Dockerfile to use this version.
+recommended, and how to update your iEchorfile to use this version.

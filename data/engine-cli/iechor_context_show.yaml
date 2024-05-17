@@ -1,0 +1,67 @@
+command: iechor context show
+short: Print the name of the current context
+long: |-
+    Print the name of the current context, possibly set by `IECHOR_CONTEXT` environment
+    variable or `--context` global option.
+usage: iechor context show
+pname: iechor context
+plink: iechor_context.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### Print the current context
+
+    The following example prints the currently used [`iechor context`](/reference/cli/iechor/context/):
+
+    ```console
+    $ iechor context show'
+    default
+    ```
+
+    As an example, this output can be used to dynamically change your shell prompt
+    to indicate your active context. The example below illustrates how this output
+    could be used when using Bash as your shell.
+
+    Declare a function to obtain the current context in your `~/.bashrc`, and set
+    this command as your `PROMPT_COMMAND`
+
+    ```console
+    function iechor_context_prompt() {
+            PS1="context: $(iechor context show)> "
+    }
+
+    PROMPT_COMMAND=iechor_context_prompt
+    ```
+
+    After reloading the `~/.bashrc`, the prompt now shows the currently selected
+    `iechor context`:
+
+    ```console
+    $ source ~/.bashrc
+    context: default> iechor context create --iechor host=unix:///var/run/iechor.sock my-context
+    my-context
+    Successfully created context "my-context"
+    context: default> iechor context use my-context
+    my-context
+    Current context is now "my-context"
+    context: my-context> iechor context use default
+    default
+    Current context is now "default"
+    context: default>
+    ```
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

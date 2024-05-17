@@ -1,22 +1,22 @@
 ---
-description: Learn how to upgrade your Docker subscription
-keywords: Docker Hub, upgrade, subscription, Pro, Team, business, pricing plan, docker core
+description: Learn how to upgrade your iEchor subscription
+keywords: iEchor Hub, upgrade, subscription, Pro, Team, business, pricing plan, iechor core
 title: Upgrade your subscription
 aliases:
-- /docker-hub/upgrade/
-- /docker-hub/billing/upgrade/
+- /iechor-hub/upgrade/
+- /iechor-hub/billing/upgrade/
 - /subscription/upgrade/
 ---
 
-When you upgrade to a paid subscription, you immediately have access to all the features and entitlements available in your new chosen subscription. For detailed information on features available in each subscription, see [Docker Pricing](https://www.docker.com/pricing).
+When you upgrade to a paid subscription, you immediately have access to all the features and entitlements available in your new chosen subscription. For detailed information on features available in each subscription, see [iEchor Pricing](https://www.iechor.com/pricing).
 
 ## Upgrade your subscription 
 
-1. Sign in to your [Docker Hub](https://hub.docker.com) account.
+1. Sign in to your [iEchor Hub](https://hub.iechor.com) account.
 
 2. Optional: If you're upgrading from a free user account to a Team subscription and want to keep your account name, [convert your user account into an organization](../../admin/convert-account.md).
 
-3. Select your avatar in the top-right corner of Docker Hub.
+3. Select your avatar in the top-right corner of iEchor Hub.
 
 4. From the drop-down menu select **Billing**, then the account you want to upgrade.
 

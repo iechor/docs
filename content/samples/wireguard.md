@@ -1,5 +1,5 @@
 ---
 title: WireGuard samples
-description: Docker samples for WireGuard.
+description: iEchor samples for WireGuard.
 service: wireguard
 ---

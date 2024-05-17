@@ -1,7 +1,7 @@
 ---
 title: Persist the DB
 keywords: get started, setup, orientation, quickstart, intro, concepts, containers,
-  docker desktop
+  iechor desktop
 description: Making your DB persistent in your application
 ---
 
@@ -22,7 +22,7 @@ What you'll see is that the file created in one container isn't available in ano
 1. Start an Alpine container and access its shell.
 
     ```console
-    $ docker run -ti --name=mytest alpine
+    $ iechor run -ti --name=mytest alpine
     ```
 
 2. In the container, create a `greeting.txt` file with `hello` inside.
@@ -41,7 +41,7 @@ What you'll see is that the file created in one container isn't available in ano
    file does not exist.
    
    ```console
-   $ docker run alpine cat greeting.txt
+   $ iechor run alpine cat greeting.txt
    ```
 
    You should see output similiar to the following that indicates the file does not exist in the new container.
@@ -50,15 +50,15 @@ What you'll see is that the file created in one container isn't available in ano
    cat: can't open 'greeting.txt': No such file or directory
    ```
 
-5. Go ahead and remove the containers using `docker ps --all` to get the IDs,
-   and then `docker rm -f <container-id>` to remove the containers.
+5. Go ahead and remove the containers using `iechor ps --all` to get the IDs,
+   and then `iechor rm -f <container-id>` to remove the containers.
 
 
 ## Container volumes
 
 With the previous experiment, you saw that each container starts from the image definition each time it starts. 
 While containers can create, update, and delete files, those changes are lost when you remove the container 
-and Docker isolates all changes to that container. With volumes, you can change all of this.
+and iEchor isolates all changes to that container. With volumes, you can change all of this.
 
 [Volumes](../storage/volumes.md) provide the ability to connect specific filesystem paths of 
 the container back to the host machine. If you mount a directory in the container, changes in that
@@ -79,23 +79,23 @@ next container, it should be able to pick up where the last one left off. By cre
 writes to the `todo.db` file, it will persist the data to the host in the volume.
 
 As mentioned, you're going to use a volume mount. Think of a volume mount as an opaque bucket of data. 
-Docker fully manages the volume, including the storage location on disk. You only need to remember the
+iEchor fully manages the volume, including the storage location on disk. You only need to remember the
 name of the volume.
 
 ### Create a volume and start the container
 
-You can create the volume and start the container using the CLI or Docker Desktop's graphical interface.
+You can create the volume and start the container using the CLI or iEchor Desktop's graphical interface.
 
 {{< tabs >}}
 {{< tab name="CLI" >}}
 
-1. Create a volume by using the `docker volume create` command.
+1. Create a volume by using the `iechor volume create` command.
 
    ```console
-   $ docker volume create todo-db
+   $ iechor volume create todo-db
    ```
 
-2. Stop and remove the todo app container once again with `docker rm -f <id>`,
+2. Stop and remove the todo app container once again with `iechor rm -f <id>`,
    as it is still running without using the persistent volume.
 
 3. Start the todo app container, but add the `--mount` option to specify a
@@ -103,7 +103,7 @@ You can create the volume and start the container using the CLI or Docker Deskto
    container, which captures all files created at the path.
 
    ```console
-   $ docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=/etc/todos getting-started
+   $ iechor run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=/etc/todos getting-started
    ```
 
    > **Note**
@@ -111,7 +111,7 @@ You can create the volume and start the container using the CLI or Docker Deskto
    > If you're using Git Bash, you must use different syntax for this command.
    >
    > ```console
-   > $ docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=//etc/todos getting-started
+   > $ iechor run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=//etc/todos getting-started
    > ```
    >
    > For more details about Git Bash's syntax differences, see
@@ -119,22 +119,22 @@ You can create the volume and start the container using the CLI or Docker Deskto
 
 
 {{< /tab >}}
-{{< tab name="Docker Desktop" >}}
+{{< tab name="iEchor Desktop" >}}
 
 To create a volume:
 
-1. Select **Volumes** in Docker Desktop.
+1. Select **Volumes** in iEchor Desktop.
 2. In **Volumes**, select **Create**.
 3. Specify `todo-db` as the volume name, and then select **Create**.
 
 To stop and remove the app container:
 
-1. Select **Containers** in Docker Desktop.
+1. Select **Containers** in iEchor Desktop.
 2. Select **Delete** in the **Actions** column for the container.
 
 To start the todo app container with the volume mounted:
 
-1. Select the search box at the top of Docker Desktop.
+1. Select the search box at the top of iEchor Desktop.
 2. In the search window, select the **Images** tab.
 3. In the search box, specify the container name, `getting-started`.
 
@@ -160,7 +160,7 @@ To start the todo app container with the volume mounted:
     ![Items added to todo list](images/items-added.webp)
     
 
-2. Stop and remove the container for the todo app. Use Docker Desktop or `docker ps` to get the ID and then `docker rm -f <id>` to remove it.
+2. Stop and remove the container for the todo app. Use iEchor Desktop or `iechor ps` to get the ID and then `iechor rm -f <id>` to remove it.
 
 3. Start a new container using the previous steps.
 
@@ -172,17 +172,17 @@ You've now learned how to persist data.
 
 ## Dive into the volume
 
-A lot of people frequently ask "Where is Docker storing my data when I use a volume?" If you want to know, 
-you can use the `docker volume inspect` command.
+A lot of people frequently ask "Where is iEchor storing my data when I use a volume?" If you want to know, 
+you can use the `iechor volume inspect` command.
 
 ```console
-$ docker volume inspect todo-db
+$ iechor volume inspect todo-db
 [
     {
         "CreatedAt": "2019-09-26T02:18:36Z",
         "Driver": "local",
         "Labels": {},
-        "Mountpoint": "/var/lib/docker/volumes/todo-db/_data",
+        "Mountpoint": "/var/lib/iechor/volumes/todo-db/_data",
         "Name": "todo-db",
         "Options": {},
         "Scope": "local"
@@ -199,7 +199,7 @@ In this section, you learned how to persist container data.
 
 Related information:
 
- - [docker CLI reference](/reference/cli/docker/)
+ - [iechor CLI reference](/reference/cli/iechor/)
  - [Volumes](../storage/volumes.md)
 
 ## Next steps

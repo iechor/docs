@@ -1,40 +1,40 @@
-This tutorial walks you through the process of setting up and using Docker GitHub
-Actions for building Docker images, and pushing images to Docker Hub. You will
+This tutorial walks you through the process of setting up and using iEchor GitHub
+Actions for building iEchor images, and pushing images to iEchor Hub. You will
 complete the following steps:
 
 1. Create a new repository on GitHub.
 2. Define the GitHub Actions workflow.
 3. Run the workflow.
 
-To follow this tutorial, you need a Docker ID and a GitHub account.
+To follow this tutorial, you need a iEchor ID and a GitHub account.
 
 ### Step one: Create the repository
 
-Create a GitHub repository and configure the Docker Hub secrets.
+Create a GitHub repository and configure the iEchor Hub secrets.
 
 1. Create a new GitHub repository using
    [this template repository](https://github.com/dvdksn/clockbox/generate).
 
-   The repository contains a simple Dockerfile, and nothing else. Feel free to
-   use another repository containing a working Dockerfile if you prefer.
+   The repository contains a simple iEchorfile, and nothing else. Feel free to
+   use another repository containing a working iEchorfile if you prefer.
 
 2. Open the repository **Settings**, and go to **Secrets and variables** > **Actions**.
 
-3. Create a new secret named `DOCKERHUB_USERNAME` and your Docker ID as value.
+3. Create a new secret named `IECHORHUB_USERNAME` and your iEchor ID as value.
 
 4. Create a new
    [Personal Access Token (PAT)](/security/for-developers/access-tokens/#create-an-access-token)
-   for Docker Hub. You can name this token `clockboxci`.
+   for iEchor Hub. You can name this token `clockboxci`.
 
 5. Add the PAT as a second secret in your GitHub repository, with the name
-   `DOCKERHUB_TOKEN`.
+   `IECHORHUB_TOKEN`.
 
 With your repository created, and secrets configured, you're now ready for
 action!
 
 ### Step two: Set up the workflow
 
-Set up your GitHub Actions workflow for building and pushing the image to Docker
+Set up your GitHub Actions workflow for building and pushing the image to iEchor
 Hub.
 
 1. Go to your repository on GitHub and then select the **Actions** tab.
@@ -81,39 +81,39 @@ jobs:
         name: Checkout
         uses: actions/checkout@v4
       -
-        name: Login to Docker Hub
-        uses: docker/login-action@v3
+        name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       -
         name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile
+          file: ./iEchorfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
+          tags: ${{ secrets.IECHORHUB_USERNAME }}/clockbox:latest
 ```
 
 
 The previous YAML snippet contains a sequence of steps that:
 
 1. Checks out the repository on the build machine.
-2. Signs in to Docker Hub, using the
-   [Docker Login](https://github.com/marketplace/actions/docker-login) action and your Docker Hub credentials.
+2. Signs in to iEchor Hub, using the
+   [iEchor Login](https://github.com/marketplace/actions/iechor-login) action and your iEchor Hub credentials.
 3. Creates a BuildKit builder instance using the
-   [Docker Setup Buildx](https://github.com/marketplace/actions/docker-setup-buildx) action.
-4. Builds the container image and pushes it to the Docker Hub repository, using
-   [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images).
+   [iEchor Setup Buildx](https://github.com/marketplace/actions/iechor-setup-buildx) action.
+4. Builds the container image and pushes it to the iEchor Hub repository, using
+   [Build and push iEchor images](https://github.com/marketplace/actions/build-and-push-iechor-images).
 
    The `with` key lists a number of input parameters that configures the step:
 
    - `context`: the [build context](/build/building/context/).
-   - `file`: filepath to the Dockerfile.
+   - `file`: filepath to the iEchorfile.
    - `push`: tells the action to upload the image to a registry after building
      it.
    - `tags`: tags that specify where to push the image.
@@ -138,22 +138,22 @@ jobs:
         name: Checkout
         uses: actions/checkout@v4
       -
-        name: Login to Docker Hub
-        uses: docker/login-action@v3
+        name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       -
         name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile
+          file: ./iEchorfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
+          tags: ${{ secrets.IECHORHUB_USERNAME }}/clockbox:latest
 ```
 
 
@@ -170,7 +170,7 @@ Save the workflow file and run the job.
    Selecting the workflow shows you the breakdown of all the steps.
 
 3. When the workflow is complete, go to your
-   [repositories on Docker Hub](https://hub.docker.com/repositories).
+   [repositories on iEchor Hub](https://hub.iechor.com/repositories).
 
    If you see the new repository in that list, it means the GitHub Actions
-   successfully pushed the image to Docker Hub!
+   successfully pushed the image to iEchor Hub!

@@ -1,6 +1,6 @@
 ---
 title: Billing and payments
-description: Discover information on billing and payment processes for Docker subscriptions.
+description: Discover information on billing and payment processes for iEchor subscriptions.
 keywords: billing, invoice, payment, subscription
 grid_core:
 - title: Add or update a payment method
@@ -16,12 +16,12 @@ grid_core:
   link: /billing/core-billing/history/
   icon: payments
 grid_products:
-- title: Docker Scout billing
-  description: Explore how to buy and manage a Docker Scout subscription.
+- title: iEchor Scout billing
+  description: Explore how to buy and manage a iEchor Scout subscription.
   link: /billing/scout-billing/
   icon: query_stats
-- title: Docker Build Cloud billing
-  description: Learn how to buy and manage a Docker Build Cloud subscription.
+- title: iEchor Build Cloud billing
+  description: Learn how to buy and manage a iEchor Build Cloud subscription.
   link: /billing/build-billing/
   icon: build
 grid_resources:
@@ -31,13 +31,13 @@ grid_resources:
   icon: help
 ---
 
-Use the resources in this section to manage your billing and payment settings for your Docker subscriptions.
+Use the resources in this section to manage your billing and payment settings for your iEchor subscriptions.
 
-## Docker Core
+## iEchor Core
 
 {{< grid items="grid_core" >}}
 
-## Docker products
+## iEchor products
 
 {{< grid items="grid_products" >}}
 

@@ -7,17 +7,17 @@ description: Learn how to develop locally using Kubernetes
 ## Prerequisites
 
 - Complete all the previous sections of this guide, starting with [Containerize a R application](containerize.md).
-- [Turn on Kubernetes](/desktop/kubernetes/#install-and-turn-on-kubernetes) in Docker Desktop.
+- [Turn on Kubernetes](/desktop/kubernetes/#install-and-turn-on-kubernetes) in iEchor Desktop.
 
 ## Overview
 
-In this section, you'll learn how to use Docker Desktop to deploy your application to a fully-featured Kubernetes environment on your development machine. This allows you to test and debug your workloads on Kubernetes locally before deploying.
+In this section, you'll learn how to use iEchor Desktop to deploy your application to a fully-featured Kubernetes environment on your development machine. This allows you to test and debug your workloads on Kubernetes locally before deploying.
 
 ## Create a Kubernetes YAML file
 
-In your `r-docker-dev` directory, create a file named
-`docker-r-kubernetes.yaml`. Open the file in an IDE or text editor and add
-the following contents. Replace `DOCKER_USERNAME/REPO_NAME` with your Docker
+In your `r-iechor-dev` directory, create a file named
+`iechor-r-kubernetes.yaml`. Open the file in an IDE or text editor and add
+the following contents. Replace `IECHOR_USERNAME/REPO_NAME` with your iEchor
 username and the name of the repository that you created in [Configure CI/CD for
 your R application](configure-ci-cd.md).
 
@@ -25,7 +25,7 @@ your R application](configure-ci-cd.md).
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: docker-r-demo
+  name: iechor-r-demo
   namespace: default
 spec:
   replicas: 1
@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
        - name: shimy-service
-         image: DOCKER_USERNAME/REPO_NAME
+         image: IECHOR_USERNAME/REPO_NAME
          imagePullPolicy: Always
          env:
           - name: POSTGRES_PASSWORD
@@ -75,17 +75,17 @@ To learn more about Kubernetes objects, see the [Kubernetes documentation](https
 
 ## Deploy and check your application
 
-1. In a terminal, navigate to `r-docker-dev` and deploy your application to
+1. In a terminal, navigate to `r-iechor-dev` and deploy your application to
    Kubernetes.
 
    ```console
-   $ kubectl apply -f docker-r-kubernetes.yaml
+   $ kubectl apply -f iechor-r-kubernetes.yaml
    ```
 
    You should see output that looks like the following, indicating your Kubernetes objects were created successfully.
 
    ```text
-   deployment.apps/docker-r-demo created
+   deployment.apps/iechor-r-demo created
    service/service-entrypoint created
    ```
 
@@ -99,7 +99,7 @@ To learn more about Kubernetes objects, see the [Kubernetes documentation](https
 
    ```shell
    NAME                 READY   UP-TO-DATE   AVAILABLE   AGE
-   docker-r-demo   1/1     1            1           15s
+   iechor-r-demo   1/1     1            1           15s
    ```
 
    This indicates all one of the pods you asked for in your YAML are up and running. Do the same check for your services.
@@ -128,14 +128,14 @@ To learn more about Kubernetes objects, see the [Kubernetes documentation](https
 4. Run the following command to tear down your application.
 
    ```console
-   $ kubectl delete -f docker-r-kubernetes.yaml
+   $ kubectl delete -f iechor-r-kubernetes.yaml
    ```
 
 ## Summary
 
-In this section, you learned how to use Docker Desktop to deploy your application to a fully-featured Kubernetes environment on your development machine.
+In this section, you learned how to use iEchor Desktop to deploy your application to a fully-featured Kubernetes environment on your development machine.
 
 Related information:
    - [Kubernetes documentation](https://kubernetes.io/docs/home/)
-   - [Deploy on Kubernetes with Docker Desktop](../../desktop/kubernetes.md)
+   - [Deploy on Kubernetes with iEchor Desktop](../../desktop/kubernetes.md)
    - [Swarm mode overview](../../engine/swarm/_index.md)

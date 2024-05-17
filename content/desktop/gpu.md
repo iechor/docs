@@ -1,28 +1,28 @@
 ---
-title: GPU support in Docker Desktop
-description: How to use GPU in Docker Desktop
-keywords: gpu, gpu support, nvidia, wsl2, docker desktop, windows
+title: GPU support in iEchor Desktop
+description: How to use GPU in iEchor Desktop
+keywords: gpu, gpu support, nvidia, wsl2, iechor desktop, windows
 toc_max: 3
 ---
 
 > **Note**
 >
-> Currently GPU support in Docker Desktop is only available on Windows with the WSL2 backend.
+> Currently GPU support in iEchor Desktop is only available on Windows with the WSL2 backend.
 
 ## Using NVIDIA GPUs with WSL2
 
-Docker Desktop for Windows supports WSL 2 GPU Paravirtualization (GPU-PV) on NVIDIA GPUs. To enable WSL 2 GPU Paravirtualization, you need:
+iEchor Desktop for Windows supports WSL 2 GPU Paravirtualization (GPU-PV) on NVIDIA GPUs. To enable WSL 2 GPU Paravirtualization, you need:
 
 - A machine with an NVIDIA GPU
 - Up to date Windows 10 or Windows 11 installation
 - [Up to date drivers](https://developer.nvidia.com/cuda/wsl) from NVIDIA supporting WSL 2 GPU Paravirtualization
 - The latest version of the WSL 2 Linux kernel. Use `wsl --update` on the command line
-- To make sure the [WSL 2 backend is turned on](wsl/index.md/#turn-on-docker-desktop-wsl-2) in Docker Desktop
+- To make sure the [WSL 2 backend is turned on](wsl/index.md/#turn-on-iechor-desktop-wsl-2) in iEchor Desktop
 
-To validate that everything works as expected, execute a `docker run` command with the `--gpus=all` flag. For example, the following will run a short benchmark on your GPU:
+To validate that everything works as expected, execute a `iechor run` command with the `--gpus=all` flag. For example, the following will run a short benchmark on your GPU:
 
 ```console
-$ docker run --rm -it --gpus=all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark
+$ iechor run --rm -it --gpus=all nvcr.io/nvidia/k8s/cuda-sample:nbody nbody -gpu -benchmark
 ```
 The output will be similar to:
 
@@ -54,9 +54,9 @@ GPU Device 0: "GeForce RTX 2060 with Max-Q Design" with compute capability 7.5
 = 2724.379 single-precision GFLOP/s at 20 flops per interaction
 ```
 
-Or if you wanted to try something more useful you could use the official [Ollama image](https://hub.docker.com/r/ollama/ollama) to run the Llama2 large language model.
+Or if you wanted to try something more useful you could use the official [Ollama image](https://hub.iechor.com/r/ollama/ollama) to run the Llama2 large language model.
 
 ```console
-$ docker run --gpus=all -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
-$ docker exec -it ollama ollama run llama2
+$ iechor run --gpus=all -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
+$ iechor exec -it ollama ollama run llama2
 ```

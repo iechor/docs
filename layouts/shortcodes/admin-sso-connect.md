@@ -1,10 +1,10 @@
-{{ $product_link := "[Docker Hub](https://hub.docker.com)" }}
+{{ $product_link := "[iEchor Hub](https://hub.iechor.com)" }}
 {{ $sso_navigation := `Navigate to the SSO settings page for your organization or company.
    - Organization: Select **Organizations**, your organization, **Settings**, and then **Security**.
    - Company: Select **Organizations**, your company, and then **Settings**.` }}
 
 {{ if eq (.Get "product") "admin" }}
-  {{ $product_link = "the [Admin Console](https://admin.docker.com)" }}
+  {{ $product_link = "the [Admin Console](https://admin.iechor.com)" }}
   {{ $sso_navigation = "Select your organization or company in the left navigation drop-down menu, and then select **SSO & SCIM.**" }}
 {{ end }}
 
@@ -14,14 +14,14 @@
 
 ## Test your SSO configuration
 
-After you’ve completed the SSO configuration process in Docker, you can test the configuration when you sign in to {{ $product_link }} using an incognito browser. Sign in to {{ $product_link }} using your domain email address. You are then redirected to your IdP's login page to authenticate.
+After you’ve completed the SSO configuration process in iEchor, you can test the configuration when you sign in to {{ $product_link }} using an incognito browser. Sign in to {{ $product_link }} using your domain email address. You are then redirected to your IdP's login page to authenticate.
 
-1. Authenticate through email instead of using your Docker ID, and test the login process.
+1. Authenticate through email instead of using your iEchor ID, and test the login process.
 2. To authenticate through CLI, your users must have a PAT before you enforce SSO for CLI users.
 
 >**Important**
 >
-> SSO has Just-in-Time (JIT) provisioning enabled by default, unless you have [disabled it](/security/for-admins/group-mapping/#sso-authentication-with-jit-provisioning-disabled). This means your users are auto-provisioned to your organization on Docker Hub.
+> SSO has Just-in-Time (JIT) provisioning enabled by default, unless you have [disabled it](/security/for-admins/group-mapping/#sso-authentication-with-jit-provisioning-disabled). This means your users are auto-provisioned to your organization on iEchor Hub.
 >
 > You can change this on a per-app basis. To prevent auto-provisioning users, you can create a security group in your IdP and configure the SSO app to authenticate and authorize only those users that are in the security group. Follow the instructions provided by your IdP:
 >
@@ -37,14 +37,14 @@ The SSO connection is now created. You can continue to set up SCIM without enfor
 2. {{ $sso_navigation }}
 3. In the SSO connections table, select the **Action** icon and then **Enable enforcement**.
 
-   When SSO is enforced, your users are unable to modify their email address and password, convert a user account to an organization, or set up 2FA through Docker Hub. You must enable 2FA through your IdP.
+   When SSO is enforced, your users are unable to modify their email address and password, convert a user account to an organization, or set up 2FA through iEchor Hub. You must enable 2FA through your IdP.
 
 4. Continue with the on-screen instructions and verify that you’ve completed the tasks.
 5. Select **Turn on enforcement** to complete.
 
-Your users must now sign in to Docker with SSO.
+Your users must now sign in to iEchor with SSO.
 
 > **Important**
 >
-> If SSO isn't enforced, users can choose to sign in with either their Docker ID or SSO.
+> If SSO isn't enforced, users can choose to sign in with either their iEchor ID or SSO.
 { .important}

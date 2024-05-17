@@ -1,18 +1,18 @@
 ---
 description: Manager administration guide
-keywords: docker, container, swarm, manager, raft
-title: Administer and maintain a swarm of Docker Engines
+keywords: iechor, container, swarm, manager, raft
+title: Administer and maintain a swarm of iEchor Engines
 aliases:
 - /engine/swarm/manager-administration-guide/
 ---
 
-When you run a swarm of Docker Engines, manager nodes are the key components
+When you run a swarm of iEchor Engines, manager nodes are the key components
 for managing the swarm and storing the swarm state. It is important to
 understand some key features of manager nodes to properly deploy and
 maintain the swarm.
 
 Refer to [How nodes work](how-swarm-mode-works/nodes.md)
-for a brief overview of Docker Swarm mode and the difference between manager and
+for a brief overview of iEchor Swarm mode and the difference between manager and
 worker nodes.
 
 ## Operate manager nodes in a swarm
@@ -54,7 +54,7 @@ troubleshooting steps if you do lose the quorum of managers.
 
 When initiating a swarm, you must specify the `--advertise-addr` flag to
 advertise your address to other manager nodes in the swarm. For more
-information, see [Run Docker Engine in swarm mode](swarm-mode.md#configure-the-advertise-address). Because manager nodes are
+information, see [Run iEchor Engine in swarm mode](swarm-mode.md#configure-the-advertise-address). Because manager nodes are
 meant to be a stable component of the infrastructure, you should use a *fixed
 IP address* for the advertise address to prevent the swarm from becoming
 unstable on machine reboot.
@@ -98,7 +98,7 @@ the last node leaves the swarm unexpectedly during the demote operation, the
 swarm becomes unavailable until you reboot the node or restart with
 `--force-new-cluster`.
 
-You manage swarm membership with the `docker swarm` and `docker node`
+You manage swarm membership with the `iechor swarm` and `iechor node`
 subsystems. Refer to [Add nodes to a swarm](join-nodes.md) for more information
 on how to add worker nodes and promote a worker node to be a manager.
 
@@ -134,7 +134,7 @@ To avoid interference with manager node operation, you can drain manager nodes
 to make them unavailable as worker nodes:
 
 ```console
-$ docker node update --availability drain <NODE>
+$ iechor node update --availability drain <NODE>
 ```
 
 When you drain a node, the scheduler reassigns any tasks running on the node to
@@ -152,17 +152,17 @@ worker nodes that do not meet these requirements cannot run these tasks.
 
 ## Monitor swarm health
 
-You can monitor the health of manager nodes by querying the docker `nodes` API
+You can monitor the health of manager nodes by querying the iechor `nodes` API
 in JSON format through the `/nodes` HTTP endpoint. Refer to the
 [nodes API documentation](/engine/api/v1.25/#tag/Node)
 for more information.
 
-From the command line, run `docker node inspect <id-node>` to query the nodes.
+From the command line, run `iechor node inspect <id-node>` to query the nodes.
 For instance, to query the reachability of the node as a manager:
 
 
 ```console
-$ docker node inspect manager1 --format "{{ .ManagerStatus.Reachability }}"
+$ iechor node inspect manager1 --format "{{ .ManagerStatus.Reachability }}"
 reachable
 ```
 
@@ -171,7 +171,7 @@ To query the status of the node as a worker that accept tasks:
 
 
 ```console
-$ docker node inspect manager1 --format "{{ .Status.State }}"
+$ iechor node inspect manager1 --format "{{ .Status.State }}"
 ready
 ```
 
@@ -185,13 +185,13 @@ manager:
 
 - Restart the daemon and see if the manager comes back as reachable.
 - Reboot the machine.
-- If neither restarting nor rebooting works, you should add another manager node or promote a worker to be a manager node. You also need to cleanly remove the failed node entry from the manager set with `docker node demote <NODE>` and `docker node rm <id-node>`.
+- If neither restarting nor rebooting works, you should add another manager node or promote a worker to be a manager node. You also need to cleanly remove the failed node entry from the manager set with `iechor node demote <NODE>` and `iechor node rm <id-node>`.
 
 Alternatively you can also get an overview of the swarm health from a manager
-node with `docker node ls`:
+node with `iechor node ls`:
 
 ```console
-$ docker node ls
+$ iechor node ls
 ID                           HOSTNAME  MEMBERSHIP  STATUS  AVAILABILITY  MANAGER STATUS
 1mhtdwhvsgr3c26xxbnzdc3yp    node05    Accepted    Ready   Active
 516pacagkqp2xc3fk9t1dhjor    node02    Accepted    Ready   Active        Reachable
@@ -207,9 +207,9 @@ You should never restart a manager node by copying the `raft` directory from ano
 
 To cleanly re-join a manager node to a cluster:
 
-1. Demote the node to a worker using `docker node demote <NODE>`.
-2. Remove the node from the swarm using `docker node rm <NODE>`.
-3. Re-join the node to the swarm with a fresh state using `docker swarm join`.
+1. Demote the node to a worker using `iechor node demote <NODE>`.
+2. Remove the node from the swarm using `iechor node rm <NODE>`.
+3. Re-join the node to the swarm with a fresh state using `iechor swarm join`.
 
 For more information on joining a manager node to a swarm, refer to
 [Join nodes to a swarm](join-nodes.md).
@@ -217,16 +217,16 @@ For more information on joining a manager node to a swarm, refer to
 ## Forcibly remove a node
 
 In most cases, you should shut down a node before removing it from a swarm with
-the `docker node rm` command. If a node becomes unreachable, unresponsive, or
+the `iechor node rm` command. If a node becomes unreachable, unresponsive, or
 compromised you can forcefully remove the node without shutting it down by
 passing the `--force` flag. For instance, if `node9` becomes compromised:
 
 ```none
-$ docker node rm node9
+$ iechor node rm node9
 
 Error response from daemon: rpc error: code = 9 desc = node node9 is not down and can't be removed
 
-$ docker node rm --force node9
+$ iechor node rm --force node9
 
 Node node9 removed from swarm
 ```
@@ -237,8 +237,8 @@ you demote or remove a manager.
 
 ## Back up the swarm
 
-Docker manager nodes store the swarm state and manager logs in the
-`/var/lib/docker/swarm/` directory. This data includes the keys used to encrypt
+iEchor manager nodes store the swarm state and manager logs in the
+`/var/lib/iechor/swarm/` directory. This data includes the keys used to encrypt
 the Raft logs. Without these keys, you cannot restore the swarm.
 
 You can back up the swarm using any manager. Use the following procedure.
@@ -248,7 +248,7 @@ You can back up the swarm using any manager. Use the following procedure.
     store it in a safe location. If you are unsure, read
     [Lock your swarm to protect its encryption key](swarm_manager_locking.md).
 
-2.  Stop Docker on the manager before backing up the data, so that no data is
+2.  Stop iEchor on the manager before backing up the data, so that no data is
     being changed during the backup. It is possible to take a backup while the
     manager is running (a "hot" backup), but this is not recommended and your
     results are less predictable when restoring. While the manager is down,
@@ -263,7 +263,7 @@ You can back up the swarm using any manager. Use the following procedure.
     > consider running a five manager swarm, so that you can lose an additional
     > manager while the backup is running, without disrupting your services.
 
-3.  Back up the entire `/var/lib/docker/swarm` directory.
+3.  Back up the entire `/var/lib/iechor/swarm` directory.
 
 4.  Restart the manager.
 
@@ -277,12 +277,12 @@ After backing up the swarm as described in
 [Back up the swarm](#back-up-the-swarm), use the following procedure to
 restore the data to a new swarm.
 
-1.  Shut down Docker on the target host machine for the restored swarm.
+1.  Shut down iEchor on the target host machine for the restored swarm.
 
-2.  Remove the contents of the `/var/lib/docker/swarm` directory on the new
+2.  Remove the contents of the `/var/lib/iechor/swarm` directory on the new
     swarm.
 
-3.  Restore the `/var/lib/docker/swarm` directory with the contents of the
+3.  Restore the `/var/lib/iechor/swarm` directory with the contents of the
     backup.
 
     > **Note**
@@ -295,18 +295,18 @@ restore the data to a new swarm.
     > same as on the old swarm, and the unlock key is needed to restore the
     > swarm.
 
-4.  Start Docker on the new node. Unlock the swarm if necessary. Re-initialize
+4.  Start iEchor on the new node. Unlock the swarm if necessary. Re-initialize
     the swarm using the following command, so that this node does not attempt
     to connect to nodes that were part of the old swarm, and presumably no
     longer exist.
 
     ```console
-    $ docker swarm init --force-new-cluster
+    $ iechor swarm init --force-new-cluster
     ```
 
 5.  Verify that the state of the swarm is as expected. This may include
     application-specific tests or simply checking the output of
-    `docker service ls` to be sure that all expected services are present.
+    `iechor service ls` to be sure that all expected services are present.
 
 6.  If you use auto-lock,
     [rotate the unlock key](swarm_manager_locking.md#rotate-the-unlock-key).
@@ -352,11 +352,11 @@ desired number of managers.
 From the node to recover, run:
 
 ```console
-$ docker swarm init --force-new-cluster --advertise-addr node01:2377
+$ iechor swarm init --force-new-cluster --advertise-addr node01:2377
 ```
 
-When you run the `docker swarm init` command with the `--force-new-cluster`
-flag, the Docker Engine where you run the command becomes the manager node of a
+When you run the `iechor swarm init` command with the `--force-new-cluster`
+flag, the iEchor Engine where you run the command becomes the manager node of a
 single-node swarm which is capable of managing and running services. The manager
 has all the previous information about services and tasks, worker nodes are
 still part of the swarm, and services are still running. You need to add or
@@ -376,7 +376,7 @@ balance across the swarm. When new tasks start, or when a node with running
 tasks becomes unavailable, those tasks are given to less busy nodes. The goal
 is eventual balance, with minimal disruption to the end user.
 
-You can use the `--force` or `-f` flag with the `docker service update` command
+You can use the `--force` or `-f` flag with the `iechor service update` command
 to force the service to redistribute its tasks across the available worker nodes.
 This causes the service tasks to restart. Client applications may be disrupted.
 If you have configured it, your service uses a [rolling update](swarm-tutorial/rolling-update.md).
@@ -384,16 +384,16 @@ If you have configured it, your service uses a [rolling update](swarm-tutorial/r
 If you use an earlier version and you want to achieve an even balance of load
 across workers and don't mind disrupting running tasks, you can force your swarm
 to re-balance by temporarily scaling the service upward. Use
-`docker service inspect --pretty <servicename>` to see the configured scale
-of a service. When you use `docker service scale`, the nodes with the lowest
+`iechor service inspect --pretty <servicename>` to see the configured scale
+of a service. When you use `iechor service scale`, the nodes with the lowest
 number of tasks are targeted to receive the new workloads. There may be multiple
 under-loaded nodes in your swarm. You may need to scale the service up by modest
 increments a few times to achieve the balance you want across all the nodes.
 
 When the load is balanced to your satisfaction, you can scale the service back
-down to the original scale. You can use `docker service ps` to assess the current
+down to the original scale. You can use `iechor service ps` to assess the current
 balance of your service across nodes.
 
 See also
-[`docker service scale`](../../reference/cli/docker/service/scale.md) and
-[`docker service ps`](../../reference/cli/docker/service/ps.md).
+[`iechor service scale`](../../reference/cli/iechor/service/scale.md) and
+[`iechor service ps`](../../reference/cli/iechor/service/ps.md).

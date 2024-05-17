@@ -1,5 +1,5 @@
 ---
 title: Spring Boot samples
-description: Docker samples for Spring Boot.
+description: iEchor samples for Spring Boot.
 service: spring
 ---

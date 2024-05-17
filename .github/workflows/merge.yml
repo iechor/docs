@@ -14,7 +14,7 @@ on:
 jobs:
   main-to-published:
     runs-on: ubuntu-22.04
-    if: github.repository_owner == 'docker'
+    if: github.repository_owner == 'iechor'
     steps:
       - uses: actions/checkout@v4
         with:

@@ -1,20 +1,20 @@
-# Contributing to Docker Documentation
+# Contributing to iEchor Documentation
 
-We value documentation contributions from the Docker community. We'd like to
+We value documentation contributions from the iEchor community. We'd like to
 make it as easy as possible for you to work in this repository.
 
 Our style guide and instructions on using our page templates and components is
-available in the [contribution section](https://docs.docker.com/contribute/) on
+available in the [contribution section](https://docs.iechor.com/contribute/) on
 the website.
 
 The following guidelines describe the ways in which you can contribute to the
-Docker documentation at <https://docs.docker.com/>, and how to get started.
+iEchor documentation at <https://docs.iechor.com/>, and how to get started.
 
 ## Reporting issues
 
 If you encounter a problem with the content, or the site in general, feel free
-to [submit an issue](https://github.com/docker/docs/issues/new/choose) in our
-[GitHub issue tracker](https://github.com/docker/docs/issues). You can also use
+to [submit an issue](https://github.com/iechor/docs/issues/new/choose) in our
+[GitHub issue tracker](https://github.com/iechor/docs/issues). You can also use
 the issue tracker to raise requests on improvements, or suggest new content
 that you think is missing or that you would like to see.
 
@@ -46,16 +46,16 @@ Help make reviewing easier by following these guidelines:
 
 ### Local setup
 
-You can use Docker (surprise) to build and serve the files locally. 
+You can use iEchor (surprise) to build and serve the files locally. 
 
 > [!IMPORTANT]  
-> This requires Docker Desktop version **4.24** or later, or Docker Engine with Docker
-> Compose version [**2.22**](https://docs.docker.com/compose/file-watch/) or later.
+> This requires iEchor Desktop version **4.24** or later, or iEchor Engine with iEchor
+> Compose version [**2.22**](https://docs.iechor.com/compose/file-watch/) or later.
 
 1. Clone the repository:
 
    ```console
-   $ git clone git@github.com:docker/docs.git
+   $ git clone git@github.com:iechor/docs.git
    $ cd docs
    ```
 
@@ -68,7 +68,7 @@ You can use Docker (surprise) to build and serve the files locally.
 3. Start the local development server:
 
    ```console
-   $ docker compose watch
+   $ iechor compose watch
    ```
 
 The site will be served for local preview at <http://localhost:1313>. The
@@ -77,7 +77,7 @@ development server watches for changes and automatically rebuilds your site.
 To stop the development server:
 
 1. In your terminal, press `<Ctrl+C>` to exit the file watch mode of Compose.
-2. Stop the Compose service with the `docker compose down` command.
+2. Stop the Compose service with the `iechor compose down` command.
 
 ### Testing
 
@@ -86,7 +86,7 @@ test your site locally first. Local tests check for broken links, incorrectly
 formatted markup, and other things. To run the tests:
 
 ```console
-$ docker buildx bake validate
+$ iechor buildx bake validate
 ```
 
 If this command doesn't result in any errors, you're good to go!
@@ -97,17 +97,17 @@ CLI reference documentation is maintained in upstream repositories. It's
 partially generated from code, and is only vendored here for publishing. To
 update the CLI reference docs, refer to the corresponding repository:
 
-- [docker/cli](https://github.com/docker/cli)
-- [docker/buildx](https://github.com/docker/buildx)
-- [docker/compose](https://github.com/docker/compose)
+- [iechor/cli](https://github.com/iechor/cli)
+- [iechor/buildx](https://github.com/iechor/buildx)
+- [iechor/compose](https://github.com/iechor/compose)
 
 Feel free to raise an issue on this repository if you're not sure how to
 proceed, and we'll help out.
 
 Other content that appears on the site, but that's not edited here, includes:
 
-- Dockerfile reference
-- Docker Engine API reference
+- iEchorfile reference
+- iEchor Engine API reference
 - Compose specification
 - Buildx Bake reference
 

@@ -1,13 +1,13 @@
 ---
-description: How Docker Compose sets up networking between containers
-keywords: documentation, docs, docker, compose, orchestration, containers, networking
+description: How iEchor Compose sets up networking between containers
+keywords: documentation, docs, iechor, compose, orchestration, containers, networking
 title: Networking in Compose
 ---
 
 {{< include "compose-eol.md" >}}
 
 By default Compose sets up a single
-[network](../reference/cli/docker/network/create.md) for your app. Each
+[network](../reference/cli/iechor/network/create.md) for your app. Each
 container for a service joins the default network and is both reachable by
 other containers on that network, and discoverable by the service's name.
 
@@ -32,7 +32,7 @@ services:
       - "8001:5432"
 ```
 
-When you run `docker compose up`, the following happens:
+When you run `iechor compose up`, the following happens:
 
 1.  A network called `myapp_default` is created.
 2.  A container is created using `web`'s configuration. It joins the network
@@ -53,11 +53,11 @@ the service is accessible outside the swarm as well.
 
 Within the `web` container, your connection string to `db` would look like
 `postgres://db:5432`, and from the host machine, the connection string would
-look like `postgres://{DOCKER_IP}:8001` for example `postgres://localhost:8001` if your container is running locally.
+look like `postgres://{IECHOR_IP}:8001` for example `postgres://localhost:8001` if your container is running locally.
 
 ## Update containers on the network
 
-If you make a configuration change to a service and run `docker compose up` to update it, the old container is removed and the new one joins the network under a different IP address but the same name. Running containers can look up that name and connect to the new address, but the old address stops working.
+If you make a configuration change to a service and run `iechor compose up` to update it, the old container is removed and the new one joins the network under a different IP address but the same name. Running containers can look up that name and connect to the new address, but the old address stops working.
 
 If any containers have connections open to the old container, they are closed. It is a container's responsibility to detect this condition, look up the name again and reconnect.
 
@@ -85,7 +85,7 @@ See the [links reference](compose-file/05-services.md#links) for more informatio
 
 ## Multi-host networking
 
-When deploying a Compose application on a Docker Engine with [Swarm mode enabled](../engine/swarm/index.md),
+When deploying a Compose application on a iEchor Engine with [Swarm mode enabled](../engine/swarm/index.md),
 you can make use of the built-in `overlay` driver to enable multi-host communication.
 
 Overlay networks are always created as `attachable`. You can optionally set the [`attachable`](compose-file/06-networks.md#attachable) property to `false`.

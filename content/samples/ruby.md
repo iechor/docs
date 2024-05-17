@@ -1,5 +1,5 @@
 ---
 title: Ruby samples
-description: Docker samples for Ruby.
+description: iEchor samples for Ruby.
 service: ruby
 ---

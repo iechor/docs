@@ -13,11 +13,11 @@ in a portable way.
 
 `build` can be either specified as a single string defining a context path, or as a detailed build definition.
 
-In the former case, the whole path is used as a Docker context to execute a Docker build, looking for a canonical
-`Dockerfile` at the root of the directory. The path can be absolute or relative. If it is relative, it is resolved
+In the former case, the whole path is used as a iEchor context to execute a iEchor build, looking for a canonical
+`iEchorfile` at the root of the directory. The path can be absolute or relative. If it is relative, it is resolved
 from the Compose file's parent folder. If it is absolute, the path prevents the Compose file from being portable so Compose displays a warning. 
 
-In the latter case, build arguments can be specified, including an alternate `Dockerfile` location. The path can be absolute or relative. If it is relative, it is resolved
+In the latter case, build arguments can be specified, including an alternate `iEchorfile` location. The path can be absolute or relative. If it is relative, it is resolved
 from the Compose file's parent folder. If it is absolute, the path prevents the Compose file from being portable so Compose displays a warning.
 
 ## Using `build` and `image`
@@ -45,27 +45,27 @@ services:
     image: example/database
     build:
       context: backend
-      dockerfile: ../backend.Dockerfile
+      iechorfile: ../backend.iEchorfile
 
   custom:
     build: ~/custom
 ```
 
-When used to build service images from source, the Compose file creates three Docker images:
+When used to build service images from source, the Compose file creates three iEchor images:
 
-* `example/webapp`: A Docker image is built using `webapp` sub-directory, within the Compose file's parent folder, as the Docker build context. Lack of a `Dockerfile` within this folder throws an error.
-* `example/database`: A Docker image is built using `backend` sub-directory within the Compose file parent folder. `backend.Dockerfile` file is used to define build steps, this file is searched relative to the context path, which means `..` resolves to the Compose file's parent folder, so `backend.Dockerfile` is a sibling file.
-* A Docker image is built using the `custom` directory with the user's HOME as the Docker context. Compose displays a warning about the non-portable path used to build image.
+* `example/webapp`: A iEchor image is built using `webapp` sub-directory, within the Compose file's parent folder, as the iEchor build context. Lack of a `iEchorfile` within this folder throws an error.
+* `example/database`: A iEchor image is built using `backend` sub-directory within the Compose file parent folder. `backend.iEchorfile` file is used to define build steps, this file is searched relative to the context path, which means `..` resolves to the Compose file's parent folder, so `backend.iEchorfile` is a sibling file.
+* A iEchor image is built using the `custom` directory with the user's HOME as the iEchor context. Compose displays a warning about the non-portable path used to build image.
 
-On push, both `example/webapp` and `example/database` Docker images are pushed to the default registry. The `custom` service image is skipped as no `image` attribute is set and Compose displays a warning about this missing attribute.
+On push, both `example/webapp` and `example/database` iEchor images are pushed to the default registry. The `custom` service image is skipped as no `image` attribute is set and Compose displays a warning about this missing attribute.
 
 ## Attributes
 
-The `build` subsection defines configuration options that are applied by Compose to build Docker images from source.
+The `build` subsection defines configuration options that are applied by Compose to build iEchor images from source.
 `build` can be specified either as a string containing a path to the build context or as a detailed structure:
 
 Using the string syntax, only the build context can be configured as either:
-- A relative path to the Compose file's parent folder. This path must be a directory and must contain a `Dockerfile`
+- A relative path to the Compose file's parent folder. This path must be a directory and must contain a `iEchorfile`
 
   ```yml
   services:
@@ -87,7 +87,7 @@ Alternatively `build` can be an object with fields defined as follows:
 
 ### context
 
-`context` defines either a path to a directory containing a Dockerfile, or a URL to a git repository.
+`context` defines either a path to a directory containing a iEchorfile, or a URL to a git repository.
 
 When the value supplied is a relative path, it is interpreted as relative to the location of the Compose file.
 Compose warns you about the absolute path used to define the build context as those prevent the Compose file
@@ -106,34 +106,34 @@ services:
 
 If not set explicitly, `context` defaults to project directory (`.`). 
 
-### dockerfile
+### iechorfile
 
-`dockerfile` sets an alternate Dockerfile. A relative path is resolved from the build context.
-Compose warns you about the absolute path used to define the Dockerfile as it prevents Compose files
+`iechorfile` sets an alternate iEchorfile. A relative path is resolved from the build context.
+Compose warns you about the absolute path used to define the iEchorfile as it prevents Compose files
 from being portable.
 
-When set, `dockerfile_inline` attribute is not allowed and Compose
+When set, `iechorfile_inline` attribute is not allowed and Compose
 rejects any Compose file having both set.
 
 ```yml
 build:
   context: .
-  dockerfile: webapp.Dockerfile
+  iechorfile: webapp.iEchorfile
 ```
 
-### dockerfile_inline
+### iechorfile_inline
 
 {{< introduced compose 2.17.0 "../release-notes.md#2170" >}}
 
-`dockerfile_inline` defines the Dockerfile content as an inlined string in a Compose file. When set, the `dockerfile`
+`iechorfile_inline` defines the iEchorfile content as an inlined string in a Compose file. When set, the `iechorfile`
 attribute is not allowed and Compose rejects any Compose file having both set.
 
-Use of YAML multi-line string syntax is recommended to define the Dockerfile content:
+Use of YAML multi-line string syntax is recommended to define the iEchorfile content:
 
 ```yml
 build:
   context: .
-  dockerfile_inline: |
+  iechorfile_inline: |
     FROM baseimage
     RUN some command
 ```
@@ -141,11 +141,11 @@ build:
 
 ### args
 
-`args` define build arguments, i.e. Dockerfile `ARG` values.
+`args` define build arguments, i.e. iEchorfile `ARG` values.
 
-Using the following Dockerfile as an example:
+Using the following iEchorfile as an example:
 
-```Dockerfile
+```iEchorfile
 ARG GIT_COMMIT
 RUN echo "Based on commit: $GIT_COMMIT"
 ```
@@ -167,7 +167,7 @@ build:
 ```
 
 Values can be omitted when specifying a build argument, in which case its value at build time must be obtained by user interaction,
-otherwise the build arg won't be set when building the Docker image.
+otherwise the build arg won't be set when building the iEchor image.
 
 ```yml
 args:
@@ -203,7 +203,7 @@ build:
     - myproject=~/.ssh/myproject.pem
 ```
 The image builder can then rely on this to mount the SSH key during build.
-For illustration, [BuildKit extended syntax](https://github.com/compose-spec/compose-spec/pull/234/%5Bmoby/buildkit@master/frontend/dockerfile/docs/syntax.md#run---mounttypessh%5D(https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/syntax.md#run---mounttypessh)) can be used to mount the SSH key set by ID and access a secured resource:
+For illustration, [BuildKit extended syntax](https://github.com/compose-spec/compose-spec/pull/234/%5Bmoby/buildkit@master/frontend/iechorfile/docs/syntax.md#run---mounttypessh%5D(https://github.com/moby/buildkit/blob/master/frontend/iechorfile/docs/syntax.md#run---mounttypessh)) can be used to mount the SSH key set by ID and access a secured resource:
 
 `RUN --mount=type=ssh,id=myproject git clone ...`
 
@@ -258,7 +258,7 @@ build:
   context: .
   additional_contexts:
     - resources=/path/to/resources
-    - app=docker-image://my-app:latest
+    - app=iechor-image://my-app:latest
     - source=https://github.com/myuser/project.git
 ```
 
@@ -267,7 +267,7 @@ build:
   context: .
   additional_contexts:
     resources: /path/to/resources
-    app: docker-image://my-app:latest
+    app: iechor-image://my-app:latest
     source: https://github.com/myuser/project.git
 ```
 
@@ -280,7 +280,7 @@ Compose warns you if the image builder does not support additional contexts and 
 the unused contexts.
 
 Illustrative examples of how this is used in Buildx can be found
-[here](https://github.com/docker/buildx/blob/master/docs/reference/buildx_build.md#-additional-build-contexts---build-context).
+[here](https://github.com/iechor/buildx/blob/master/docs/reference/buildx_build.md#-additional-build-contexts---build-context).
 
 ### extra_hosts
 
@@ -299,7 +299,7 @@ extra_hosts:
   - "myhostv6=[::1]"
 ```
 
-The separator `=` is preferred, but `:` can also be used. Introduced in Docker Compose version [2.24.1](../release-notes.md#2241). For example:
+The separator `=` is preferred, but `:` can also be used. Introduced in iEchor Compose version [2.24.1](../release-notes.md#2241). For example:
 
 ```yml
 extra_hosts:
@@ -360,12 +360,12 @@ build:
 ### no_cache
 
 `no_cache` disables image builder cache and enforces a full rebuild from source for all image layers. This only
-applies to layers declared in the Dockerfile, referenced images COULD be retrieved from local image store whenever tag
+applies to layers declared in the iEchorfile, referenced images COULD be retrieved from local image store whenever tag
 has been updated on registry (see [pull](#pull)).
 
 ### pull
 
-`pull` requires the image builder to pull referenced images (`FROM` Dockerfile directive), even if those are already
+`pull` requires the image builder to pull referenced images (`FROM` iEchorfile directive), even if those are already
 available in the local image store.
 
 ### network
@@ -394,7 +394,7 @@ build:
 
 ### shm_size
 
-`shm_size` sets the size of the shared memory (`/dev/shm` partition on Linux) allocated for building Docker images. Specify
+`shm_size` sets the size of the shared memory (`/dev/shm` partition on Linux) allocated for building iEchor images. Specify
 as an integer value representing the number of bytes or as a string expressing a [byte value](11-extension.md#specifying-byte-values).
 
 ```yml
@@ -411,7 +411,7 @@ build:
 
 ### target
 
-`target` defines the stage to build as defined inside a multi-stage `Dockerfile`.
+`target` defines the stage to build as defined inside a multi-stage `iEchorfile`.
 
 ```yml
 build:

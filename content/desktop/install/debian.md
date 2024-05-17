@@ -1,28 +1,28 @@
 ---
-description: Instructions for installing Docker Desktop on Debian
-keywords: debian, install, uninstall, upgrade, update, linux, desktop, docker desktop,
-  docker desktop for linux, dd4l
-title: Install Docker Desktop on Debian
+description: Instructions for installing iEchor Desktop on Debian
+keywords: debian, install, uninstall, upgrade, update, linux, desktop, iechor desktop,
+  iechor desktop for linux, dd4l
+title: Install iEchor Desktop on Debian
 toc_max: 4
 aliases:
 - /desktop/linux/install/debian/
 ---
 
-> **Docker Desktop terms**
+> **iEchor Desktop terms**
 >
-> Commercial use of Docker Desktop in larger enterprises (more than 250
+> Commercial use of iEchor Desktop in larger enterprises (more than 250
 > employees OR more than $10 million USD in annual revenue) requires a [paid
-> subscription](https://www.docker.com/pricing/).
+> subscription](https://www.iechor.com/pricing/).
 
-This page contains information on how to install, launch, and upgrade Docker Desktop on a Debian distribution.
+This page contains information on how to install, launch, and upgrade iEchor Desktop on a Debian distribution.
 
-{{< button text="DEB package" url="https://desktop.docker.com/linux/main/amd64/149282/docker-desktop-4.30.0-amd64.deb?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64" >}}
+{{< button text="DEB package" url="https://desktop.iechor.com/linux/main/amd64/149282/iechor-desktop-4.30.0-amd64.deb?utm_source=iechor&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64" >}}
 
 _For checksums, see [Release notes](../release-notes.md)_
 
 ## Prerequisites
 
-To install Docker Desktop successfully, you must:
+To install iEchor Desktop successfully, you must:
 
 - Meet the [system requirements](linux-install.md#system-requirements).
 - Have a 64-bit version of Debian 12.
@@ -34,20 +34,20 @@ To install Docker Desktop successfully, you must:
   $ sudo apt install gnome-terminal
   ```
 
-## Install Docker Desktop
+## Install iEchor Desktop
 
-Recommended approach to install Docker Desktop on Debian:
+Recommended approach to install iEchor Desktop on Debian:
 
-1. Set up Docker's `apt` repository.
+1. Set up iEchor's `apt` repository.
    See step one of [Install using the `apt` repository](../../engine/install/debian.md#install-using-the-repository).
 
-2. Download latest [DEB package](https://desktop.docker.com/linux/main/amd64/149282/docker-desktop-4.30.0-amd64.deb?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64).
+2. Download latest [DEB package](https://desktop.iechor.com/linux/main/amd64/149282/iechor-desktop-4.30.0-amd64.deb?utm_source=iechor&utm_medium=webreferral&utm_campaign=docs-driven-download-linux-amd64).
 
 3. Install the package with apt as follows:
 
   ```console
   $ sudo apt-get update
-  $ sudo apt-get install ./docker-desktop-<version>-<arch>.deb
+  $ sudo apt-get install ./iechor-desktop-<version>-<arch>.deb
   ```
 
   > **Note**
@@ -56,33 +56,33 @@ Recommended approach to install Docker Desktop on Debian:
   > can ignore this error message.
   >
   > ```text
-  > N: Download is performed unsandboxed as root, as file '/home/user/Downloads/docker-desktop.deb' couldn't be accessed by user '_apt'. - pkgAcquire::Run (13: Permission denied)
+  > N: Download is performed unsandboxed as root, as file '/home/user/Downloads/iechor-desktop.deb' couldn't be accessed by user '_apt'. - pkgAcquire::Run (13: Permission denied)
   > ```
 
 There are a few post-install configuration steps done through the post-install script contained in the deb package.
 
 The post-install script:
 
-- Sets the capability on the Docker Desktop binary to map privileged ports and set resource limits.
+- Sets the capability on the iEchor Desktop binary to map privileged ports and set resource limits.
 - Adds a DNS name for Kubernetes to `/etc/hosts`.
-- Creates a symlink from `/usr/local/bin/com.docker.cli` to `/usr/bin/docker`.
-  This is because the classic Docker CLI is installed at `/usr/bin/docker`. The Docker Desktop installer also installs a Docker CLI binary that includes cloud-integration capabilities and is essentially a wrapper for the Compose CLI, at`/usr/local/bin/com.docker.cli`. The symlink ensures that the wrapper can access the classic Docker CLI. 
+- Creates a symlink from `/usr/local/bin/com.iechor.cli` to `/usr/bin/iechor`.
+  This is because the classic iEchor CLI is installed at `/usr/bin/iechor`. The iEchor Desktop installer also installs a iEchor CLI binary that includes cloud-integration capabilities and is essentially a wrapper for the Compose CLI, at`/usr/local/bin/com.iechor.cli`. The symlink ensures that the wrapper can access the classic iEchor CLI. 
 
-## Launch Docker Desktop
+## Launch iEchor Desktop
 
 {{< include "desktop-linux-launch.md" >}}
 
-## Upgrade Docker Desktop
+## Upgrade iEchor Desktop
 
-Once a new version for Docker Desktop is released, the Docker UI shows a notification.
-You need to download the new package each time you want to upgrade Docker Desktop and run:
+Once a new version for iEchor Desktop is released, the iEchor UI shows a notification.
+You need to download the new package each time you want to upgrade iEchor Desktop and run:
 
 ```console
-$ sudo apt-get install ./docker-desktop-<version>-<arch>.deb
+$ sudo apt-get install ./iechor-desktop-<version>-<arch>.deb
 ```
 
 ## Next steps
 
 - Take a look at the [Get started](../../guides/get-started/_index.md) training modules to learn how to build an image and run it as a containerized application.
-- [Explore Docker Desktop](../use-desktop/index.md) and all its features.
-- Review the topics in [Develop with Docker](../../develop/index.md) to learn how to build new applications using Docker.
+- [Explore iEchor Desktop](../use-desktop/index.md) and all its features.
+- Review the topics in [Develop with iEchor](../../develop/index.md) to learn how to build new applications using iEchor.

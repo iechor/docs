@@ -1,0 +1,57 @@
+command: iechor buildx
+short: iEchor Buildx
+long: Extended build capabilities with BuildKit
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor buildx bake
+    - iechor buildx build
+    - iechor buildx create
+    - iechor buildx debug
+    - iechor buildx dial-stdio
+    - iechor buildx du
+    - iechor buildx imagetools
+    - iechor buildx inspect
+    - iechor buildx ls
+    - iechor buildx prune
+    - iechor buildx rm
+    - iechor buildx stop
+    - iechor buildx use
+    - iechor buildx version
+clink:
+    - iechor_buildx_bake.yaml
+    - iechor_buildx_build.yaml
+    - iechor_buildx_create.yaml
+    - iechor_buildx_debug.yaml
+    - iechor_buildx_dial-stdio.yaml
+    - iechor_buildx_du.yaml
+    - iechor_buildx_imagetools.yaml
+    - iechor_buildx_inspect.yaml
+    - iechor_buildx_ls.yaml
+    - iechor_buildx_prune.yaml
+    - iechor_buildx_rm.yaml
+    - iechor_buildx_stop.yaml
+    - iechor_buildx_use.yaml
+    - iechor_buildx_version.yaml
+options:
+    - option: builder
+      value_type: string
+      description: Override the configured builder instance
+      details_url: '#builder'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### Override the configured builder instance (--builder) {#builder}
+
+    You can also use the `BUILDX_BUILDER` environment variable.
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

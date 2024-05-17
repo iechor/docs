@@ -1,19 +1,19 @@
 ---
-description: Run the Docker daemon as a non-root user (Rootless mode)
+description: Run the iEchor daemon as a non-root user (Rootless mode)
 keywords: security, namespaces, rootless
-title: Run the Docker daemon as a non-root user (Rootless mode)
+title: Run the iEchor daemon as a non-root user (Rootless mode)
 ---
 
-Rootless mode allows running the Docker daemon and containers as a non-root
+Rootless mode allows running the iEchor daemon and containers as a non-root
 user to mitigate potential vulnerabilities in the daemon and
 the container runtime.
 
 Rootless mode does not require root privileges even during the installation of
-the Docker daemon, as long as the [prerequisites](#prerequisites) are met.
+the iEchor daemon, as long as the [prerequisites](#prerequisites) are met.
 
 ## How it works
 
-Rootless mode executes the Docker daemon and containers inside a user namespace.
+Rootless mode executes the iEchor daemon and containers inside a user namespace.
 This is very similar to [`userns-remap` mode](userns-remap.md), except that
 with `userns-remap` mode, the daemon itself is running with root privileges,
 whereas in rootless mode, both the daemon and the container are running without
@@ -64,12 +64,12 @@ testuser:231072:65536
   unless an AppArmor profile is configured to allow programs to use
   unprivileged user namespaces.
 
-  If you install `docker-ce-rootless-extras` using the deb package (`apt-get
-  install docker-ce-rootless-extras`), then the AppArmor profile for
+  If you install `iechor-ce-rootless-extras` using the deb package (`apt-get
+  install iechor-ce-rootless-extras`), then the AppArmor profile for
   `rootlesskit` is already bundled with the `apparmor` deb package. With this
   installation method, you don't need to add any manual the AppArmor
   configuration. If you install the rootless extras using the [installation
-  script](https://get.docker.com/rootless), however, you must add an AppArmor
+  script](https://get.iechor.com/rootless), however, you must add an AppArmor
   profile for `rootlesskit` manually:
 
   1. Create and install the currently logged-in user's AppArmor profile:
@@ -105,7 +105,7 @@ testuser:231072:65536
   Using `overlay2` storage driver with Debian-specific modprobe option `sudo modprobe overlay permit_mounts_in_userns=1` is also possible,
   however, highly discouraged due to [instability](https://github.com/moby/moby/issues/42302).
 
-- Rootless docker requires version of `slirp4netns` greater than `v0.4.0` (when `vpnkit` is not installed).
+- Rootless iechor requires version of `slirp4netns` greater than `v0.4.0` (when `vpnkit` is not installed).
   Check you have this with 
   
   ```console
@@ -139,7 +139,7 @@ testuser:231072:65536
   `/etc/sysctl.d`) and run `sudo sysctl --system`.
 
 - `systemctl --user` does not work by default. 
-  Run `dockerd-rootless.sh` directly without systemd.
+  Run `iechord-rootless.sh` directly without systemd.
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -148,7 +148,7 @@ testuser:231072:65536
 - Only the following storage drivers are supported:
   - `overlay2` (only if running with kernel 5.11 or later, or Ubuntu-flavored kernel)
   - `fuse-overlayfs` (only if running with kernel 4.18 or later, and `fuse-overlayfs` is installed)
-  - `btrfs` (only if running with kernel 4.18 or later, or `~/.local/share/docker` is mounted with `user_subvol_rm_allowed` mount option)
+  - `btrfs` (only if running with kernel 4.18 or later, or `~/.local/share/iechor` is mounted with `user_subvol_rm_allowed` mount option)
   - `vfs`
 - Cgroup is supported only when running with cgroup v2 and systemd. See [Limiting resources](#limiting-resources).
 - Following features are not supported:
@@ -158,71 +158,71 @@ testuser:231072:65536
   - Exposing SCTP ports
 - To use the `ping` command, see [Routing ping packets](#routing-ping-packets).
 - To expose privileged TCP/UDP ports (< 1024), see [Exposing privileged ports](#exposing-privileged-ports).
-- `IPAddress` shown in `docker inspect` is namespaced inside RootlessKit's network namespace.
+- `IPAddress` shown in `iechor inspect` is namespaced inside RootlessKit's network namespace.
   This means the IP address is not reachable from the host without `nsenter`-ing into the network namespace.
-- Host network (`docker run --net=host`) is also namespaced inside RootlessKit.
-- NFS mounts as the docker "data-root" is not supported. This limitation is not specific to rootless mode.
+- Host network (`iechor run --net=host`) is also namespaced inside RootlessKit.
+- NFS mounts as the iechor "data-root" is not supported. This limitation is not specific to rootless mode.
 
 ## Install
 
 > **Note**
 >
-> If the system-wide Docker daemon is already running, consider disabling it:
+> If the system-wide iEchor daemon is already running, consider disabling it:
 >```console
->$ sudo systemctl disable --now docker.service docker.socket
->$ sudo rm /var/run/docker.sock
+>$ sudo systemctl disable --now iechor.service iechor.socket
+>$ sudo rm /var/run/iechor.sock
 >```
-> Should you choose not to shut down the `docker` service and socket, you will need to use the `--force`
+> Should you choose not to shut down the `iechor` service and socket, you will need to use the `--force`
 > parameter in the next section. There are no known issues, but until you shutdown and disable you're
-> still running rootful Docker. 
+> still running rootful iEchor. 
 
 {{< tabs >}}
 {{< tab name="With packages (RPM/DEB)" >}}
 
-If you installed Docker 20.10 or later with [RPM/DEB packages](/engine/install), you should have `dockerd-rootless-setuptool.sh` in `/usr/bin`.
+If you installed iEchor 20.10 or later with [RPM/DEB packages](/engine/install), you should have `iechord-rootless-setuptool.sh` in `/usr/bin`.
 
-Run `dockerd-rootless-setuptool.sh install` as a non-root user to set up the daemon:
+Run `iechord-rootless-setuptool.sh install` as a non-root user to set up the daemon:
 
 ```console
-$ dockerd-rootless-setuptool.sh install
-[INFO] Creating /home/testuser/.config/systemd/user/docker.service
+$ iechord-rootless-setuptool.sh install
+[INFO] Creating /home/testuser/.config/systemd/user/iechor.service
 ...
-[INFO] Installed docker.service successfully.
-[INFO] To control docker.service, run: `systemctl --user (start|stop|restart) docker.service`
-[INFO] To run docker.service on system startup, run: `sudo loginctl enable-linger testuser`
+[INFO] Installed iechor.service successfully.
+[INFO] To control iechor.service, run: `systemctl --user (start|stop|restart) iechor.service`
+[INFO] To run iechor.service on system startup, run: `sudo loginctl enable-linger testuser`
 
 [INFO] Make sure the following environment variables are set (or add them to ~/.bashrc):
 
 export PATH=/usr/bin:$PATH
-export DOCKER_HOST=unix:///run/user/1000/docker.sock
+export IECHOR_HOST=unix:///run/user/1000/iechor.sock
 ```
 
-If `dockerd-rootless-setuptool.sh` is not present, you may need to install the `docker-ce-rootless-extras` package manually, e.g.,
+If `iechord-rootless-setuptool.sh` is not present, you may need to install the `iechor-ce-rootless-extras` package manually, e.g.,
 
 ```console
-$ sudo apt-get install -y docker-ce-rootless-extras
+$ sudo apt-get install -y iechor-ce-rootless-extras
 ```
 
 {{< /tab >}}
 {{< tab name="Without packages" >}}
 
 If you do not have permission to run package managers like `apt-get` and `dnf`,
-consider using the installation script available at [https://get.docker.com/rootless](https://get.docker.com/rootless).
+consider using the installation script available at [https://get.iechor.com/rootless](https://get.iechor.com/rootless).
 Since static packages are not available for `s390x`, hence it is not supported for `s390x`.
 
 ```console
-$ curl -fsSL https://get.docker.com/rootless | sh
+$ curl -fsSL https://get.iechor.com/rootless | sh
 ...
-[INFO] Creating /home/testuser/.config/systemd/user/docker.service
+[INFO] Creating /home/testuser/.config/systemd/user/iechor.service
 ...
-[INFO] Installed docker.service successfully.
-[INFO] To control docker.service, run: `systemctl --user (start|stop|restart) docker.service`
-[INFO] To run docker.service on system startup, run: `sudo loginctl enable-linger testuser`
+[INFO] Installed iechor.service successfully.
+[INFO] To control iechor.service, run: `systemctl --user (start|stop|restart) iechor.service`
+[INFO] To run iechor.service on system startup, run: `sudo loginctl enable-linger testuser`
 
 [INFO] Make sure the following environment variables are set (or add them to ~/.bashrc):
 
 export PATH=/home/testuser/bin:$PATH
-export DOCKER_HOST=unix:///run/user/1000/docker.sock
+export IECHOR_HOST=unix:///run/user/1000/iechor.sock
 ```
 
 The binaries will be installed at `~/bin`.
@@ -234,28 +234,28 @@ See [Troubleshooting](#troubleshooting) if you faced an error.
 
 ## Uninstall
 
-To remove the systemd service of the Docker daemon, run `dockerd-rootless-setuptool.sh uninstall`:
+To remove the systemd service of the iEchor daemon, run `iechord-rootless-setuptool.sh uninstall`:
 
 ```console
-$ dockerd-rootless-setuptool.sh uninstall
-+ systemctl --user stop docker.service
-+ systemctl --user disable docker.service
-Removed /home/testuser/.config/systemd/user/default.target.wants/docker.service.
-[INFO] Uninstalled docker.service
-[INFO] This uninstallation tool does NOT remove Docker binaries and data.
-[INFO] To remove data, run: `/usr/bin/rootlesskit rm -rf /home/testuser/.local/share/docker`
+$ iechord-rootless-setuptool.sh uninstall
++ systemctl --user stop iechor.service
++ systemctl --user disable iechor.service
+Removed /home/testuser/.config/systemd/user/default.target.wants/iechor.service.
+[INFO] Uninstalled iechor.service
+[INFO] This uninstallation tool does NOT remove iEchor binaries and data.
+[INFO] To remove data, run: `/usr/bin/rootlesskit rm -rf /home/testuser/.local/share/iechor`
 ```
 
-Unset environment variables PATH and DOCKER_HOST if you have added them to `~/.bashrc`.
+Unset environment variables PATH and IECHOR_HOST if you have added them to `~/.bashrc`.
 
-To remove the data directory, run `rootlesskit rm -rf ~/.local/share/docker`.
+To remove the data directory, run `rootlesskit rm -rf ~/.local/share/iechor`.
 
-To remove the binaries, remove `docker-ce-rootless-extras` package if you installed Docker with package managers.
-If you installed Docker with https://get.docker.com/rootless ([Install without packages](#install)),
+To remove the binaries, remove `iechor-ce-rootless-extras` package if you installed iEchor with package managers.
+If you installed iEchor with https://get.iechor.com/rootless ([Install without packages](#install)),
 remove the binary files under `~/bin`:
 ```console
 $ cd ~/bin
-$ rm -f containerd containerd-shim containerd-shim-runc-v2 ctr docker docker-init docker-proxy dockerd dockerd-rootless-setuptool.sh dockerd-rootless.sh rootlesskit rootlesskit-docker-proxy runc vpnkit
+$ rm -f containerd containerd-shim containerd-shim-runc-v2 ctr iechor iechor-init iechor-proxy iechord iechord-rootless-setuptool.sh iechord-rootless.sh rootlesskit rootlesskit-iechor-proxy runc vpnkit
 ```
 
 ## Usage
@@ -265,32 +265,32 @@ $ rm -f containerd containerd-shim containerd-shim-runc-v2 ctr docker docker-ini
 {{< tabs >}}
 {{< tab name="With systemd (Highly recommended)" >}}
 
-The systemd unit file is installed as  `~/.config/systemd/user/docker.service`.
+The systemd unit file is installed as  `~/.config/systemd/user/iechor.service`.
 
 Use `systemctl --user` to manage the lifecycle of the daemon:
 
 ```console
-$ systemctl --user start docker
+$ systemctl --user start iechor
 ```
 
 To launch the daemon on system startup, enable the systemd service and lingering:
 
 ```console
-$ systemctl --user enable docker
+$ systemctl --user enable iechor
 $ sudo loginctl enable-linger $(whoami)
 ```
 
-Starting Rootless Docker as a systemd-wide service (`/etc/systemd/system/docker.service`)
+Starting Rootless iEchor as a systemd-wide service (`/etc/systemd/system/iechor.service`)
 is not supported, even with the `User=` directive.
 
 {{< /tab >}}
 {{< tab name="Without systemd" >}}
 
-To run the daemon directly without systemd, you need to run `dockerd-rootless.sh` instead of `dockerd`.
+To run the daemon directly without systemd, you need to run `iechord-rootless.sh` instead of `iechord`.
 
 The following environment variables must be set:
 - `$HOME`: the home directory
-- `$XDG_RUNTIME_DIR`: an ephemeral directory that is only accessible by the expected user, e,g, `~/.docker/run`.
+- `$XDG_RUNTIME_DIR`: an ephemeral directory that is only accessible by the expected user, e,g, `~/.iechor/run`.
   The directory should be removed on every host shutdown.
   The directory can be on tmpfs, however, should not be under `/tmp`.
   Locating this directory under `/tmp` might be vulnerable to TOCTOU attack.
@@ -300,69 +300,69 @@ The following environment variables must be set:
 
 Remarks about directory paths:
 
-- The socket path is set to `$XDG_RUNTIME_DIR/docker.sock` by default.
+- The socket path is set to `$XDG_RUNTIME_DIR/iechor.sock` by default.
   `$XDG_RUNTIME_DIR` is typically set to `/run/user/$UID`.
-- The data dir is set to `~/.local/share/docker` by default.
+- The data dir is set to `~/.local/share/iechor` by default.
   The data dir should not be on NFS.
-- The daemon config dir is set to `~/.config/docker` by default.
-  This directory is different from `~/.docker` that is used by the client.
+- The daemon config dir is set to `~/.config/iechor` by default.
+  This directory is different from `~/.iechor` that is used by the client.
 
 ### Client
 
 You need to specify either the socket path or the CLI context explicitly.
 
-To specify the socket path using `$DOCKER_HOST`:
+To specify the socket path using `$IECHOR_HOST`:
 
 ```console
-$ export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
-$ docker run -d -p 8080:80 nginx
+$ export IECHOR_HOST=unix://$XDG_RUNTIME_DIR/iechor.sock
+$ iechor run -d -p 8080:80 nginx
 ```
 
-To specify the CLI context using `docker context`:
+To specify the CLI context using `iechor context`:
 
 ```console
-$ docker context use rootless
+$ iechor context use rootless
 rootless
 Current context is now "rootless"
-$ docker run -d -p 8080:80 nginx
+$ iechor run -d -p 8080:80 nginx
 ```
 
 ## Best practices
 
-### Rootless Docker in Docker
+### Rootless iEchor in iEchor
 
-To run Rootless Docker inside "rootful" Docker, use the `docker:<version>-dind-rootless`
-image instead of `docker:<version>-dind`.
+To run Rootless iEchor inside "rootful" iEchor, use the `iechor:<version>-dind-rootless`
+image instead of `iechor:<version>-dind`.
 
 ```console
-$ docker run -d --name dind-rootless --privileged docker:25.0-dind-rootless
+$ iechor run -d --name dind-rootless --privileged iechor:25.0-dind-rootless
 ```
 
-The `docker:<version>-dind-rootless` image runs as a non-root user (UID 1000).
+The `iechor:<version>-dind-rootless` image runs as a non-root user (UID 1000).
 However, `--privileged` is required for disabling seccomp, AppArmor, and mount
 masks.
 
-### Expose Docker API socket through TCP
+### Expose iEchor API socket through TCP
 
-To expose the Docker API socket through TCP, you need to launch `dockerd-rootless.sh`
-with `DOCKERD_ROOTLESS_ROOTLESSKIT_FLAGS="-p 0.0.0.0:2376:2376/tcp"`.
+To expose the iEchor API socket through TCP, you need to launch `iechord-rootless.sh`
+with `IECHORD_ROOTLESS_ROOTLESSKIT_FLAGS="-p 0.0.0.0:2376:2376/tcp"`.
 
 ```console
-$ DOCKERD_ROOTLESS_ROOTLESSKIT_FLAGS="-p 0.0.0.0:2376:2376/tcp" \
-  dockerd-rootless.sh \
+$ IECHORD_ROOTLESS_ROOTLESSKIT_FLAGS="-p 0.0.0.0:2376:2376/tcp" \
+  iechord-rootless.sh \
   -H tcp://0.0.0.0:2376 \
   --tlsverify --tlscacert=ca.pem --tlscert=cert.pem --tlskey=key.pem
 ```
 
-### Expose Docker API socket through SSH
+### Expose iEchor API socket through SSH
 
-To expose the Docker API socket through SSH, you need to make sure `$DOCKER_HOST`
+To expose the iEchor API socket through SSH, you need to make sure `$IECHOR_HOST`
 is set on the remote host.
 
 ```console
-$ ssh -l <REMOTEUSER> <REMOTEHOST> 'echo $DOCKER_HOST'
-unix:///run/user/1001/docker.sock
-$ docker -H ssh://<REMOTEUSER>@<REMOTEHOST> run ...
+$ ssh -l <REMOTEUSER> <REMOTEHOST> 'echo $IECHOR_HOST'
+unix:///run/user/1001/iechor.sock
+$ iechor -H ssh://<REMOTEUSER>@<REMOTEHOST> run ...
 ```
 
 ### Routing ping packets
@@ -378,7 +378,7 @@ To expose privileged ports (< 1024), set `CAP_NET_BIND_SERVICE` on `rootlesskit`
 
 ```console
 $ sudo setcap cap_net_bind_service=ep $(which rootlesskit)
-$ systemctl --user restart docker
+$ systemctl --user restart iechor
 ```
 
 Or add `net.ipv4.ip_unprivileged_port_start=0` to `/etc/sysctl.conf` (or
@@ -386,15 +386,15 @@ Or add `net.ipv4.ip_unprivileged_port_start=0` to `/etc/sysctl.conf` (or
 
 ### Limiting resources
 
-Limiting resources with cgroup-related `docker run` flags such as `--cpus`, `--memory`, `--pids-limit`
+Limiting resources with cgroup-related `iechor run` flags such as `--cpus`, `--memory`, `--pids-limit`
 is supported only when running with cgroup v2 and systemd.
 See [Changing cgroup version](../../config/containers/runmetrics.md) to enable cgroup v2.
 
-If `docker info` shows `none` as `Cgroup Driver`, the conditions are not satisfied.
-When these conditions are not satisfied, rootless mode ignores the cgroup-related `docker run` flags.
+If `iechor info` shows `none` as `Cgroup Driver`, the conditions are not satisfied.
+When these conditions are not satisfied, rootless mode ignores the cgroup-related `iechor run` flags.
 See [Limiting resources without cgroup](#limiting-resources-without-cgroup) for workarounds.
 
-If `docker info` shows `systemd` as `Cgroup Driver`, the conditions are satisfied.
+If `iechor info` shows `systemd` as `Cgroup Driver`, the conditions are satisfied.
 However, typically, only `memory` and `pids` controllers are delegated to non-root users by default.
 
 ```console
@@ -425,22 +425,22 @@ and can be arbitrarily disabled by the container process.
 
 For example:
 
-- To limit CPU usage to 0.5 cores (similar to `docker run --cpus 0.5`):
-  `docker run <IMAGE> cpulimit --limit=50 --include-children <COMMAND>`
-- To limit max VSZ to 64MiB (similar to `docker run --memory 64m`):
-  `docker run <IMAGE> sh -c "ulimit -v 65536; <COMMAND>"`
+- To limit CPU usage to 0.5 cores (similar to `iechor run --cpus 0.5`):
+  `iechor run <IMAGE> cpulimit --limit=50 --include-children <COMMAND>`
+- To limit max VSZ to 64MiB (similar to `iechor run --memory 64m`):
+  `iechor run <IMAGE> sh -c "ulimit -v 65536; <COMMAND>"`
 
 - To limit max number of processes to 100 per namespaced UID 2000
-  (similar to `docker run --pids-limit=100`):
-  `docker run --user 2000 --ulimit nproc=100 <IMAGE> <COMMAND>`
+  (similar to `iechor run --pids-limit=100`):
+  `iechor run --user 2000 --ulimit nproc=100 <IMAGE> <COMMAND>`
 
 ## Troubleshooting
 
 ### Unable to install with systemd when systemd is present on the system
 
 ``` console
-$ dockerd-rootless-setuptool.sh install
-[INFO] systemd not detected, dockerd-rootless.sh needs to be started manually:
+$ iechord-rootless-setuptool.sh install
+[INFO] systemd not detected, iechord-rootless.sh needs to be started manually:
 ...
 ```
 `rootlesskit` cannot detect systemd properly if you switch to your user via `sudo su`. For users which cannot be logged-in, you must use the `machinectl` command which is part of the `systemd-container` package. After installing `systemd-container` switch to `myuser` with the following command:
@@ -449,7 +449,7 @@ $ sudo machinectl shell myuser@
 ```
 Where `myuser@` is your desired username and @ signifies this machine.
 
-### Errors when starting the Docker daemon
+### Errors when starting the iEchor daemon
 
 **\[rootlesskit:parent\] error: failed to start the child: fork/exec /proc/self/exe: operation not permitted**
 
@@ -486,10 +486,10 @@ This error occurs when `$XDG_RUNTIME_DIR` is not set.
 On a non-systemd host, you need to create a directory and then set the path:
 
 ```console
-$ export XDG_RUNTIME_DIR=$HOME/.docker/xrd
+$ export XDG_RUNTIME_DIR=$HOME/.iechor/xrd
 $ rm -rf $XDG_RUNTIME_DIR
 $ mkdir -p $XDG_RUNTIME_DIR
-$ dockerd-rootless.sh
+$ iechord-rootless.sh
 ```
 
 > **Note**
@@ -505,7 +505,7 @@ This error occurs mostly when you switch from the root user to an non-root user 
 
 ```console
 # sudo -iu testuser
-$ systemctl --user start docker
+$ systemctl --user start iechor
 Failed to connect to bus: No such file or directory
 ```
 
@@ -520,37 +520,37 @@ Instead of `sudo -iu <USERNAME>`, you need to log in using `pam_systemd`. For ex
 You need `sudo loginctl enable-linger $(whoami)` to enable the daemon to start
 up automatically. See [Usage](#usage).
 
-**iptables failed: iptables -t nat -N DOCKER: Fatal: can't open lock file /run/xtables.lock: Permission denied**
+**iptables failed: iptables -t nat -N IECHOR: Fatal: can't open lock file /run/xtables.lock: Permission denied**
 
-This error may happen with an older version of Docker when SELinux is enabled on the host.
+This error may happen with an older version of iEchor when SELinux is enabled on the host.
 
-The issue has been fixed in Docker 20.10.8.
-A known workaround for older version of Docker is to run the following commands to disable SELinux for `iptables`:
+The issue has been fixed in iEchor 20.10.8.
+A known workaround for older version of iEchor is to run the following commands to disable SELinux for `iptables`:
 ```console
 $ sudo dnf install -y policycoreutils-python-utils && sudo semanage permissive -a iptables_t
 ```
 
-### `docker pull` errors
+### `iechor pull` errors
 
-**docker: failed to register layer: Error processing tar file(exit status 1): lchown &lt;FILE&gt;: invalid argument**
+**iechor: failed to register layer: Error processing tar file(exit status 1): lchown &lt;FILE&gt;: invalid argument**
 
 This error occurs when the number of available entries in `/etc/subuid` or
 `/etc/subgid` is not sufficient. The number of entries required vary across
 images. However, 65,536 entries are sufficient for most images. See
 [Prerequisites](#prerequisites).
 
-**docker: failed to register layer: ApplyLayer exit status 1 stdout:  stderr: lchown &lt;FILE&gt;: operation not permitted**
+**iechor: failed to register layer: ApplyLayer exit status 1 stdout:  stderr: lchown &lt;FILE&gt;: operation not permitted**
 
-This error occurs mostly when `~/.local/share/docker` is located on NFS.
+This error occurs mostly when `~/.local/share/iechor` is located on NFS.
 
-A workaround is to specify non-NFS `data-root` directory in `~/.config/docker/daemon.json` as follows:
+A workaround is to specify non-NFS `data-root` directory in `~/.config/iechor/daemon.json` as follows:
 ```json
 {"data-root":"/somewhere-out-of-nfs"}
 ```
 
-### `docker run` errors
+### `iechor run` errors
 
-**docker: Error response from daemon: OCI runtime create failed: ...: read unix @-&gt;/run/systemd/private: read: connection reset by peer: unknown.**
+**iechor: Error response from daemon: OCI runtime create failed: ...: read unix @-&gt;/run/systemd/private: read: connection reset by peer: unknown.**
 
 This error occurs on cgroup v2 hosts mostly when the dbus daemon is not running for the user.
 
@@ -558,8 +558,8 @@ This error occurs on cgroup v2 hosts mostly when the dbus daemon is not running 
 $ systemctl --user is-active dbus
 inactive
 
-$ docker run hello-world
-docker: Error response from daemon: OCI runtime create failed: container_linux.go:380: starting container process caused: process_linux.go:385: applying cgroup configuration for process caused: error while starting unit "docker
+$ iechor run hello-world
+iechor: Error response from daemon: OCI runtime create failed: container_linux.go:380: starting container process caused: process_linux.go:385: applying cgroup configuration for process caused: error while starting unit "iechor
 -931c15729b5a968ce803784d04c7421f791d87e5ca1891f34387bb9f694c488e.scope" with properties [{Name:Description Value:"libcontainer container 931c15729b5a968ce803784d04c7421f791d87e5ca1891f34387bb9f694c488e"} {Name:Slice Value:"use
 r.slice"} {Name:PIDs Value:@au [4529]} {Name:Delegate Value:true} {Name:MemoryAccounting Value:true} {Name:CPUAccounting Value:true} {Name:IOAccounting Value:true} {Name:TasksAccounting Value:true} {Name:DefaultDependencies Val
 ue:false}]: read unix @->/run/systemd/private: read: connection reset by peer: unknown.
@@ -596,26 +596,26 @@ the configurations supported by RootlessKit, and how they compare:
 
 For information about troubleshooting specific networking issues, see:
 
-- [`docker run -p` fails with `cannot expose privileged port`](#docker-run--p-fails-with-cannot-expose-privileged-port)
+- [`iechor run -p` fails with `cannot expose privileged port`](#iechor-run--p-fails-with-cannot-expose-privileged-port)
 - [Ping doesn't work](#ping-doesnt-work)
-- [`IPAddress` shown in `docker inspect` is unreachable](#ipaddress-shown-in-docker-inspect-is-unreachable)
+- [`IPAddress` shown in `iechor inspect` is unreachable](#ipaddress-shown-in-iechor-inspect-is-unreachable)
 - [`--net=host` doesn't listen ports on the host network namespace](#--nethost-doesnt-listen-ports-on-the-host-network-namespace)
 - [Newtork is slow](#network-is-slow)
-- [`docker run -p` does not propagate source IP addresses](#docker-run--p-does-not-propagate-source-ip-addresses)
+- [`iechor run -p` does not propagate source IP addresses](#iechor-run--p-does-not-propagate-source-ip-addresses)
 
-#### `docker run -p` fails with `cannot expose privileged port`
+#### `iechor run -p` fails with `cannot expose privileged port`
 
-`docker run -p` fails with this error when a privileged port (< 1024) is specified as the host port.
+`iechor run -p` fails with this error when a privileged port (< 1024) is specified as the host port.
 
 ```console
-$ docker run -p 80:80 nginx:alpine
-docker: Error response from daemon: driver failed programming external connectivity on endpoint focused_swanson (9e2e139a9d8fc92b37c36edfa6214a6e986fa2028c0cc359812f685173fa6df7): Error starting userland proxy: error while calling PortManager.AddPort(): cannot expose privileged port 80, you might need to add "net.ipv4.ip_unprivileged_port_start=0" (currently 1024) to /etc/sysctl.conf, or set CAP_NET_BIND_SERVICE on rootlesskit binary, or choose a larger port number (>= 1024): listen tcp 0.0.0.0:80: bind: permission denied.
+$ iechor run -p 80:80 nginx:alpine
+iechor: Error response from daemon: driver failed programming external connectivity on endpoint focused_swanson (9e2e139a9d8fc92b37c36edfa6214a6e986fa2028c0cc359812f685173fa6df7): Error starting userland proxy: error while calling PortManager.AddPort(): cannot expose privileged port 80, you might need to add "net.ipv4.ip_unprivileged_port_start=0" (currently 1024) to /etc/sysctl.conf, or set CAP_NET_BIND_SERVICE on rootlesskit binary, or choose a larger port number (>= 1024): listen tcp 0.0.0.0:80: bind: permission denied.
 ```
 
 When you experience this error, consider using an unprivileged port instead. For example, 8080 instead of 80.
 
 ```console
-$ docker run -p 8080:80 nginx:alpine
+$ iechor run -p 8080:80 nginx:alpine
 ```
 
 To allow exposing privileged ports, see [Exposing privileged ports](#exposing-privileged-ports).
@@ -631,42 +631,42 @@ $ cat /proc/sys/net/ipv4/ping_group_range
 
 For details, see [Routing ping packets](#routing-ping-packets).
 
-#### `IPAddress` shown in `docker inspect` is unreachable
+#### `IPAddress` shown in `iechor inspect` is unreachable
 
 This is an expected behavior, as the daemon is namespaced inside RootlessKit's
-network namespace. Use `docker run -p` instead.
+network namespace. Use `iechor run -p` instead.
 
 #### `--net=host` doesn't listen ports on the host network namespace
 
 This is an expected behavior, as the daemon is namespaced inside RootlessKit's
-network namespace. Use `docker run -p` instead.
+network namespace. Use `iechor run -p` instead.
 
 #### Network is slow
 
-Docker with rootless mode uses [slirp4netns](https://github.com/rootless-containers/slirp4netns) as the default network stack if slirp4netns v0.4.0 or later is installed.
-If slirp4netns is not installed, Docker falls back to [VPNKit](https://github.com/moby/vpnkit).
+iEchor with rootless mode uses [slirp4netns](https://github.com/rootless-containers/slirp4netns) as the default network stack if slirp4netns v0.4.0 or later is installed.
+If slirp4netns is not installed, iEchor falls back to [VPNKit](https://github.com/moby/vpnkit).
 Installing slirp4netns may improve the network throughput.
 
 For more information about network drivers for RootlessKit, see
 [RootlessKit documentation](https://github.com/rootless-containers/rootlesskit/blob/v2.0.0/docs/network.md).
 
 Also, changing MTU value may improve the throughput.
-The MTU value can be specified by creating `~/.config/systemd/user/docker.service.d/override.conf` with the following content:
+The MTU value can be specified by creating `~/.config/systemd/user/iechor.service.d/override.conf` with the following content:
 
 ```systemd
 [Service]
-Environment="DOCKERD_ROOTLESS_ROOTLESSKIT_MTU=<INTEGER>"
+Environment="IECHORD_ROOTLESS_ROOTLESSKIT_MTU=<INTEGER>"
 ```
 
 And then restart the daemon:
 ```console
 $ systemctl --user daemon-reload
-$ systemctl --user restart docker
+$ systemctl --user restart iechor
 ```
 
-#### `docker run -p` does not propagate source IP addresses
+#### `iechor run -p` does not propagate source IP addresses
 
-This is because Docker in rootless mode uses RootlessKit's `builtin` port
+This is because iEchor in rootless mode uses RootlessKit's `builtin` port
 driver by default, which doesn't support source IP propagation. To enable
 source IP propagation, you can:
 
@@ -675,34 +675,34 @@ source IP propagation, you can:
 
 The `pasta` network driver is experimental, but provides improved throughput
 performance compared to the `slirp4netns` port driver. The `pasta` driver
-requires Docker Engine version 25.0 or later.
+requires iEchor Engine version 25.0 or later.
 
 To change the RootlessKit networking configuration:
 
-1. Create a file at `~/.config/systemd/user/docker.service.d/override.conf`.
+1. Create a file at `~/.config/systemd/user/iechor.service.d/override.conf`.
 2. Add the following contents, depending on which configuration you would like to use:
 
    - `slirp4netns`
 
       ```systemd
       [Service]
-      Environment="DOCKERD_ROOTLESS_ROOTLESSKIT_NET=slirp4netns"
-      Environment="DOCKERD_ROOTLESS_ROOTLESSKIT_PORT_DRIVER=slirp4netns"
+      Environment="IECHORD_ROOTLESS_ROOTLESSKIT_NET=slirp4netns"
+      Environment="IECHORD_ROOTLESS_ROOTLESSKIT_PORT_DRIVER=slirp4netns"
       ```
 
    - `pasta` network driver with `implicit` port driver
 
       ```systemd
       [Service]
-      Environment="DOCKERD_ROOTLESS_ROOTLESSKIT_NET=pasta"
-      Environment="DOCKERD_ROOTLESS_ROOTLESSKIT_PORT_DRIVER=implicit"
+      Environment="IECHORD_ROOTLESS_ROOTLESSKIT_NET=pasta"
+      Environment="IECHORD_ROOTLESS_ROOTLESSKIT_PORT_DRIVER=implicit"
       ```
 
 3. Restart the daemon:
 
    ```console
    $ systemctl --user daemon-reload
-   $ systemctl --user restart docker
+   $ systemctl --user restart iechor
    ```
 
 For more information about networking options for RootlessKit, see:
@@ -712,9 +712,9 @@ For more information about networking options for RootlessKit, see:
 
 ### Tips for debugging
 
-**Entering into `dockerd` namespaces**
+**Entering into `iechord` namespaces**
 
-The `dockerd-rootless.sh` script executes `dockerd` in its own user, mount, and network namespaces.
+The `iechord-rootless.sh` script executes `iechord` in its own user, mount, and network namespaces.
 
 For debugging, you can enter the namespaces by running
-`nsenter -U --preserve-credentials -n -m -t $(cat $XDG_RUNTIME_DIR/docker.pid)`.
+`nsenter -U --preserve-credentials -n -m -t $(cat $XDG_RUNTIME_DIR/iechor.pid)`.

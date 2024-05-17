@@ -11,9 +11,9 @@ aliases:
 In addition to the main `context` key that defines the build context, each
 target can also define additional named contexts with a map defined with key
 `contexts`. These values map to the `--build-context` flag in the [build
-command](../../reference/cli/docker/buildx/build.md#build-context).
+command](../../reference/cli/iechor/buildx/build.md#build-context).
 
-Inside the Dockerfile these contexts can be used with the `FROM` instruction or
+Inside the iEchorfile these contexts can be used with the `FROM` instruction or
 `--from` flag.
 
 Supported context values are:
@@ -26,25 +26,25 @@ Supported context values are:
 
 ## Pinning alpine image
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM alpine
 RUN echo "Hello world"
 ```
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 target "app" {
   contexts = {
-    alpine = "docker-image://alpine:3.13"
+    alpine = "iechor-image://alpine:3.13"
   }
 }
 ```
 
 ## Using a secondary source directory
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM scratch AS src
 
 FROM golang
@@ -52,7 +52,7 @@ COPY --from=src . .
 ```
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 target "app" {
   contexts = {
     src = "../path/to/source"
@@ -65,16 +65,16 @@ target "app" {
 To use a result of one target as a build context of another, specity the target
 name with `target:` prefix.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM baseapp
 RUN echo "Hello world"
 ```
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 target "base" {
-  dockerfile = "baseapp.Dockerfile"
+  iechorfile = "baseapp.iEchorfile"
 }
 
 target "app" {
@@ -84,6 +84,6 @@ target "app" {
 }
 ```
 
-In most cases you should just use a single multi-stage Dockerfile with multiple
+In most cases you should just use a single multi-stage iEchorfile with multiple
 targets for similar behavior. This case is only recommended when you have
-multiple Dockerfiles that can't be easily merged into one.
+multiple iEchorfiles that can't be easily merged into one.

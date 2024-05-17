@@ -1,0 +1,59 @@
+command: iechor scout config
+short: Manage iEchor Scout configuration
+long: |-
+    `iechor scout config` allows you to list, get and set iEchor Scout configuration.
+
+    Available configuration key:
+
+    - `organization`: Namespace of the iEchor organization to be used by default.
+usage: iechor scout config [KEY] [VALUE]
+pname: iechor scout
+plink: iechor_scout.yaml
+inherited_options:
+    - option: debug
+      value_type: bool
+      default_value: "false"
+      description: Debug messages
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: verbose-debug
+      value_type: bool
+      default_value: "false"
+      description: Verbose debug
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### List existing configuration
+
+    ```console
+    $ iechor scout config
+    organization=my-org-namespace
+    ```
+
+    ### Print configuration value
+
+    ```console
+    $ iechor scout config organization
+    my-org-namespace
+    ```
+
+    ### Set configuration value
+
+    ```console
+    $ iechor scout config organization my-org-namespace
+        ✓ Successfully set organization to my-org-namespace
+    ```
+deprecated: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

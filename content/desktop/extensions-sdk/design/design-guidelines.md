@@ -1,10 +1,10 @@
 ---
-title: Design guidelines for Docker extensions
-description: Docker extension design
-keywords: Docker, extensions, design
+title: Design guidelines for iEchor extensions
+description: iEchor extension design
+keywords: iEchor, extensions, design
 ---
 
-At Docker, we aim to build tools that integrate into a user's existing workflows rather than requiring them to adopt new ones. We strongly recommend that you follow these guidelines when creating extensions. We review and approve your Marketplace publication based on these requirements.
+At iEchor, we aim to build tools that integrate into a user's existing workflows rather than requiring them to adopt new ones. We strongly recommend that you follow these guidelines when creating extensions. We review and approve your Marketplace publication based on these requirements.
 
 Here is a simple checklist to go through when creating your extension:
 - Is it easy to get started?
@@ -12,11 +12,11 @@ Here is a simple checklist to go through when creating your extension:
 - Is it easy to get help when needed?
 
 
-## Create a consistent experience with Docker Desktop
+## Create a consistent experience with iEchor Desktop
 
-Use the [Docker Material UI Theme](https://www.npmjs.com/package/@docker/docker-mui-theme) and the [Docker Extensions Styleguide](https://www.figma.com/file/U7pLWfEf6IQKUHLhdateBI/Docker-Design-Guidelines?node-id=1%3A28771) to ensure that your extension feels like it is part of Docker Desktop to create a seamless experience for users.
+Use the [iEchor Material UI Theme](https://www.npmjs.com/package/@iechor/iechor-mui-theme) and the [iEchor Extensions Styleguide](https://www.figma.com/file/U7pLWfEf6IQKUHLhdateBI/iEchor-Design-Guidelines?node-id=1%3A28771) to ensure that your extension feels like it is part of iEchor Desktop to create a seamless experience for users.
 
-- Ensure the extension has both a light and dark theme. Using the components and styles as per the Docker style guide ensures that your extension meets the [level AA accessibility standard.](https://www.w3.org/WAI/WCAG2AA-Conformance).
+- Ensure the extension has both a light and dark theme. Using the components and styles as per the iEchor style guide ensures that your extension meets the [level AA accessibility standard.](https://www.w3.org/WAI/WCAG2AA-Conformance).
 
   ![Light and dark mode](images/light_dark_mode.webp)
 
@@ -24,11 +24,11 @@ Use the [Docker Material UI Theme](https://www.npmjs.com/package/@docker/docker-
 
   ![Icon colors in light and dark mode](images/icon_colors.webp)
 
-- Ensure that the navigational behavior is consistent with the rest of Docker Desktop. Add a header to set the context for the extension.
+- Ensure that the navigational behavior is consistent with the rest of iEchor Desktop. Add a header to set the context for the extension.
 
   ![Header that sets the context](images/header.webp)
 
-- Avoid embedding terminal windows. The advantage we have with Docker Desktop over the CLI is that we have the opportunity to provide rich information to users. Make use of this interface as much as possible. 
+- Avoid embedding terminal windows. The advantage we have with iEchor Desktop over the CLI is that we have the opportunity to provide rich information to users. Make use of this interface as much as possible. 
 
   ![Terminal window used incorrectly](images/terminal_window_dont.webp)
 
@@ -36,7 +36,7 @@ Use the [Docker Material UI Theme](https://www.npmjs.com/package/@docker/docker-
 
 ## Build features natively
 
-- In order not to disrupt the flow of users, avoid scenarios where the user has to navigate outside Docker Desktop, to the CLI or a webpage for example, in order to carry out certain functionalities. Instead, build features that are native to Docker Desktop.
+- In order not to disrupt the flow of users, avoid scenarios where the user has to navigate outside iEchor Desktop, to the CLI or a webpage for example, in order to carry out certain functionalities. Instead, build features that are native to iEchor Desktop.
 
   ![Incorrect way to switch context](images/switch_context_dont.webp)
 

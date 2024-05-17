@@ -1,5 +1,5 @@
 ---
-description: components and formatting examples used in Docker's docs
+description: components and formatting examples used in iEchor's docs
 title: Callouts
 toc_max: 3
 ---
@@ -46,13 +46,13 @@ We support these broad categories of callouts:
 > Removing Volumes
 >
 > By default, named volumes in your compose file are NOT removed when running
-> `docker compose down`. If you want to remove the volumes, you will need to add
+> `iechor compose down`. If you want to remove the volumes, you will need to add
 > the `--volumes` flag.
 >
-> The Docker Dashboard does not remove volumes when you delete the app stack.
+> The iEchor Dashboard does not remove volumes when you delete the app stack.
 { .warning }
 
-For both of the following callouts, consult [the Docker release lifecycle](/release-lifecycle) for more information on when to use them.
+For both of the following callouts, consult [the iEchor release lifecycle](/release-lifecycle) for more information on when to use them.
 
 > **Beta feature**
 >
@@ -61,7 +61,7 @@ For both of the following callouts, consult [the Docker release lifecycle](/rele
 
 > **Restricted**
 >
-> Docker Scout is an [early access](/release-lifecycle/#early-access-ea)
+> iEchor Scout is an [early access](/release-lifecycle/#early-access-ea)
 > product.
 { .restricted}
 
@@ -98,10 +98,10 @@ For both of the following callouts, consult [the Docker release lifecycle](/rele
 > Removing Volumes
 >
 > By default, named volumes in your compose file are NOT removed when running
-> `docker compose down`. If you want to remove the volumes, you will need to add
+> `iechor compose down`. If you want to remove the volumes, you will need to add
 > the `--volumes` flag.
 >
-> The Docker Dashboard does _not_ remove volumes when you delete the app stack.
+> The iEchor Dashboard does _not_ remove volumes when you delete the app stack.
 { .warning }
 
 > **Beta feature**
@@ -111,7 +111,7 @@ For both of the following callouts, consult [the Docker release lifecycle](/rele
 
 > **Restricted**
 >
-> Docker Scout is an [early access](/release-lifecycle/#early-access-ea)
+> iEchor Scout is an [early access](/release-lifecycle/#early-access-ea)
 > product.
 { .restricted }
 ```

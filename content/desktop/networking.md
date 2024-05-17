@@ -1,18 +1,18 @@
 ---
-description: Understand how networking works on Docker Desktop and see the known limitations
-keywords: networking, docker desktop, proxy, vpn, Linux, Mac, Windows
-title: Explore networking features on Docker Desktop
+description: Understand how networking works on iEchor Desktop and see the known limitations
+keywords: networking, iechor desktop, proxy, vpn, Linux, Mac, Windows
+title: Explore networking features on iEchor Desktop
 aliases:
 - /desktop/linux/networking/
-- /docker-for-mac/networking/
+- /iechor-for-mac/networking/
 - /mackit/networking/
 - /desktop/mac/networking/
-- /docker-for-win/networking/
-- /docker-for-windows/networking/
+- /iechor-for-win/networking/
+- /iechor-for-windows/networking/
 - /desktop/windows/networking/
 ---
 
-Docker Desktop provides several networking features to make it easier to
+iEchor Desktop provides several networking features to make it easier to
 use.
 
 ## Networking features
@@ -22,25 +22,25 @@ use.
 
 ### VPN Passthrough
 
-Docker Desktop networking can work when attached to a VPN. To do this,
-Docker Desktop intercepts traffic from the containers and injects it into
-the host as if it originated from the Docker application.
+iEchor Desktop networking can work when attached to a VPN. To do this,
+iEchor Desktop intercepts traffic from the containers and injects it into
+the host as if it originated from the iEchor application.
 
 ### Port mapping
 
 When you run a container with the `-p` argument, for example:
 
 ```console
-$ docker run -p 80:80 -d nginx
+$ iechor run -p 80:80 -d nginx
 ```
 
-Docker Desktop makes whatever is running on port 80 in the container, in
+iEchor Desktop makes whatever is running on port 80 in the container, in
 this case, `nginx`, available on port 80 of `localhost`. In this example, the
 host and container ports are the same. If, for example, you already have something running on port 80 of
 your host machine, you can connect the container to a different port:
 
 ```console
-$ docker run -p 8000:80 -d nginx
+$ iechor run -p 8000:80 -d nginx
 ```
 
 Now, connections to `localhost:8000` are sent to port 80 in the container. The
@@ -77,9 +77,9 @@ To enable and set up SOCKS proxy support:
 
 ### SSH agent forwarding
 
-Docker Desktop on Mac and Linux allows you to use the host’s SSH agent inside a container. To do this:
+iEchor Desktop on Mac and Linux allows you to use the host’s SSH agent inside a container. To do this:
 
-1. Bind mount the SSH agent socket by adding the following parameter to your `docker run` command:
+1. Bind mount the SSH agent socket by adding the following parameter to your `iechor run` command:
 
    ```console
    $--mount type=bind,src=/run/host-services/ssh-auth.sock,target=/run/host-services/ssh-auth.sock
@@ -91,7 +91,7 @@ Docker Desktop on Mac and Linux allows you to use the host’s SSH agent inside 
     $ -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock"
     ```
 
-To enable the SSH agent in Docker Compose, add the following flags to your service:
+To enable the SSH agent in iEchor Compose, add the following flags to your service:
 
  ```yaml
 services:
@@ -112,22 +112,22 @@ services:
 
 ### Changing internal IP addresses
 
-The internal IP addresses used by Docker can be changed from **Settings**. After changing IPs, it is necessary to reset the Kubernetes cluster and to leave any active Swarm.
+The internal IP addresses used by iEchor can be changed from **Settings**. After changing IPs, it is necessary to reset the Kubernetes cluster and to leave any active Swarm.
 
-### There is no docker0 bridge on the host
+### There is no iechor0 bridge on the host
 
-Because of the way networking is implemented in Docker Desktop, you cannot
-see a `docker0` interface on the host. This interface is actually within the
+Because of the way networking is implemented in iEchor Desktop, you cannot
+see a `iechor0` interface on the host. This interface is actually within the
 virtual machine.
 
 ### I cannot ping my containers
 
-Docker Desktop can't route traffic to Linux containers. However if you're a Windows user, you can
+iEchor Desktop can't route traffic to Linux containers. However if you're a Windows user, you can
 ping the Windows containers.
 
 ### Per-container IP addressing is not possible
 
-This is because the Docker `bridge` network is not reachable from the host.
+This is because the iEchor `bridge` network is not reachable from the host.
 However if you are a Windows user, per-container IP addressing is possible with Windows containers.
 
 ## Use cases and workarounds 
@@ -135,10 +135,10 @@ However if you are a Windows user, per-container IP addressing is possible with 
 ### I want to connect from a container to a service on the host
 
 The host has a changing IP address, or none if you have no network access.
-We recommend that you connect to the special DNS name `host.docker.internal`,
+We recommend that you connect to the special DNS name `host.iechor.internal`,
 which resolves to the internal IP address used by the host.
 
-You can also reach the gateway using `gateway.docker.internal`.
+You can also reach the gateway using `gateway.iechor.internal`.
 
 If you have installed Python on your machine, use the following instructions as an example to connect from a container to a service on the host:
 
@@ -151,9 +151,9 @@ If you have installed Python on your machine, use the following instructions as 
 2. Now, run a container, install `curl`, and try to connect to the host using the following commands:
 
     ```console
-    $ docker run --rm -it alpine sh
+    $ iechor run --rm -it alpine sh
     # apk add curl
-    # curl http://host.docker.internal:8000
+    # curl http://host.iechor.internal:8000
     # exit
     ```
 
@@ -169,15 +169,15 @@ overlay network, not a bridge network, as these are not routed.
 For example, to run an `nginx` webserver:
 
 ```console
-$ docker run -d -p 80:80 --name webserver nginx
+$ iechor run -d -p 80:80 --name webserver nginx
 ```
 
 To clarify the syntax, the following two commands both publish container's port `80` to host's port `8000`:
 
 ```console
-$ docker run --publish 8000:80 --name webserver nginx
+$ iechor run --publish 8000:80 --name webserver nginx
 
-$ docker run -p 8000:80 --name webserver nginx
+$ iechor run -p 8000:80 --name webserver nginx
 ```
 
 To publish all ports, use the `-P` flag. For example, the following command
@@ -185,11 +185,11 @@ starts a container (in detached mode) and the `-P` flag publishes all exposed po
 container to random ports on the host.
 
 ```console
-$ docker run -d -P --name webserver nginx
+$ iechor run -d -P --name webserver nginx
 ```
 
-Alternatively, you can also use [host networking](../network/drivers/host.md#docker-desktop)
+Alternatively, you can also use [host networking](../network/drivers/host.md#iechor-desktop)
 to give the container direct access to the network stack of the host.
 
-See the [run command](../reference/cli/docker/container/run.md) for more details on
-publish options used with `docker run`.
+See the [run command](../reference/cli/iechor/container/run.md) for more details on
+publish options used with `iechor run`.

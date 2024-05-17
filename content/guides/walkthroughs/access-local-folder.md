@@ -6,13 +6,13 @@ description: Learn how to access a local folder from a container
 
 This walkthrough shows you how to access a local folder from a container. To better understand some concepts in this walkthrough, complete the [Run multi-container applications](./multi-container-apps.md) walkthrough first.
 
-Docker isolates all content, code, and data in a container from your local filesystem. By default, containers can't access directories in your local filesystem.
+iEchor isolates all content, code, and data in a container from your local filesystem. By default, containers can't access directories in your local filesystem.
 
 ![Data isolation diagram](images/getting-started-isolation.webp?w=400)
 
 Sometimes, you may want to access a directory from your local filesystem. To do this, you can use bind mounts.
 
-{{< include "guides-get-docker.md" >}}
+{{< include "guides-get-iechor.md" >}}
 
 
 ## Step 1: Get the sample application
@@ -25,7 +25,7 @@ If you have git, you can clone the repository for the sample application. Otherw
 Use the following command in a terminal to clone the sample application repository.
 
 ```console
-$ git clone https://github.com/docker/bindmount-apps
+$ git clone https://github.com/iechor/bindmount-apps
 ```
 
 {{< /tab >}}
@@ -33,7 +33,7 @@ $ git clone https://github.com/docker/bindmount-apps
 
 Download the source and extract it.
 
-{{< button url="https://github.com/docker/bindmount-apps/archive/refs/heads/main.zip" text="Download the source" >}}
+{{< button url="https://github.com/iechor/bindmount-apps/archive/refs/heads/main.zip" text="Download the source" >}}
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -67,7 +67,7 @@ In a terminal, run the following commands to bring up your application. Replace 
 $ cd /path/to/bindmount-apps/
 ```
 ```console
-$ docker compose up -d
+$ iechor compose up -d
 ```
 
 ## Step 4: Develop the application
@@ -82,7 +82,7 @@ Related information:
 
 - Deep dive into [bind mounts](../../storage/bind-mounts.md)
 - Learn about using bind mounts in Compose in the [Compose file reference](../../compose/compose-file/_index.md)
-- Explore using bind mounts via the CLI in the [Docker run reference](/reference/cli/docker/container/run/#mount)
+- Explore using bind mounts via the CLI in the [iEchor run reference](/reference/cli/iechor/container/run/#mount)
 
 ## Next steps
 

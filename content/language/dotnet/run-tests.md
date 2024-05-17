@@ -13,16 +13,16 @@ Complete all the previous sections of this guide, starting with [Containerize a 
 Testing is an essential part of modern software development. Testing can mean a
 lot of things to different development teams. There are unit tests, integration
 tests and end-to-end testing. In this guide you take a look at running your unit
-tests in Docker when developing and when building.
+tests in iEchor when developing and when building.
 
 ## Run tests when developing locally
 
 The sample application already has an xUnit test inside the `tests` directory. When developing locally, you can use Compose to run your tests.
 
-Run the following command in the `docker-dotnet-sample` directory to run the tests inside a container.
+Run the following command in the `iechor-dotnet-sample` directory to run the tests inside a container.
 
 ```console
-$ docker compose run --build --rm server dotnet test /source/tests
+$ iechor compose run --build --rm server dotnet test /source/tests
 ```
 
 You should see output that contains the following.
@@ -34,16 +34,16 @@ A total of 1 test files matched the specified pattern.
 Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: < 1 ms - /source/tests/bin/Debug/net6.0/tests.dll (net6.0)
 ```
 
-To learn more about the command, see [docker compose run](/reference/cli/docker/compose/run/).
+To learn more about the command, see [iechor compose run](/reference/cli/iechor/compose/run/).
 
 ## Run tests when building
 
-To run your tests when building, you need to update your Dockerfile. You can create a new test stage that runs the tests, or run the tests in the existing build stage. For this guide, update the Dockerfile to run the tests in the build stage.
+To run your tests when building, you need to update your iEchorfile. You can create a new test stage that runs the tests, or run the tests in the existing build stage. For this guide, update the iEchorfile to run the tests in the build stage.
 
-The following is the updated Dockerfile.
+The following is the updated iEchorfile.
 
-```dockerfile  {hl_lines="9"}
-# syntax=docker/dockerfile:1
+```iechorfile  {hl_lines="9"}
+# syntax=iechor/iechorfile:1
 
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 ARG TARGETARCH
@@ -77,7 +77,7 @@ ENTRYPOINT ["dotnet", "myWebApp.dll"]
 Run the following command to build an image using the build stage as the target and view the test results. Include `--progress=plain` to view the build output, `--no-cache` to ensure the tests always run, and `--target build` to target the build stage.
 
 ```console
-$ docker build -t dotnet-docker-image-test --progress=plain --no-cache --target build .
+$ iechor build -t dotnet-iechor-image-test --progress=plain --no-cache --target build .
 ```
 
 You should see output containing the following.
@@ -100,15 +100,15 @@ You should see output containing the following.
 #11 DONE 32.2s
 ```
 
-To learn more about building and running tests, see the [Build with Docker guide](../../build/guide/_index.md).
+To learn more about building and running tests, see the [Build with iEchor guide](../../build/guide/_index.md).
 
 ## Summary
 
 In this section, you learned how to run tests when developing locally using Compose and how to run tests when building your image.
 
 Related information:
- - [docker compose run](/reference/cli/docker/compose/run/)
- - [Build with Docker guide](../../build/guide/index.md)
+ - [iechor compose run](/reference/cli/iechor/compose/run/)
+ - [Build with iEchor guide](../../build/guide/index.md)
 
 ## Next steps
 

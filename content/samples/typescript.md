@@ -1,5 +1,5 @@
 ---
 title: TypeScript samples
-description: Docker samples for TypeScript.
+description: iEchor samples for TypeScript.
 service: typescript
 ---

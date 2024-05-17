@@ -9,9 +9,9 @@ aliases:
 
 ## Prerequisites
 
-- You have installed the latest version of [Docker Desktop](../../../get-docker.md).
-  Docker adds new features regularly and some parts of this guide may
-  work only with the latest version of Docker Desktop.
+- You have installed the latest version of [iEchor Desktop](../../../get-iechor.md).
+  iEchor adds new features regularly and some parts of this guide may
+  work only with the latest version of iEchor Desktop.
 * You have a [Git client](https://git-scm.com/downloads). The examples in this
   section use a command-line based Git client, but you can use any client.
 
@@ -30,30 +30,30 @@ $ git clone https://github.com/spring-projects/spring-petclinic.git
 
 The sample application is a Spring Boot application built using Maven. For more details, see `readme.md` in the repository.
 
-## Initialize Docker assets
+## Initialize iEchor assets
 
-Now that you have an application, you can use `docker init` to create the
-necessary Docker assets to containerize your application. Inside the
-`spring-petclinic` directory, run the `docker init` command in a terminal.
-`docker init` provides some default configuration, but you'll need to answer a
+Now that you have an application, you can use `iechor init` to create the
+necessary iEchor assets to containerize your application. Inside the
+`spring-petclinic` directory, run the `iechor init` command in a terminal.
+`iechor init` provides some default configuration, but you'll need to answer a
 few questions about your application. Use the answers in the following example in order to follow along with this guide.
 
-The sample application already contains Docker assets. You'll be prompted to overwrite the existing Docker assets. To continue with this guide, select `y` to overwrite them.
+The sample application already contains iEchor assets. You'll be prompted to overwrite the existing iEchor assets. To continue with this guide, select `y` to overwrite them.
 
 ```console
-$ docker init
-Welcome to the Docker Init CLI!
+$ iechor init
+Welcome to the iEchor Init CLI!
 
 This utility will walk you through creating the following files with sensible defaults for your project:
-  - .dockerignore
-  - Dockerfile
+  - .iechorignore
+  - iEchorfile
   - compose.yaml
-  - README.Docker.md
+  - README.iEchor.md
 
 Let's get started!
 
-WARNING: The following Docker files already exist in this directory:
-  - docker-compose.yml
+WARNING: The following iEchor files already exist in this directory:
+  - iechor-compose.yml
 ? Do you want to overwrite them? Yes
 ? What application platform does your project use? Java
 ? What's the relative directory (with a leading .) for your app? ./src
@@ -61,8 +61,8 @@ WARNING: The following Docker files already exist in this directory:
 ? What port does your server listen on? 8080
 ```
 
-In the previous example, notice the `WARNING`. `docker-compose.yaml` already
-exists, so `docker init` overwrites that file rather than creating a new
+In the previous example, notice the `WARNING`. `iechor-compose.yaml` already
+exists, so `iechor init` overwrites that file rather than creating a new
 `compose.yaml` file. This prevents having multiple Compose files in the
 directory. Both names are supported, but Compose prefers the canonical
 `compose.yaml`.
@@ -70,9 +70,9 @@ directory. Both names are supported, but Compose prefers the canonical
 You should now have the following three new files in your `spring-petclinic`
 directory.
 
-- [Dockerfile](/reference/dockerfile/)
-- [.dockerignore](/reference/dockerfile/#dockerignore-file)
-- [docker-compose.yaml](../../compose/compose-file/_index.md)
+- [iEchorfile](/reference/iechorfile/)
+- [.iechorignore](/reference/iechorfile/#iechorignore-file)
+- [iechor-compose.yaml](../../compose/compose-file/_index.md)
 
 
 You can open the files in a code or text editor, then read the comments to learn
@@ -84,10 +84,10 @@ Inside the `spring-petclinic` directory, run the following command in a
 terminal.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
-The first time you build and run the app, Docker downloads dependencies and builds the app. It may take several minutes depending on your network connection.
+The first time you build and run the app, iEchor downloads dependencies and builds the app. It may take several minutes depending on your network connection.
 
 Open a browser and view the application at [http://localhost:8080](http://localhost:8080). You should see a simple app for a pet clinic.
 
@@ -96,11 +96,11 @@ In the terminal, press `ctrl`+`c` to stop the application.
 ### Run the application in the background
 
 You can run the application detached from the terminal by adding the `-d`
-option. Inside the `docker-php-sample` directory, run the following command
+option. Inside the `iechor-php-sample` directory, run the following command
 in a terminal.
 
 ```console
-$ docker compose up --build -d
+$ iechor compose up --build -d
 ```
 
 Open a browser and view the application at [http://localhost:8080](http://localhost:8080). You should see a simple app for a pet clinic.
@@ -108,7 +108,7 @@ Open a browser and view the application at [http://localhost:8080](http://localh
 In the terminal, run the following command to stop the application.
 
 ```console
-$ docker compose down
+$ iechor compose down
 ```
 
 For more information about Compose commands, see the
@@ -117,14 +117,14 @@ For more information about Compose commands, see the
 ## Summary
 
 In this section, you learned how you can containerize and run a Java
-application using Docker.
+application using iEchor.
 
 Related information:
- - [docker init reference](/reference/cli/docker/init/)
+ - [iechor init reference](/reference/cli/iechor/init/)
 
 ## Next steps
 
 In the next section, you'll learn how you can develop your application using
-Docker containers.
+iEchor containers.
 
 {{< button text="Develop your application" url="develop.md" >}}

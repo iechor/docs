@@ -1,12 +1,12 @@
 ---
 title: CLI completion
-description: Set up your shell to get autocomplete for Docker commands and flags
+description: Set up your shell to get autocomplete for iEchor commands and flags
 keywords: cli, shell, fish, bash, zsh, completion, options
 ---
 
-You can generate a shell completion script for the Docker CLI using the `docker
+You can generate a shell completion script for the iEchor CLI using the `iechor
 completion` command. The completion script gives you word completion for
-commands, flags, and Docker objects (such as container and volume names) when
+commands, flags, and iEchor objects (such as container and volume names) when
 you hit `<Tab>` as you type into your terminal.
 
 You can generate completion scripts for the following shells:
@@ -17,7 +17,7 @@ You can generate completion scripts for the following shells:
 
 ## Bash
 
-To get Docker CLI completion with Bash, you first need to install the
+To get iEchor CLI completion with Bash, you first need to install the
 `bash-completion` package which contains a number of Bash functions for shell
 completion.
 
@@ -57,11 +57,11 @@ And reload your shell configuration:
 $ source ~/.bashrc
 ```
 
-Now you can generate the Bash completion script using the `docker completion` command:
+Now you can generate the Bash completion script using the `iechor completion` command:
 
 ```console
 $ mkdir -p ~/.local/share/bash-completion/completions
-$ docker completion bash > ~/.local/share/bash-completion/completions/docker
+$ iechor completion bash > ~/.local/share/bash-completion/completions/iechor
 ```
 
 ## Zsh
@@ -74,20 +74,20 @@ by storing the completion script in the `~/.oh-my-zsh/completions` directory.
 
 ```console
 $ mkdir -p ~/.oh-my-zsh/completions
-$ docker completion zsh > ~/.oh-my-zsh/completions/_docker
+$ iechor completion zsh > ~/.oh-my-zsh/completions/_iechor
 ```
 
 If you're not using Oh My Zsh, store the completion script in a directory of
 your choice and add the directory to `FPATH` in your `.zshrc`.
 
 ```console
-$ mkdir -p ~/.docker/completions
-$ docker completion zsh > ~/.docker/completions/_docker
+$ mkdir -p ~/.iechor/completions
+$ iechor completion zsh > ~/.iechor/completions/_iechor
 ```
 
 ```console
 $ cat <<EOT >> ~/.zshrc
-fpath=(~/.docker/completions \\$fpath)
+fpath=(~/.iechor/completions \\$fpath)
 autoload -Uz compinit
 compinit
 EOT
@@ -96,9 +96,9 @@ EOT
 ## Fish
 
 fish shell supports a [completion system](https://fishshell.com/docs/current/#tab-completion) natively.
-To activate completion for Docker commands, copy or symlink the completion script to your fish shell `completions/` directory:
+To activate completion for iEchor commands, copy or symlink the completion script to your fish shell `completions/` directory:
 
 ```console
 $ mkdir -p ~/.config/fish/completions
-$ docker completion fish > ~/.config/fish/completions/docker.fish
+$ iechor completion fish > ~/.config/fish/completions/iechor.fish
 ```

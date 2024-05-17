@@ -36,18 +36,18 @@ the metadata elements in the front matter isn't important.
 
 ```liquid
 ---
-description: Instructions for installing Docker Engine on Ubuntu
+description: Instructions for installing iEchor Engine on Ubuntu
 keywords: requirements, apt, installation, ubuntu, install, uninstall, upgrade, update
-title: Install Docker Engine on Ubuntu
+title: Install iEchor Engine on Ubuntu
 aliases:
-- /ee/docker-ee/ubuntu/
-- /engine/installation/linux/docker-ce/ubuntu/
-- /engine/installation/linux/docker-ee/ubuntu/
+- /ee/iechor-ee/ubuntu/
+- /engine/installation/linux/iechor-ce/ubuntu/
+- /engine/installation/linux/iechor-ee/ubuntu/
 - /engine/installation/linux/ubuntu/
 - /engine/installation/linux/ubuntulinux/
 - /engine/installation/ubuntulinux/
-- /install/linux/docker-ce/ubuntu/
-- /install/linux/docker-ee/ubuntu/
+- /install/linux/iechor-ce/ubuntu/
+- /install/linux/iechor-ee/ubuntu/
 - /install/linux/ubuntu/
 - /installation/ubuntulinux/
 toc_max: 4

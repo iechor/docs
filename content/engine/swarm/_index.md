@@ -1,12 +1,12 @@
 ---
-description: Docker Engine Swarm mode overview
-keywords: docker, container, cluster, swarm, docker engine
+description: iEchor Engine Swarm mode overview
+keywords: iechor, container, cluster, swarm, iechor engine
 title: Swarm mode overview
 aliases:
 - /api/swarm-api/
 - /engine/userguide/networking/overlay-standalone-swarm/
 - /network/overlay-standalone.swarm/
-- /release-notes/docker-swarm/
+- /release-notes/iechor-swarm/
 - /swarm/
 - /swarm/api/
 - /swarm/configure-tls/
@@ -33,7 +33,7 @@ aliases:
 - /swarm/scheduler/rescheduling/
 - /swarm/scheduler/strategy/
 - /swarm/secure-swarm-tls/
-- /swarm/status-code-comparison-to-docker/
+- /swarm/status-code-comparison-to-iechor/
 - /swarm/swarm-api/
 - /swarm/swarm_at_scale/
 - /swarm/swarm_at_scale/02-deploy-infra/
@@ -47,31 +47,31 @@ aliases:
 
 {{< include "swarm-mode.md" >}}
 
-Current versions of Docker include Swarm mode for natively managing a cluster
-of Docker Engines called a swarm. Use the Docker CLI to create a swarm, deploy
+Current versions of iEchor include Swarm mode for natively managing a cluster
+of iEchor Engines called a swarm. Use the iEchor CLI to create a swarm, deploy
 application services to a swarm, and manage swarm behavior.
 
-Docker Swarm mode is built into the Docker Engine. Do not confuse Docker Swarm mode
-with [Docker Classic Swarm](https://github.com/docker/classicswarm)
+iEchor Swarm mode is built into the iEchor Engine. Do not confuse iEchor Swarm mode
+with [iEchor Classic Swarm](https://github.com/iechor/classicswarm)
 which is no longer actively developed.
 
 ## Feature highlights
 
-### Cluster management integrated with Docker Engine
+### Cluster management integrated with iEchor Engine
 
-Use the Docker Engine CLI to create a swarm of Docker Engines where you can deploy application
+Use the iEchor Engine CLI to create a swarm of iEchor Engines where you can deploy application
 services. You don't need additional orchestration software to create or manage
 a swarm.
 
 ### Decentralized design
 
-Instead of handling differentiation between node roles at deployment time, the Docker Engine handles any specialization at runtime. You can deploy both kinds of nodes, managers and workers, using the
-Docker Engine. This means you can build an entire swarm from a single disk
+Instead of handling differentiation between node roles at deployment time, the iEchor Engine handles any specialization at runtime. You can deploy both kinds of nodes, managers and workers, using the
+iEchor Engine. This means you can build an entire swarm from a single disk
 image.
 
 ### Declarative service model
 
-Docker Engine uses a declarative approach to
+iEchor Engine uses a declarative approach to
 let you define the desired state of the various services in your application
 stack. For example, you might describe an application comprised of a web front
 end service with message queueing services and a database backend.
@@ -129,12 +129,12 @@ roll back to a previous version of the service.
 * Learn Swarm mode [key concepts](key-concepts.md).
 * Get started with the [Swarm mode tutorial](swarm-tutorial/index.md).
 * Explore Swarm mode CLI commands
-  * [swarm init](../../reference/cli/docker/swarm/init.md)
-  * [swarm join](../../reference/cli/docker/swarm/join.md)
-  * [service create](../../reference/cli/docker/service/create.md)
-  * [service inspect](../../reference/cli/docker/service/inspect.md)
-  * [service ls](../../reference/cli/docker/service/ls.md)
-  * [service rm](../../reference/cli/docker/service/rm.md)
-  * [service scale](../../reference/cli/docker/service/scale.md)
-  * [service ps](../../reference/cli/docker/service/ps.md)
-  * [service update](../../reference/cli/docker/service/update.md)
+  * [swarm init](../../reference/cli/iechor/swarm/init.md)
+  * [swarm join](../../reference/cli/iechor/swarm/join.md)
+  * [service create](../../reference/cli/iechor/service/create.md)
+  * [service inspect](../../reference/cli/iechor/service/inspect.md)
+  * [service ls](../../reference/cli/iechor/service/ls.md)
+  * [service rm](../../reference/cli/iechor/service/rm.md)
+  * [service scale](../../reference/cli/iechor/service/scale.md)
+  * [service ps](../../reference/cli/iechor/service/ps.md)
+  * [service update](../../reference/cli/iechor/service/update.md)

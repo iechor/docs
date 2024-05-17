@@ -1,0 +1,40 @@
+command: iechor scout integration
+short: Commands to list, configure, and delete iEchor Scout integrations
+long: Commands to list, configure, and delete iEchor Scout integrations
+pname: iechor scout
+plink: iechor_scout.yaml
+cname:
+    - iechor scout integration configure
+    - iechor scout integration delete
+    - iechor scout integration list
+clink:
+    - iechor_scout_integration_configure.yaml
+    - iechor_scout_integration_delete.yaml
+    - iechor_scout_integration_list.yaml
+inherited_options:
+    - option: debug
+      value_type: bool
+      default_value: "false"
+      description: Debug messages
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: verbose-debug
+      value_type: bool
+      default_value: "false"
+      description: Verbose debug
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

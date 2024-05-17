@@ -1,6 +1,6 @@
 ---
 title: Alternative container runtimes
-description: 'Docker Engine uses runc as the default container runtime, but you
+description: 'iEchor Engine uses runc as the default container runtime, but you
 
   can specify alternative runtimes using the CLI or by configuring
 
@@ -10,7 +10,7 @@ description: 'Docker Engine uses runc as the default container runtime, but you
 keywords: engine, runtime, containerd, runtime v2, shim
 ---
 
-Docker Engine uses containerd for managing the container lifecycle,
+iEchor Engine uses containerd for managing the container lifecycle,
 which includes creating, starting, and stopping containers.
 By default, containerd uses runc as its container runtime.
 
@@ -38,14 +38,14 @@ Refer to the [youki example](#youki) explaining the setup.
 ## Use containerd shims
 
 containerd shims let you use alternative runtimes without having to change the
-configuration of the Docker daemon. To use a containerd shim, install the shim
-binary on `PATH` on the system where the Docker daemon is running.
+configuration of the iEchor daemon. To use a containerd shim, install the shim
+binary on `PATH` on the system where the iEchor daemon is running.
 
-To use a shim with `docker run`, specify the fully qualified name of the
+To use a shim with `iechor run`, specify the fully qualified name of the
 runtime as the value to the `--runtime` flag:
 
 ```console
-$ docker run --runtime io.containerd.kata.v2 hello-world
+$ iechor run --runtime io.containerd.kata.v2 hello-world
 ```
 
 ### Use a containerd shim without installing on PATH
@@ -66,7 +66,7 @@ register the shim in the daemon configuration as follows:
 To use the shim, specify the name that you assigned to it:
 
 ```console
-$ docker run --runtime foo hello-world
+$ iechor run --runtime foo hello-world
 ```
 
 ### Configure shims
@@ -97,22 +97,22 @@ use the `runtimes` option in the daemon configuration file.
 2. Reload the daemon's configuration.
 
    ```console
-   # systemctl reload docker
+   # systemctl reload iechor
    ```
 
-3. Use the customized runtime using the `--runtime` flag for `docker run`.
+3. Use the customized runtime using the `--runtime` flag for `iechor run`.
 
    ```console
-   $ docker run --runtime gvisor hello-world
+   $ iechor run --runtime gvisor hello-world
    ```
 
 For more information about the configuration options for containerd shims, see
-[Configure containerd shims](./../reference/cli/dockerd.md#configure-containerd-shims).
+[Configure containerd shims](./../reference/cli/iechord.md#configure-containerd-shims).
 
 ## Examples
 
 The following examples show you how to set up and use alternative container
-runtimes with Docker Engine.
+runtimes with iEchor Engine.
 
 - [youki](#youki)
 - [Wasmtime](#wasmtime)
@@ -127,7 +127,7 @@ youki functions as a drop-in replacement for runc, meaning it relies on the
 runc shim to invoke the runtime binary. When you register runtimes acting as
 runc replacements, you configure the path to the runtime executable, and
 optionally a set of runtime arguments. For more information, see
-[Configure runc drop-in replacements](./../reference/cli/dockerd.md#configure-runc-drop-in-replacements).
+[Configure runc drop-in replacements](./../reference/cli/iechord.md#configure-runc-drop-in-replacements).
 
 To add youki as a container runtime:
 
@@ -136,13 +136,13 @@ To add youki as a container runtime:
    For instructions, refer to the
    [official setup guide](https://containers.github.io/youki/user/basic_setup.html).
 
-2. Register youki as a runtime for Docker by editing the Docker daemon
-   configuration file, located at `/etc/docker/daemon.json` by default.
+2. Register youki as a runtime for iEchor by editing the iEchor daemon
+   configuration file, located at `/etc/iechor/daemon.json` by default.
 
    The `path` key should specify the path to wherever you installed youki.
 
    ```console
-   # cat > /etc/docker/daemon.json <<EOF
+   # cat > /etc/iechor/daemon.json <<EOF
    {
      "runtimes": {
        "youki": {
@@ -156,13 +156,13 @@ To add youki as a container runtime:
 3. Reload the daemon's configuration.
 
    ```console
-   # systemctl reload docker
+   # systemctl reload iechor
    ```
 
 Now you can run containers that use youki as a runtime.
 
 ```console
-$ docker run --rm --runtime youki hello-world
+$ iechor run --rm --runtime youki hello-world
 ```
 
 ### Wasmtime
@@ -170,7 +170,7 @@ $ docker run --rm --runtime youki hello-world
 Wasmtime is a
 [Bytecode Alliance](https://bytecodealliance.org/)
 project, and a Wasm runtime that lets you run Wasm containers.
-Running Wasm containers with Docker provides two layers of security.
+Running Wasm containers with iEchor provides two layers of security.
 You get all the benefits from container isolation,
 plus the added sandboxing provided by the Wasm runtime environment.
 
@@ -191,19 +191,19 @@ To add Wasmtime as a container runtime, follow these steps:
    }
    ```
 
-2. Restart the Docker daemon.
+2. Restart the iEchor daemon.
 
    ```console
-   # systemctl restart docker
+   # systemctl restart iechor
    ```
 
 3. Install the Wasmtime containerd shim on `PATH`.
 
-   The following command Dockerfile builds the Wasmtime binary from source
+   The following command iEchorfile builds the Wasmtime binary from source
    and exports it to `./containerd-shim-wasmtime-v1`.
 
    ```console
-   $ docker build --output . - <<EOF
+   $ iechor build --output . - <<EOF
    FROM rust:latest as build
    RUN cargo install \
        --git https://github.com/containerd/runwasi.git \
@@ -224,7 +224,7 @@ To add Wasmtime as a container runtime, follow these steps:
 Now you can run containers that use Wasmtime as a runtime.
 
 ```console
-$ docker run --rm \
+$ iechor run --rm \
  --runtime io.containerd.wasmtime.v1 \
  --platform wasi/wasm32 \
  michaelirwin244/wasm-example
@@ -233,6 +233,6 @@ $ docker run --rm \
 ## Related information
 
 - To learn more about the configuration options for container runtimes,
-  see [Configure container runtimes](./../reference/cli/dockerd.md#configure-container-runtimes).
+  see [Configure container runtimes](./../reference/cli/iechord.md#configure-container-runtimes).
 - You can configure which runtime that the daemon should use as its default.
-  Refer to [Configure the default container runtime](./../reference/cli/dockerd.md#configure-the-default-container-runtime).
+  Refer to [Configure the default container runtime](./../reference/cli/iechord.md#configure-the-default-container-runtime).

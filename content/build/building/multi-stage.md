@@ -10,20 +10,20 @@ aliases:
 ---
 
 Multi-stage builds are useful to anyone who has struggled to optimize
-Dockerfiles while keeping them easy to read and maintain.
+iEchorfiles while keeping them easy to read and maintain.
 
 ## Use multi-stage builds
 
-With multi-stage builds, you use multiple `FROM` statements in your Dockerfile.
+With multi-stage builds, you use multiple `FROM` statements in your iEchorfile.
 Each `FROM` instruction can use a different base, and each of them begins a new
 stage of the build. You can selectively copy artifacts from one stage to
 another, leaving behind everything you don't want in the final image.
 
-The following Dockerfile has two separate stages: one for building a binary,
+The following iEchorfile has two separate stages: one for building a binary,
 and another where the binary gets copied from the first stage into the next stage.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM golang:{{% param "example_go_version" %}}
 WORKDIR /src
 COPY <<EOF ./main.go
@@ -42,11 +42,11 @@ COPY --from=0 /bin/hello /bin/hello
 CMD ["/bin/hello"]
 ```
 
-You only need the single Dockerfile. No need for a separate build script. Just
-run `docker build`.
+You only need the single iEchorfile. No need for a separate build script. Just
+run `iechor build`.
 
 ```console
-$ docker build -t hello .
+$ iechor build -t hello .
 ```
 
 The end result is a tiny production image with nothing but the binary inside.
@@ -65,10 +65,10 @@ number, starting with 0 for the first `FROM` instruction. However, you can
 name your stages, by adding an `AS <NAME>` to the `FROM` instruction. This
 example improves the previous one by naming the stages and using the name in
 the `COPY` instruction. This means that even if the instructions in your
-Dockerfile are re-ordered later, the `COPY` doesn't break.
+iEchorfile are re-ordered later, the `COPY` doesn't break.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM golang:{{% param "example_go_version" %}} as build
 WORKDIR /src
 COPY <<EOF /src/main.go
@@ -90,12 +90,12 @@ CMD ["/bin/hello"]
 ## Stop at a specific build stage
 
 When you build your image, you don't necessarily need to build the entire
-Dockerfile including every stage. You can specify a target build stage. The
-following command assumes you are using the previous `Dockerfile` but stops at
+iEchorfile including every stage. You can specify a target build stage. The
+following command assumes you are using the previous `iEchorfile` but stops at
 the stage named `build`:
 
 ```console
-$ docker build --target build -t hello .
+$ iechor build --target build -t hello .
 ```
 
 A few scenarios where this might be useful are:
@@ -109,12 +109,12 @@ A few scenarios where this might be useful are:
 ## Use an external image as a stage
 
 When using multi-stage builds, you aren't limited to copying from stages you
-created earlier in your Dockerfile. You can use the `COPY --from` instruction to
+created earlier in your iEchorfile. You can use the `COPY --from` instruction to
 copy from a separate image, either using the local image name, a tag available
-locally or on a Docker registry, or a tag ID. The Docker client pulls the image
+locally or on a iEchor registry, or a tag ID. The iEchor client pulls the image
 if necessary and copies the artifact from there. The syntax is:
 
-```dockerfile
+```iechorfile
 COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf
 ```
 
@@ -123,8 +123,8 @@ COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf
 You can pick up where a previous stage left off by referring to it when using
 the `FROM` directive. For example:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 FROM alpine:latest AS builder
 RUN apk --no-cache add build-base
@@ -140,17 +140,17 @@ RUN g++ -o /binary source.cpp
 
 ## Differences between legacy builder and BuildKit
 
-The legacy Docker Engine builder processes all stages of a Dockerfile leading
+The legacy iEchor Engine builder processes all stages of a iEchorfile leading
 up to the selected `--target`. It will build a stage even if the selected
 target doesn't depend on that stage.
 
 [BuildKit](../buildkit/index.md) only builds the stages that the target stage
 depends on.
 
-For example, given the following Dockerfile:
+For example, given the following iEchorfile:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM ubuntu AS base
 RUN echo "base"
 
@@ -162,18 +162,18 @@ RUN echo "stage2"
 ```
 
 With [BuildKit enabled](../buildkit/index.md#getting-started), building the
-`stage2` target in this Dockerfile means only `base` and `stage2` are processed.
+`stage2` target in this iEchorfile means only `base` and `stage2` are processed.
 There is no dependency on `stage1`, so it's skipped.
 
 ```console
-$ DOCKER_BUILDKIT=1 docker build --no-cache -f Dockerfile --target stage2 .
+$ IECHOR_BUILDKIT=1 iechor build --no-cache -f iEchorfile --target stage2 .
 [+] Building 0.4s (7/7) FINISHED                                                                    
- => [internal] load build definition from Dockerfile                                            0.0s
- => => transferring dockerfile: 36B                                                             0.0s
- => [internal] load .dockerignore                                                               0.0s
+ => [internal] load build definition from iEchorfile                                            0.0s
+ => => transferring iechorfile: 36B                                                             0.0s
+ => [internal] load .iechorignore                                                               0.0s
  => => transferring context: 2B                                                                 0.0s
- => [internal] load metadata for docker.io/library/ubuntu:latest                                0.0s
- => CACHED [base 1/2] FROM docker.io/library/ubuntu                                             0.0s
+ => [internal] load metadata for iechor.io/library/ubuntu:latest                                0.0s
+ => CACHED [base 1/2] FROM iechor.io/library/ubuntu                                             0.0s
  => [base 2/2] RUN echo "base"                                                                  0.1s
  => [stage2 1/1] RUN echo "stage2"                                                              0.2s
  => exporting to image                                                                          0.0s
@@ -185,8 +185,8 @@ On the other hand, building the same target without BuildKit results in all
 stages being processed:
 
 ```console
-$ DOCKER_BUILDKIT=0 docker build --no-cache -f Dockerfile --target stage2 .
-Sending build context to Docker daemon  219.1kB
+$ IECHOR_BUILDKIT=0 iechor build --no-cache -f iEchorfile --target stage2 .
+Sending build context to iEchor daemon  219.1kB
 Step 1/6 : FROM ubuntu AS base
  ---> a7870fd478f4
 Step 2/6 : RUN echo "base"

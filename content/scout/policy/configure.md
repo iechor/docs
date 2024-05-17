@@ -1,6 +1,6 @@
 ---
 title: Configure policies
-description: Learn how to configure or disable the default policies in Docker Scout
+description: Learn how to configure or disable the default policies in iEchor Scout
 keywords: scout, policy, configure, disable, enable, parametrize, thresholds
 ---
 
@@ -21,7 +21,7 @@ policy you used as a base for your custom policy.
 
 To configure a policy:
 
-1. Go to the [Policies page](https://scout.docker.com/reports/policy) in the Docker Scout Dashboard.
+1. Go to the [Policies page](https://scout.iechor.com/reports/policy) in the iEchor Scout Dashboard.
 2. Select the policy you want to configure.
 3. Select **View policy details** to open the policy side panel.
 
@@ -40,13 +40,13 @@ To configure a policy:
 ## Disable a policy
 
 When you disable a policy, evaluation results for that policy are hidden, and
-no longer appear in the Docker Scout Dashboard or in the CLI. Historic
+no longer appear in the iEchor Scout Dashboard or in the CLI. Historic
 evaluation results aren't deleted if you disable a policy, so if you change
 your mind and re-enable a policy later, results from earlier evaluations will
 still be available.
 
 To disable a policy:
 
-1. Go to the [Policies page](https://scout.docker.com/reports/policy) in the Docker Scout Dashboard.
+1. Go to the [Policies page](https://scout.iechor.com/reports/policy) in the iEchor Scout Dashboard.
 2. Select the policy you want to disable.
 3. Select the **Disable** button.
