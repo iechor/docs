@@ -7,10 +7,10 @@ keywords: build, buildx, bake, file, remote, git, http
 You can also build Bake files directly from a remote Git repository or HTTPS URL:
 
 ```console
-$ docker buildx bake "https://github.com/docker/cli.git#v20.10.11" --print
-#1 [internal] load git source https://github.com/docker/cli.git#v20.10.11
+$ iechor buildx bake "https://github.com/iechor/cli.git#v20.10.11" --print
+#1 [internal] load git source https://github.com/iechor/cli.git#v20.10.11
 #1 0.745 e8f1871b077b64bcb4a13334b7146492773769f7       refs/tags/v20.10.11
-#1 2.022 From https://github.com/docker/cli
+#1 2.022 From https://github.com/iechor/cli
 #1 2.022  * [new tag]         v20.10.11  -> v20.10.11
 #1 DONE 2.9s
 ```
@@ -24,8 +24,8 @@ $ docker buildx bake "https://github.com/docker/cli.git#v20.10.11" --print
   },
   "target": {
     "binary": {
-      "context": "https://github.com/docker/cli.git#v20.10.11",
-      "dockerfile": "Dockerfile",
+      "context": "https://github.com/iechor/cli.git#v20.10.11",
+      "iechorfile": "iEchorfile",
       "args": {
         "BASE_VARIANT": "alpine",
         "GO_STRIP": "",
@@ -39,21 +39,21 @@ $ docker buildx bake "https://github.com/docker/cli.git#v20.10.11" --print
 }
 ```
 
-As you can see the context is fixed to `https://github.com/docker/cli.git` even if
-[no context is actually defined](https://github.com/docker/cli/blob/2776a6d694f988c0c1df61cad4bfac0f54e481c8/docker-bake.hcl#L17-L26)
+As you can see the context is fixed to `https://github.com/iechor/cli.git` even if
+[no context is actually defined](https://github.com/iechor/cli/blob/2776a6d694f988c0c1df61cad4bfac0f54e481c8/iechor-bake.hcl#L17-L26)
 in the definition.
 
 If you want to access the main context for bake command from a bake file
 that has been imported remotely, you can use the [`BAKE_CMD_CONTEXT` built-in var](reference.md#built-in-variables).
 
 ```console
-$ curl -s https://raw.githubusercontent.com/tonistiigi/buildx/remote-test/docker-bake.hcl
+$ curl -s https://raw.githubusercontent.com/tonistiigi/buildx/remote-test/iechor-bake.hcl
 ```
 
 ```hcl
 target "default" {
   context = BAKE_CMD_CONTEXT
-  dockerfile-inline = <<EOT
+  iechorfile-inline = <<EOT
 FROM alpine
 WORKDIR /src
 COPY . .
@@ -63,7 +63,7 @@ EOT
 ```
 
 ```console
-$ docker buildx bake "https://github.com/tonistiigi/buildx.git#remote-test" --print
+$ iechor buildx bake "https://github.com/tonistiigi/buildx.git#remote-test" --print
 ```
 
 ```json
@@ -71,8 +71,8 @@ $ docker buildx bake "https://github.com/tonistiigi/buildx.git#remote-test" --pr
   "target": {
     "default": {
       "context": ".",
-      "dockerfile": "Dockerfile",
-      "dockerfile-inline": "FROM alpine\nWORKDIR /src\nCOPY . .\nRUN ls -l \u0026\u0026 stop\n"
+      "iechorfile": "iEchorfile",
+      "iechorfile-inline": "FROM alpine\nWORKDIR /src\nCOPY . .\nRUN ls -l \u0026\u0026 stop\n"
     }
   }
 }
@@ -80,7 +80,7 @@ $ docker buildx bake "https://github.com/tonistiigi/buildx.git#remote-test" --pr
 
 ```console
 $ touch foo bar
-$ docker buildx bake "https://github.com/tonistiigi/buildx.git#remote-test"
+$ iechor buildx bake "https://github.com/tonistiigi/buildx.git#remote-test"
 ```
 
 ```text
@@ -93,7 +93,7 @@ $ docker buildx bake "https://github.com/tonistiigi/buildx.git#remote-test"
 ```
 
 ```console
-$ docker buildx bake "https://github.com/tonistiigi/buildx.git#remote-test" "https://github.com/docker/cli.git#v20.10.11" --print
+$ iechor buildx bake "https://github.com/tonistiigi/buildx.git#remote-test" "https://github.com/iechor/cli.git#v20.10.11" --print
 #1 [internal] load git source https://github.com/tonistiigi/buildx.git#remote-test
 #1 0.429 577303add004dd7efeb13434d69ea030d35f7888       refs/heads/remote-test
 #1 CACHED
@@ -103,16 +103,16 @@ $ docker buildx bake "https://github.com/tonistiigi/buildx.git#remote-test" "htt
 {
   "target": {
     "default": {
-      "context": "https://github.com/docker/cli.git#v20.10.11",
-      "dockerfile": "Dockerfile",
-      "dockerfile-inline": "FROM alpine\nWORKDIR /src\nCOPY . .\nRUN ls -l \u0026\u0026 stop\n"
+      "context": "https://github.com/iechor/cli.git#v20.10.11",
+      "iechorfile": "iEchorfile",
+      "iechorfile-inline": "FROM alpine\nWORKDIR /src\nCOPY . .\nRUN ls -l \u0026\u0026 stop\n"
     }
   }
 }
 ```
 
 ```console
-$ docker buildx bake "https://github.com/tonistiigi/buildx.git#remote-test" "https://github.com/docker/cli.git#v20.10.11"
+$ iechor buildx bake "https://github.com/tonistiigi/buildx.git#remote-test" "https://github.com/iechor/cli.git#v20.10.11"
 ```
 
 ```text
@@ -136,7 +136,7 @@ You can also specify the Bake definition to load from the remote repository,
 using the `--file` or `-f` flag:
 
 ```console
-docker buildx bake -f bake.hcl "https://github.com/crazy-max/buildx.git#remote-with-local"
+iechor buildx bake -f bake.hcl "https://github.com/crazy-max/buildx.git#remote-with-local"
 ```
 
 ```text
@@ -159,7 +159,7 @@ target "default" {
 ```
 
 ```console
-docker buildx bake -f bake.hcl -f cwd://local.hcl "https://github.com/crazy-max/buildx.git#remote-with-local" --print
+iechor buildx bake -f bake.hcl -f cwd://local.hcl "https://github.com/crazy-max/buildx.git#remote-with-local" --print
 ```
 
 ```json
@@ -167,7 +167,7 @@ docker buildx bake -f bake.hcl -f cwd://local.hcl "https://github.com/crazy-max/
   "target": {
     "default": {
       "context": "https://github.com/crazy-max/buildx.git#remote-with-local",
-      "dockerfile": "Dockerfile",
+      "iechorfile": "iEchorfile",
       "args": {
         "HELLO": "foo"
       },

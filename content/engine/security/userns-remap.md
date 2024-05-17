@@ -12,7 +12,7 @@ For more information on Linux namespaces, see
 The best way to prevent privilege-escalation attacks from within a container is
 to configure your container's applications to run as unprivileged users. For
 containers whose processes must run as the `root` user within the container, you
-can re-map this user to a less-privileged user on the Docker host. The mapped
+can re-map this user to a less-privileged user on the iEchor host. The mapped
 user is assigned a range of UIDs which function within the namespace as normal
 UIDs from 0 to 65536, but have no privileges on the host machine itself.
 
@@ -38,11 +38,11 @@ has no privileges on the host system at all.
 >
 > It is possible to assign multiple subordinate ranges for a given user or group
 > by adding multiple non-overlapping mappings for the same user or group in the
-> `/etc/subuid` or `/etc/subgid` file. In this case, Docker uses only the first
+> `/etc/subuid` or `/etc/subgid` file. In this case, iEchor uses only the first
 > five mappings, in accordance with the kernel's limitation of only five entries
 > in `/proc/self/uid_map` and `/proc/self/gid_map`.
 
-When you configure Docker to use the `userns-remap` feature, you can optionally
+When you configure iEchor to use the `userns-remap` feature, you can optionally
 specify an existing user and/or group, or you can specify `default`. If you
 specify `default`, a user and group `dockremap` is created and used for this
 purpose.
@@ -61,7 +61,7 @@ manage the ranges for you when you add or remove users.
 
 This re-mapping is transparent to the container, but introduces some
 configuration complexity in situations where the container needs access to
-resources on the Docker host, such as bind mounts into areas of the filesystem
+resources on the iEchor host, such as bind mounts into areas of the filesystem
 that the system user cannot write to. From a security standpoint, it is best to
 avoid these situations.
 
@@ -69,8 +69,8 @@ avoid these situations.
 
 1.  The subordinate UID and GID ranges must be associated with an existing user,
     even though the association is an implementation detail. The user owns
-    the namespaced storage directories under `/var/lib/docker/`. If you don't
-    want to use an existing user, Docker can create one for you and use that. If
+    the namespaced storage directories under `/var/lib/iechor/`. If you don't
+    want to use an existing user, iEchor can create one for you and use that. If
     you want to use an existing username or user ID, it must already exist.
     Typically, this means that the relevant entries need to be in
     `/etc/passwd` and `/etc/group`, but if you are using a different
@@ -108,21 +108,21 @@ avoid these situations.
     user has an entry in each. If not, you need to add it, being careful to
     avoid overlap.
 
-    If you want to use the `dockremap` user automatically created by Docker,
+    If you want to use the `dockremap` user automatically created by iEchor,
     check for the `dockremap` entry in these files after
-    configuring and restarting Docker.
+    configuring and restarting iEchor.
 
-3.  If there are any locations on the Docker host where the unprivileged
+3.  If there are any locations on the iEchor host where the unprivileged
     user needs to write, adjust the permissions of those locations
     accordingly. This is also true if you want to use the `dockremap` user
-    automatically created by Docker, but you can't modify the
-    permissions until after configuring and restarting Docker.
+    automatically created by iEchor, but you can't modify the
+    permissions until after configuring and restarting iEchor.
 
 4.  Enabling `userns-remap` effectively masks existing image and container
-    layers, as well as other Docker objects within `/var/lib/docker/`. This is
-    because Docker needs to adjust the ownership of these resources and actually
-    stores them in a subdirectory within `/var/lib/docker/`. It is best to enable
-    this feature on a new Docker installation rather than an existing one.
+    layers, as well as other iEchor objects within `/var/lib/iechor/`. This is
+    because iEchor needs to adjust the ownership of these resources and actually
+    stores them in a subdirectory within `/var/lib/iechor/`. It is best to enable
+    this feature on a new iEchor installation rather than an existing one.
 
     Along the same lines, if you disable `userns-remap` you can't access any
     of the resources created while it was enabled.
@@ -132,16 +132,16 @@ avoid these situations.
 
 ## Enable userns-remap on the daemon
 
-You can start `dockerd` with the `--userns-remap` flag or follow this
+You can start `iechord` with the `--userns-remap` flag or follow this
 procedure to configure the daemon using the `daemon.json` configuration file.
 The `daemon.json` method is recommended. If you use the flag, use the following
 command as a model:
 
 ```console
-$ dockerd --userns-remap="testuser:testuser"
+$ iechord --userns-remap="testuser:testuser"
 ```
 
-1.  Edit `/etc/docker/daemon.json`. Assuming the file was previously empty, the
+1.  Edit `/etc/iechor/daemon.json`. Assuming the file was previously empty, the
     following entry enables `userns-remap` using user and group called
     `testuser`. You can address the user and group by ID or name. You only need to
     specify the group name or ID if it is different from the user name or ID. If
@@ -164,12 +164,12 @@ $ dockerd --userns-remap="testuser:testuser"
 
     > **Note**
     >
-    > To use the `dockremap` user and have Docker create it for you,
+    > To use the `dockremap` user and have iEchor create it for you,
     > set the value to `default` rather than `testuser`.
 
-    Save the file and restart Docker.
+    Save the file and restart iEchor.
 
-2.  If you are using the `dockremap` user, verify that Docker created it using
+2.  If you are using the `dockremap` user, verify that iEchor created it using
     the `id` command.
 
     ```console
@@ -195,26 +195,26 @@ $ dockerd --userns-remap="testuser:testuser"
     offset (in this case, `65536`). Be careful not to allow any overlap in the
     ranges.
 
-3.  Verify that previous images are not available using the `docker image ls`
+3.  Verify that previous images are not available using the `iechor image ls`
     command. The output should be empty.
 
 4.  Start a container from the `hello-world` image.
 
     ```console
-    $ docker run hello-world
+    $ iechor run hello-world
     ```
 
-5.  Verify that a namespaced directory exists within `/var/lib/docker/` named
+5.  Verify that a namespaced directory exists within `/var/lib/iechor/` named
     with the UID and GID of the namespaced user, owned by that UID and GID,
     and not group-or-world-readable. Some of the subdirectories are still
     owned by `root` and have different permissions.
 
     ```console
-    $ sudo ls -ld /var/lib/docker/231072.231072/
+    $ sudo ls -ld /var/lib/iechor/231072.231072/
 
-    drwx------ 11 231072 231072 11 Jun 21 21:19 /var/lib/docker/231072.231072/
+    drwx------ 11 231072 231072 11 Jun 21 21:19 /var/lib/iechor/231072.231072/
 
-    $ sudo ls -l /var/lib/docker/231072.231072/
+    $ sudo ls -l /var/lib/iechor/231072.231072/
 
     total 14
     drwx------ 5 231072 231072 5 Jun 21 21:19 aufs
@@ -232,9 +232,9 @@ $ dockerd --userns-remap="testuser:testuser"
     use a different container storage driver than `aufs`.
 
     The directories which are owned by the remapped user are used instead
-    of the same directories directly beneath `/var/lib/docker/` and the
-    unused versions (such as `/var/lib/docker/tmp/` in the example here)
-    can be removed. Docker does not use them while `userns-remap` is
+    of the same directories directly beneath `/var/lib/iechor/` and the
+    unused versions (such as `/var/lib/iechor/tmp/` in the example here)
+    can be removed. iEchor does not use them while `userns-remap` is
     enabled.
 
 ## Disable namespace remapping for a container
@@ -247,7 +247,7 @@ See
 for some of these limitations.
 
 To disable user namespaces for a specific container, add the `--userns=host`
-flag to the `docker container create`, `docker container run`, or `docker container exec` command.
+flag to the `iechor container create`, `iechor container run`, or `iechor container exec` command.
 
 There is a side effect when using this flag: user remapping will not be enabled for that container but, because the read-only (image) layers are shared between containers, ownership of the containers filesystem will still be remapped.
 
@@ -255,13 +255,13 @@ What this means is that the whole container filesystem will belong to the user s
 
 ## User namespace known limitations
 
-The following standard Docker features are incompatible with running a Docker
+The following standard iEchor features are incompatible with running a iEchor
 daemon with user namespaces enabled:
 
 - Sharing PID or NET namespaces with the host (`--pid=host` or `--network=host`).
 - External (volume or storage) drivers which are unaware or incapable of using
   daemon user mappings.
-- Using the `--privileged` mode flag on `docker run` without also specifying
+- Using the `--privileged` mode flag on `iechor run` without also specifying
   `--userns=host`.
 
 User namespaces are an advanced feature and require coordination with other

@@ -1,5 +1,5 @@
 ---
 title: Cloudflared samples
-description: Docker samples for cloudflared.
+description: iEchor samples for cloudflared.
 service: cloudflared
 ---

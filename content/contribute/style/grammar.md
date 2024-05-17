@@ -5,7 +5,7 @@ keywords: grammar, style, contribute
 toc_max: 2
 ---
 
-Docker documentation should always be written in US English with US grammar. 
+iEchor documentation should always be written in US English with US grammar. 
 
 ## Acronyms and initialisms
 
@@ -51,9 +51,9 @@ The following content elements should use sentence case:
 
 - As a general rule, it's best to avoid the use of ALL CAPITALS in most content types. They are more difficult to scan and take up more space. While all caps can convey emphasis, they can also give the impression of shouting.
 - If a company name is all lowercase or all uppercase letters, follow their style, even at the beginning of sentences: DISH and bluecrux. When in doubt, check the company's website.
-- Use title case for Docker solutions: Docker Extensions, Docker Hub.
+- Use title case for iEchor solutions: iEchor Extensions, iEchor Hub.
 - Capitalize a job title if it immediately precedes a name (Chief Executive Officer Scott Johnston).
-- Don't capitalize a job title that follows a name or is a generic reference (Scott Johnston, chief executive officer of Docker).
+- Don't capitalize a job title that follows a name or is a generic reference (Scott Johnston, chief executive officer of iEchor).
 - Capitalize department names when you refer to the name of a department, but use lower case if you are talking about the field of work and not the actual department.
 - When referring to specific user interface text, like a button label or menu item, use the same capitalization that’s displayed in the user interface. 
 
@@ -136,7 +136,7 @@ When writing version numbers for release notes, use the following example:
 
 - version 4.8.2
 - v1.0
-- Docker Hub API v2
+- iEchor Hub API v2
 
 ## Punctuation
 

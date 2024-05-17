@@ -14,12 +14,12 @@ A practical use case for build arguments is to specify runtime versions for
 build stages. Your image uses the `golang:{{% param "example_go_version" %}}-alpine`
 image as a base image.
 But what if someone wanted to use a different version of Go for building the
-application? They could update the version number inside the Dockerfile, but
+application? They could update the version number inside the iEchorfile, but
 that’s inconvenient, it makes switching between versions more tedious than it
 has to be. Build arguments make life easier:
 
 ```diff
-  # syntax=docker/dockerfile:1
+  # syntax=iechor/iechorfile:1
 - FROM golang:{{% param "example_go_version" %}}-alpine AS base
 + ARG GO_VERSION={{% param "example_go_version" %}}
 + FROM golang:${GO_VERSION}-alpine AS base
@@ -57,7 +57,7 @@ Try setting a different version of Go to use for building, using the
 `--build-arg` flag for the build command:
 
 ```console
-$ docker build --build-arg="GO_VERSION=1.19" .
+$ iechor build --build-arg="GO_VERSION=1.19" .
 ```
 
 Running this command results in a build using the `golang:1.19-alpine` image.
@@ -93,7 +93,7 @@ stage. The Go compiler uses the value of the build argument to set the value of
 a variable in the code.
 
 ```diff
-  # syntax=docker/dockerfile:1
+  # syntax=iechor/iechorfile:1
   ARG GO_VERSION={{% param "example_go_version" %}}
   FROM golang:${GO_VERSION}-alpine AS base
   WORKDIR /src
@@ -125,12 +125,12 @@ a variable in the code.
 
 Now the version of the server is injected when building the binary, without having to update
 the source code. To verify this, you can build the `server` target and start a
-container with `docker run`. The server outputs `v0.0.1` as the version on
+container with `iechor run`. The server outputs `v0.0.1` as the version on
 startup.
 
 ```console
-$ docker build --target=server --build-arg="APP_VERSION=v0.0.1" --tag=buildme-server .
-$ docker run buildme-server
+$ iechor build --target=server --build-arg="APP_VERSION=v0.0.1" --tag=buildme-server .
+$ iechor run buildme-server
 2023/04/06 08:54:27 Version: v0.0.1
 2023/04/06 08:54:27 Starting server...
 2023/04/06 08:54:27 Listening on HTTP port 3000
@@ -143,11 +143,11 @@ configurable, and inject values at build-time.
 
 Related information:
 
-- [`ARG` Dockerfile reference](../../reference/dockerfile.md#arg)
+- [`ARG` iEchorfile reference](../../reference/iechorfile.md#arg)
 
 ## Next steps
 
-The next section of this guide shows how you can use Docker builds to create not
+The next section of this guide shows how you can use iEchor builds to create not
 only container images, but executable binaries as well.
 
 {{< button text="Export binaries" url="export.md" >}}

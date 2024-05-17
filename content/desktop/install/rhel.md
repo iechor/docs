@@ -1,29 +1,29 @@
 ---
-description: Instructions for installing Docker Desktop on RHEL
+description: Instructions for installing iEchor Desktop on RHEL
 keywords: red hat, red hat enterprise linux, rhel, rpm,
   update install, uninstall, upgrade, update, linux,
-  desktop, docker desktop, docker desktop for linux, dd4l
-title: Install Docker Desktop on RHEL
+  desktop, iechor desktop, iechor desktop for linux, dd4l
+title: Install iEchor Desktop on RHEL
 toc_max: 4
-download-url-base: https://download.docker.com/linux/rhel
+download-url-base: https://download.iechor.com/linux/rhel
 ---
 
 > **Early Access**
 >
-> Docker Desktop on RHEL is in [Early Access](../../release-lifecycle.md).
+> iEchor Desktop on RHEL is in [Early Access](../../release-lifecycle.md).
 { .restricted }
 
-> **Docker Desktop terms**
+> **iEchor Desktop terms**
 >
-> Commercial use of Docker Desktop in larger enterprises (more than 250
+> Commercial use of iEchor Desktop in larger enterprises (more than 250
 > employees OR more than $10 million USD in annual revenue) requires a [paid
-> subscription](https://www.docker.com/pricing/).
+> subscription](https://www.iechor.com/pricing/).
 
-This page contains information on how to install, launch and upgrade Docker Desktop on a Red Hat Enterprise Linux (RHEL) distribution.
+This page contains information on how to install, launch and upgrade iEchor Desktop on a Red Hat Enterprise Linux (RHEL) distribution.
 
 ## Prerequisites
 
-To install Docker Desktop successfully, you must:
+To install iEchor Desktop successfully, you must:
 
 - Meet the [system requirements](linux-install.md#general-system-requirements).
 - Have a 64-bit version of either RHEL 8 or RHEL 9.
@@ -80,14 +80,14 @@ For non-GNOME desktop environments, `gnome-terminal` must be installed:
 $ sudo dnf install gnome-terminal
 ```
 
-## Install Docker Desktop
+## Install iEchor Desktop
 
-To install Docker Desktop on RHEL:
+To install iEchor Desktop on RHEL:
 
-1. Set up Docker's package repository as follows:
+1. Set up iEchor's package repository as follows:
 
    ```console
-   $ sudo dnf config-manager --add-repo {{% param "download-url-base" %}}/docker-ce.repo
+   $ sudo dnf config-manager --add-repo {{% param "download-url-base" %}}/iechor-ce.repo
    ```
 
 2. Download the latest RPM package.
@@ -95,20 +95,20 @@ To install Docker Desktop on RHEL:
 3. Install the package with dnf as follows:
 
    ```console
-   $ sudo dnf install ./docker-desktop-<version>-<arch>-rhel.rpm
+   $ sudo dnf install ./iechor-desktop-<version>-<arch>-rhel.rpm
    ```
 
 There are a few post-install configuration steps done through the post-install script contained in the RPM package.
 
 The post-install script:
 
-- Sets the capability on the Docker Desktop binary to map privileged ports and set resource limits.
+- Sets the capability on the iEchor Desktop binary to map privileged ports and set resource limits.
 - Adds a DNS name for Kubernetes to `/etc/hosts`.
-- Creates a symlink from `/usr/local/bin/com.docker.cli` to `/usr/bin/docker`.
-  This is because the classic Docker CLI is installed at `/usr/bin/docker`. The Docker Desktop installer also installs a Docker CLI binary that includes cloud-integration capabilities and is essentially a wrapper for the Compose CLI, at`/usr/local/bin/com.docker.cli`. The symlink ensures that the wrapper can access the classic Docker CLI. 
+- Creates a symlink from `/usr/local/bin/com.iechor.cli` to `/usr/bin/iechor`.
+  This is because the classic iEchor CLI is installed at `/usr/bin/iechor`. The iEchor Desktop installer also installs a iEchor CLI binary that includes cloud-integration capabilities and is essentially a wrapper for the Compose CLI, at`/usr/local/bin/com.iechor.cli`. The symlink ensures that the wrapper can access the classic iEchor CLI. 
 - Creates a symlink from `/usr/libexec/qemu-kvm` to `/usr/local/bin/qemu-system-x86_64`.
 
-## Launch Docker Desktop
+## Launch iEchor Desktop
 
 {{< include "desktop-linux-launch.md" >}}
 
@@ -118,22 +118,22 @@ The post-install script:
 >
 > For example:
 > ```console
-> $ docker run --rm -it -v "/etc/pki/entitlement:/etc/pki/entitlement" -v "/etc/rhsm:/etc/rhsm-host" -v "/etc/yum.repos.d/redhat.repo:/etc/yum.repos.d/redhat.repo" registry.access.redhat.com/ubi9
+> $ iechor run --rm -it -v "/etc/pki/entitlement:/etc/pki/entitlement" -v "/etc/rhsm:/etc/rhsm-host" -v "/etc/yum.repos.d/redhat.repo:/etc/yum.repos.d/redhat.repo" registry.access.redhat.com/ubi9
 > ```
 { .tip }
 
-## Upgrade Docker Desktop
+## Upgrade iEchor Desktop
 
-Once a new version for Docker Desktop is released, the Docker UI shows a notification.
-You need to first remove the previous version and then download the new package each time you want to upgrade Docker Desktop. Run:
+Once a new version for iEchor Desktop is released, the iEchor UI shows a notification.
+You need to first remove the previous version and then download the new package each time you want to upgrade iEchor Desktop. Run:
 
 ```console
-$ sudo dnf remove docker-desktop
-$ sudo dnf install ./docker-desktop-<version>-<arch>-rhel.rpm
+$ sudo dnf remove iechor-desktop
+$ sudo dnf install ./iechor-desktop-<version>-<arch>-rhel.rpm
 ```
 
 ## Next steps
 
 - Take a look at the [Get started](../../guides/get-started/_index.md) training modules to learn how to build an image and run it as a containerized application.
-- [Explore Docker Desktop](../use-desktop/index.md) and all its features.
-- Review the topics in [Develop with Docker](../../develop/index.md) to learn how to build new applications using Docker.
+- [Explore iEchor Desktop](../use-desktop/index.md) and all its features.
+- Review the topics in [Develop with iEchor](../../develop/index.md) to learn how to build new applications using iEchor.

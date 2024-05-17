@@ -1,12 +1,12 @@
 ---
 description: Initialize the swarm
-keywords: tutorial, cluster management, swarm mode, get started, docker engine
+keywords: tutorial, cluster management, swarm mode, get started, iechor engine
 title: Create a swarm
 notoc: true
 ---
 
 After you complete the [tutorial setup](index.md) steps, you're ready
-to create a swarm. Make sure the Docker Engine daemon is started on the host
+to create a swarm. Make sure the iEchor Engine daemon is started on the host
 machines.
 
 1.  Open a terminal and ssh into the machine where you want to run your manager
@@ -15,23 +15,23 @@ machines.
 2.  Run the following command to create a new swarm:
 
     ```console
-    $ docker swarm init --advertise-addr <MANAGER-IP>
+    $ iechor swarm init --advertise-addr <MANAGER-IP>
     ```
 
     In the tutorial, the following command creates a swarm on the `manager1`
     machine:
 
     ```console
-    $ docker swarm init --advertise-addr 192.168.99.100
+    $ iechor swarm init --advertise-addr 192.168.99.100
     Swarm initialized: current node (dxn1zf6l61qsb1josjja83ngz) is now a manager.
 
     To add a worker to this swarm, run the following command:
 
-        docker swarm join \
+        iechor swarm join \
         --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
         192.168.99.100:2377
 
-    To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+    To add a manager to this swarm, run 'iechor swarm join-token manager' and follow the instructions.
     ```
 
     The `--advertise-addr` flag configures the manager node to publish its
@@ -42,10 +42,10 @@ machines.
     join as managers or workers depending on the value for the `--token`
     flag.
 
-3.  Run `docker info` to view the current state of the swarm:
+3.  Run `iechor info` to view the current state of the swarm:
 
     ```console
-    $ docker info
+    $ iechor info
 
     Containers: 2
     Running: 0
@@ -60,10 +60,10 @@ machines.
       ...snip...
     ```
 
-4.  Run the `docker node ls` command to view information about nodes:
+4.  Run the `iechor node ls` command to view information about nodes:
 
     ```console
-    $ docker node ls
+    $ iechor node ls
 
     ID                           HOSTNAME  STATUS  AVAILABILITY  MANAGER STATUS
     dxn1zf6l61qsb1josjja83ngz *  manager1  Ready   Active        Leader
@@ -73,7 +73,7 @@ machines.
     The `*` next to the node ID indicates that you're currently connected on
     this node.
 
-    Docker Engine Swarm mode automatically names the node with the machine host
+    iEchor Engine Swarm mode automatically names the node with the machine host
     name. The tutorial covers other columns in later steps.
 
 ## Next steps

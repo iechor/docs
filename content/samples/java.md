@@ -1,5 +1,5 @@
 ---
 title: Java samples
-description: Docker samples for Java.
+description: iEchor samples for Java.
 service: java
 ---

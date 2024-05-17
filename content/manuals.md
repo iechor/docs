@@ -1,36 +1,36 @@
 ---
 title: Manuals
-description: Learn how to install, set up, configure, and use Docker products with this collection of user guides
-keywords: docker, docs, manuals, products, user guides, how-to
+description: Learn how to install, set up, configure, and use iEchor products with this collection of user guides
+keywords: iechor, docs, manuals, products, user guides, how-to
 notoc: true
 skip_read_time: true
 development:
-- title: Docker Desktop
+- title: iEchor Desktop
   description: Your command center for container development.
   icon: /assets/icons/Whale.svg
   link: /desktop/
-- title: Docker Compose
+- title: iEchor Compose
   description: Define and run multi-container applications.
   icon: /assets/icons/Compose.svg
   link: /compose/
-- title: Docker Build
+- title: iEchor Build
   description: Build and ship any application anywhere.
   icon: build
   link: /build/
-- title: Docker Engine
+- title: iEchor Engine
   description: The industry-leading container runtime.
   icon: developer_board
   link: /engine/
-- title: Docker Extensions
-  description: Customize your Docker Desktop workflow.
+- title: iEchor Extensions
+  description: Customize your iEchor Desktop workflow.
   icon: extension
   link: /desktop/extensions/
 services:
-- title: Docker Hub
+- title: iEchor Hub
   description: Discover, share, and integrate container images
   icon: hub
-  link: /docker-hub/
-- title: Docker Scout
+  link: /iechor-hub/
+- title: iEchor Scout
   description: Image analysis and policy evaluation.
   icon: /assets/icons/Scout.svg
   link: /scout/
@@ -52,13 +52,13 @@ admin:
   icon: payments
   link: /billing/
 - title: Subscription
-  description: Commercial use licenses for Docker products.
+  description: Commercial use licenses for iEchor products.
   icon: card_membership
   link: /subscription/
 ---
 
 This section contains user guides on how to install, set up, configure, and use
-Docker products.
+iEchor products.
 
 ## Developer tools
 

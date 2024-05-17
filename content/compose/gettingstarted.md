@@ -1,16 +1,16 @@
 ---
-description: Check out this tutorial on how to use Docker Compose from defining application
+description: Check out this tutorial on how to use iEchor Compose from defining application
   dependencies to experimenting with commands.
-keywords: docker compose example, docker compose tutorial, how to use docker compose,
-  running docker compose, how to run docker compose, docker compose build image, docker
-  compose command example, run docker compose file, how to create a docker compose
-  file, run a docker compose file
-title: Docker Compose Quickstart
+keywords: iechor compose example, iechor compose tutorial, how to use iechor compose,
+  running iechor compose, how to run iechor compose, iechor compose build image, iechor
+  compose command example, run iechor compose file, how to create a iechor compose
+  file, run a iechor compose file
+title: iEchor Compose Quickstart
 ---
 
-This tutorial aims to introduce fundamental concepts of Docker Compose by guiding you through the development of a basic Python web application. 
+This tutorial aims to introduce fundamental concepts of iEchor Compose by guiding you through the development of a basic Python web application. 
 
-Using the Flask framework, the application features a hit counter in Redis, providing a practical example of how Docker Compose can be applied in web development scenarios. 
+Using the Flask framework, the application features a hit counter in Redis, providing a practical example of how iEchor Compose can be applied in web development scenarios. 
 
 The concepts demonstrated here should be understandable even if you're not familiar with Python. 
 
@@ -20,8 +20,8 @@ This is a non-normative example that just highlights the key things you can do w
 
 Make sure you have:
 
-- Installed the latest version of Docker Compose
-- A basic understanding of Docker concepts and how Docker works
+- Installed the latest version of iEchor Compose
+- A basic understanding of iEchor concepts and how iEchor works
 
 ## Step 1: Set up
 
@@ -81,10 +81,10 @@ Make sure you have:
    redis
    ```
 
-4. Create a `Dockerfile` and paste the following code in:
+4. Create a `iEchorfile` and paste the following code in:
 
-   ```dockerfile
-   # syntax=docker/dockerfile:1
+   ```iechorfile
+   # syntax=iechor/iechorfile:1
    FROM python:3.10-alpine
    WORKDIR /code
    ENV FLASK_APP=app.py
@@ -97,9 +97,9 @@ Make sure you have:
    CMD ["flask", "run", "--debug"]
    ```
 
-   {{< accordion title="Understand the Dockerfile" >}}
+   {{< accordion title="Understand the iEchorfile" >}}
 
-   This tells Docker to:
+   This tells iEchor to:
 
    * Build an image starting with the Python 3.10 image.
    * Set the working directory to `/code`.
@@ -114,10 +114,10 @@ Make sure you have:
 
    > **Important**
    >
-   >Check that the `Dockerfile` has no file extension like `.txt`. Some editors may append this file extension automatically which results in an error when you run the application.
+   >Check that the `iEchorfile` has no file extension like `.txt`. Some editors may append this file extension automatically which results in an error when you run the application.
    { .important }
 
-   For more information on how to write Dockerfiles, see the [Docker user guide](../develop/index.md) and the [Dockerfile reference](/reference/dockerfile/).
+   For more information on how to write iEchorfiles, see the [iEchor user guide](../develop/index.md) and the [iEchorfile reference](/reference/iechorfile/).
 
 ## Step 2: Define services in a Compose file
 
@@ -138,11 +138,11 @@ services:
 
 This Compose file defines two services: `web` and `redis`. 
 
-The `web` service uses an image that's built from the `Dockerfile` in the current directory.
+The `web` service uses an image that's built from the `iEchorfile` in the current directory.
 It then binds the container and the host machine to the exposed port, `8000`. This example service uses the default port for the Flask web server, `5000`.
 
-The `redis` service uses a public [Redis](https://registry.hub.docker.com/_/redis/) 
-image pulled from the Docker Hub registry.
+The `redis` service uses a public [Redis](https://registry.hub.iechor.com/_/redis/) 
+image pulled from the iEchor Hub registry.
 
 For more information on the `compose.yaml` file, see [How Compose works](compose-application-model.md).
 
@@ -150,10 +150,10 @@ For more information on the `compose.yaml` file, see [How Compose works](compose
 
 With a single command, you create and start all the services from your configuration file.
 
-1. From your project directory, start up your application by running `docker compose up`.
+1. From your project directory, start up your application by running `iechor compose up`.
 
    ```console
-   $ docker compose up
+   $ iechor compose up
 
    Creating network "composetest_default" with the default driver
    Creating composetest_web_1 ...
@@ -200,12 +200,12 @@ With a single command, you create and start all the services from your configura
 
    ![hello world in browser](images/quick-hello-world-2.png)
 
-4. Switch to another terminal window, and type `docker image ls` to list local images.
+4. Switch to another terminal window, and type `iechor image ls` to list local images.
 
    Listing images at this point should return `redis` and `web`.
 
    ```console
-   $ docker image ls
+   $ iechor image ls
 
    REPOSITORY        TAG           IMAGE ID      CREATED        SIZE
    composetest_web   latest        e2c21aa48cc1  4 minutes ago  93.8MB
@@ -213,9 +213,9 @@ With a single command, you create and start all the services from your configura
    redis             alpine        9d8fa9aa0e5b  3 weeks ago    27.5MB
    ```
 
-   You can inspect images with `docker inspect <tag or id>`.
+   You can inspect images with `iechor inspect <tag or id>`.
 
-5. Stop the application, either by running `docker compose down`
+5. Stop the application, either by running `iechor compose down`
    from within your project directory in the second terminal, or by
    hitting `CTRL+C` in the original terminal where you started the app.
 
@@ -244,15 +244,15 @@ For more information on how Compose Watch works, see [Use Compose Watch](file-wa
 
 > **Note**
 >
-> For this example to work, the `--debug` option is added to the `Dockerfile`. The `--debug` option in Flask enables automatic code reload, making it possible to work on the backend API without the need to restart or rebuild the container.
+> For this example to work, the `--debug` option is added to the `iEchorfile`. The `--debug` option in Flask enables automatic code reload, making it possible to work on the backend API without the need to restart or rebuild the container.
 > After changing the `.py` file, subsequent API calls will use the new code, but the browser UI will not automatically refresh in this small example. Most frontend development servers include native live reload support that works with Compose.
 
 ## Step 5: Re-build and run the app with Compose
 
-From your project directory, type `docker compose watch` or `docker compose up --watch` to build and launch the app and start the file watch mode.
+From your project directory, type `iechor compose watch` or `iechor compose up --watch` to build and launch the app and start the file watch mode.
 
 ```console
-$ docker compose watch
+$ iechor compose watch
 [+] Running 2/2
  ✔ Container docs-redis-1 Created                                                                                                                                                                                                        0.0s
  ✔ Container docs-web-1    Recreated                                                                                                                                                                                                      0.1s
@@ -269,10 +269,10 @@ count increment.
 To see Compose Watch in action:
 
 1. Change the greeting in `app.py` and save it. For example, change the `Hello World!`
-message to `Hello from Docker!`:
+message to `Hello from iEchor!`:
 
    ```python
-   return 'Hello from Docker! I have been seen {} times.\n'.format(count)
+   return 'Hello from iEchor! I have been seen {} times.\n'.format(count)
    ```
 
 2. Refresh the app in your browser. The greeting should be updated, and the
@@ -280,7 +280,7 @@ counter should still be incrementing.
 
    ![hello world in browser](images/quick-hello-world-3.png)
 
-3. Once you're done, run `docker compose down`.
+3. Once you're done, run `iechor compose down`.
 
 ## Step 7: Split up your services
 
@@ -313,41 +313,41 @@ Using multiple Compose files lets you customize a Compose application for differ
              target: /code
    ```
 
-4. Run `docker compose up` to build the app with the updated Compose files, and run it. You should see the `Hello world` message in your browser. 
+4. Run `iechor compose up` to build the app with the updated Compose files, and run it. You should see the `Hello world` message in your browser. 
 
 This is a simplified example, but it demonstrates the basic principle of `include` and how it can make it easier to modularize complex applications into sub-Compose files. For more information on `include` and working with multiple Compose files, see [Working with multiple Compose files](multiple-compose-files/_index.md).
 
 ## Step 8: Experiment with some other commands
 
-- If you want to run your services in the background, you can pass the `-d` flag (for "detached" mode) to `docker compose up` and use `docker compose ps` to see what is currently running:
+- If you want to run your services in the background, you can pass the `-d` flag (for "detached" mode) to `iechor compose up` and use `iechor compose ps` to see what is currently running:
 
    ```console
-   $ docker compose up -d
+   $ iechor compose up -d
 
    Starting composetest_redis_1...
    Starting composetest_web_1...
 
-   $ docker compose ps
+   $ iechor compose ps
 
           Name                      Command               State           Ports         
    -------------------------------------------------------------------------------------
-   composetest_redis_1   docker-entrypoint.sh redis ...   Up      6379/tcp              
+   composetest_redis_1   iechor-entrypoint.sh redis ...   Up      6379/tcp              
    composetest_web_1     flask run                        Up      0.0.0.0:8000->5000/tcp
    ```
 
-- Run `docker compose --help` to see other available commands.
+- Run `iechor compose --help` to see other available commands.
 
-- If you started Compose with `docker compose up -d`, stop your services once you've finished with them:
+- If you started Compose with `iechor compose up -d`, stop your services once you've finished with them:
 
    ```console
-   $ docker compose stop
+   $ iechor compose stop
    ```
 
-- You can bring everything down, removing the containers entirely, with the `docker compose down` command. 
+- You can bring everything down, removing the containers entirely, with the `iechor compose down` command. 
 
 ## Where to go next
 
-- Try the [Sample apps with Compose](https://github.com/docker/awesome-compose)
+- Try the [Sample apps with Compose](https://github.com/iechor/awesome-compose)
 - [Explore the full list of Compose commands](reference/index.md)
 - [Explore the Compose file reference](compose-file/index.md)
-- [Check out the Learning Docker Compose video on LinkedIn Learning](https://www.linkedin.com/learning/learning-docker-compose/)
+- [Check out the Learning iEchor Compose video on LinkedIn Learning](https://www.linkedin.com/learning/learning-iechor-compose/)

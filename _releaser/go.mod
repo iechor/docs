@@ -1,4 +1,4 @@
-module github.com/docker/docs/_releaser
+module github.com/iechor/docs/_releaser
 
 go 1.18
 

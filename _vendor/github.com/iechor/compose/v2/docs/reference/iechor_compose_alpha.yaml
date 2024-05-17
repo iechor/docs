@@ -1,0 +1,29 @@
+command: iechor compose alpha
+short: Experimental commands
+long: Experimental commands
+pname: iechor compose
+plink: iechor_compose.yaml
+cname:
+    - iechor compose alpha publish
+    - iechor compose alpha viz
+clink:
+    - iechor_compose_alpha_publish.yaml
+    - iechor_compose_alpha_viz.yaml
+inherited_options:
+    - option: dry-run
+      value_type: bool
+      default_value: "false"
+      description: Execute command in dry run mode
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: true
+experimental: false
+experimentalcli: true
+kubernetes: false
+swarm: false
+

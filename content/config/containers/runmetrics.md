@@ -1,6 +1,6 @@
 ---
 description: Learn how to measure running containers, and about the different metrics
-keywords: docker, metrics, CPU, memory, disk, IO, run, runtime, stats
+keywords: iechor, metrics, CPU, memory, disk, IO, run, runtime, stats
 title: Runtime metrics
 aliases:
   - /articles/runmetrics/
@@ -9,24 +9,24 @@ aliases:
   - /engine/admin/runmetrics/
 ---
 
-## Docker stats
+## iEchor stats
 
-You can use the `docker stats` command to live stream a container's
+You can use the `iechor stats` command to live stream a container's
 runtime metrics. The command supports CPU, memory usage, memory limit,
 and network IO metrics.
 
-The following is a sample output from the `docker stats` command
+The following is a sample output from the `iechor stats` command
 
 ```console
-$ docker stats redis1 redis2
+$ iechor stats redis1 redis2
 
 CONTAINER           CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O
 redis1              0.07%               796 KB / 64 MB        1.21%               788 B / 648 B       3.568 MB / 512 KB
 redis2              0.07%               2.746 MB / 64 MB      4.29%               1.266 KB / 648 B    12.4 MB / 0 B
 ```
 
-The [`docker stats`](../../reference/cli/docker/container/stats.md) reference
-page has more details about the `docker stats` command.
+The [`iechor stats`](../../reference/cli/iechor/container/stats.md) reference
+page has more details about the `iechor stats` command.
 
 ## Control groups
 
@@ -34,7 +34,7 @@ Linux Containers rely on [control groups](https://www.kernel.org/doc/Documentati
 which not only track groups of processes, but also expose metrics about
 CPU, memory, and block I/O usage. You can access those metrics and
 obtain network usage metrics as well. This is relevant for "pure" LXC
-containers, as well as for Docker containers.
+containers, as well as for iEchor containers.
 
 Control groups are exposed through a pseudo-filesystem. In modern distros, you
 should find this filesystem under `/sys/fs/cgroup`. Under that directory, you
@@ -99,10 +99,10 @@ $ sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=1"
 If `grubby` command isn't available, edit the `GRUB_CMDLINE_LINUX` line in `/etc/default/grub`
 and run `sudo update-grub`.
 
-### Running Docker on cgroup v2
+### Running iEchor on cgroup v2
 
-Docker supports cgroup v2 since Docker 20.10.
-Running Docker on cgroup v2 also requires the following conditions to be satisfied:
+iEchor supports cgroup v2 since iEchor 20.10.
+Running iEchor on cgroup v2 also requires the following conditions to be satisfied:
 
 - containerd: v1.4 or later
 - runc: v1.0.0-rc91 or later
@@ -110,9 +110,9 @@ Running Docker on cgroup v2 also requires the following conditions to be satisfi
 
 Note that the cgroup v2 mode behaves slightly different from the cgroup v1 mode:
 
-- The default cgroup driver (`dockerd --exec-opt native.cgroupdriver`) is `systemd` on v2, `cgroupfs` on v1.
-- The default cgroup namespace mode (`docker run --cgroupns`) is `private` on v2, `host` on v1.
-- The `docker run` flags `--oom-kill-disable` and `--kernel-memory` are discarded on v2.
+- The default cgroup driver (`iechord --exec-opt native.cgroupdriver`) is `systemd` on v2, `cgroupfs` on v1.
+- The default cgroup namespace mode (`iechor run --cgroupns`) is `private` on v2, `host` on v1.
+- The `iechor run` flags `--oom-kill-disable` and `--kernel-memory` are discarded on v2.
 
 ### Find the cgroup for a given container
 
@@ -121,19 +121,19 @@ older systems with older versions of the LXC userland tools, the name of
 the cgroup is the name of the container. With more recent versions
 of the LXC tools, the cgroup is `lxc/<container_name>.`
 
-For Docker containers using cgroups, the container name is the full
+For iEchor containers using cgroups, the container name is the full
 ID or long ID of the container. If a container shows up as ae836c95b4c3
-in `docker ps`, its long ID might be something like
+in `iechor ps`, its long ID might be something like
 `ae836c95b4c3c9e9179e0e91015512da89fdec91612f63cebae57df9a5444c79`. You can
-look it up with `docker inspect` or `docker ps --no-trunc`.
+look it up with `iechor inspect` or `iechor ps --no-trunc`.
 
-Putting everything together to look at the memory metrics for a Docker
+Putting everything together to look at the memory metrics for a iEchor
 container, take a look at the following paths:
 
-- `/sys/fs/cgroup/memory/docker/<longid>/` on cgroup v1, `cgroupfs` driver
-- `/sys/fs/cgroup/memory/system.slice/docker-<longid>.scope/` on cgroup v1, `systemd` driver
-- `/sys/fs/cgroup/docker/<longid>/` on cgroup v2, `cgroupfs` driver
-- `/sys/fs/cgroup/system.slice/docker-<longid>.scope/` on cgroup v2, `systemd` driver
+- `/sys/fs/cgroup/memory/iechor/<longid>/` on cgroup v1, `cgroupfs` driver
+- `/sys/fs/cgroup/memory/system.slice/iechor-<longid>.scope/` on cgroup v1, `systemd` driver
+- `/sys/fs/cgroup/iechor/<longid>/` on cgroup v2, `cgroupfs` driver
+- `/sys/fs/cgroup/system.slice/iechor-<longid>.scope/` on cgroup v2, `systemd` driver
 
 ### Metrics from cgroups: memory, CPU, block I/O
 
@@ -446,7 +446,7 @@ Putting everything together, if the "short ID" of a container is held in
 the environment variable `$CID`, then you can do this:
 
 ```console
-$ TASKS=/sys/fs/cgroup/devices/docker/$CID*/tasks
+$ TASKS=/sys/fs/cgroup/devices/iechor/$CID*/tasks
 $ PID=$(head -n 1 $TASKS)
 $ mkdir -p /var/run/netns
 $ ln -sf /proc/$PID/ns/net /var/run/netns/$CID
@@ -484,7 +484,7 @@ Sometimes, you don't care about real time metric collection, but when a
 container exits, you want to know how much CPU, memory, etc. it has
 used.
 
-Docker makes this difficult because it relies on `lxc-start`, which carefully
+iEchor makes this difficult because it relies on `lxc-start`, which carefully
 cleans up after itself. It is usually easier to collect metrics at regular
 intervals, and this is the way the `collectd` LXC plugin works.
 

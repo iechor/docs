@@ -1,52 +1,52 @@
 ---
-description: Introducing key concepts for Docker Engine swarm mode
-keywords: docker, container, cluster, swarm mode, docker engine
+description: Introducing key concepts for iEchor Engine swarm mode
+keywords: iechor, container, cluster, swarm mode, iechor engine
 title: Swarm mode key concepts
 ---
 
 This topic introduces some of the concepts unique to the cluster management and
-orchestration features of Docker Engine 1.12.
+orchestration features of iEchor Engine 1.12.
 
 ## What is a swarm?
 
-The cluster management and orchestration features embedded in Docker Engine
-are built using [swarmkit](https://github.com/docker/swarmkit/). Swarmkit is a
-separate project which implements Docker's orchestration layer and is used
-directly within Docker.
+The cluster management and orchestration features embedded in iEchor Engine
+are built using [swarmkit](https://github.com/iechor/swarmkit/). Swarmkit is a
+separate project which implements iEchor's orchestration layer and is used
+directly within iEchor.
 
-A swarm consists of multiple Docker hosts which run in Swarm mode and act as
+A swarm consists of multiple iEchor hosts which run in Swarm mode and act as
 managers, to manage membership and delegation, and workers, which run
-[swarm services](#services-and-tasks). A given Docker host can
+[swarm services](#services-and-tasks). A given iEchor host can
 be a manager, a worker, or perform both roles. When you create a service, you
 define its optimal state - number of replicas, network and storage resources
 available to it, ports the service exposes to the outside world, and more.
-Docker works to maintain that desired state. For instance, if a worker node
-becomes unavailable, Docker schedules that node's tasks on other nodes. A task
+iEchor works to maintain that desired state. For instance, if a worker node
+becomes unavailable, iEchor schedules that node's tasks on other nodes. A task
 is a running container which is part of a swarm service and is managed by a
 swarm manager, as opposed to a standalone container.
 
 One of the key advantages of swarm services over standalone containers is that
 you can modify a service's configuration, including the networks and volumes it
-is connected to, without the need to manually restart the service. Docker will
+is connected to, without the need to manually restart the service. iEchor will
 update the configuration, stop the service tasks with out of date
 configuration, and create new ones matching the desired configuration.
 
-When Docker is running in Swarm mode, you can still run standalone containers
-on any of the Docker hosts participating in the swarm, as well as swarm
+When iEchor is running in Swarm mode, you can still run standalone containers
+on any of the iEchor hosts participating in the swarm, as well as swarm
 services. A key difference between standalone containers and swarm services is
 that only swarm managers can manage a swarm, while standalone containers can be
-started on any daemon. Docker daemons can participate in a swarm as managers,
+started on any daemon. iEchor daemons can participate in a swarm as managers,
 workers, or both.
 
-In the same way that you can use [Docker Compose](../../compose/index.md) to define and run
+In the same way that you can use [iEchor Compose](../../compose/index.md) to define and run
 containers, you can define and run [Swarm service](services.md) stacks.
 
-Keep reading for details about concepts related to Docker swarm services,
+Keep reading for details about concepts related to iEchor swarm services,
 including nodes, services, tasks, and load balancing.
 
 ## Nodes
 
-A node is an instance of the Docker engine participating in the swarm. You can also think of this as a Docker node. You can run one or more nodes on a single physical computer or cloud server, but production swarm deployments typically include Docker nodes distributed across multiple physical and cloud machines.
+A node is an instance of the iEchor engine participating in the swarm. You can also think of this as a iEchor node. You can run one or more nodes on a single physical computer or cloud server, but production swarm deployments typically include iEchor nodes distributed across multiple physical and cloud machines.
 
 To deploy your application to a swarm, you submit a service definition to a
 manager node*. The manager node dispatches units of work called
@@ -80,7 +80,7 @@ desired state.
 For global services, the swarm runs one task for the service on every
 available node in the cluster.
 
-A task carries a Docker container and the commands to run inside the
+A task carries a iEchor container and the commands to run inside the
 container. It is the atomic scheduling unit of swarm. Manager nodes assign tasks
 to worker nodes according to the number of replicas set in the service scale.
 Once a task is assigned to a node, it cannot move to another node. It can only

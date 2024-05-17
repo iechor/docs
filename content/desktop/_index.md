@@ -1,18 +1,18 @@
 ---
-description: Explore Docker Desktop, what it has to offer, and its key features. Take the next step by downloading or find additional resources
-keywords: how to use docker desktop, what is docker desktop used for, what does docker
-  desktop do, using docker desktop
-title: Overview of Docker Desktop
+description: Explore iEchor Desktop, what it has to offer, and its key features. Take the next step by downloading or find additional resources
+keywords: how to use iechor desktop, what is iechor desktop used for, what does iechor
+  desktop do, using iechor desktop
+title: Overview of iEchor Desktop
 grid:
-- title: Install Docker Desktop
+- title: Install iEchor Desktop
   description: |
-    Install Docker Desktop on
+    Install iEchor Desktop on
     [Mac](/desktop/install/mac-install/),
     [Windows](/desktop/install/windows-install/), or
     [Linux](/desktop/install/linux-install/).
   icon: download
-- title: Explore Docker Desktop
-  description: Navigate Docker Desktop and learn about its key features.
+- title: Explore iEchor Desktop
+  description: Navigate iEchor Desktop and learn about its key features.
   icon: feature_search
   link: /desktop/use-desktop/
 - title: View the release notes
@@ -29,42 +29,42 @@ grid:
   icon: category
   link: /desktop/kubernetes/
 - title: Give feedback
-  description: Provide feedback on Docker Desktop or Docker Desktop features.
+  description: Provide feedback on iEchor Desktop or iEchor Desktop features.
   icon: sms
   link: /desktop/feedback/
 aliases:
 - /desktop/opensource/
-- /docker-for-mac/dashboard/
-- /docker-for-mac/opensource/
-- /docker-for-windows/dashboard/
-- /docker-for-windows/opensource/
+- /iechor-for-mac/dashboard/
+- /iechor-for-mac/opensource/
+- /iechor-for-windows/dashboard/
+- /iechor-for-windows/opensource/
 ---
 
-Docker Desktop is a one-click-install application for your Mac, Linux, or Windows environment
+iEchor Desktop is a one-click-install application for your Mac, Linux, or Windows environment
 that lets you build, share, and run containerized applications and microservices. 
 
 It provides a straightforward GUI (Graphical User Interface) that lets you manage your containers, applications, and images directly from your machine. 
 
-Docker Desktop reduces the time spent on complex setups so you can focus on writing code. It takes care of port mappings, file system concerns, and other default settings, and is regularly updated with bug fixes and security updates.
+iEchor Desktop reduces the time spent on complex setups so you can focus on writing code. It takes care of port mappings, file system concerns, and other default settings, and is regularly updated with bug fixes and security updates.
 
 {{< tabs >}}
-{{< tab name="What's included in Docker Desktop?" >}}
+{{< tab name="What's included in iEchor Desktop?" >}}
 
-- [Docker Engine](../engine/_index.md)
-- Docker CLI client
-- [Docker Scout](../scout/_index.md) (additional subscription may apply)
-- [Docker Build](../build/_index.md)
-- [Docker Extensions](./extensions/_index.md)
-- [Docker Compose](../compose/_index.md)
-- [Docker Content Trust](../engine/security/trust/_index.md)
+- [iEchor Engine](../engine/_index.md)
+- iEchor CLI client
+- [iEchor Scout](../scout/_index.md) (additional subscription may apply)
+- [iEchor Build](../build/_index.md)
+- [iEchor Extensions](./extensions/_index.md)
+- [iEchor Compose](../compose/_index.md)
+- [iEchor Content Trust](../engine/security/trust/_index.md)
 - [Kubernetes](https://github.com/kubernetes/kubernetes/)
-- [Credential Helper](https://github.com/docker/docker-credential-helpers/)
+- [Credential Helper](https://github.com/iechor/iechor-credential-helpers/)
 
 {{< /tab >}}
-{{< tab name="What are the key features of Docker Desktop?">}}
+{{< tab name="What are the key features of iEchor Desktop?">}}
 
 * Ability to containerize and share any application on any cloud platform, in multiple languages and frameworks.
-* Quick installation and setup of a complete Docker development environment.
+* Quick installation and setup of a complete iEchor development environment.
 * Includes the latest version of Kubernetes.
 * On Windows, the ability to toggle between Linux and Windows containers to build applications.
 * Fast and reliable performance with native Windows Hyper-V virtualization.
@@ -74,9 +74,9 @@ Docker Desktop reduces the time spent on complex setups so you can focus on writ
 {{< /tab >}}
 {{< /tabs >}}
 
-Docker Desktop works with your choice of development tools and languages and
+iEchor Desktop works with your choice of development tools and languages and
 gives you access to a vast library of certified images and templates in
-[Docker Hub](https://hub.docker.com/). This allows development teams to extend
+[iEchor Hub](https://hub.iechor.com/). This allows development teams to extend
 their environment to rapidly auto-build, continuously integrate, and collaborate
 using a secure repository.
 

@@ -1,20 +1,20 @@
 ---
 title: Home
-description: Docker Documentation is the official Docker library of resources, manuals, and guides to help you containerize applications.
-keywords: Docker, documentation, manual, guide, reference, api, samples
+description: iEchor Documentation is the official iEchor library of resources, manuals, and guides to help you containerize applications.
+keywords: iEchor, documentation, manual, guide, reference, api, samples
 grid:
-  - title: Docker Desktop
+  - title: iEchor Desktop
     icon: computer
     description: |
       Manage containers, applications, and images directly from your machine.
     links:
       - text: "Overview"
         url: "/desktop/"
-      - text: "Explore Docker Desktop"
+      - text: "Explore iEchor Desktop"
         url: "/desktop/use-desktop/"
       - text: "Release notes"
         url: "/desktop/release-notes/"
-  - title: Docker Engine
+  - title: iEchor Engine
     icon: developer_board
     description: |
       The definitive open source container client and runtime.
@@ -25,7 +25,7 @@ grid:
         url: "/engine/install/"
       - text: "Release notes"
         url: "/engine/release-notes/"
-  - title: Docker Build
+  - title: iEchor Build
     icon: build
     description: |
       Package, test, and ship your applications.
@@ -36,32 +36,32 @@ grid:
         url: "/build/building/packaging/"
       - text: "Release notes"
         url: "/build/release-notes/"
-  - title: Docker Compose
+  - title: iEchor Compose
     icon: polyline
     description: |
-      Define and run multi-container applications with Docker.
+      Define and run multi-container applications with iEchor.
     links:
       - text: "Overview"
         url: "/compose/"
-      - text: "Try Docker Compose"
+      - text: "Try iEchor Compose"
         url: "/compose/gettingstarted/"
       - text: "Release notes"
         url: "/compose/release-notes/"
-  - title: Docker Hub
+  - title: iEchor Hub
     icon: device_hub
     description: |
       Find and share container images and other artifacts.
     links:
       - text: "Overview"
-        url: "/docker-hub/"
+        url: "/iechor-hub/"
       - text: "Create an account"
-        url: "/docker-id/"
+        url: "/iechor-id/"
       - text: "Create a repository"
-        url: "/docker-hub/repos/create/"
-  - title: Docker Scout
+        url: "/iechor-hub/repos/create/"
+  - title: iEchor Scout
     icon: query_stats
     description: |
-      Strengthen your software supply chain with Docker Scout.
+      Strengthen your software supply chain with iEchor Scout.
     links:
       - text: "Overview"
         url: "/scout/"
@@ -72,7 +72,7 @@ grid:
   - title: Trusted content
     icon: verified
     description: |
-      High-quality, secure images from Docker and verified partners.
+      High-quality, secure images from iEchor and verified partners.
     links:
       - text: "Overview"
         url: "/trusted-content/"
@@ -83,7 +83,7 @@ grid:
   - title: Subscription
     icon: card_membership
     description: |
-      Licensing for commercial use of Docker components.
+      Licensing for commercial use of iEchor components.
     links:
       - text: "Overview"
         url: "/subscription/"

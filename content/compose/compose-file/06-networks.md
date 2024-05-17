@@ -192,7 +192,7 @@ networks:
       - "com.example.label-with-empty-value"
 ```
 
-Compose sets `com.docker.compose.project` and `com.docker.compose.network` labels.
+Compose sets `com.iechor.compose.project` and `com.iechor.compose.network` labels.
 
 ### name
 

@@ -1,5 +1,5 @@
 ---
 title: PHP samples
-description: Docker samples for PHP.
+description: iEchor samples for PHP.
 service: php
 ---

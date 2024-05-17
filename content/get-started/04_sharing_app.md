@@ -1,25 +1,25 @@
 ---
 title: Share the application
 keywords: get started, setup, orientation, quickstart, intro, concepts, containers,
-  docker desktop, docker hub, sharing
+  iechor desktop, iechor hub, sharing
 description: Sharing your image you built for your example application so you can
   run it else where and other developers can use it
 aliases:
 - /get-started/part3/
 ---
 
-Now that you've built an image, you can share it. To share Docker images, you have to use a Docker
-registry. The default registry is Docker Hub and is where all of the images you've used have come from.
+Now that you've built an image, you can share it. To share iEchor images, you have to use a iEchor
+registry. The default registry is iEchor Hub and is where all of the images you've used have come from.
 
-> **Docker ID**
+> **iEchor ID**
 >
-> A Docker ID lets you access Docker Hub, which is the world's largest library and community for container images. Create a [Docker ID](https://hub.docker.com/signup) for free if you don't have one.
+> A iEchor ID lets you access iEchor Hub, which is the world's largest library and community for container images. Create a [iEchor ID](https://hub.iechor.com/signup) for free if you don't have one.
 
 ## Create a repository
 
-To push an image, you first need to create a repository on Docker Hub.
+To push an image, you first need to create a repository on iEchor Hub.
 
-1. [Sign up](https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade) or Sign in to [Docker Hub](https://hub.docker.com).
+1. [Sign up](https://www.iechor.com/pricing?utm_source=iechor&utm_medium=webreferral&utm_campaign=docs_driven_upgrade) or Sign in to [iEchor Hub](https://hub.iechor.com).
 
 2. Select the **Create Repository** button.
 
@@ -27,74 +27,74 @@ To push an image, you first need to create a repository on Docker Hub.
 
 4. Select **Create**.
 
-In the following image, you can see an example Docker command from Docker Hub. This command will push to this repository.
+In the following image, you can see an example iEchor command from iEchor Hub. This command will push to this repository.
 
-![Docker command with push example](images/push-command.webp)
+![iEchor command with push example](images/push-command.webp)
 
 
 ## Push the image
 
-1. In the command line, run the `docker push` command that you see on Docker
-   Hub. Note that your command will have your Docker ID, not "docker". For example, `docker push YOUR-USER-NAME/getting-started`.
+1. In the command line, run the `iechor push` command that you see on iEchor
+   Hub. Note that your command will have your iEchor ID, not "iechor". For example, `iechor push YOUR-USER-NAME/getting-started`.
 
    ```console
-   $ docker push docker/getting-started
-   The push refers to repository [docker.io/docker/getting-started]
-   An image does not exist locally with the tag: docker/getting-started
+   $ iechor push iechor/getting-started
+   The push refers to repository [iechor.io/iechor/getting-started]
+   An image does not exist locally with the tag: iechor/getting-started
    ```
 
-    Why did it fail? The push command was looking for an image named `docker/getting-started`, but
-    didn't find one. If you run `docker image ls`, you won't see one either.
+    Why did it fail? The push command was looking for an image named `iechor/getting-started`, but
+    didn't find one. If you run `iechor image ls`, you won't see one either.
 
     To fix this, you need to tag your existing image you've built to give it another name.
 
-2. Sign in to Docker Hub using the command `docker login -u YOUR-USER-NAME`.
+2. Sign in to iEchor Hub using the command `iechor login -u YOUR-USER-NAME`.
 
-3. Use the `docker tag` command to give the `getting-started` image a new name. Replace `YOUR-USER-NAME` with your Docker ID.
+3. Use the `iechor tag` command to give the `getting-started` image a new name. Replace `YOUR-USER-NAME` with your iEchor ID.
 
    ```console
-   $ docker tag getting-started YOUR-USER-NAME/getting-started
+   $ iechor tag getting-started YOUR-USER-NAME/getting-started
    ```
 
-4. Now run the `docker push` command again. If you're copying the value from
-   Docker Hub, you can drop the `tagname` part, as you didn't add a tag to the
-   image name. If you don't specify a tag, Docker uses a tag called `latest`.
+4. Now run the `iechor push` command again. If you're copying the value from
+   iEchor Hub, you can drop the `tagname` part, as you didn't add a tag to the
+   image name. If you don't specify a tag, iEchor uses a tag called `latest`.
 
    ```console
-   $ docker push YOUR-USER-NAME/getting-started
+   $ iechor push YOUR-USER-NAME/getting-started
    ```
 
 ## Run the image on a new instance
 
 Now that your image has been built and pushed into a registry, try running your app on a brand
-new instance that has never seen this container image. To do this, you will use Play with Docker.
+new instance that has never seen this container image. To do this, you will use Play with iEchor.
 
 > **Note**
 >
-> Play with Docker uses the amd64 platform. If you are using an ARM based Mac with Apple silicon, you will need to rebuild the image to be compatible with Play with Docker and push the new image to your repository.
+> Play with iEchor uses the amd64 platform. If you are using an ARM based Mac with Apple silicon, you will need to rebuild the image to be compatible with Play with iEchor and push the new image to your repository.
 >
 > To build an image for the amd64 platform, use the `--platform` flag.
 > ```console
-> $ docker build --platform linux/amd64 -t YOUR-USER-NAME/getting-started .
+> $ iechor build --platform linux/amd64 -t YOUR-USER-NAME/getting-started .
 > ```
 >
-> Docker buildx also supports building multi-platform images. To learn more, see [Multi-platform images](../build/building/multi-platform.md).
+> iEchor buildx also supports building multi-platform images. To learn more, see [Multi-platform images](../build/building/multi-platform.md).
 
 
-1. Open your browser to [Play with Docker](https://labs.play-with-docker.com/).
+1. Open your browser to [Play with iEchor](https://labs.play-with-iechor.com/).
 
-2. Select **Login** and then select **docker** from the drop-down list.
+2. Select **Login** and then select **iechor** from the drop-down list.
 
-3. Sign in with your Docker Hub account and then select **Start**.
+3. Sign in with your iEchor Hub account and then select **Start**.
 
 4. Select the **ADD NEW INSTANCE** option on the left side bar. If you don't see it, make your browser a little wider. After a few seconds, a terminal window opens in your browser.
 
-    ![Play with Docker add new instance](images/pwd-add-new-instance.webp)
+    ![Play with iEchor add new instance](images/pwd-add-new-instance.webp)
 
 5. In the terminal, start your freshly pushed app.
 
    ```console
-   $ docker run -dp 0.0.0.0:3000:3000 YOUR-USER-NAME/getting-started
+   $ iechor run -dp 0.0.0.0:3000:3000 YOUR-USER-NAME/getting-started
    ```
 
     You should see the image get pulled down and eventually start up.
@@ -102,7 +102,7 @@ new instance that has never seen this container image. To do this, you will use 
     > **Tip**
     >
     > You may have noticed that this command binds the port mapping to a
-    > different IP address. Previous `docker run` commands published ports to
+    > different IP address. Previous `iechor run` commands published ports to
     > `127.0.0.1:3000` on the host. This time, you're using `0.0.0.0`.
     >
     > Binding to `127.0.0.1` only exposes a container's ports to the loopback
@@ -127,9 +127,9 @@ can use the latest version of the image.
 
 Related information:
 
- - [docker CLI reference](/reference/cli/docker/)
+ - [iechor CLI reference](/reference/cli/iechor/)
  - [Multi-platform images](../build/building/multi-platform.md)
- - [Docker Hub overview](../docker-hub/index.md)
+ - [iEchor Hub overview](../iechor-hub/index.md)
 
 ## Next steps
 

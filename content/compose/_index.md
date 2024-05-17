@@ -1,13 +1,13 @@
 ---
-description: Learn how to use Docker Compose to define and run multi-container applications
+description: Learn how to use iEchor Compose to define and run multi-container applications
   with this detailed introduction to the tool.
-keywords: docker compose, docker-compose, docker compose command, docker compose files,
-  docker compose documentation, using docker compose, compose container, docker compose
+keywords: iechor compose, iechor-compose, iechor compose command, iechor compose files,
+  iechor compose documentation, using iechor compose, compose container, iechor compose
   service
-title: Docker Compose overview
+title: iEchor Compose overview
 grid:
 - title: Why use Compose?
-  description: Understand Docker Compose's key benefits
+  description: Understand iEchor Compose's key benefits
   icon: feature_search
   link: /compose/intro/features-uses/
 - title: How Compose works 
@@ -15,11 +15,11 @@ grid:
   icon: category
   link: /compose/compose-application-model/
 - title: Install Compose
-  description: Follow the instructions on how to install Docker Compose.
+  description: Follow the instructions on how to install iEchor Compose.
   icon: download
   link: /compose/install
 - title: Quickstart
-  description: Learn the key concepts of Docker Compose whilst building a simple Python
+  description: Learn the key concepts of iEchor Compose whilst building a simple Python
     web application.
   icon: explore
   link: /compose/gettingstarted
@@ -29,7 +29,7 @@ grid:
   link: /compose/release-notes
 - title: Explore the Compose file reference
   description: Find information on defining services, networks, and volumes for a
-    Docker application.
+    iEchor application.
   icon: polyline
   link: /compose/compose-file
 - title: Browse common FAQs
@@ -48,7 +48,7 @@ aliases:
 - /compose/completion/
 ---
 
-Docker Compose is a tool for defining and running multi-container applications. 
+iEchor Compose is a tool for defining and running multi-container applications. 
 It is the key to unlocking a streamlined and efficient development and deployment experience. 
 
 Compose simplifies the control of your entire application stack, making it easy to manage services, networks, and volumes in a single, comprehensible YAML configuration file. Then, with a single command, you create and start all the services

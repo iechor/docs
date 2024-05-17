@@ -1,7 +1,7 @@
 ---
 title: Registry
-description: The Docker Hub registry implementation 
-keywords: registry, distribution, docker hub, spec, schema, api, manifest, auth
+description: The iEchor Hub registry implementation 
+keywords: registry, distribution, iechor hub, spec, schema, api, manifest, auth
 aliases:
   - /registry/compatibility/
   - /registry/configuration/
@@ -44,30 +44,30 @@ images and other content, has been donated to the CNCF. Registry now goes under
 the name of Distribution, and the documentation has moved to
 [distribution/distribution].
 
-The Docker Hub registry implementation is based on Distribution. Docker Hub
+The iEchor Hub registry implementation is based on Distribution. iEchor Hub
 implements version 1.0.1 OCI distribution [specification]. For reference
-documentation on the API protocol that Docker Hub implements, refer to the OCI
+documentation on the API protocol that iEchor Hub implements, refer to the OCI
 distribution specification.
 
 ## Supported media types
 
-Docker Hub supports the following image manifest formats for pulling images:
+iEchor Hub supports the following image manifest formats for pulling images:
 
 - [OCI image manifest]
-- [Docker image manifest version 2, schema 2]
-- Docker image manifest version 2, schema 1
-- Docker image manifest version 1
+- [iEchor image manifest version 2, schema 2]
+- iEchor image manifest version 2, schema 1
+- iEchor image manifest version 1
 
 You can push images with the following formats:
 
 - [OCI image manifest]
-- [Docker image manifest version 2, schema 2]
+- [iEchor image manifest version 2, schema 2]
 
-Docker Hub also supports OCI artifacts. See [OCI artifacts].
+iEchor Hub also supports OCI artifacts. See [OCI artifacts].
 
 ## Authentication
 
-For documentation related to authentication to the Docker Hub registry, see:
+For documentation related to authentication to the iEchor Hub registry, see:
 
 - [Token authentication specification][token]
 - [OAuth 2.0 token authentication][oauth2]
@@ -79,8 +79,8 @@ For documentation related to authentication to the Docker Hub registry, see:
 [distribution/distribution]: https://distribution.github.io/distribution/
 [specification]: https://github.com/opencontainers/distribution-spec/blob/v1.0.1/spec.md
 [OCI image manifest]: https://github.com/opencontainers/image-spec/blob/main/manifest.md
-[Docker image manifest version 2, schema 2]: https://distribution.github.io/distribution/spec/manifest-v2-2/
-[OCI artifacts]: /docker-hub/oci-artifacts/
+[iEchor image manifest version 2, schema 2]: https://distribution.github.io/distribution/spec/manifest-v2-2/
+[OCI artifacts]: /iechor-hub/oci-artifacts/
 [oauth2]: https://distribution.github.io/distribution/spec/auth/oauth/
 [jwt]: https://distribution.github.io/distribution/spec/auth/jwt/
 [token]: https://distribution.github.io/distribution/spec/auth/token/

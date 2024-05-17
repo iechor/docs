@@ -1,13 +1,13 @@
 ---
-title: How to use secrets in Docker Compose
+title: How to use secrets in iEchor Compose
 description: How to use secrets in Compose and their benefits
 keywords: secrets, compose, security, environment variables
 tags: [Secrets]
 ---
 
-A secret is any piece of data, such as a password, certificate, or API key, that shouldn’t be transmitted over a network or stored unencrypted in a Dockerfile or in your application’s source code.
+A secret is any piece of data, such as a password, certificate, or API key, that shouldn’t be transmitted over a network or stored unencrypted in a iEchorfile or in your application’s source code.
 
-Docker Compose provides a way for you to use secrets without having to use environment variables to store information. If you’re injecting passwords and API keys as environment variables, you risk unintentional information exposure. Environment variables are often available to all processes, and it can be difficult to track access. They can also be printed in logs when debugging errors without your knowledge. Using secrets mitigates these risks.
+iEchor Compose provides a way for you to use secrets without having to use environment variables to store information. If you’re injecting passwords and API keys as environment variables, you risk unintentional information exposure. Environment variables are often available to all processes, and it can be difficult to track access. They can also be printed in logs when debugging errors without your knowledge. Using secrets mitigates these risks.
 
 ## Use secrets
 
@@ -76,11 +76,11 @@ In the advanced example above:
 
 - The `secrets` attribute under each service defines the secrets you want to inject into the specific container.
 - The top-level `secrets` section defines the variables `db_password` and `db_root_password` and provides the `file` that populates their values.
-- The deployment of each container means Docker creates a temporary filesystem mount under `/run/secrets/<secret_name>` with their specific values.
+- The deployment of each container means iEchor creates a temporary filesystem mount under `/run/secrets/<secret_name>` with their specific values.
 
 > **Note**
 >
-> The `_FILE` environment variables demonstrated here are a convention used by some images, including Docker Official Images like [mysql](https://hub.docker.com/_/mysql) and [postgres](https://hub.docker.com/_/postgres).
+> The `_FILE` environment variables demonstrated here are a convention used by some images, including iEchor Official Images like [mysql](https://hub.iechor.com/_/mysql) and [postgres](https://hub.iechor.com/_/postgres).
 
 ## Resources
 

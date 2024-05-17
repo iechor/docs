@@ -1,36 +1,36 @@
 ---
 title: Interacting with Kubernetes from an extension
 description: How to connect to a Kubernetes cluster from an extension
-keywords: Docker, Extensions, sdk, Kubernetes
+keywords: iEchor, Extensions, sdk, Kubernetes
 aliases:
 - /desktop/extensions-sdk/dev/kubernetes/
 ---
 
-The Extensions SDK does not provide any API methods to directly interact with the Docker Desktop managed Kubernetes cluster or any other created using other tools such as KinD. However, this page provides a way for you to use other SDK APIs to interact indirectly with a Kubernetes cluster from your extension.
+The Extensions SDK does not provide any API methods to directly interact with the iEchor Desktop managed Kubernetes cluster or any other created using other tools such as KinD. However, this page provides a way for you to use other SDK APIs to interact indirectly with a Kubernetes cluster from your extension.
 
-To request an API that directly interacts with Docker Desktop-managed Kubernetes, you can upvote [this issue](https://github.com/docker/extensions-sdk/issues/181) in the Extensions SDK GitHub repository.
+To request an API that directly interacts with iEchor Desktop-managed Kubernetes, you can upvote [this issue](https://github.com/iechor/extensions-sdk/issues/181) in the Extensions SDK GitHub repository.
 
 ## Prerequisites
 
 ### Turn on Kubernetes
 
-You can use the built-in Kubernetes in Docker Desktop to start a Kubernetes single-node cluster.
+You can use the built-in Kubernetes in iEchor Desktop to start a Kubernetes single-node cluster.
 A `kubeconfig` file is used to configure access to Kubernetes when used in conjunction with the `kubectl` command-line tool, or other clients.
-Docker Desktop conveniently provides the user with a local preconfigured `kubeconfig` file and `kubectl` command within the user’s home area. It is a convenient way to fast-tracking access for those looking to leverage Kubernetes from Docker Desktop.
+iEchor Desktop conveniently provides the user with a local preconfigured `kubeconfig` file and `kubectl` command within the user’s home area. It is a convenient way to fast-tracking access for those looking to leverage Kubernetes from iEchor Desktop.
 
 ## Ship the `kubectl` as part of the extension
 
 If your extension needs to interact with Kubernetes clusters, it is recommended that you include the `kubectl` command line tool as part of your extension. By doing this, users who install your extension get `kubectl` installed on their host.
 
-To find out how to ship the `kubectl` command line tool for multiple platforms as part of your Docker Extension image, see [Build multi-arch extensions](../../../desktop/extensions-sdk/extensions/multi-arch.md#adding-multi-arch-binaries).
+To find out how to ship the `kubectl` command line tool for multiple platforms as part of your iEchor Extension image, see [Build multi-arch extensions](../../../desktop/extensions-sdk/extensions/multi-arch.md#adding-multi-arch-binaries).
 
 ## Examples
 
-The following code snippets have been put together in the [Kubernetes Sample Extension](https://github.com/docker/extensions-sdk/tree/main/samples/kubernetes-sample-extension). It shows how to interact with a Kubernetes cluster by shipping the `kubectl` command-line tool.
+The following code snippets have been put together in the [Kubernetes Sample Extension](https://github.com/iechor/extensions-sdk/tree/main/samples/kubernetes-sample-extension). It shows how to interact with a Kubernetes cluster by shipping the `kubectl` command-line tool.
 
 ### Check the Kubernetes API server is reachable
 
-Once the `kubectl` command-line tool is added to the extension image in the `Dockerfile`, and defined in the `metadata.json`, the Extensions framework deploys `kubectl` to the users' host when the extension is installed.
+Once the `kubectl` command-line tool is added to the extension image in the `iEchorfile`, and defined in the `metadata.json`, the Extensions framework deploys `kubectl` to the users' host when the extension is installed.
 
 You can use the JS API `ddClient.extension.host?.cli.exec` to issue `kubectl` commands to, for instance, check whether the Kubernetes API server is reachable given a specific context:
 
@@ -40,7 +40,7 @@ const output = await ddClient.extension.host?.cli.exec("kubectl", [
   "--request-timeout",
   "2s",
   "--context",
-  "docker-desktop",
+  "iechor-desktop",
 ]);
 ```
 
@@ -65,7 +65,7 @@ const output = await ddClient.extension.host?.cli.exec("kubectl", [
   "-o",
   'custom-columns=":metadata.name"',
   "--context",
-  "docker-desktop",
+  "iechor-desktop",
 ]);
 ```
 
@@ -80,7 +80,7 @@ Below there are different ways to persist and read the `kubeconfig` file from th
 
 ### Extension's backend container
 
-If you need your extension to persist the `kubeconfig` file after it's been read, you can have a backend container that exposes an HTTP POST endpoint to store the content of the file either in memory or somewhere within the container filesystem. This way, if the user navigates out of the extension to another part of Docker Desktop and then comes back, you don't need to read the `kubeconfig` file again.
+If you need your extension to persist the `kubeconfig` file after it's been read, you can have a backend container that exposes an HTTP POST endpoint to store the content of the file either in memory or somewhere within the container filesystem. This way, if the user navigates out of the extension to another part of iEchor Desktop and then comes back, you don't need to read the `kubeconfig` file again.
 
 ```typescript
 export const updateKubeconfig = async () => {
@@ -90,7 +90,7 @@ export const updateKubeconfig = async () => {
     "--raw",
     "--minify",
     "--context",
-    "docker-desktop",
+    "iechor-desktop",
   ]);
   if (kubeConfig?.stderr) {
     console.log("error", kubeConfig?.stderr);
@@ -108,10 +108,10 @@ export const updateKubeconfig = async () => {
 };
 ```
 
-### Docker volume
+### iEchor volume
 
-Volumes are the preferred mechanism for persisting data generated by and used by Docker containers. You can make use of them to persist the `kubeconfig` file.
-By persisting the `kubeconfig` in a volume you won't need to read the `kubeconfig` file again when the extension pane closes. This makes it ideal for persisting data when navigating out of the extension to other parts of Docker Desktop.
+Volumes are the preferred mechanism for persisting data generated by and used by iEchor containers. You can make use of them to persist the `kubeconfig` file.
+By persisting the `kubeconfig` in a volume you won't need to read the `kubeconfig` file again when the extension pane closes. This makes it ideal for persisting data when navigating out of the extension to other parts of iEchor Desktop.
 
 ```typescript
 const kubeConfig = await ddClient.extension.host?.cli.exec("kubectl", [
@@ -120,14 +120,14 @@ const kubeConfig = await ddClient.extension.host?.cli.exec("kubectl", [
   "--raw",
   "--minify",
   "--context",
-  "docker-desktop",
+  "iechor-desktop",
 ]);
 if (kubeConfig?.stderr) {
   console.log("error", kubeConfig?.stderr);
   return false;
 }
 
-await ddClient.docker.cli.exec("run", [
+await ddClient.iechor.cli.exec("run", [
   "--rm",
   "-v",
   "my-vol:/tmp",
@@ -141,7 +141,7 @@ await ddClient.docker.cli.exec("run", [
 ### Extension's `localStorage`
 
 `localStorage` is one of the mechanisms of a browser's web storage. It allows users to save data as key-value pairs in the browser for later use.
-`localStorage` does not clear data when the browser (the extension pane) closes. This makes it ideal for persisting data when navigating out of the extension to other parts of Docker Desktop.
+`localStorage` does not clear data when the browser (the extension pane) closes. This makes it ideal for persisting data when navigating out of the extension to other parts of iEchor Desktop.
 
 ```typescript
 localStorage.setItem("kubeconfig", kubeConfig);

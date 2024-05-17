@@ -1,5 +1,5 @@
 ---
 title: Gitea samples
-description: Docker samples for Gitea.
+description: iEchor samples for Gitea.
 service: gitea
 ---

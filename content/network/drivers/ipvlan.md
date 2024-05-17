@@ -23,8 +23,8 @@ IPvlan offers a number of unique features and plenty of room for further
 innovations with the various modes. Two high level advantages of these approaches
 are, the positive performance implications of bypassing the Linux bridge and the
 simplicity of having fewer moving parts. Removing the bridge that traditionally
-resides in between the Docker host NIC and container interface leaves a simple
-setup consisting of container interfaces, attached directly to the Docker host
+resides in between the iEchor host NIC and container interface leaves a simple
+setup consisting of container interfaces, attached directly to the iEchor host
 interface. This result is easy to access for external facing services as there
 is no need for port mappings in these scenarios.
 
@@ -44,11 +44,11 @@ The following table describes the driver-specific options that you can pass to
 ### Prerequisites
 
 - The examples on this page are all single host.
-- All examples can be performed on a single host running Docker. Any
+- All examples can be performed on a single host running iEchor. Any
   example using a sub-interface like `eth0.10` can be replaced with `eth0` or
-  any other valid parent interface on the Docker host. Sub-interfaces with a `.`
+  any other valid parent interface on the iEchor host. Sub-interfaces with a `.`
   are created on the fly. `-o parent` interfaces can also be left out of the
-  `docker network create` all together and the driver will create a `dummy`
+  `iechor network create` all together and the driver will create a `dummy`
   interface that will enable local host connectivity to perform the examples.
 - Kernel requirements:
     - IPvlan Linux kernel v4.2+ (support for earlier kernels exists but is buggy). To check your current kernel version, use `uname -r`
@@ -69,21 +69,21 @@ $ ip addr show eth0
 ```
 
 Use the network from the host's interface as the `--subnet` in the
-`docker network create`. The container will be attached to the same network as
+`iechor network create`. The container will be attached to the same network as
 the host interface as set via the `-o parent=` option.
 
 Create the IPvlan network and run a container attaching to it:
 
 ```console
 # IPvlan  (-o ipvlan_mode= Defaults to L2 mode if not specified)
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.1.0/24 \
     --gateway=192.168.1.1 \
     -o ipvlan_mode=l2 \
     -o parent=eth0 db_net
 
 # Start a container on the db_net network
-$ docker run --net=db_net -it --rm alpine /bin/sh
+$ iechor run --net=db_net -it --rm alpine /bin/sh
 
 # NOTE: the containers can NOT ping the underlying host interfaces as
 # they are intentionally filtered by Linux for additional isolation.
@@ -96,7 +96,7 @@ the subnet provided in the network create is `--subnet=192.168.1.0/24` then the
 gateway the container receives is `192.168.1.1`.
 
 To help understand how this mode interacts with other hosts, the following
-figure shows the same layer 2 segment between two Docker hosts that applies to
+figure shows the same layer 2 segment between two iEchor hosts that applies to
 and IPvlan L2 mode.
 
 ![Multiple IPvlan hosts](images/macvlan-bridge-ipvlan-l2.webp?w=700)
@@ -106,16 +106,16 @@ earlier, with the driver defaults for `--gateway=192.168.1.1` and `-o ipvlan_mod
 
 ```console
 # IPvlan  (-o ipvlan_mode= Defaults to L2 mode if not specified)
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.1.0/24 \
     -o parent=eth0 db_net_ipv
 
 # Start a container with an explicit name in daemon mode
-$ docker run --net=db_net_ipv --name=ipv1 -itd alpine /bin/sh
+$ iechor run --net=db_net_ipv --name=ipv1 -itd alpine /bin/sh
 
 # Start a second container and ping using the container name
-# to see the docker included name resolution functionality
-$ docker run --net=db_net_ipv --name=ipv2 -it --rm alpine /bin/sh
+# to see the iechor included name resolution functionality
+$ iechor run --net=db_net_ipv --name=ipv2 -it --rm alpine /bin/sh
 $ ping -c 4 ipv1
 
 # NOTE: the containers can NOT ping the underlying host interfaces as
@@ -125,36 +125,36 @@ $ ping -c 4 ipv1
 The drivers also support the `--internal` flag that will completely isolate
 containers on a network from any communications external to that network. Since
 network isolation is tightly coupled to the network's parent interface the result
-of leaving the `-o parent=` option off of a `docker network create` is the exact
+of leaving the `-o parent=` option off of a `iechor network create` is the exact
 same as the `--internal` option. If the parent interface is not specified or the
 `--internal` flag is used, a netlink type `dummy` parent interface is created
 for the user and used as the parent interface effectively isolating the network
 completely.
 
-The following two `docker network create` examples result in identical networks
+The following two `iechor network create` examples result in identical networks
 that you can attach container to:
 
 ```console
 # Empty '-o parent=' creates an isolated network
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.10.0/24 isolated1
 
 # Explicit '--internal' flag is the same:
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.11.0/24 --internal isolated2
 
 # Even the '--subnet=' can be left empty and the default
 # IPAM subnet of 172.18.0.0/16 will be assigned
-$ docker network create -d ipvlan isolated3
+$ iechor network create -d ipvlan isolated3
 
-$ docker run --net=isolated1 --name=cid1 -it --rm alpine /bin/sh
-$ docker run --net=isolated2 --name=cid2 -it --rm alpine /bin/sh
-$ docker run --net=isolated3 --name=cid3 -it --rm alpine /bin/sh
+$ iechor run --net=isolated1 --name=cid1 -it --rm alpine /bin/sh
+$ iechor run --net=isolated2 --name=cid2 -it --rm alpine /bin/sh
+$ iechor run --net=isolated3 --name=cid3 -it --rm alpine /bin/sh
 
-# To attach to any use `docker exec` and start a shell
-$ docker exec -it cid1 /bin/sh
-$ docker exec -it cid2 /bin/sh
-$ docker exec -it cid3 /bin/sh
+# To attach to any use `iechor exec` and start a shell
+$ iechor exec -it cid1 /bin/sh
+$ iechor exec -it cid2 /bin/sh
+$ iechor exec -it cid3 /bin/sh
 ```
 
 ### IPvlan 802.1Q trunk L2 mode example usage
@@ -176,21 +176,21 @@ practice of layered defense in depth architectures. VLANs or the equivocal VNI
 (Virtual Network Identifier) when using the Overlay driver, are the first step
 in isolating tenant traffic.
 
-![Docker VLANs in-depth](images/vlans-deeper-look.webp)
+![iEchor VLANs in-depth](images/vlans-deeper-look.webp)
 
 The Linux sub-interface tagged with a VLAN can either already exist or will be
-created when you call a `docker network create`. `docker network rm` will delete
+created when you call a `iechor network create`. `iechor network rm` will delete
 the sub-interface. Parent interfaces such as `eth0` are not deleted, only
 sub-interfaces with a netlink parent index > 0.
 
 For the driver to add/delete the VLAN sub-interfaces the format needs to be
 `interface_name.vlan_tag`. Other sub-interface naming can be used as the
 specified parent, but the link will not be deleted automatically when
-`docker network rm` is invoked.
+`iechor network rm` is invoked.
 
-The option to use either existing parent VLAN sub-interfaces or let Docker manage
+The option to use either existing parent VLAN sub-interfaces or let iEchor manage
 them enables the user to either completely manage the Linux interfaces and
-networking or let Docker create and delete the VLAN parent sub-interfaces
+networking or let iEchor create and delete the VLAN parent sub-interfaces
 (netlink `ip link`) with no effort from the user.
 
 For example: use `eth0.10` to denote a sub-interface of `eth0` tagged with the
@@ -205,7 +205,7 @@ underlying host.
 
 #### VLAN ID 20
 
-In the first network tagged and isolated by the Docker host, `eth0.20` is the
+In the first network tagged and isolated by the iEchor host, `eth0.20` is the
 parent interface tagged with VLAN id `20` specified with `-o parent=eth0.20`.
 Other naming formats can be used, but the links need to be added and deleted
 manually using `ip link` or Linux configuration files. As long as the `-o parent`
@@ -213,34 +213,34 @@ exists, anything can be used if it is compliant with Linux netlink.
 
 ```console
 # now add networks and hosts as you would normally by attaching to the master (sub)interface that is tagged
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.20.0/24 \
     --gateway=192.168.20.1 \
     -o parent=eth0.20 ipvlan20
 
-# in two separate terminals, start a Docker container and the containers can now ping one another.
-$ docker run --net=ipvlan20 -it --name ivlan_test1 --rm alpine /bin/sh
-$ docker run --net=ipvlan20 -it --name ivlan_test2 --rm alpine /bin/sh
+# in two separate terminals, start a iEchor container and the containers can now ping one another.
+$ iechor run --net=ipvlan20 -it --name ivlan_test1 --rm alpine /bin/sh
+$ iechor run --net=ipvlan20 -it --name ivlan_test2 --rm alpine /bin/sh
 ```
 
 #### VLAN ID 30
 
-In the second network, tagged and isolated by the Docker host, `eth0.30` is the
+In the second network, tagged and isolated by the iEchor host, `eth0.30` is the
 parent interface tagged with VLAN id `30` specified with `-o parent=eth0.30`. The
 `ipvlan_mode=` defaults to l2 mode `ipvlan_mode=l2`. It can also be explicitly
 set with the same result as shown in the next example.
 
 ```console
 # now add networks and hosts as you would normally by attaching to the master (sub)interface that is tagged.
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.30.0/24 \
     --gateway=192.168.30.1 \
     -o parent=eth0.30 \
     -o ipvlan_mode=l2 ipvlan30
 
-# in two separate terminals, start a Docker container and the containers can now ping one another.
-$ docker run --net=ipvlan30 -it --name ivlan_test3 --rm alpine /bin/sh
-$ docker run --net=ipvlan30 -it --name ivlan_test4 --rm alpine /bin/sh
+# in two separate terminals, start a iEchor container and the containers can now ping one another.
+$ iechor run --net=ipvlan30 -it --name ivlan_test3 --rm alpine /bin/sh
+$ iechor run --net=ipvlan30 -it --name ivlan_test4 --rm alpine /bin/sh
 ```
 
 The gateway is set inside of the container as the default gateway. That gateway
@@ -262,32 +262,32 @@ exhausted to add another secondary to an L3 VLAN interface or commonly referred
 to as a "switched virtual interface" (SVI).
 
 ```console
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.114.0/24 --subnet=192.168.116.0/24 \
     --gateway=192.168.114.254 --gateway=192.168.116.254 \
     -o parent=eth0.114 \
     -o ipvlan_mode=l2 ipvlan114
 
-$ docker run --net=ipvlan114 --ip=192.168.114.10 -it --rm alpine /bin/sh
-$ docker run --net=ipvlan114 --ip=192.168.114.11 -it --rm alpine /bin/sh
+$ iechor run --net=ipvlan114 --ip=192.168.114.10 -it --rm alpine /bin/sh
+$ iechor run --net=ipvlan114 --ip=192.168.114.11 -it --rm alpine /bin/sh
 ```
 
 A key takeaway is, operators have the ability to map their physical network into
 their virtual network for integrating containers into their environment with no
 operational overhauls required. NetOps drops an 802.1Q trunk into the
-Docker host. That virtual link would be the `-o parent=` passed in the network
+iEchor host. That virtual link would be the `-o parent=` passed in the network
 creation. For untagged (non-VLAN) links, it is as simple as `-o parent=eth0` or
 for 802.1Q trunks with VLAN IDs each network gets mapped to the corresponding
 VLAN/Subnet from the network.
 
 An example being, NetOps provides VLAN ID and the associated subnets for VLANs
-being passed on the Ethernet link to the Docker host server. Those values are
-plugged into the `docker network create` commands when provisioning the
-Docker networks. These are persistent configurations that are applied every time
-the Docker engine starts which alleviates having to manage often complex
+being passed on the Ethernet link to the iEchor host server. Those values are
+plugged into the `iechor network create` commands when provisioning the
+iEchor networks. These are persistent configurations that are applied every time
+the iEchor engine starts which alleviates having to manage often complex
 configuration files. The network interfaces can also be managed manually by
-being pre-created and Docker networking will never modify them, and use them
-as parent interfaces. Example mappings from NetOps to Docker network commands
+being pre-created and iEchor networking will never modify them, and use them
+as parent interfaces. Example mappings from NetOps to iEchor network commands
 are as follows:
 
 - VLAN: 10, Subnet: 172.16.80.0/24, Gateway: 172.16.80.1
@@ -302,13 +302,13 @@ are as follows:
 IPvlan will require routes to be distributed to each endpoint. The driver only
 builds the IPvlan L3 mode port and attaches the container to the interface. Route
 distribution throughout a cluster is beyond the initial implementation of this
-single host scoped driver. In L3 mode, the Docker host is very similar to a
+single host scoped driver. In L3 mode, the iEchor host is very similar to a
 router starting new networks in the container. They are on networks that the
 upstream network will not know about without route distribution. For those
 curious how IPvlan L3 will fit into container networking, see the following
 examples.
 
-![Docker IPvlan L2 mode](images/ipvlan-l3.webp?w=500)
+![iEchor IPvlan L2 mode](images/ipvlan-l3.webp?w=500)
 
 IPvlan L3 mode drops all broadcast and multicast traffic. This reason alone
 makes IPvlan L3 mode a prime candidate for those looking for massive scale and
@@ -328,7 +328,7 @@ mode that reduces a failure domain to a local host only.
   requires a netlink route in the default namespace pointing to the IPvlan parent
   interface.
 - The parent interface used in this example is `eth0` and it is on the subnet
-  `192.168.1.0/24`. Notice the `docker network` is not on the same subnet
+  `192.168.1.0/24`. Notice the `iechor network` is not on the same subnet
   as `eth0`.
 - Unlike IPvlan l2 modes, different subnets/networks can ping one another as
   long as they share the same parent interface `-o parent=`.
@@ -354,20 +354,20 @@ creation and isolating containers from only communicating with one another.
 
 ```console
 # Create the IPvlan L3 network
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.214.0/24 \
     --subnet=10.1.214.0/24 \
     -o ipvlan_mode=l3 ipnet210
 
 # Test 192.168.214.0/24 connectivity
-$ docker run --net=ipnet210 --ip=192.168.214.10 -itd alpine /bin/sh
-$ docker run --net=ipnet210 --ip=10.1.214.10 -itd alpine /bin/sh
+$ iechor run --net=ipnet210 --ip=192.168.214.10 -itd alpine /bin/sh
+$ iechor run --net=ipnet210 --ip=10.1.214.10 -itd alpine /bin/sh
 
 # Test L3 connectivity from 10.1.214.0/24 to 192.168.214.0/24
-$ docker run --net=ipnet210 --ip=192.168.214.9 -it --rm alpine ping -c 2 10.1.214.10
+$ iechor run --net=ipnet210 --ip=192.168.214.9 -it --rm alpine ping -c 2 10.1.214.10
 
 # Test L3 connectivity from 192.168.214.0/24 to 10.1.214.0/24
-$ docker run --net=ipnet210 --ip=10.1.214.9 -it --rm alpine ping -c 2 192.168.214.10
+$ iechor run --net=ipnet210 --ip=10.1.214.9 -it --rm alpine ping -c 2 192.168.214.10
 
 ```
 
@@ -384,9 +384,9 @@ $ docker run --net=ipnet210 --ip=10.1.214.9 -it --rm alpine ping -c 2 192.168.21
 >   192.168.214.0/24 dev eth0  src 192.168.214.10
 > ```
 
-In order to ping the containers from a remote Docker host or the container be
+In order to ping the containers from a remote iEchor host or the container be
 able to ping a remote host, the remote host or the physical network in between
-need to have a route pointing to the host IP address of the container's Docker
+need to have a route pointing to the host IP address of the container's iEchor
 host eth interface.
 
 ### Dual stack IPv4 IPv6 IPvlan L2 mode
@@ -402,12 +402,12 @@ host eth interface.
 
 ```console
 # Create a v6 network
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --ipv6 --subnet=2001:db8:abc2::/64 --gateway=2001:db8:abc2::22 \
     -o parent=eth0.139 v6ipvlan139
 
 # Start a container on the network
-$ docker run --net=v6ipvlan139 -it --rm alpine /bin/sh
+$ iechor run --net=v6ipvlan139 -it --rm alpine /bin/sh
 ```
 
 View the container eth0 interface and v6 routing table:
@@ -434,7 +434,7 @@ Start a second container and ping the first container's v6 address.
 
 ```console
 # Test L2 connectivity over IPv6
-$ docker run --net=v6ipvlan139 -it --rm alpine /bin/sh
+$ iechor run --net=v6ipvlan139 -it --rm alpine /bin/sh
 
 # Inside the second IPv6 container
 $$ ip a show eth0
@@ -463,7 +463,7 @@ Next create a network with two IPv4 subnets and one IPv6 subnets, all of which
 have explicit gateways:
 
 ```console
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.140.0/24 --subnet=192.168.142.0/24 \
     --gateway=192.168.140.1 --gateway=192.168.142.1 \
     --subnet=2001:db8:abc9::/64 --gateway=2001:db8:abc9::22 \
@@ -474,7 +474,7 @@ $ docker network create -d ipvlan \
 Start a container and view eth0 and both v4 & v6 routing tables:
 
 ```console
-$ docker run --net=ipvlan140 --ip6=2001:db8:abc2::51 -it --rm alpine /bin/sh
+$ iechor run --net=ipvlan140 --ip6=2001:db8:abc2::51 -it --rm alpine /bin/sh
 
 $ ip a show eth0
 78: eth0@if77: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN group default
@@ -500,7 +500,7 @@ Start a second container with a specific `--ip4` address and ping the first host
 using IPv4 packets:
 
 ```console
-$ docker run --net=ipvlan140 --ip=192.168.140.10 -it --rm alpine /bin/sh
+$ iechor run --net=ipvlan140 --ip=192.168.140.10 -it --rm alpine /bin/sh
 ```
 
 > **Note**
@@ -529,7 +529,7 @@ in order to forward broadcast and multicast packets.
 ```console
 # Create an IPv6+IPv4 Dual Stack IPvlan L3 network
 # Gateways for both v4 and v6 are set to a dev e.g. 'default dev eth0'
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.110.0/24 \
     --subnet=192.168.112.0/24 \
     --subnet=2001:db8:abc6::/64 \
@@ -539,13 +539,13 @@ $ docker network create -d ipvlan \
 
 # Start a few of containers on the network (ipnet110)
 # in separate terminals and check connectivity
-$ docker run --net=ipnet110 -it --rm alpine /bin/sh
+$ iechor run --net=ipnet110 -it --rm alpine /bin/sh
 # Start a second container specifying the v6 address
-$ docker run --net=ipnet110 --ip6=2001:db8:abc6::10 -it --rm alpine /bin/sh
+$ iechor run --net=ipnet110 --ip6=2001:db8:abc6::10 -it --rm alpine /bin/sh
 # Start a third specifying the IPv4 address
-$ docker run --net=ipnet110 --ip=192.168.112.30 -it --rm alpine /bin/sh
+$ iechor run --net=ipnet110 --ip=192.168.112.30 -it --rm alpine /bin/sh
 # Start a 4th specifying both the IPv4 and IPv6 addresses
-$ docker run --net=ipnet110 --ip6=2001:db8:abc6::50 --ip=192.168.112.50 -it --rm alpine /bin/sh
+$ iechor run --net=ipnet110 --ip6=2001:db8:abc6::50 --ip=192.168.112.50 -it --rm alpine /bin/sh
 ```
 
 Interface and routing table outputs are as follows:
@@ -580,7 +580,7 @@ default dev eth0  metric 1024
 > released to the v6 pool. It will fail to unmount the container and be left dead.
 
 ```console
-docker: Error response from daemon: Address already in use.
+iechor: Error response from daemon: Address already in use.
 ```
 
 ### Manually create 802.1Q links
@@ -588,13 +588,13 @@ docker: Error response from daemon: Address already in use.
 #### VLAN ID 40
 
 If a user does not want the driver to create the VLAN sub-interface, it needs to
-exist before running `docker network create`. If you have sub-interface
+exist before running `iechor network create`. If you have sub-interface
 naming that is not `interface.vlan_id` it is honored in the `-o parent=` option
 again as long as the interface exists and is up.
 
 Links, when manually created, can be named anything as long as they exist when
 the network is created. Manually created links do not get deleted regardless of
-the name when the network is deleted with `docker network rm`.
+the name when the network is deleted with `iechor network rm`.
 
 ```console
 # create a new sub-interface tied to dot1q vlan 40
@@ -604,14 +604,14 @@ $ ip link add link eth0 name eth0.40 type vlan id 40
 $ ip link set eth0.40 up
 
 # now add networks and hosts as you would normally by attaching to the master (sub)interface that is tagged
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.40.0/24 \
     --gateway=192.168.40.1 \
     -o parent=eth0.40 ipvlan40
 
-# in two separate terminals, start a Docker container and the containers can now ping one another.
-$ docker run --net=ipvlan40 -it --name ivlan_test5 --rm alpine /bin/sh
-$ docker run --net=ipvlan40 -it --name ivlan_test6 --rm alpine /bin/sh
+# in two separate terminals, start a iEchor container and the containers can now ping one another.
+$ iechor run --net=ipvlan40 -it --name ivlan_test5 --rm alpine /bin/sh
+$ iechor run --net=ipvlan40 -it --name ivlan_test6 --rm alpine /bin/sh
 ```
 
 Example: VLAN sub-interface manually created with any name:
@@ -624,13 +624,13 @@ $ ip link add link eth0 name foo type vlan id 40
 $ ip link set foo up
 
 # now add networks and hosts as you would normally by attaching to the master (sub)interface that is tagged
-$ docker network create -d ipvlan \
+$ iechor network create -d ipvlan \
     --subnet=192.168.40.0/24 --gateway=192.168.40.1 \
     -o parent=foo ipvlan40
 
-# in two separate terminals, start a Docker container and the containers can now ping one another.
-$ docker run --net=ipvlan40 -it --name ivlan_test5 --rm alpine /bin/sh
-$ docker run --net=ipvlan40 -it --name ivlan_test6 --rm alpine /bin/sh
+# in two separate terminals, start a iEchor container and the containers can now ping one another.
+$ iechor run --net=ipvlan40 -it --name ivlan_test5 --rm alpine /bin/sh
+$ iechor run --net=ipvlan40 -it --name ivlan_test6 --rm alpine /bin/sh
 ```
 
 Manually created links can be cleaned up with:
@@ -641,4 +641,4 @@ $ ip link del foo
 
 As with all of the Libnetwork drivers, they can be mixed and matched, even as
 far as running 3rd party ecosystem drivers in parallel for maximum flexibility
-to the Docker user.
+to the iEchor user.

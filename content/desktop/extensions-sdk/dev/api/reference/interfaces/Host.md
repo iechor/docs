@@ -1,6 +1,6 @@
 ---
-description: Docker extension API reference
-keywords: Docker, extensions, sdk, API, reference
+description: iEchor extension API reference
+keywords: iEchor, extensions, sdk, API, reference
 ---
 
 # Interface: Host
@@ -22,7 +22,7 @@ Opens an external URL with the system default browser.
 0.2.0
 
 ```typescript
-ddClient.host.openExternal("https://docker.com");
+ddClient.host.openExternal("https://iechor.com");
 ```
 
 #### Parameters

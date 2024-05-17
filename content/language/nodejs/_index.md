@@ -1,12 +1,12 @@
 ---
-description: Containerize and develop Node.js apps using Docker
+description: Containerize and develop Node.js apps using iEchor
 keywords: getting started, node, node.js
 title: Node.js language-specific guide
 toc_min: 1
 toc_max: 2
 ---
 
-The Node.js language-specific guide teaches you how to containerize a Node.js application using Docker. In this guide, you’ll learn how to:
+The Node.js language-specific guide teaches you how to containerize a Node.js application using iEchor. In this guide, you’ll learn how to:
 
 * Containerize and run a Node.js application
 * Set up a local environment to develop a Node.js application using containers

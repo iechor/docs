@@ -1,4 +1,4 @@
-{{ $product_link := "[Docker Hub](https://hub.docker.com)" }}
+{{ $product_link := "[iEchor Hub](https://hub.iechor.com)" }}
 {{ $sso_navigation := `Navigate to the SSO settings page for your organization or company.
    - Organization: Select **Organizations**, your organization, **Settings**, and then **Security**.
    - Company: Select **Organizations**, your company, and then **Settings**.` }}
@@ -8,7 +8,7 @@
 {{ $provisioning_steps := "This feature is only available in the Admin Console."}}
 
 {{ if eq (.Get "product") "admin" }}
-  {{ $product_link = "the [Admin Console](https://admin.docker.com)" }}
+  {{ $product_link = "the [Admin Console](https://admin.iechor.com)" }}
   {{ $invite_button = "**Invite**" }}
   {{ $sso_navigation = "Select your organization or company in the left navigation drop-down menu, and then select **SSO & SCIM**." }}
   {{ $member_navigation = `Navigate to the user management page for your organization or company. 
@@ -16,7 +16,7 @@
     - Company: Select your company in the left navigation drop-down menu, and then select **Users**.` }}
   {{ $remove_button = "**Remove member**, if you're an organization, or **Remove user**, if you're a company" }}
   {{ $provisioning_steps = `Users are provisioned with JIT provisioning by default. If you enable SCIM, you can disable JIT:
-  1. Sign in to the [Admin Console](https://admin.docker.com).
+  1. Sign in to the [Admin Console](https://admin.iechor.com).
   2. Select your organization or company in the left navigation drop-down menu, and then select **SSO & SCIM**.
   3. In the SSO connections table, select the **Action** icon and then **Disable JIT provisioning**.
   4. Select **Disable** to confirm.` }}

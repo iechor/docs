@@ -1,6 +1,6 @@
 ---
 title: Django samples
-description: Docker samples for Django.
+description: iEchor samples for Django.
 service: django
 aliases:
 - /compose/django/

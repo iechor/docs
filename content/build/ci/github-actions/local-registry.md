@@ -4,7 +4,7 @@ description: Create and use a local OCI registry with GitHub Actions
 keywords: ci, github actions, gha, buildkit, buildx, registry
 ---
 
-For testing purposes you may need to create a [local registry](https://hub.docker.com/_/registry)
+For testing purposes you may need to create a [local registry](https://hub.iechor.com/_/registry)
 to push images into:
 
 ```yaml
@@ -14,7 +14,7 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     services:
       registry:
@@ -26,15 +26,15 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: iechor/setup-qemu-action@v3
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
         with:
           driver-opts: network=host
       
       - name: Build and push to local registry
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           push: true
@@ -42,5 +42,5 @@ jobs:
       
       - name: Inspect
         run: |
-          docker buildx imagetools inspect localhost:5000/name/app:latest
+          iechor buildx imagetools inspect localhost:5000/name/app:latest
 ```

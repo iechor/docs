@@ -1,12 +1,12 @@
 ---
-description: How to integrate Docker Scout with Jenkins
+description: How to integrate iEchor Scout with Jenkins
 keywords: supply chain, security, ci, continuous integration, jenkins
-title: Integrate Docker Scout with Jenkins
+title: Integrate iEchor Scout with Jenkins
 ---
 
 You can add the following stage and steps definition to a `Jenkinsfile` to run
-Docker Scout as part of a Jenkins pipeline. The pipeline needs a `DOCKER_HUB`
-credential containing the username and password for authenticating to Docker
+iEchor Scout as part of a Jenkins pipeline. The pipeline needs a `IECHOR_HUB`
+credential containing the username and password for authenticating to iEchor
 Hub. It also needs an environment variable defined for the image and tag.
 
 ```groovy
@@ -16,34 +16,34 @@ pipeline {
     }
 
     environment {
-        DOCKER_HUB = credentials('jenkins-docker-hub-credentials')
+        IECHOR_HUB = credentials('jenkins-iechor-hub-credentials')
         IMAGE_TAG  = 'myorg/scout-demo-service:latest'
     }
 
     stages {
         stage('Analyze image') {
             steps {
-                // Install Docker Scout
-                sh 'curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | sh -s -- -b /usr/local/bin'
+                // Install iEchor Scout
+                sh 'curl -sSfL https://raw.githubusercontent.com/iechor/scout-cli/main/install.sh | sh -s -- -b /usr/local/bin'
 
-                // Log into Docker Hub
-                sh 'echo $DOCKER_HUB_PSW | docker login -u $DOCKER_HUB_USR --password-stdin'
+                // Log into iEchor Hub
+                sh 'echo $IECHOR_HUB_PSW | iechor login -u $IECHOR_HUB_USR --password-stdin'
 
                 // Analyze and fail on critical or high vulnerabilities
-                sh 'docker-scout cves $IMAGE_TAG --exit-code --only-severity critical,high'
+                sh 'iechor-scout cves $IMAGE_TAG --exit-code --only-severity critical,high'
             }
         }
     }
 }
 ```
 
-This installs Docker Scout, logs into Docker Hub, and then runs Docker Scout to
+This installs iEchor Scout, logs into iEchor Hub, and then runs iEchor Scout to
 generate a CVE report for an image and tag. It only shows critical or
 high-severity vulnerabilities.
 
 > **Note**
 >
 > If you're seeing a `permission denied` error related to the image cache, try
-> setting the [`DOCKER_SCOUT_CACHE_DIR`](../../env-vars.md) environment
+> setting the [`IECHOR_SCOUT_CACHE_DIR`](../../env-vars.md) environment
 > variable to a writable directory. Or alternatively, disable local caching
-> entirely with `DOCKER_SCOUT_NO_CACHE=true`.
+> entirely with `IECHOR_SCOUT_NO_CACHE=true`.

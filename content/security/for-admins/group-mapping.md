@@ -1,14 +1,14 @@
 ---
 description: Group mapping for administrators
-keywords: Group Mapping, SCIM, Docker Hub, Docker Admin, admin, security
+keywords: Group Mapping, SCIM, iEchor Hub, iEchor Admin, admin, security
 title: Group Mapping
 aliases:
 - /admin/company/settings/group-mapping/
 - /admin/organization/security-settings/group-mapping/
-- /docker-hub/group-mapping/
+- /iechor-hub/group-mapping/
 ---
 
-With directory group-to-team provisioning from your IdP, user updates will automatically sync with your Docker organizations and teams.
+With directory group-to-team provisioning from your IdP, user updates will automatically sync with your iEchor organizations and teams.
 
 > **Tip**
 >
@@ -17,17 +17,17 @@ With directory group-to-team provisioning from your IdP, user updates will autom
 
 ## How group mapping works
 
-IdPs share with Docker the main attributes of every authorized user through SSO, such as email address, name, surname, and groups. Just-In-Time (JIT) Provisioning uses these attributes to create or update the user’s Docker profile and their associations with organizations and teams on Docker Hub.
+IdPs share with iEchor the main attributes of every authorized user through SSO, such as email address, name, surname, and groups. Just-In-Time (JIT) Provisioning uses these attributes to create or update the user’s iEchor profile and their associations with organizations and teams on iEchor Hub.
 
-Docker uses the email address of the user to identify them on the platform. Every Docker account must have a unique email address at all times.
+iEchor uses the email address of the user to identify them on the platform. Every iEchor account must have a unique email address at all times.
 
 ### SSO authentication with JIT provisioning enabled
 
 After every successful SSO sign-in authentication, the JIT provisioner performs the following actions:
 
-1. Checks if there's an existing Docker account with the email address of the user that just authenticated.
+1. Checks if there's an existing iEchor account with the email address of the user that just authenticated.
 
-   a) If no account is found with the same email address, it creates a new Docker account using basic user attributes (email, name, and surname). The JIT provisioner generates a new username for this new account by using the email, name, and random numbers to make sure that all account usernames are unique in the platform.
+   a) If no account is found with the same email address, it creates a new iEchor account using basic user attributes (email, name, and surname). The JIT provisioner generates a new username for this new account by using the email, name, and random numbers to make sure that all account usernames are unique in the platform.
 
    b) If an account exists for this email address, it uses this account and updates the full name of the user’s profile if needed.
 
@@ -50,9 +50,9 @@ After every successful SSO sign-in authentication, the JIT provisioner performs 
 
 When you opt to disable JIT provisioning in your SSO connection, the following actions occur:
 
-1. Checks if there's an existing Docker account with the email address of the user that just authenticated.
+1. Checks if there's an existing iEchor account with the email address of the user that just authenticated.
 
-   a) If no account is found with the same email address, it creates a new Docker account using basic user attributes (email, name, and surname). Authentication with SSO generates a new username for this new account by using the email, name, and random numbers to make sure that all account usernames are unique in the platform.
+   a) If no account is found with the same email address, it creates a new iEchor account using basic user attributes (email, name, and surname). Authentication with SSO generates a new username for this new account by using the email, name, and random numbers to make sure that all account usernames are unique in the platform.
 
    b) If an account exists for this email address, it uses this account and updates the full name of the user’s profile if needed.
 
@@ -62,21 +62,21 @@ When you opt to disable JIT provisioning in your SSO connection, the following a
 
    b) If the user is a member of the organization, or has a pending invitation to join, then sign in is successful.
 
-If you disable JIT provisioning when you create or edit your SSO connection, you can still use group mapping as long as you have also [enabled SCIM](/security/for-admins/scim/#enable-scim-in-docker). When JIT provisioning is disabled and SCIM isn't enabled, users won't be auto-provisioned to groups. For instructions on disabling JIT provisioning, see [Manage how users are provisioned](/security/for-admins/single-sign-on/manage/#manage-how-users-are-provisioned).
+If you disable JIT provisioning when you create or edit your SSO connection, you can still use group mapping as long as you have also [enabled SCIM](/security/for-admins/scim/#enable-scim-in-iechor). When JIT provisioning is disabled and SCIM isn't enabled, users won't be auto-provisioned to groups. For instructions on disabling JIT provisioning, see [Manage how users are provisioned](/security/for-admins/single-sign-on/manage/#manage-how-users-are-provisioned).
 
 ![JIT provisioning disabled](../images/jit-disabled-flow.svg)
 
 ## Use group mapping
 
-To correctly assign your users to Docker teams, you must create groups in your IdP following the naming pattern `organization:team`. For example, if you want to manage provisioning for the team "developers", and your organization name is "moby", you must create a group in your IdP with the name `moby:developers`.
+To correctly assign your users to iEchor teams, you must create groups in your IdP following the naming pattern `organization:team`. For example, if you want to manage provisioning for the team "developers", and your organization name is "moby", you must create a group in your IdP with the name `moby:developers`.
 
-Once you enable group mappings in your connection, users assigned to that group in your IdP will automatically be added to the team "developers" in Docker.
+Once you enable group mappings in your connection, users assigned to that group in your IdP will automatically be added to the team "developers" in iEchor.
 
-You can use this format to add a user to multiple organizations. For example, if you want to add a user to the "backend" team in the "moby" organization as well as the "desktop" team in the "docker" organization, the format would be: `moby:backend` and `docker:desktop`.
+You can use this format to add a user to multiple organizations. For example, if you want to add a user to the "backend" team in the "moby" organization as well as the "desktop" team in the "iechor" organization, the format would be: `moby:backend` and `iechor:desktop`.
 
 >**Tip**
 >
->Use the same names for the Docker teams as your group names in the IdP to prevent further configuration. When you sync groups, this creates a group if it doesn’t already exist.
+>Use the same names for the iEchor teams as your group names in the IdP to prevent further configuration. When you sync groups, this creates a group if it doesn’t already exist.
 { .tip}
 
 The following lists the supported group mapping attributes:
@@ -94,7 +94,7 @@ To take advantage of group mapping, follow the instructions provided by your IdP
 - [Entra ID (formerly Azure AD)](https://learn.microsoft.com/en-us/azure/active-directory/app-provisioning/customize-application-attributes)
 - [OneLogin](https://developers.onelogin.com/scim/create-app)
 
-Once complete, a user who signs in to Docker through SSO is automatically added to the organizations and teams mapped in the IdP.
+Once complete, a user who signs in to iEchor through SSO is automatically added to the organizations and teams mapped in the IdP.
 
 > **Tip**
 >

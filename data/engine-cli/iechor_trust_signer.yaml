@@ -1,0 +1,30 @@
+command: iechor trust signer
+short: Manage entities who can sign iEchor images
+long: Manage entities who can sign iEchor images
+usage: iechor trust signer
+pname: iechor trust
+plink: iechor_trust.yaml
+cname:
+    - iechor trust signer add
+    - iechor trust signer remove
+clink:
+    - iechor_trust_signer_add.yaml
+    - iechor_trust_signer_remove.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

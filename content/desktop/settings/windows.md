@@ -1,67 +1,67 @@
 ---
-description: Change your Docker Desktop settings on Windows
-keywords: settings, preferences, proxy, file sharing, resources, kubernetes, Docker
+description: Change your iEchor Desktop settings on Windows
+keywords: settings, preferences, proxy, file sharing, resources, kubernetes, iEchor
   Desktop, Windows
-title: Change Docker Desktop settings on Windows
+title: Change iEchor Desktop settings on Windows
 ---
 
-This page provides information on how to configure and manage your Docker Desktop settings.
+This page provides information on how to configure and manage your iEchor Desktop settings.
 
 To navigate to **Settings** either:
 
-- Select the Docker menu {{< inline-image src="../images/whale-x.svg" alt="whale menu" >}} and then **Settings**
-- Select the **Settings** icon from the Docker Dashboard.
+- Select the iEchor menu {{< inline-image src="../images/whale-x.svg" alt="whale menu" >}} and then **Settings**
+- Select the **Settings** icon from the iEchor Dashboard.
 
-You can also locate the `settings.json` file at `C:\Users\[USERNAME]\AppData\Roaming\Docker\settings.json`.
+You can also locate the `settings.json` file at `C:\Users\[USERNAME]\AppData\Roaming\iEchor\settings.json`.
 
 ## General
 
-On the **General** tab, you can configure when to start Docker and specify other settings:
+On the **General** tab, you can configure when to start iEchor and specify other settings:
 
-- **Start Docker Desktop when you sign in to your computer**. Select to automatically start Docker
+- **Start iEchor Desktop when you sign in to your computer**. Select to automatically start iEchor
   Desktop when you sign in to your machine.
 
-- **Open Docker Dashboard when Docker Desktop starts**. Select to automatically open the
-  dashboard when starting Docker Desktop.
+- **Open iEchor Dashboard when iEchor Desktop starts**. Select to automatically open the
+  dashboard when starting iEchor Desktop.
 
-- **Choose theme for Docker Desktop**. Choose whether you want to apply a **Light** or **Dark** theme to Docker Desktop. Alternatively you can set Docker Desktop to **Use system settings**.
+- **Choose theme for iEchor Desktop**. Choose whether you want to apply a **Light** or **Dark** theme to iEchor Desktop. Alternatively you can set iEchor Desktop to **Use system settings**.
 
 - **Choose container terminal**. Determines which terminal is launched when opening the terminal from a container.
-If you choose the integrated terminal, you can run commands in a running container straight from the Docker Dashboard. For more information, see [Explore containers](../use-desktop/container.md).
+If you choose the integrated terminal, you can run commands in a running container straight from the iEchor Dashboard. For more information, see [Explore containers](../use-desktop/container.md).
 
-- **Enable Docker Debug by default**. Check this option to use Docker Debug by default when accessing the integrated terminal. For more information, see [Explore containers](../use-desktop/container.md#integrated-terminal).
+- **Enable iEchor Debug by default**. Check this option to use iEchor Debug by default when accessing the integrated terminal. For more information, see [Explore containers](../use-desktop/container.md#integrated-terminal).
 
 - **Expose daemon on tcp://localhost:2375 without TLS**. Check this option to
-  enable legacy clients to connect to the Docker daemon. You must use this option
+  enable legacy clients to connect to the iEchor daemon. You must use this option
   with caution as exposing the daemon without TLS can result in remote code
   execution attacks.
 
 - **Use the WSL 2 based engine**. WSL 2 provides better performance than the
-  Hyper-V backend. For more information, see [Docker Desktop WSL 2 backend](../wsl/index.md).
+  Hyper-V backend. For more information, see [iEchor Desktop WSL 2 backend](../wsl/index.md).
 
-- **Add the `*.docker.internal` names to the host's `/etc/hosts` file (Password required)**. Lets you resolve `*.docker.internal` DNS names from both the host and your containers.
+- **Add the `*.iechor.internal` names to the host's `/etc/hosts` file (Password required)**. Lets you resolve `*.iechor.internal` DNS names from both the host and your containers.
 
 - **Use containerd for pulling and storing images**.
   Turns on the containerd image store.
   This brings new features like faster container startup performance by lazy-pulling images,
-  and the ability to run Wasm applications with Docker.
+  and the ability to run Wasm applications with iEchor.
   For more information, see [containerd image store](../containerd.md).
   
-- **Send usage statistics**. Select so Docker Desktop sends diagnostics,
-  crash reports, and usage data. This information helps Docker improve and
-  troubleshoot the application. Clear the check box to opt out. Docker may
+- **Send usage statistics**. Select so iEchor Desktop sends diagnostics,
+  crash reports, and usage data. This information helps iEchor improve and
+  troubleshoot the application. Clear the check box to opt out. iEchor may
   periodically prompt you for more information.
 
 - **Use Enhanced Container Isolation**. Select to enhance security by preventing containers from breaching the Linux VM. For more information, see [Enhanced Container Isolation](../hardened-desktop/enhanced-container-isolation/index.md)
     >**Note**
     >
-    > This setting is only available if you are signed in to Docker Desktop and have a Docker Business subscription.
+    > This setting is only available if you are signed in to iEchor Desktop and have a iEchor Business subscription.
 
-- **Show CLI hints**. Displays CLI hints and tips when running Docker commands in the CLI. This is turned on by default. To turn CLI hints on or off from the CLI, set `DOCKER_CLI_HINTS` to `true` or `false` respectively.
+- **Show CLI hints**. Displays CLI hints and tips when running iEchor commands in the CLI. This is turned on by default. To turn CLI hints on or off from the CLI, set `IECHOR_CLI_HINTS` to `true` or `false` respectively.
 
-- **SBOM Indexing**. When this option is enabled, inspecting an image in Docker Desktop shows a **Start analysis** button that, when selected, analyzes the image with Docker Scout.
+- **SBOM Indexing**. When this option is enabled, inspecting an image in iEchor Desktop shows a **Start analysis** button that, when selected, analyzes the image with iEchor Scout.
 
-- **Enable background SBOM indexing**. When this option is enabled, Docker Scout automatically analyzes images that you build or pull.
+- **Enable background SBOM indexing**. When this option is enabled, iEchor Scout automatically analyzes images that you build or pull.
 
 ## Resources
 
@@ -80,14 +80,14 @@ containers.
 > mode, you can configure limits on the memory, CPU, and swap size allocated
 > to the [WSL 2 utility VM](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#configure-global-options-with-wslconfig).
 
-On the **Advanced** tab, you can limit resources available to the Docker Linux VM.
+On the **Advanced** tab, you can limit resources available to the iEchor Linux VM.
 
 Advanced settings are:
 
-- **CPU limit**. Specify the maximum number of CPUs to be used by Docker Desktop.
-  By default, Docker Desktop is set to use all the processors available on the host machine.
+- **CPU limit**. Specify the maximum number of CPUs to be used by iEchor Desktop.
+  By default, iEchor Desktop is set to use all the processors available on the host machine.
 
-- **Memory limit**. By default, Docker Desktop is set to use up to `2` GB of your host's
+- **Memory limit**. By default, iEchor Desktop is set to use up to `2` GB of your host's
   memory. To increase the RAM, set this to a higher number; to decrease it,
   lower the number.
 
@@ -103,23 +103,23 @@ Advanced settings are:
 
 >**Tip**
 >
-> If you feel Docker Desktop starting to get slow or you're running
+> If you feel iEchor Desktop starting to get slow or you're running
 > multi-container workloads, increase the memory and disk image space allocation
 { .tip }
 
 - **Resource Saver**. Enable or disable [Resource Saver mode](../use-desktop/resource-saver.md),
   which significantly reduces CPU and memory utilization on the host by
-  automatically turning off the Linux VM when Docker Desktop is idle (i.e., no
+  automatically turning off the Linux VM when iEchor Desktop is idle (i.e., no
   containers are running).
 
   You can also configure the Resource Saver timeout which indicates how long
-  should Docker Desktop be idle before Resource Saver mode kicks in. Default is
+  should iEchor Desktop be idle before Resource Saver mode kicks in. Default is
   5 minutes.
 
   >**Note**
   >
   > Exit from Resource Saver mode occurs automatically when containers run. Exit
-  > may take a few seconds (~3 to 10 secs) as Docker Desktop restarts the Linux VM.
+  > may take a few seconds (~3 to 10 secs) as iEchor Desktop restarts the Linux VM.
 
 ### File sharing
 
@@ -143,7 +143,7 @@ File share settings are:
 
 - **Remove a Directory**. select `-` next to the directory you want to remove
 
-- **Apply & Restart** makes the directory available to containers using Docker's
+- **Apply & Restart** makes the directory available to containers using iEchor's
   bind mount (`-v`) feature.
 
 > Tips on shared folders, permissions, and volume mounts
@@ -157,7 +157,7 @@ File share settings are:
 >   such as cache directories or databases, the performance will be much
 >   better if they are stored in the Linux VM, using a [data volume](../../storage/volumes.md)
 >   (named volume) or [data container](../../storage/volumes.md).
-> * Docker Desktop sets permissions to read/write/execute for users, groups and
+> * iEchor Desktop sets permissions to read/write/execute for users, groups and
 >   others [0777 or a+rwx](https://chmodcommand.com/chmod-0777/).
 >   This is not configurable. See [Permissions errors on data directories for shared volumes](../troubleshoot/topics.md).
 > * Windows presents a case-insensitive view of the filesystem to applications while Linux is case-sensitive.
@@ -165,7 +165,7 @@ File share settings are:
 >   while on Windows these filenames would actually refer to the same underlying
 >   file. This can lead to problems where an app works correctly on a developer's
 >   machine (where the file contents are shared) but fails when run in Linux in
->   production (where the file contents are distinct). To avoid this, Docker Desktop
+>   production (where the file contents are distinct). To avoid this, iEchor Desktop
 >   insists that all shared files are accessed as their original case. Therefore,
 >   if a file is created called `test`, it must be opened as `test`. Attempts to
 >   open `Test` will fail with the error "No such file or directory". Similarly,
@@ -177,11 +177,11 @@ File share settings are:
 
 You can share a folder "on demand" the first time a particular folder is used by a container.
 
-If you run a Docker command from a shell with a volume mount (as shown in the
+If you run a iEchor command from a shell with a volume mount (as shown in the
 example below) or kick off a Compose file that includes volume mounts, you get a
 popup asking if you want to share the specified folder.
 
-You can select to **Share it**, in which case it is added to your Docker Desktop Shared Folders list and available to
+You can select to **Share it**, in which case it is added to your iEchor Desktop Shared Folders list and available to
 containers. Alternatively, you can opt not to share it by selecting **Cancel**.
 
 ![Shared folder on demand](../images/shared-folder-on-demand.png)
@@ -190,18 +190,18 @@ containers. Alternatively, you can opt not to share it by selecting **Cancel**.
 
 HTTP/HTTPS proxies can be used when:
 
-- Signing in to Docker
+- Signing in to iEchor
 - Pulling or pushing images
 - Fetching artifacts during image builds
 - Containers interact with the external network
 - Scanning images
 
-If the host uses a HTTP/HTTPS proxy configuration (static or via Proxy Auto-Configuration), Docker Desktop reads
+If the host uses a HTTP/HTTPS proxy configuration (static or via Proxy Auto-Configuration), iEchor Desktop reads
 this configuration
-and automatically uses these settings for signing into Docker, for pulling and pushing images, and for
+and automatically uses these settings for signing into iEchor, for pulling and pushing images, and for
 container Internet access. 
 
-To set a different proxy for Docker Desktop, turn on **Manual proxy configuration** and enter a single
+To set a different proxy for iEchor Desktop, turn on **Manual proxy configuration** and enter a single
 upstream proxy URL of the form `http://proxy:port` or `https://proxy:port`.
 
 To prevent developers from accidentally changing the proxy settings, see
@@ -209,29 +209,29 @@ To prevent developers from accidentally changing the proxy settings, see
 
 The HTTPS proxy settings used for scanning images are set using the `HTTPS_PROXY` environment variable.
 
-If you are running Windows containers in Docker, you can allow the Windows Docker daemon to use Docker Desktop's internal proxy, with the **Use proxy for Windows Docker daemon** setting.
-This is useful when a corporate proxy that requires authentication is manually configured or set at the system level. If you are an admin for your organization and have a Docker Business subscription, you can control this setting with [Settings management](../hardened-desktop/settings-management/configure.md) using the `windowsDockerdPort` parameter.
+If you are running Windows containers in iEchor, you can allow the Windows iEchor daemon to use iEchor Desktop's internal proxy, with the **Use proxy for Windows iEchor daemon** setting.
+This is useful when a corporate proxy that requires authentication is manually configured or set at the system level. If you are an admin for your organization and have a iEchor Business subscription, you can control this setting with [Settings management](../hardened-desktop/settings-management/configure.md) using the `windowsiEchordPort` parameter.
 
 
 #### Proxy authentication
 
-Docker Desktop supports Basic, Kerberos and NTLM proxy authentication methods. 
+iEchor Desktop supports Basic, Kerberos and NTLM proxy authentication methods. 
 
 ##### Basic authentication
 
-If your proxy uses Basic authentication, Docker Desktop prompts developers for a username and password and caches the credentials. All passwords are stored securely in the OS credential store. It will request re-authentication if that cache is removed.
+If your proxy uses Basic authentication, iEchor Desktop prompts developers for a username and password and caches the credentials. All passwords are stored securely in the OS credential store. It will request re-authentication if that cache is removed.
 
-It's recommended that you use an `https://` URL for HTTP/HTTPS proxies to protect passwords during network transit. Docker Desktop also supports TLS 1.3 for communication with proxies.
+It's recommended that you use an `https://` URL for HTTP/HTTPS proxies to protect passwords during network transit. iEchor Desktop also supports TLS 1.3 for communication with proxies.
 
 ##### Kerberos and NTLM authentication
 
-Kerberos and NTLM proxy authentication are available for Business subscribers with Docker Desktop version 4.30 and later. No additional configuration is needed beyond specifying the proxy IP address and port.
+Kerberos and NTLM proxy authentication are available for Business subscribers with iEchor Desktop version 4.30 and later. No additional configuration is needed beyond specifying the proxy IP address and port.
 
 Developers are no longer interrupted by prompts for proxy credentials as authentication is centralized. This also reduces the risk of account lockouts due to incorrect sign in attempts.
 
 > **Note**
 >
-> Docker Desktop also supports the use of [SOCKS5 proxies](../networking.md#socks5-proxy-support).
+> iEchor Desktop also supports the use of [SOCKS5 proxies](../networking.md#socks5-proxy-support).
 
 
 ### Network
@@ -245,7 +245,7 @@ Developers are no longer interrupted by prompts for proxy credentials as authent
 
 ### WSL Integration
 
-In WSL 2 mode, you can configure which WSL 2 distributions will have the Docker
+In WSL 2 mode, you can configure which WSL 2 distributions will have the iEchor
 WSL integration.
 
 By default, the integration is enabled on your default WSL distribution.
@@ -254,12 +254,12 @@ to set Ubuntu as your default WSL distro, run `wsl --set-default ubuntu`).
 
 You can also select any additional distributions you would like to enable the WSL 2 integration on.
 
-For more details on configuring Docker Desktop to use WSL 2, see
-[Docker Desktop WSL 2 backend](../wsl/index.md).
+For more details on configuring iEchor Desktop to use WSL 2, see
+[iEchor Desktop WSL 2 backend](../wsl/index.md).
 
-## Docker Engine
+## iEchor Engine
 
-The **Docker Engine** tab allows you to configure the Docker daemon used to run containers with Docker Desktop.
+The **iEchor Engine** tab allows you to configure the iEchor daemon used to run containers with iEchor Desktop.
 
 You configure the daemon using a JSON configuration file. Here's what the file might look like:
 
@@ -275,14 +275,14 @@ You configure the daemon using a JSON configuration file. Here's what the file m
 }
 ```
 
-You can find this file at `$HOME/.docker/daemon.json`. To change the configuration, either
-edit the JSON configuration directly from the dashboard in Docker Desktop, or open and
+You can find this file at `$HOME/.iechor/daemon.json`. To change the configuration, either
+edit the JSON configuration directly from the dashboard in iEchor Desktop, or open and
 edit the file using your favorite text editor.
 
 To see the full list of possible configuration options, see the
-[dockerd command reference](/reference/cli/dockerd/).
+[iechord command reference](/reference/cli/iechord/).
 
-Select **Apply & Restart** to save your settings and restart Docker Desktop.
+Select **Apply & Restart** to save your settings and restart iEchor Desktop.
 
 ## Builders
 
@@ -294,51 +294,51 @@ Select **Apply & Restart** to save your settings and restart Docker Desktop.
 >
 > The **Kubernetes** tab is not available in Windows container mode.
 
-Docker Desktop includes a standalone Kubernetes server, so that you can test
-deploying your Docker workloads on Kubernetes. To turn on Kubernetes support and
-install a standalone instance of Kubernetes running as a Docker container,
+iEchor Desktop includes a standalone Kubernetes server, so that you can test
+deploying your iEchor workloads on Kubernetes. To turn on Kubernetes support and
+install a standalone instance of Kubernetes running as a iEchor container,
 select **Enable Kubernetes**.
 
 Select **Show system containers (advanced)** to view internal containers when
-using Docker commands.
+using iEchor commands.
 
 Select **Reset Kubernetes cluster** to delete all stacks and Kubernetes resources.
 
-For more information about using the Kubernetes integration with Docker Desktop,
+For more information about using the Kubernetes integration with iEchor Desktop,
 see [Deploy on Kubernetes](../kubernetes.md).
 
 ## Software Updates
 
-The **Software Updates** tab notifies you of any updates available to Docker Desktop.
+The **Software Updates** tab notifies you of any updates available to iEchor Desktop.
 When there's a new update, you can choose to download the update right away, or
 select the **Release Notes** option to learn what's included in the updated version.
 
 Turn off the check for updates by clearing the **Automatically check for updates**
-check box. This disables notifications in the Docker menu and the notification
-badge that appears on the Docker Dashboard. To check for updates manually, select
-the **Check for updates** option in the Docker menu.
+check box. This disables notifications in the iEchor menu and the notification
+badge that appears on the iEchor Dashboard. To check for updates manually, select
+the **Check for updates** option in the iEchor menu.
 
-To allow Docker Desktop to automatically download new updates in the background,
-select **Always download updates**. This downloads newer versions of Docker Desktop
+To allow iEchor Desktop to automatically download new updates in the background,
+select **Always download updates**. This downloads newer versions of iEchor Desktop
 when an update becomes available. After downloading the update, select
 **Apply and Restart** to install the update. You can do this either through the
-Docker menu or in the **Updates** section in the Docker Dashboard.
+iEchor menu or in the **Updates** section in the iEchor Dashboard.
 
 ## Features in development
 
 Use the **Extensions** tab to:
 
-- **Enable Docker Extensions**
-- **Allow only extensions distributed through the Docker Marketplace**
-- **Show Docker Extensions system containers**
+- **Enable iEchor Extensions**
+- **Allow only extensions distributed through the iEchor Marketplace**
+- **Show iEchor Extensions system containers**
 
-For more information about Docker extensions, see [Extensions](../extensions/index.md).
+For more information about iEchor extensions, see [Extensions](../extensions/index.md).
 
 ## Feature control
 
 On the **Feature control** tab you can control your settings for **Beta features** and **Experimental features**.
 
-You can also sign up to the [Developer Preview Program](https://www.docker.com/community/get-involved/developer-preview/) from the **Features in development** tab.
+You can also sign up to the [Developer Preview Program](https://www.iechor.com/community/get-involved/developer-preview/) from the **Features in development** tab.
 
 ### Beta features
 

@@ -1,7 +1,7 @@
 ---
 title: What next after getting started
 keywords: get started, setup, orientation, quickstart, intro, concepts, containers,
-  docker desktop
+  iechor desktop
 description: Making sure you have more ideas of what you could do next with your application
 ---
 
@@ -12,7 +12,7 @@ Here are a few other areas to look at next.
 ## Container orchestration
 
 Running containers in production is tough. You don't want to log into a machine and simply run a
-`docker run` or `docker compose up`. Why not? Well, what happens if the containers die? How do you
+`iechor run` or `iechor compose up`. Why not? Well, what happens if the containers die? How do you
 scale across several machines? Container orchestration solves this problem. Tools like Kubernetes,
 Swarm, Nomad, and ECS all help solve this problem, all in slightly different ways.
 
@@ -30,9 +30,9 @@ solve problems around monitoring, logging, security, image registries, messaging
 
 ## Getting started video workshop
 
-Docker recommends watching the video workshop from DockerCon 2022. Watch the entire video or use the following links to open the video at a particular section.
+iEchor recommends watching the video workshop from iEchorCon 2022. Watch the entire video or use the following links to open the video at a particular section.
 
-* [Docker overview and installation](https://youtu.be/gAGEar5HQoU)
+* [iEchor overview and installation](https://youtu.be/gAGEar5HQoU)
 * [Pull, run, and explore containers](https://youtu.be/gAGEar5HQoU?t=1400)
 * [Build a container image](https://youtu.be/gAGEar5HQoU?t=3185)
 * [Containerize an app](https://youtu.be/gAGEar5HQoU?t=4683)

@@ -1,33 +1,33 @@
 ---
 description: The benefits of enhanced container isolation
 title: Key features and benefits
-keywords: set up, enhanced container isolation, rootless, security, features, Docker Desktop
+keywords: set up, enhanced container isolation, rootless, security, features, iEchor Desktop
 ---
 
 ### Linux User Namespace on all containers
 
 With Enhanced Container Isolation, all user containers leverage the [Linux user-namespace](https://man7.org/linux/man-pages/man7/user_namespaces.7.html)
 for extra isolation. This means that the root user in the container maps to an unprivileged
-user in the Docker Desktop Linux VM.
+user in the iEchor Desktop Linux VM.
 
 For example:
 
 ```console
-$ docker run -it --rm --name=first alpine
+$ iechor run -it --rm --name=first alpine
 / # cat /proc/self/uid_map
          0     100000      65536
 ```
 
 The output `0 100000 65536` is the signature of the Linux user-namespace. It
 means that the root user (0) in the container is mapped to unprivileged user
-100000 in the Docker Desktop Linux VM, and the mapping extends for a continuous
+100000 in the iEchor Desktop Linux VM, and the mapping extends for a continuous
 range of 64K user IDs. The same applies to group IDs.
 
 Each container gets an exclusive range of mappings, managed by Sysbox. For
 example, if a second container is launched the mapping range is different:
 
 ```console
-$ docker run -it --rm --name=second alpine
+$ iechor run -it --rm --name=second alpine
 / # cat /proc/self/uid_map
          0     165536      65536
 ```
@@ -36,7 +36,7 @@ In contrast, without Enhanced Container Isolation, the container's root user is
 in fact root on the host (aka "true root") and this applies to all containers:
 
 ```console
-$ docker run -it --rm alpine
+$ iechor run -it --rm alpine
 / # cat /proc/self/uid_map
          0       0     4294967295
 ```
@@ -50,15 +50,15 @@ container-to-host and cross-container isolation.
 
 ### Privileged containers are also secured
 
-Privileged containers `docker run --privileged ...` are insecure because they
+Privileged containers `iechor run --privileged ...` are insecure because they
 give the container full access to the Linux kernel. That is, the container runs
 as true root with all capabilities enabled, seccomp and AppArmor restrictions
 are disabled, all hardware devices are exposed, for example.
 
-For organizations that wish to secure Docker Desktop on their developer's
+For organizations that wish to secure iEchor Desktop on their developer's
 machines, privileged containers are problematic as they allow container
 workloads whether benign or malicious to gain control of the Linux kernel
-inside the Docker Desktop VM and thus modify security related settings, for example registry
+inside the iEchor Desktop VM and thus modify security related settings, for example registry
 access management, and network proxies.
 
 With Enhanced Container Isolation, privileged containers can no longer do
@@ -76,11 +76,11 @@ access resources assigned to the container.
 > denied" error when attempting such operations.
 
 For example, Enhanced Container Isolation ensures privileged containers can't
-access Docker Desktop network settings in the Linux VM configured via Berkeley
+access iEchor Desktop network settings in the Linux VM configured via Berkeley
 Packet Filters (BPF):
 
 ```console
-$ docker run --privileged djs55/bpftool map show
+$ iechor run --privileged djs55/bpftool map show
 Error: can't get next map: Operation not permitted
 ```
 
@@ -88,7 +88,7 @@ In contrast, without Enhanced Container Isolation, privileged containers
 can easily do this:
 
 ```console
-$ docker run --privileged djs55/bpftool map show
+$ iechor run --privileged djs55/bpftool map show
 17: ringbuf  name blocked_packets  flags 0x0
         key 0B  value 0B  max_entries 16777216  memlock 0B
 18: hash  name allowed_map  flags 0x0
@@ -98,7 +98,7 @@ $ docker run --privileged djs55/bpftool map show
 ```
 
 Note that some advanced container workloads require privileged containers, for
-example Docker-in-Docker, Kubernetes-in-Docker, etc. With Enhanced Container
+example iEchor-in-iEchor, Kubernetes-in-iEchor, etc. With Enhanced Container
 Isolation you can still run such workloads but do so much more securely than
 before.
 
@@ -111,69 +111,69 @@ breaks isolation.
 For example, sharing the pid namespace fails:
 
 ```console
-$ docker run -it --rm --pid=host alpine
-docker: Error response from daemon: failed to create shim task: OCI runtime create failed: error in the container spec: invalid or unsupported container spec: sysbox containers can't share namespaces [pid] with the host (because they use the linux user-namespace for isolation): unknown.
+$ iechor run -it --rm --pid=host alpine
+iechor: Error response from daemon: failed to create shim task: OCI runtime create failed: error in the container spec: invalid or unsupported container spec: sysbox containers can't share namespaces [pid] with the host (because they use the linux user-namespace for isolation): unknown.
 ```
 
 Similarly sharing the network namespace fails:
 
 ```console
-$ docker run -it --rm --network=host alpine
-docker: Error response from daemon: failed to create shim task: OCI runtime create failed: error in the container spec: invalid or unsupported container spec: sysbox containers can't share a network namespace with the host (because they use the linux user-namespace for isolation): unknown.
+$ iechor run -it --rm --network=host alpine
+iechor: Error response from daemon: failed to create shim task: OCI runtime create failed: error in the container spec: invalid or unsupported container spec: sysbox containers can't share a network namespace with the host (because they use the linux user-namespace for isolation): unknown.
 ```
 
 In addition, the `--userns=host` flag, used to disable the user-namespace on the
 container, is ignored:
 
 ```console
-$ docker run -it --rm --userns=host alpine
+$ iechor run -it --rm --userns=host alpine
 / # cat /proc/self/uid_map
          0     100000      65536
 ```
 
-Finally, Docker build `--network=host` and Docker buildx entitlements
+Finally, iEchor build `--network=host` and iEchor buildx entitlements
 (`network.host`, `security.insecure`) are not allowed. Builds that require these
 won't work properly.
 
 ### Bind mount restrictions
 
-When Enhanced Container Isolation is enabled, Docker Desktop users can continue
+When Enhanced Container Isolation is enabled, iEchor Desktop users can continue
 to bind mount host directories into containers as configured via **Settings** >
 **Resources** > **File sharing**, but they are no longer allowed to bind mount
 arbitrary Linux VM directories into containers.
 
-This prevents containers from modifying sensitive files inside the Docker
+This prevents containers from modifying sensitive files inside the iEchor
 Desktop Linux VM, files that can hold configurations for registry access
-management, proxies, docker engine configurations, and more.
+management, proxies, iechor engine configurations, and more.
 
-For example, the following bind mount of the Docker Engine's configuration file
-(`/etc/docker/daemon.json` inside the Linux VM) into a container is restricted
+For example, the following bind mount of the iEchor Engine's configuration file
+(`/etc/iechor/daemon.json` inside the Linux VM) into a container is restricted
 and therefore fails:
 
 ```console
-$ docker run -it --rm -v /etc/docker/daemon.json:/mnt/daemon.json alpine
-docker: Error response from daemon: failed to create shim task: OCI runtime create failed: error in the container spec: can't mount /etc/docker/daemon.json because it's configured as a restricted host mount: unknown
+$ iechor run -it --rm -v /etc/iechor/daemon.json:/mnt/daemon.json alpine
+iechor: Error response from daemon: failed to create shim task: OCI runtime create failed: error in the container spec: can't mount /etc/iechor/daemon.json because it's configured as a restricted host mount: unknown
 ```
 
 In contrast, without Enhanced Container Isolation this mount works and gives the
-container full read and write access to the Docker Engine's configuration.
+container full read and write access to the iEchor Engine's configuration.
 
 Of course, bind mounts of host files continue to work as usual. For example,
-assuming a user configures Docker Desktop to file share her $HOME directory,
+assuming a user configures iEchor Desktop to file share her $HOME directory,
 she can bind mount it into the container:
 
 ```console
-$ docker run -it --rm -v $HOME:/mnt alpine
+$ iechor run -it --rm -v $HOME:/mnt alpine
 / #
 ```
 
 > **Note**
 >
-> By default, Enhanced Container Isolation won't allow bind mounting the Docker Engine socket
-> (/var/run/docker.sock) into a container, as doing so essentially grants the
-> container control of Docker Engine, thus breaking container isolation. However,
+> By default, Enhanced Container Isolation won't allow bind mounting the iEchor Engine socket
+> (/var/run/iechor.sock) into a container, as doing so essentially grants the
+> container control of iEchor Engine, thus breaking container isolation. However,
 > as some legitimate use cases require this, it's possible to relax
-> this restriction for trusted container images. See [Docker socket mount permissions](config.md#docker-socket-mount-permissions).
+> this restriction for trusted container images. See [iEchor socket mount permissions](config.md#iechor-socket-mount-permissions).
 
 ### Vetting sensitive system calls
 
@@ -187,7 +187,7 @@ For example, a container that has `CAP_SYS_ADMIN` (required to execute the
 into a read-write mount:
 
 ```console
-$ docker run -it --rm --cap-add SYS_ADMIN -v $HOME:/mnt:ro alpine
+$ iechor run -it --rm --cap-add SYS_ADMIN -v $HOME:/mnt:ro alpine
 / # mount -o remount,rw /mnt /mnt
 mount: permission denied (are you root?)
 ```
@@ -227,7 +227,7 @@ container workloads but data-path system calls are not intercepted.
 
 As mentioned above, Enhanced Container Isolation enables the Linux
 user-namespace on all containers and this ensures that the container's user-ID
-range (0->64K) maps to an unprivileged range of "real" user-IDs in the Docker
+range (0->64K) maps to an unprivileged range of "real" user-IDs in the iEchor
 Desktop Linux VM (e.g., 100000->165535).
 
 Moreover, each container gets an exclusive range of real user-IDs in the Linux
@@ -237,7 +237,7 @@ group-IDs. In addition, if a container is stopped and restarted, there is no
 guarantee it will receive the same mapping as before. This by design and further
 improves security.
 
-However the above presents a problem when mounting Docker volumes into
+However the above presents a problem when mounting iEchor volumes into
 containers, as the files written to such volumes will have the real
 user/group-IDs and will therefore won't be accessible across a container's
 start/stop/restart, or between containers due to the different real
@@ -246,7 +246,7 @@ user-ID/group-ID of each container.
 To solve this problem, Sysbox uses "filesystem user-ID remapping" via the Linux
 Kernel's ID-mapped mounts feature (added in 2021) or an alternative module
 called shiftfs. These technologies map filesystem accesses from the container's
-real user-ID (e.g., range 100000->165535) to the range (0->65535) inside Docker
+real user-ID (e.g., range 100000->165535) to the range (0->65535) inside iEchor
 Desktop's Linux VM. This way, volumes can now be mounted or shared across
 containers, even if each container uses an exclusive range of user-IDs. Users
 need not worry about the container's real user-IDs.
@@ -266,16 +266,16 @@ the Linux kernel itself.
 
 As a simple example, when Enhanced Container Isolation is enabled the
 `/proc/uptime` file shows the uptime of the container itself, not that of the
-Docker Desktop Linux VM:
+iEchor Desktop Linux VM:
 
 ```console
-$ docker run -it --rm alpine
+$ iechor run -it --rm alpine
 / # cat /proc/uptime
 5.86 5.86
 ```
 
 In contrast, without Enhanced Container Isolation you see the uptime of
-the Docker Desktop Linux VM. Though this is a trivial example, it shows how
+the iEchor Desktop Linux VM. Though this is a trivial example, it shows how
 Enhanced Container Isolation aims to prevent the Linux VM's configuration and
 information from leaking into the container so as to make it more difficult to
 breach the VM.

@@ -1,9 +1,9 @@
 ---
-description: Find the latest recommended version of the Docker Compose file format
+description: Find the latest recommended version of the iEchor Compose file format
   for defining multi-container applications.
-keywords: docker compose file, docker compose yml, docker compose reference, docker
-  compose cmd, docker compose user, docker compose image, yaml spec, docker compose
-  syntax, yaml specification, docker compose specification
+keywords: iechor compose file, iechor compose yml, iechor compose reference, iechor
+  compose cmd, iechor compose user, iechor compose image, yaml spec, iechor compose
+  syntax, yaml specification, iechor compose specification
 title: Overview
 toc_max: 4
 toc_min: 1
@@ -37,16 +37,16 @@ aliases:
 - /compose/compose-file/compose-file-v1/
 ---
 
->**New to Docker Compose?**
+>**New to iEchor Compose?**
 >
-> Find more information about the [key features and use cases of Docker Compose](../intro/features-uses.md) or [try the quickstart guide](../gettingstarted.md).
+> Find more information about the [key features and use cases of iEchor Compose](../intro/features-uses.md) or [try the quickstart guide](../gettingstarted.md).
 { .tip }
 
-The Compose Specification is the latest and recommended version of the Compose file format. It helps you define a [Compose file](../compose-application-model.md) which is used to configure your Docker application’s services, networks, volumes, and more.
+The Compose Specification is the latest and recommended version of the Compose file format. It helps you define a [Compose file](../compose-application-model.md) which is used to configure your iEchor application’s services, networks, volumes, and more.
 
-Legacy versions 2.x and 3.x of the Compose file format were merged into the Compose Specification. It is implemented in versions 1.27.0 and above (also known as Compose V2) of the Docker Compose CLI.
+Legacy versions 2.x and 3.x of the Compose file format were merged into the Compose Specification. It is implemented in versions 1.27.0 and above (also known as Compose V2) of the iEchor Compose CLI.
 
-The Compose Specification on Docker Docs is the Docker Compose implementation. If you wish to implement your own version of the Compose Specification, see the [Compose Specification repository](https://github.com/compose-spec/compose-spec).
+The Compose Specification on iEchor Docs is the iEchor Compose implementation. If you wish to implement your own version of the Compose Specification, see the [Compose Specification repository](https://github.com/compose-spec/compose-spec).
 
 Use the following links to navigate key sections of the Compose Specification. 
 

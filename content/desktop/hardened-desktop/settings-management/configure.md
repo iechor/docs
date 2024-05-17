@@ -1,21 +1,21 @@
 ---
-description: How to configure Settings Management for Docker Desktop
+description: How to configure Settings Management for iEchor Desktop
 keywords: admin, controls, rootless, enhanced container isolation
 title: Configure Settings Management
 ---
 
 >**Note**
 >
->Settings Management is available to Docker Business customers only.
+>Settings Management is available to iEchor Business customers only.
 
-This page contains information for admins on how to configure Settings Management to specify and lock configuration parameters to create a standardized Docker Desktop environment across the organization.
+This page contains information for admins on how to configure Settings Management to specify and lock configuration parameters to create a standardized iEchor Desktop environment across the organization.
 
 Settings Management is designed specifically for organizations who don’t give developers root access to their machines.
 
 ### Prerequisites
 
-- [Download and install Docker Desktop 4.13.0 or later](../../release-notes.md).
-- As an admin, you need to [configure a registry.json to enforce sign-in](../../../security/for-admins/configure-sign-in.md). This is because this feature requires a Docker Business subscription and therefore your Docker Desktop users must authenticate to your organization for this configuration to take effect.
+- [Download and install iEchor Desktop 4.13.0 or later](../../release-notes.md).
+- As an admin, you need to [configure a registry.json to enforce sign-in](../../../security/for-admins/configure-sign-in.md). This is because this feature requires a iEchor Business subscription and therefore your iEchor Desktop users must authenticate to your organization for this configuration to take effect.
 
 ### Step one: Create the `admin-settings.json` file and save it in the correct location
 
@@ -25,9 +25,9 @@ To set it up manually:
 1. Create a new, empty JSON file and name it `admin-settings.json`.
 2. Save the `admin-settings.json` file on your developers' machines in the following locations:
 
-    - Mac: `/Library/Application\ Support/com.docker.docker/admin-settings.json`
-    - Windows: `C:\ProgramData\DockerDesktop\admin-settings.json`
-    - Linux: `/usr/share/docker-desktop/admin-settings.json`
+    - Mac: `/Library/Application\ Support/com.iechor.iechor/admin-settings.json`
+    - Windows: `C:\ProgramData\iEchorDesktop\admin-settings.json`
+    - Linux: `/usr/share/iechor-desktop/admin-settings.json`
 
     By placing this file in the above protected directories, end users are unable to modify it.
 
@@ -44,19 +44,19 @@ To set it up manually:
 
 The `admin-settings.json` file requires a nested list of configuration parameters, each of which must contain the  `locked` parameter. You can add or remove configuration parameters as per your requirements.
 
-If `locked: true`, users aren't able to edit this setting from Docker Desktop or the CLI.
+If `locked: true`, users aren't able to edit this setting from iEchor Desktop or the CLI.
 
 If `locked: false`, it's similar to setting a factory default in that:
-- For new installs, `locked: false` pre-populates the relevant settings in the Docker Desktop UI, but users are able to modify it.
+- For new installs, `locked: false` pre-populates the relevant settings in the iEchor Desktop UI, but users are able to modify it.
 
-- If Docker Desktop is already installed and being used, `locked: false` is ignored. This is because existing users of Docker Desktop may have already updated a setting, which in turn will have been written to the relevant config file, for example the `settings.json` or `daemon.json`. In these instances, the user's preferences are respected and we don't alter these values. These can be controlled by the admin by setting `locked: true`.
+- If iEchor Desktop is already installed and being used, `locked: false` is ignored. This is because existing users of iEchor Desktop may have already updated a setting, which in turn will have been written to the relevant config file, for example the `settings.json` or `daemon.json`. In these instances, the user's preferences are respected and we don't alter these values. These can be controlled by the admin by setting `locked: true`.
 
 The following `admin-settings.json` code and table provides an example of the required syntax and descriptions for parameters and values:
 
 ```json
 {
   "configurationFileVersion": 2,
-  "exposeDockerAPIOnTCP2375": {
+  "exposeiEchorAPIOnTCP2375": {
     "locked": true,
     "value": false
   },
@@ -66,7 +66,7 @@ The following `admin-settings.json` code and table provides an example of the re
     "http": "",
     "https": "",
     "exclude": [],
-    "windowsDockerdPort": 65000
+    "windowsiEchordPort": 65000
   },
   "containersProxy": {
     "locked": true,
@@ -80,11 +80,11 @@ The following `admin-settings.json` code and table provides an example of the re
   "enhancedContainerIsolation": {
     "locked": true,
     "value": true,
-    "dockerSocketMount": {
+    "iechorSocketMount": {
       "imageList": {
         "images": [
-          "docker.io/localstack/localstack:*",
-          "docker.io/testcontainers/ryuk:*"
+          "iechor.io/localstack/localstack:*",
+          "iechor.io/testcontainers/ryuk:*"
         ]
       },
       "commandList": {
@@ -98,7 +98,7 @@ The following `admin-settings.json` code and table provides an example of the re
       "locked": false,
       "value": false
     },
-    "dockerDaemonOptions": {
+    "iechorDaemonOptions": {
       "locked": false,
       "value":"{\"debug\": false}"
     },
@@ -114,7 +114,7 @@ The following `admin-settings.json` code and table provides an example of the re
      "imagesRepository": ""
   },
   "windowsContainers": {
-    "dockerDaemonOptions": {
+    "iechorDaemonOptions": {
       "locked": false,
       "value":"{\"debug\": false}"
     }
@@ -144,7 +144,7 @@ The following `admin-settings.json` code and table provides an example of the re
     "locked": false,
     "value": false
   },
-  "blockDockerLoad": {
+  "blockiEchorLoad": {
     "locked": false,
     "value": true
   },
@@ -180,52 +180,52 @@ The following `admin-settings.json` code and table provides an example of the re
 | Parameter                        |   | Description                      |
 | :------------------------------- |---| :------------------------------- |
 | `configurationFileVersion`        |   |Specifies the version of the configuration file format.    |
-| `exposeDockerAPIOnTCP2375` | Windows only| Exposes the Docker API on a specified port. If `value` is set to true, the Docker API is exposed on port 2375. Note: This is unauthenticated and should only be enabled if protected by suitable firewall rules.|
-| `proxy` |   |If `mode` is set to `system` instead of `manual`, Docker Desktop gets the proxy values from the system and ignores and values set for `http`, `https` and `exclude`. Change `mode` to `manual` to manually configure proxy servers. If the proxy port is custom, specify it in the `http` or `https` property, for example `"https": "http://myotherproxy.com:4321"`. The `exclude` property specifies a comma-separated list of hosts and domains to bypass the proxy. |
-| &nbsp; &nbsp; &nbsp; &nbsp;`windowsDockerdPort`  | Windows only | Exposes Docker Desktop's internal proxy locally on this port for the Windows Docker daemon to connect to. If it is set to 0, a random free port is chosen. If the value is greater than 0, use that exact value for the port. The default value is -1 which disables the option. Note: This is available for Windows containers only. |
+| `exposeiEchorAPIOnTCP2375` | Windows only| Exposes the iEchor API on a specified port. If `value` is set to true, the iEchor API is exposed on port 2375. Note: This is unauthenticated and should only be enabled if protected by suitable firewall rules.|
+| `proxy` |   |If `mode` is set to `system` instead of `manual`, iEchor Desktop gets the proxy values from the system and ignores and values set for `http`, `https` and `exclude`. Change `mode` to `manual` to manually configure proxy servers. If the proxy port is custom, specify it in the `http` or `https` property, for example `"https": "http://myotherproxy.com:4321"`. The `exclude` property specifies a comma-separated list of hosts and domains to bypass the proxy. |
+| &nbsp; &nbsp; &nbsp; &nbsp;`windowsiEchordPort`  | Windows only | Exposes iEchor Desktop's internal proxy locally on this port for the Windows iEchor daemon to connect to. If it is set to 0, a random free port is chosen. If the value is greater than 0, use that exact value for the port. The default value is -1 which disables the option. Note: This is available for Windows containers only. |
 | `containersProxy` (Beta) | | Allows you to create air-gapped containers. For more information see [Air-gapped containers](../air-gapped-containers.md).|
-| `enhancedContainerIsolation`  |  | If `value` is set to true, Docker Desktop runs all containers as unprivileged, via the Linux user-namespace, prevents them from modifying sensitive configurations inside the Docker Desktop VM, and uses other advanced techniques to isolate them. For more information, see [Enhanced Container Isolation](../enhanced-container-isolation/index.md).|
-| &nbsp; &nbsp; &nbsp; &nbsp;`dockerSocketMount` |  | By default, enhanced container isolation blocks bind-mounting the Docker Engine socket into containers (e.g., `docker run -v /var/run/docker.sock:/var/run/docker.sock ...`). This allows admins to relax this in a controlled way. See [ECI Configuration](../enhanced-container-isolation/config.md) for more info. |
-| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `imageList` |  | Indicates which container images are allowed to bind-mount the Docker Engine socket. |
-| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `commandList` |  | Restricts the commands that containers can issue via the bind-mounted Docker Engine socket. |
+| `enhancedContainerIsolation`  |  | If `value` is set to true, iEchor Desktop runs all containers as unprivileged, via the Linux user-namespace, prevents them from modifying sensitive configurations inside the iEchor Desktop VM, and uses other advanced techniques to isolate them. For more information, see [Enhanced Container Isolation](../enhanced-container-isolation/index.md).|
+| &nbsp; &nbsp; &nbsp; &nbsp;`iechorSocketMount` |  | By default, enhanced container isolation blocks bind-mounting the iEchor Engine socket into containers (e.g., `iechor run -v /var/run/iechor.sock:/var/run/iechor.sock ...`). This allows admins to relax this in a controlled way. See [ECI Configuration](../enhanced-container-isolation/config.md) for more info. |
+| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `imageList` |  | Indicates which container images are allowed to bind-mount the iEchor Engine socket. |
+| &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `commandList` |  | Restricts the commands that containers can issue via the bind-mounted iEchor Engine socket. |
 | `linuxVM` |   |Parameters and settings related to Linux VM options - grouped together here for convenience. |
-| &nbsp; &nbsp; &nbsp; &nbsp;`wslEngineEnabled`  | Windows only | If `value` is set to true, Docker Desktop uses the WSL 2 based engine. This overrides anything that may have been set at installation using the `--backend=<backend name>` flag. |
-| &nbsp;&nbsp; &nbsp; &nbsp;`dockerDaemonOptions`|  |If `value` is set to true, it overrides the options in the Docker Engine config file. See the [Docker Engine reference](/reference/cli/dockerd/#daemon-configuration-file). Note that for added security, a few of the config attributes may be overridden when Enhanced Container Isolation is enabled. |
-| &nbsp;&nbsp; &nbsp; &nbsp;`vpnkitCIDR` |  |Overrides the network range used for vpnkit DHCP/DNS for `*.docker.internal`  |
-|`kubernetes`|  | If `enabled` is set to true, a Kubernetes single-node cluster is started when Docker Desktop starts. If `showSystemContainers` is set to true, Kubernetes containers are displayed in the UI and when you run `docker ps`.  `imagesRepository` allows you to specify which repository Docker Desktop pulls the Kubernetes images from. For example, `"imagesRepository": "registry-1.docker.io/docker"`.  |
+| &nbsp; &nbsp; &nbsp; &nbsp;`wslEngineEnabled`  | Windows only | If `value` is set to true, iEchor Desktop uses the WSL 2 based engine. This overrides anything that may have been set at installation using the `--backend=<backend name>` flag. |
+| &nbsp;&nbsp; &nbsp; &nbsp;`iechorDaemonOptions`|  |If `value` is set to true, it overrides the options in the iEchor Engine config file. See the [iEchor Engine reference](/reference/cli/iechord/#daemon-configuration-file). Note that for added security, a few of the config attributes may be overridden when Enhanced Container Isolation is enabled. |
+| &nbsp;&nbsp; &nbsp; &nbsp;`vpnkitCIDR` |  |Overrides the network range used for vpnkit DHCP/DNS for `*.iechor.internal`  |
+|`kubernetes`|  | If `enabled` is set to true, a Kubernetes single-node cluster is started when iEchor Desktop starts. If `showSystemContainers` is set to true, Kubernetes containers are displayed in the UI and when you run `iechor ps`.  `imagesRepository` allows you to specify which repository iEchor Desktop pulls the Kubernetes images from. For example, `"imagesRepository": "registry-1.iechor.io/iechor"`.  |
 | `windowsContainers` |  | Parameters and settings related to `windowsContainers` options - grouped together here for convenience.                  |
-| &nbsp; &nbsp; &nbsp; &nbsp;`dockerDaemonOptions` |  | Overrides the options in the Linux daemon config file. See the [Docker Engine reference](/reference/cli/dockerd/#daemon-configuration-file).|
-|`disableUpdate`|  |If `value` is set to true, checking for and notifications about Docker Desktop updates is disabled.|
-|`analyticsEnabled`|  |If `value` is set to false, Docker Desktop doesn't send usage statistics to Docker. |
-|`extensionsEnabled`|  |If `value` is set to false, Docker extensions are disabled. |
-|`scout`|| Setting `useBackgroundIndexing` to `false` disables automatic indexing of images loaded to the image store. Setting `sbomIndexing` to `false` prevents users from being able to index image by inspecting them in Docker Desktop or using `docker scout` CLI commands. |
+| &nbsp; &nbsp; &nbsp; &nbsp;`iechorDaemonOptions` |  | Overrides the options in the Linux daemon config file. See the [iEchor Engine reference](/reference/cli/iechord/#daemon-configuration-file).|
+|`disableUpdate`|  |If `value` is set to true, checking for and notifications about iEchor Desktop updates is disabled.|
+|`analyticsEnabled`|  |If `value` is set to false, iEchor Desktop doesn't send usage statistics to iEchor. |
+|`extensionsEnabled`|  |If `value` is set to false, iEchor extensions are disabled. |
+|`scout`|| Setting `useBackgroundIndexing` to `false` disables automatic indexing of images loaded to the image store. Setting `sbomIndexing` to `false` prevents users from being able to index image by inspecting them in iEchor Desktop or using `iechor scout` CLI commands. |
 | `allowExperimentalFeatures`| | If `value` is set to `false`, experimental features are disabled.|
 | `allowBetaFeatures`| | If `value` is set to `false`, beta features are disabled.|
-| `blockDockerLoad` | | If `value` is set to `true`, users are no longer able to run [`docker load`](/reference/cli/docker/image/load/) and receive an error if they try to.|
-| `filesharingAllowedDirectories` |  | Specify which paths your developers can add file shares to. Also accepts `$HOME`, `$TMP`, or `$TEMP` as `path` variables. When a path is added, its subdirectories are allowed. If `sharedByDefault` is set to `true`, that path will be added upon factory reset or when Docker Desktop first starts. |
+| `blockiEchorLoad` | | If `value` is set to `true`, users are no longer able to run [`iechor load`](/reference/cli/iechor/image/load/) and receive an error if they try to.|
+| `filesharingAllowedDirectories` |  | Specify which paths your developers can add file shares to. Also accepts `$HOME`, `$TMP`, or `$TEMP` as `path` variables. When a path is added, its subdirectories are allowed. If `sharedByDefault` is set to `true`, that path will be added upon factory reset or when iEchor Desktop first starts. |
 | `useVirtualizationFrameworkVirtioFS`|  macOS only | If `value` is set to `true`, VirtioFS is set as the file sharing mechanism. Note: If both `useVirtualizationFrameworkVirtioFS` and `useGrpcfuse` have `value` set to `true`, VirtioFS takes precedence. Likewise, if both `useVirtualizationFrameworkVirtioFS` and `useGrpcfuse` have `value` set to `false`, osxfs is set as the file sharing mechanism. |
-| `useVirtualizationFrameworkRosetta`|  macOS only | If `value` is set to `true`, Docker Desktop turns on Rosetta to accelerate x86_64/amd64 binary emulation on Apple Silicon. Note: This also automatically enables `Use Virtualization framework`. |
+| `useVirtualizationFrameworkRosetta`|  macOS only | If `value` is set to `true`, iEchor Desktop turns on Rosetta to accelerate x86_64/amd64 binary emulation on Apple Silicon. Note: This also automatically enables `Use Virtualization framework`. |
 | `useGrpcfuse` | macOS only | If `value` is set to `true`, gRPC Fuse is set as the file sharing mechanism. |
 | `displayedOnboarding` |  | If `value` is set to `true`, the onboarding survey will not be displayed to new users. Setting `value` to `false` has no effect. |
 
 
-### Step three: Re-launch Docker Desktop
+### Step three: Re-launch iEchor Desktop
 
 >**Note**
 >
 >Administrators should test the changes made through the `admin-settings.json` file locally to see if the settings work as expected.
 
 For settings to take effect:
-- On a new install, developers need to launch Docker Desktop and authenticate to their organization.
-- On an existing install, developers need to quit Docker Desktop through the Docker menu, and then relaunch Docker Desktop. If they are already signed in, they don't need to sign in again for the changes to take effect.
+- On a new install, developers need to launch iEchor Desktop and authenticate to their organization.
+- On an existing install, developers need to quit iEchor Desktop through the iEchor menu, and then relaunch iEchor Desktop. If they are already signed in, they don't need to sign in again for the changes to take effect.
   >**Important**
   >
-  >Selecting **Restart** from the Docker menu isn't enough as it only restarts some components of Docker Desktop.
+  >Selecting **Restart** from the iEchor menu isn't enough as it only restarts some components of iEchor Desktop.
   { .important }
 
-Docker doesn't automatically mandate that developers re-launch and sign in once a change has been made so as not to disrupt your developers' workflow.
+iEchor doesn't automatically mandate that developers re-launch and sign in once a change has been made so as not to disrupt your developers' workflow.
 
 
-In Docker Desktop, developers see the relevant settings grayed out and the message **Locked by your administrator**.
+In iEchor Desktop, developers see the relevant settings grayed out and the message **Locked by your administrator**.
 
 ![Proxy settings grayed out with Settings Management](/assets/images/grayed-setting.png)

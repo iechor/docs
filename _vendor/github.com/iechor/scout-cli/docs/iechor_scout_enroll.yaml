@@ -1,0 +1,34 @@
+command: iechor scout enroll
+short: Enroll an organization with iEchor Scout
+long: |
+    The `iechor scout enroll` command enrolls an organization with iEchor Scout.
+usage: iechor scout enroll ORG
+pname: iechor scout
+plink: iechor_scout.yaml
+inherited_options:
+    - option: debug
+      value_type: bool
+      default_value: "false"
+      description: Debug messages
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: verbose-debug
+      value_type: bool
+      default_value: "false"
+      description: Verbose debug
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

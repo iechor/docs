@@ -1,13 +1,13 @@
 ---
-description: How to use Docker Compose's extends keyword to share configuration between
+description: How to use iEchor Compose's extends keyword to share configuration between
   files and projects
-keywords: fig, composition, compose, docker, orchestration, documentation, docs
+keywords: fig, composition, compose, iechor, orchestration, documentation, docs
 title: Extend your Compose file
 aliases:
 - /compose/extends/
 ---
 
-Docker Compose's [`extends` attribute](../compose-file/05-services.md#extends)
+iEchor Compose's [`extends` attribute](../compose-file/05-services.md#extends)
 lets you share common configurations among different files, or even different
 projects entirely.
 
@@ -57,7 +57,7 @@ services:
       - "/data"
 ```
 You get exactly the same result as if you wrote
-`docker-compose.yml` with the same `build`, `ports` and `volumes` configuration
+`iechor-compose.yml` with the same `build`, `ports` and `volumes` configuration
 values defined directly under `web`.
 
 To include the service `webapp` in the final project when extending services from another file, you need to explicitly include both services in your current Compose file. For example (note this is a non-normative example):
@@ -133,7 +133,7 @@ services:
     cpu_shares: 5
 ```
 
-The `docker-compose.yaml` defines the concrete services which use the common
+The `iechor-compose.yaml` defines the concrete services which use the common
 configuration:
 
 ```yaml
@@ -164,7 +164,7 @@ Another common use case for `extends` is running one off or administrative tasks
 against one or more services in a Compose app. This example demonstrates running
 a database backup.
 
-The `docker-compose.yml` defines the base configuration.
+The `iechor-compose.yml` defines the base configuration.
 
 ```yaml
 services:
@@ -177,7 +177,7 @@ services:
     image: postgres:latest
 ```
 
-`docker-compose.admin.yml` adds a new service to run the database export or
+`iechor-compose.admin.yml` adds a new service to run the database export or
 backup.
 
 ```yaml
@@ -188,11 +188,11 @@ services:
       - db
 ```
 
-To start a normal environment, run `docker compose up -d`. To run a database
-backup, include the `docker-compose.admin.yml` as well.
+To start a normal environment, run `iechor compose up -d`. To run a database
+backup, include the `iechor-compose.admin.yml` as well.
 
 ```console
-$ docker compose -f docker-compose.yml -f docker-compose.admin.yml \
+$ iechor compose -f iechor-compose.yml -f iechor-compose.admin.yml \
   run dbadmin db-backup
 ```
 
@@ -236,7 +236,7 @@ services:
 ```
 
 The resulting service refers to the original `container.env` file
-within the `commons` directory. This can be confirmed with `docker compose config`
+within the `commons` directory. This can be confirmed with `iechor compose config`
 which inspects the actual model:
 ```yaml
 services:

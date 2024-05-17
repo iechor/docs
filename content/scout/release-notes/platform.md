@@ -1,18 +1,18 @@
 ---
-title: Docker Scout release notes
-description: Learn about the latest features of Docker Scout
-keywords: docker scout, release notes, changelog, features, changes, delta, new, releases
+title: iEchor Scout release notes
+description: Learn about the latest features of iEchor Scout
+keywords: iechor scout, release notes, changelog, features, changes, delta, new, releases
 aliases:
 - /scout/release-notes/
 tags: [Release notes]
 ---
 
 This page contains information about the new features, improvements, known
-issues, and bug fixes in Docker Scout releases. These release notes cover the
-Docker Scout platform, including the Dashboard. For CLI release notes, refer to
-[Docker Scout CLI release notes](./cli.md).
+issues, and bug fixes in iEchor Scout releases. These release notes cover the
+iEchor Scout platform, including the Dashboard. For CLI release notes, refer to
+[iEchor Scout CLI release notes](./cli.md).
 
-Take a look at the [Docker Public Roadmap](https://github.com/docker/roadmap/projects/1)
+Take a look at the [iEchor Public Roadmap](https://github.com/iechor/roadmap/projects/1)
 for what's coming next.
 
 ## Q2 2024
@@ -21,9 +21,9 @@ New features and enhancements released in the second quarter of 2024.
 
 ### 2024-05-06
 
-New HTTP endpoint that lets you scrape data from Docker Scout with Prometheus,
+New HTTP endpoint that lets you scrape data from iEchor Scout with Prometheus,
 to create your own vulnerability and policy dashboards with Grafana.
-For more information, see [Docker Scout metrics exporter](../metrics-exporter.md).
+For more information, see [iEchor Scout metrics exporter](../metrics-exporter.md).
 
 ## Q1 2024
 
@@ -32,8 +32,8 @@ New features and enhancements released in the first quarter of 2024.
 ### 2024-03-29
 
 The **High-profile vulnerabilities** policy now reports the `xz` backdoor
-vulnerability [CVE-2024-3094](https://scout.docker.com/v/CVE-2024-3094). Any
-images in your Docker organization containing the version of `xz/liblzma` with
+vulnerability [CVE-2024-3094](https://scout.iechor.com/v/CVE-2024-3094). Any
+images in your iEchor organization containing the version of `xz/liblzma` with
 the backdoor will be non-compliant with the **High-profile vulnerabilities**
 policy.
 
@@ -81,25 +81,25 @@ For more information, see [Default non-root user](../policy/_index.md#default-no
 ### 2024-01-11
 
 [Beta](../../release-lifecycle.md#beta) launch of a new GitHub app for integrating
-Docker Scout with your source code management, and a remediation feature for
+iEchor Scout with your source code management, and a remediation feature for
 helping you improve policy compliance.
 
-Remediation is a new capability for Docker Scout to provide contextual,
+Remediation is a new capability for iEchor Scout to provide contextual,
 recommended actions based on policy evaluation results on how you can improve
 compliance.
 
 The GitHub integration enhances the remediation feature. With the integration
-enabled, Docker Scout is able to connect analysis results to the source. This
+enabled, iEchor Scout is able to connect analysis results to the source. This
 additional context about how your images are built is used to generate better,
 more precise recommendations.
 
-For more information about the types of recommendations that Docker Scout can
+For more information about the types of recommendations that iEchor Scout can
 provide to help you improve policy compliance, see
 [Remediation](../policy/remediation.md).
 
-For more information about how to authorize the Docker Scout GitHub app on your
+For more information about how to authorize the iEchor Scout GitHub app on your
 source repositories, see
-[Integrate Docker Scout with GitHub](../integrations/source-code-management/github.md).
+[Integrate iEchor Scout with GitHub](../integrations/source-code-management/github.md).
 
 ## Q4 2023
 
@@ -119,7 +119,7 @@ For more information and setup instructions, see
 New [SonarQube](https://www.sonarsource.com/products/sonarqube/) integration
 and related policy. SonarQube is an open-source platform for continuous
 inspection of code quality. This integration lets you add SonarQube's quality
-gates as a policy evaluation in Docker Scout. Enable the integration, push your
+gates as a policy evaluation in iEchor Scout. Enable the integration, push your
 images, and see the SonarQube quality gate conditions surfaced in the new
 **Quality gates passed** policy.
 
@@ -131,7 +131,7 @@ For more information, see:
 ### 2023-12-01
 
 [Beta](../../release-lifecycle.md#beta) release of a new **Azure Container
-Registry** (ACR) integration, which lets Docker Scout pull and analyze images
+Registry** (ACR) integration, which lets iEchor Scout pull and analyze images
 in ACR repositories automatically.
 
 To learn more about the integration and how to get started, see
@@ -170,7 +170,7 @@ For more information, see
 
 ### 2023-10-04
 
-This marks the General Availability (GA) release of Docker Scout.
+This marks the General Availability (GA) release of iEchor Scout.
 
 The following new features are included in this release:
 
@@ -198,8 +198,8 @@ with four out-of-the-box policies, enabled by default for all organizations.
 - **Packages with AGPLv3, GPLv3 license** helps you catch possibly unwanted
   copyleft licenses used in your images.
 
-You can view and evaluate policy status for images using the Docker Scout
-Dashboard and the `docker scout policy` CLI command. For more information,
+You can view and evaluate policy status for images using the iEchor Scout
+Dashboard and the `iechor scout policy` CLI command. For more information,
 refer to the [Policy Evaluation documentation](../policy/_index.md).
 
 #### Amazon ECR integration
@@ -208,12 +208,12 @@ The new Amazon Elastic Container Registry (ECR) integration enables image
 analysis for images hosted in ECR repositories.
 
 You set up the integration using a pre-configured CloudFormation stack template
-that bootstraps the necessary AWS resources in your account. Docker Scout
+that bootstraps the necessary AWS resources in your account. iEchor Scout
 automatically analyzes images that you push to your registry, storing only the
 metadata about the image contents, and not the container images themselves.
 
 The integration offers a straightforward process for adding additional
-repositories, activating Docker Scout for specific repositories, and removing
+repositories, activating iEchor Scout for specific repositories, and removing
 the integration if needed. To learn more, refer to the [Amazon ECR integration
 documentation](../integrations/registry/ecr.md).
 
@@ -237,13 +237,13 @@ Artifactory registries.
 
 ![Animation of how to integrate Artifactory](../images/release-notes/artifactory-agent.gif)
 
-The integration involves deploying a Docker Scout Artifactory agent that polls
-for new images, performs analysis, and uploads results to Docker Scout, all
+The integration involves deploying a iEchor Scout Artifactory agent that polls
+for new images, performs analysis, and uploads results to iEchor Scout, all
 while preserving the integrity of image data. Learn more in the [Artifactory
 integration documentation](../integrations/registry/artifactory.md)
 
 #### Known limitations
 
 - Image analysis only works for Linux images
-- Docker Scout can't process images larger than 12GB in compressed size
+- iEchor Scout can't process images larger than 12GB in compressed size
 - Creating an image SBOM (part of image analysis) has a timeout limit of 4 minutes

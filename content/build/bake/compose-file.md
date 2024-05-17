@@ -12,17 +12,17 @@ Bake uses the [compose-spec](../../compose/compose-file/index.md) to
 parse a compose file and translate each service to a [target](reference.md#target).
 
 ```yaml
-# docker-compose.yml
+# iechor-compose.yml
 services:
   webapp-dev:
     build: &build-dev
-      dockerfile: Dockerfile.webapp
+      iechorfile: iEchorfile.webapp
       tags:
-        - docker.io/username/webapp:latest
+        - iechor.io/username/webapp:latest
       cache_from:
-        - docker.io/username/webapp:cache
+        - iechor.io/username/webapp:cache
       cache_to:
-        - docker.io/username/webapp:cache
+        - iechor.io/username/webapp:cache
 
   webapp-release:
     build:
@@ -33,13 +33,13 @@ services:
           - linux/arm64
 
   db:
-    image: docker.io/username/db
+    image: iechor.io/username/db
     build:
-      dockerfile: Dockerfile.db
+      iechorfile: iEchorfile.db
 ```
 
 ```console
-$ docker buildx bake --print
+$ iechor buildx bake --print
 ```
 
 ```json
@@ -52,22 +52,22 @@ $ docker buildx bake --print
   "target": {
     "db": {
       "context": ".",
-      "dockerfile": "Dockerfile.db",
-      "tags": ["docker.io/username/db"]
+      "iechorfile": "iEchorfile.db",
+      "tags": ["iechor.io/username/db"]
     },
     "webapp-dev": {
       "context": ".",
-      "dockerfile": "Dockerfile.webapp",
-      "tags": ["docker.io/username/webapp:latest"],
-      "cache-from": ["docker.io/username/webapp:cache"],
-      "cache-to": ["docker.io/username/webapp:cache"]
+      "iechorfile": "iEchorfile.webapp",
+      "tags": ["iechor.io/username/webapp:latest"],
+      "cache-from": ["iechor.io/username/webapp:cache"],
+      "cache-to": ["iechor.io/username/webapp:cache"]
     },
     "webapp-release": {
       "context": ".",
-      "dockerfile": "Dockerfile.webapp",
-      "tags": ["docker.io/username/webapp:latest"],
-      "cache-from": ["docker.io/username/webapp:cache"],
-      "cache-to": ["docker.io/username/webapp:cache"],
+      "iechorfile": "iEchorfile.webapp",
+      "tags": ["iechor.io/username/webapp:latest"],
+      "cache-from": ["iechor.io/username/webapp:cache"],
+      "cache-to": ["iechor.io/username/webapp:cache"],
       "platforms": ["linux/amd64", "linux/arm64"]
     }
   }
@@ -88,12 +88,12 @@ where the command is executed and applied to compose definitions passed
 with `-f`.
 
 ```yaml
-# docker-compose.yml
+# iechor-compose.yml
 services:
   webapp:
-    image: docker.io/username/webapp:${TAG:-v1.0.0}
+    image: iechor.io/username/webapp:${TAG:-v1.0.0}
     build:
-      dockerfile: Dockerfile
+      iechorfile: iEchorfile
 ```
 
 ```sh
@@ -102,7 +102,7 @@ TAG=v1.1.0
 ```
 
 ```console
-$ docker buildx bake --print
+$ iechor buildx bake --print
 ```
 
 ```json
@@ -115,8 +115,8 @@ $ docker buildx bake --print
   "target": {
     "webapp": {
       "context": ".",
-      "dockerfile": "Dockerfile",
-      "tags": ["docker.io/username/webapp:v1.1.0"]
+      "iechorfile": "iEchorfile",
+      "tags": ["iechor.io/username/webapp:v1.1.0"]
     }
   }
 }
@@ -134,13 +134,13 @@ the [special extension](../../compose/compose-file/11-extension.md) field
 `x-bake` in your compose file to evaluate extra fields:
 
 ```yaml
-# docker-compose.yml
+# iechor-compose.yml
 services:
   addon:
     image: ct-addon:bar
     build:
       context: .
-      dockerfile: ./Dockerfile
+      iechorfile: ./iEchorfile
       args:
         CT_ECR: foo
         CT_TAG: bar
@@ -161,7 +161,7 @@ services:
   aws:
     image: ct-fake-aws:bar
     build:
-      dockerfile: ./aws.Dockerfile
+      iechorfile: ./aws.iEchorfile
       args:
         CT_ECR: foo
         CT_TAG: bar
@@ -170,12 +170,12 @@ services:
           - id=mysecret,src=./secret
           - id=mysecret2,src=./secret2
         platforms: linux/arm64
-        output: type=docker
+        output: type=iechor
         no-cache: true
 ```
 
 ```console
-$ docker buildx bake --print
+$ iechor buildx bake --print
 ```
 
 ```json
@@ -188,7 +188,7 @@ $ docker buildx bake --print
   "target": {
     "addon": {
       "context": ".",
-      "dockerfile": "./Dockerfile",
+      "iechorfile": "./iEchorfile",
       "args": {
         "CT_ECR": "foo",
         "CT_TAG": "bar"
@@ -201,7 +201,7 @@ $ docker buildx bake --print
     },
     "aws": {
       "context": ".",
-      "dockerfile": "./aws.Dockerfile",
+      "iechorfile": "./aws.iEchorfile",
       "args": {
         "CT_ECR": "foo",
         "CT_TAG": "bar"
@@ -209,7 +209,7 @@ $ docker buildx bake --print
       "tags": ["ct-fake-aws:bar"],
       "secret": ["id=mysecret,src=./secret", "id=mysecret2,src=./secret2"],
       "platforms": ["linux/arm64"],
-      "output": ["type=docker"],
+      "output": ["type=iechor"],
       "no-cache": true
     }
   }

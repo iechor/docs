@@ -1,14 +1,14 @@
 ---
-title: Docker Scout metrics exporter
+title: iEchor Scout metrics exporter
 description: |
-  Learn how to scrape data from Docker Scout using Prometheus to create your own
+  Learn how to scrape data from iEchor Scout using Prometheus to create your own
   vulnerability and policy dashboards wiht Grafana
 keywords: scout, exporter, prometheus, grafana, metrics, dashboard, api, compose
 ---
 
-Docker Scout exposes a metrics HTTP endpoint that lets you scrape vulnerability
-and policy data from Docker Scout, using Prometheus or Datadog. With this you
-can create your own, self-hosted Docker Scout dashboards for visualizing supply
+iEchor Scout exposes a metrics HTTP endpoint that lets you scrape vulnerability
+and policy data from iEchor Scout, using Prometheus or Datadog. With this you
+can create your own, self-hosted iEchor Scout dashboards for visualizing supply
 chain metrics.
 
 ## Metrics
@@ -23,21 +23,21 @@ The metrics endpoint exposes the following metrics:
 
 > **Streams**
 >
-> In Docker Scout, the streams concept is a superset of [environments](./integrations/environment/_index.md).
+> In iEchor Scout, the streams concept is a superset of [environments](./integrations/environment/_index.md).
 > Streams include all runtime environments that you've defined,
 > as well as the special `latest-indexed` stream.
 > The `latest-indexed` stream contains the most recently pushed (and analyzed) tag for each repository.
 >
-> Streams is mostly an internal concept in Docker Scout,
+> Streams is mostly an internal concept in iEchor Scout,
 > with the exception of the data exposed through this metrics endpoint.
 { .tip #stream }
 
 ## Creating an access token
 
-To export metrics from your organization, first make sure your organization is enrolled in Docker Scout.
-Then, create a Personal Access Token (PAT) - a secret token that allows the exporter to authenticate with the Docker Scout API.
+To export metrics from your organization, first make sure your organization is enrolled in iEchor Scout.
+Then, create a Personal Access Token (PAT) - a secret token that allows the exporter to authenticate with the iEchor Scout API.
 
-The PAT does not require any specific permissions, but it must be created by a user who is an owner of the Docker organization.
+The PAT does not require any specific permissions, but it must be created by a user who is an owner of the iEchor organization.
 To create a PAT, follow the steps in [Create an access token](/security/for-developers/access-tokens/#create-an-access-token).
 
 Once you have created the PAT, store it in a secure location.
@@ -60,15 +60,15 @@ scrape_configs:
     scheme: https
     static_configs:
       - targets:
-          - api.scout.docker.com
+          - api.scout.iechor.com
 ```
 
-The address in the `targets` field is set to the domain name of the Docker Scout API, `api.scout.docker.com`.
+The address in the `targets` field is set to the domain name of the iEchor Scout API, `api.scout.iechor.com`.
 Make sure that there's no firewall rule in place preventing the server from communicating with this endpoint.
 
 ### Add bearer token authentication
 
-To scrape metrics from the Docker Scout Exporter endpoint using Prometheus, you need to configure Prometheus to use the PAT as a bearer token.
+To scrape metrics from the iEchor Scout Exporter endpoint using Prometheus, you need to configure Prometheus to use the PAT as a bearer token.
 The exporter requires the PAT to be passed in the `Authorization` header of the request.
 
 Update the Prometheus configuration file to include the `authorization` configuration block.
@@ -88,45 +88,45 @@ The content of the file should be the PAT in plain text:
 dckr_pat_...
 ```
 
-If you are running Prometheus in a Docker container or Kubernetes pod, mount the file into the container using a volume or secret.
+If you are running Prometheus in a iEchor container or Kubernetes pod, mount the file into the container using a volume or secret.
 
 Finally, restart Prometheus to apply the changes.
 
 ### Prometheus sample project
 
-If you don't have a Prometheus server set up, you can run a [sample project](https://github.com/dockersamples/scout-metrics-exporter) using Docker Compose.
-The sample includes a Prometheus server that scrapes metrics for a Docker organization enrolled in Docker Scout,
+If you don't have a Prometheus server set up, you can run a [sample project](https://github.com/iechorsamples/scout-metrics-exporter) using iEchor Compose.
+The sample includes a Prometheus server that scrapes metrics for a iEchor organization enrolled in iEchor Scout,
 alongside Grafana with a pre-configured dashboard to visualize the vulnerability and policy metrics.
 
 1. Clone the starter template for bootstrapping a set of Compose services
-   for scraping and visualizing the Docker Scout metrics endpoint:
+   for scraping and visualizing the iEchor Scout metrics endpoint:
 
    ```console
-   $ git clone git@github.com:dockersamples/scout-metrics-exporter.git
+   $ git clone git@github.com:iechorsamples/scout-metrics-exporter.git
    $ cd scout-metrics-exporter/prometheus
    ```
 
-2. [Create a Docker access token](/security/for-developers/access-tokens/#create-an-access-token)
+2. [Create a iEchor access token](/security/for-developers/access-tokens/#create-an-access-token)
    and store it in a plain text file at `/prometheus/prometheus/token` under the template directory.
 
    ```plaintext {title=token}
-   $ echo $DOCKER_PAT > ./prometheus/token
+   $ echo $IECHOR_PAT > ./prometheus/token
    ```
 
 3. In the Prometheus configuration file at `/prometheus/prometheus/prometheus.yml`,
-   replace `ORG` in the `metrics_path` property on line 6 with the namespace of your Docker organization.
+   replace `ORG` in the `metrics_path` property on line 6 with the namespace of your iEchor organization.
 
    ```yaml {title="prometheus/prometheus.yml",hl_lines="6",linenos=1}
    global:
      scrape_interval: 60s
      scrape_timeout: 40s
    scrape_configs:
-     - job_name: Docker Scout policy
+     - job_name: iEchor Scout policy
        metrics_path: /v1/exporter/org/<ORG>
        scheme: https
        static_configs:
          - targets:
-             - api.scout.docker.com
+             - api.scout.iechor.com
        authorization:
          type: Bearer
          credentials_file: /etc/prometheus/token
@@ -135,33 +135,33 @@ alongside Grafana with a pre-configured dashboard to visualize the vulnerability
 4. Start the compose services.
 
    ```console
-   docker compose up -d
+   iechor compose up -d
    ```
 
    This command starts two services: the Prometheus server and Grafana.
-   Prometheus scrapes metrics from the Docker Scout endpoint,
+   Prometheus scrapes metrics from the iEchor Scout endpoint,
    and Grafana visualizes the metrics using a pre-configured dashboard.
 
 To stop the demo and clean up any resources created, run:
 
 ```console
-docker compose down -v
+iechor compose down -v
 ```
 
 ### Access to Prometheus
 
 After starting the services, you can access the Prometheus expression browser by visiting <http://localhost:9090>.
-The Prometheus server runs in a Docker container and is accessible on port 9090.
+The Prometheus server runs in a iEchor container and is accessible on port 9090.
 
 After a few seconds, you should see the metrics endpoint as a target in the
 Prometheus UI at <http://localhost:9090/targets>.
 
-![Docker Scout metrics exporter Prometheus target](./images/scout-metrics-prom-target.png "Docker Scout metrics exporter Prometheus target")
+![iEchor Scout metrics exporter Prometheus target](./images/scout-metrics-prom-target.png "iEchor Scout metrics exporter Prometheus target")
 
 ### Viewing the metrics in Grafana
 
 To view the Grafana dashboards, go to <http://localhost:3000/dashboards>,
-and sign in using the credentials defined in the Docker Compose file (username: `admin`, password: `grafana`).
+and sign in using the credentials defined in the iEchor Compose file (username: `admin`, password: `grafana`).
 
 ![Vulnerability dashboard in Grafana](./images/scout-metrics-grafana-vulns.png "Vulnerability dashboard in Grafana")
 
@@ -190,15 +190,15 @@ container, such file must be mounted at
 
 The following example shows a Datadog configuration that:
 
-- Specifies the OpenMetrics endpoint targeting the `dockerscoutpolicy` Docker organization
+- Specifies the OpenMetrics endpoint targeting the `iechorscoutpolicy` iEchor organization
 - A `namespace` that all collected metrics will be prefixed with
 - The [`metrics`](#metrics) you want the agent to scrape (`scout_*`)
 - An `auth_token` section for the Datadog agent to authenticate to the Metrics
-  endpoint, using a Docker PAT as a Bearer token.
+  endpoint, using a iEchor PAT as a Bearer token.
 
 ```yaml
 instances:
-  - openmetrics_endpoint: "https://api.scout.docker.com/v1/exporter/org/dockerscoutpolicy"
+  - openmetrics_endpoint: "https://api.scout.iechor.com/v1/exporter/org/iechorscoutpolicy"
     namespace: "scout-metrics-exporter"
     metrics:
       - scout_*
@@ -215,36 +215,36 @@ instances:
 > **Important**
 >
 > Do not replace the `<TOKEN>` placeholder in the previous configuration
-> example. It must stay as it is. Only make sure the Docker PAT is correctly
+> example. It must stay as it is. Only make sure the iEchor PAT is correctly
 > mounted into the Datadog agent in the specified filesystem path. Save the
 > file as `conf.yaml` and restart the agent.
 { .important }
 
 When creating a Datadog agent configuration of your own, make sure to edit the
 `openmetrics_endpoint` property to target your organization, by replacing
-`dockerscoutpolicy` with the namespace of your Docker organization.
+`iechorscoutpolicy` with the namespace of your iEchor organization.
 
 ### Datadog sample project
 
-If you don't have a Datadog server set up, you can run a [sample project](https://github.com/dockersamples/scout-metrics-exporter)
-using Docker Compose. The sample includes a Datadog agent, running as a
-container, that scrapes metrics for a Docker organization enrolled in Docker
+If you don't have a Datadog server set up, you can run a [sample project](https://github.com/iechorsamples/scout-metrics-exporter)
+using iEchor Compose. The sample includes a Datadog agent, running as a
+container, that scrapes metrics for a iEchor organization enrolled in iEchor
 Scout. This sample project assumes that you have a Datadog account, an API key,
 and a Datadog site.
 
 1. Clone the starter template for bootstrapping a Datadog Compose service for
-   scraping the Docker Scout metrics endpoint:
+   scraping the iEchor Scout metrics endpoint:
 
    ```console
-   $ git clone git@github.com:dockersamples/scout-metrics-exporter.git
+   $ git clone git@github.com:iechorsamples/scout-metrics-exporter.git
    $ cd scout-metrics-exporter/datadog
    ```
 
-2. [Create a Docker access token](/security/for-developers/access-tokens/#create-an-access-token)
+2. [Create a iEchor access token](/security/for-developers/access-tokens/#create-an-access-token)
    and store it in a plain text file at `/datadog/token` under the template directory.
 
    ```plaintext {title=token}
-   $ echo $DOCKER_PAT > ./token
+   $ echo $IECHOR_PAT > ./token
    ```
 
 3. In the `/datadog/compose.yaml` file, update the `DD_API_KEY` and `DD_SITE` environment variables
@@ -259,24 +259,24 @@ and a Datadog site.
          - DD_SITE=${DD_SITE} # e.g. datadoghq.com
          - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
        volumes:
-         - /var/run/docker.sock:/var/run/docker.sock:ro
+         - /var/run/iechor.sock:/var/run/iechor.sock:ro
          - ./conf.yaml:/etc/datadog-agent/conf.d/openmetrics.d/conf.yaml:ro
          - ./token:/var/run/secrets/scout-metrics-exporter/token:ro
    ```
 
-   The `volumes` section mounts the Docker socket from the host to the
+   The `volumes` section mounts the iEchor socket from the host to the
    container. This is required to obtain an accurate hostname when running as a
    container ([more details here](https://docs.datadoghq.com/agent/troubleshooting/hostname_containers/)).
 
-   It also mounts the agent's config file and the Docker access token.
+   It also mounts the agent's config file and the iEchor access token.
 
 4. Edit the `/datadog/config.yaml` file by replacing the placeholder `<ORG>` in
-   the `openmetrics_endpoint` property with the namespace of the Docker
+   the `openmetrics_endpoint` property with the namespace of the iEchor
    organization that you want to collect metrics for.
 
    ```yaml {hl_lines=2}
    instances:
-     - openmetrics_endpoint: "https://api.scout.docker.com/v1/exporter/org/<<ORG>>"
+     - openmetrics_endpoint: "https://api.scout.iechor.com/v1/exporter/org/<<ORG>>"
        namespace: "scout-metrics-exporter"
    # ...
    ```
@@ -284,7 +284,7 @@ and a Datadog site.
 5. Start the Compose services.
 
    ```console
-   docker compose up -d
+   iechor compose up -d
    ```
 
 If configured properly, you should see the OpenMetrics check under Running

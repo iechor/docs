@@ -6,7 +6,7 @@ tags: [Secrets]
 ---
 
 A build secret is sensitive information, such as a password or API token, consumed as part of the build process.
-Docker Build supports two forms of secrets:
+iEchor Build supports two forms of secrets:
 
 - [Secret mounts](#secret-mounts) add secrets as files in the build container
   (under `/run/secrets` by default).
@@ -20,10 +20,10 @@ For an introduction to secrets in general, see [Build secrets](../../building/se
 In the following example uses and exposes the [`GITHUB_TOKEN` secret](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret)
 as provided by GitHub in your workflow.
 
-First, create a `Dockerfile` that uses the secret:
+First, create a `iEchorfile` that uses the secret:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM alpine
 RUN --mount=type=secret,id=github_token \
   cat /run/secrets/github_token
@@ -39,20 +39,20 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: iechor/setup-qemu-action@v3
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
       - name: Build
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -108,11 +108,11 @@ SSH mounts let you authenticate with SSH servers.
 For example to perform a `git clone`,
 or to fetch application packages from a private repository.
 
-The following Dockerfile example uses an SSH mount
+The following iEchorfile example uses an SSH mount
 to fetch Go modules from a private GitHub repository.
 
-```dockerfile {collapse=1}
-# syntax=docker/dockerfile:1
+```iechorfile {collapse=1}
+# syntax=iechor/iechorfile:1
 
 ARG GO_VERSION="{{% param example_go_version %}}"
 
@@ -151,7 +151,7 @@ RUN --mount=type=bind,target=. \
     go build ...
 ```
 
-To build this Dockerfile, you must specify an SSH mount that the builder can
+To build this iEchorfile, you must specify an SSH mount that the builder can
 use in the steps with `--mount=type=ssh`.
 
 The following GitHub Action workflow uses the `MrSquaare/ssh-setup-action`
@@ -162,7 +162,7 @@ build step assume `SSH_AUTH_SOCK` by default, so there's no need to specify the
 ID or path for the SSH agent socket explicitly.
 
 {{< tabs >}}
-{{< tab name="`docker/build-push-action`" >}}
+{{< tab name="`iechor/build-push-action`" >}}
 
 ```yaml
 name: ci
@@ -171,7 +171,7 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -185,7 +185,7 @@ jobs:
           private-key-name: github-ppk
       
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           ssh: default
@@ -194,7 +194,7 @@ jobs:
 ```
 
 {{< /tab >}}
-{{< tab name="`docker/bake-action`" >}}
+{{< tab name="`iechor/bake-action`" >}}
 
 ```yaml
 name: ci
@@ -203,7 +203,7 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -217,7 +217,7 @@ jobs:
           private-key-name: github-ppk
       
       - name: Build
-        uses: docker/bake-action@v4
+        uses: iechor/bake-action@v4
         with:
           set: |
             *.ssh=default

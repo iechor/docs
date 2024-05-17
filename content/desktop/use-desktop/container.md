@@ -1,7 +1,7 @@
 ---
-description: Understand what you can do with the Containers view on Docker Dashboard
-keywords: Docker Dashboard, manage, containers, gui, dashboard, images, user manual
-title: Explore the Containers view in Docker Desktop
+description: Understand what you can do with the Containers view on iEchor Dashboard
+keywords: iEchor Dashboard, manage, containers, gui, dashboard, images, user manual
+title: Explore the Containers view in iEchor Desktop
 ---
 
 The **Containers** view lists all your running containers and applications. You must have running or stopped containers and applications to see them listed.
@@ -17,7 +17,7 @@ From the **Containers** view you can perform the following actions:
 - Delete
 - Open the application in VS code
 - Open the port exposed by the container in a browser
-- Copy docker run. This lets you share container run details or modify certain parameters.
+- Copy iechor run. This lets you share container run details or modify certain parameters.
 
 ## Resource usage
 
@@ -54,23 +54,23 @@ Select **Inspect** to view low-level information about the container. It display
 ### Integrated terminal
 
 From the **Exec** tab, you can use the integrated terminal, on a running
-container, directly within Docker Desktop. You are able to quickly run commands
+container, directly within iEchor Desktop. You are able to quickly run commands
 within your container so you can understand its current state or debug when
 something goes wrong.
 
 Using the integrated terminal is the same as running one of the following commands:
 
-- `docker exec -it <container-id> /bin/sh`
-- `docker exec -it <container-id> cmd.exe` when accessing Windows containers
-- `docker debug <container-id>` when using debug mode
+- `iechor exec -it <container-id> /bin/sh`
+- `iechor exec -it <container-id> cmd.exe` when accessing Windows containers
+- `iechor debug <container-id>` when using debug mode
 
 The integrated terminal:
 
 - Persists your session and **Debug mode** setting if you navigate to another
-  part of the Docker Dashboard and then return.
+  part of the iEchor Dashboard and then return.
 - Supports copy, paste, search, and clearing your session.
 - When not using debug mode, it automatically detects the default user for a
-  running container from the image's Dockerfile. If no user is specified, or
+  running container from the image's iEchorfile. If no user is specified, or
   you're using debug mode, it defaults to `root`.
 
 #### Open the integrated terminal
@@ -94,24 +94,24 @@ and select the **System default** option under **Choose your terminal**.
 Debug mode requires a [Pro, Team, or Business subcription](/subscription/details/). Debug mode has several advantages, such as:
 
 - A customizable toolbox. The toolbox comes with many standard Linux tools
-  pre-installed, such as `vim`, `nano`, `htop`, and `curl`. For more details, see the [`docker debug` CLI reference](/reference/cli/docker/debug/).
+  pre-installed, such as `vim`, `nano`, `htop`, and `curl`. For more details, see the [`iechor debug` CLI reference](/reference/cli/iechor/debug/).
 - The ability to access containers that don't have a shell, for example, slim or
   distroless containers.
 
 To open the integrated terminal in debug mode:
 
-1. Sign in to Docker Desktop with an account that has a Pro, Team, or Business
+1. Sign in to iEchor Desktop with an account that has a Pro, Team, or Business
    subscription.
 2. After you're signed in, either:
 
    - Hover over your running container and select the **Show container actions**
-     menu. From the drop-down menu, select **Use Docker Debug**.
+     menu. From the drop-down menu, select **Use iEchor Debug**.
    - Or, select the container and then select the **Debug** tab. If the
      **Debug** tab isn't visible, select the **Exec** tab and then enable the
      **Debug mode** setting.
 
 To use debug mode by default when accessing the integrated terminal, navigate to
-the **General** tab in **Settings** and select the **Enable Docker Debug by
+the **General** tab in **Settings** and select the **Enable iEchor Debug by
 default** option.
 
 ### Files

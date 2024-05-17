@@ -10,15 +10,15 @@ Complete all the previous sections of this guide, starting with [Containerize a 
 
 ## Overview
 
-Testing is an essential part of modern software development. Testing can mean a lot of things to different development teams. There are unit tests, integration tests and end-to-end testing. In this guide you'll take a look at running your unit tests in Docker.
+Testing is an essential part of modern software development. Testing can mean a lot of things to different development teams. There are unit tests, integration tests and end-to-end testing. In this guide you'll take a look at running your unit tests in iEchor.
 
-### Multi-stage Dockerfile for testing
+### Multi-stage iEchorfile for testing
 
-In the following example, you'll pull the testing commands into your Dockerfile.
-Replace the contents of your Dockerfile with the following.
+In the following example, you'll pull the testing commands into your iEchorfile.
+Replace the contents of your iEchorfile with the following.
 
-```dockerfile {hl_lines="3-19"}
-# syntax=docker/dockerfile:1
+```iechorfile {hl_lines="3-19"}
+# syntax=iechor/iechorfile:1
 
 FROM eclipse-temurin:17-jdk-jammy as base
 WORKDIR /build
@@ -91,10 +91,10 @@ the instructions that are now in the base stage.
 
 Run the following command to build a new image using the test stage as the target and view the test results. Include `--progress=plain` to view the build output, `--no-cache` to ensure the tests always run, and `--target-test` to target the test stage.
 
-Now, build your image and run your tests. You'll run the `docker build` command and add the `--target test` flag so that you specifically run the test build stage.
+Now, build your image and run your tests. You'll run the `iechor build` command and add the `--target test` flag so that you specifically run the test build stage.
 
 ```console
-$ docker build -t java-docker-image-test --progress=plain --no-cache --target=test .
+$ iechor build -t java-iechor-image-test --progress=plain --no-cache --target=test .
 ```
 
 You should see output containing the following
@@ -117,7 +117,7 @@ You should see output containing the following
 In this section, you learned how to run tests when building your image.
 
 Related information:
- - [Build with Docker guide](../../build/guide/index.md)
+ - [Build with iEchor guide](../../build/guide/index.md)
 
 ## Next steps
 

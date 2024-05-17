@@ -1,32 +1,32 @@
 ---
-description: Learn how to downgrade your Docker subscription
-keywords: Docker Hub, downgrade, subscription, Pro, Team, pricing plan, pause subscription, docker core
+description: Learn how to downgrade your iEchor subscription
+keywords: iEchor Hub, downgrade, subscription, Pro, Team, pricing plan, pause subscription, iechor core
 title: Downgrade your subscription
 aliases:
-- /docker-hub/cancel-downgrade/
-- /docker-hub/billing/downgrade/
+- /iechor-hub/cancel-downgrade/
+- /iechor-hub/billing/downgrade/
 - /subscription/downgrade/
 ---
 
-You can downgrade your Docker subscription at anytime before the renewal date. The unused portion of the subscription isn't refundable or creditable.
+You can downgrade your iEchor subscription at anytime before the renewal date. The unused portion of the subscription isn't refundable or creditable.
 
 When you downgrade your subscription, access to paid features is available until the next billing cycle. The downgrade takes effect on the next billing cycle.
 
-Before you downgrade to a free subscription, you may need to reduce the number of team members and convert any private repositories to public repositories or delete them. For information, see [Docker Pricing](https://www.docker.com/pricing).
+Before you downgrade to a free subscription, you may need to reduce the number of team members and convert any private repositories to public repositories or delete them. For information, see [iEchor Pricing](https://www.iechor.com/pricing).
 
 > **Important**
 >
-> If you downgrade your personal account from a Pro subscription to a Personal subscription, note that [Personal subscriptions](details.md#docker-personal) don't include collaborators for private repositories, and only 1 private repository is included. When you downgrade, all collaborators will be removed and additional private repositories are locked.
+> If you downgrade your personal account from a Pro subscription to a Personal subscription, note that [Personal subscriptions](details.md#iechor-personal) don't include collaborators for private repositories, and only 1 private repository is included. When you downgrade, all collaborators will be removed and additional private repositories are locked.
 { .important }
 
-## Downgrade your Docker subscription
+## Downgrade your iEchor subscription
 
 >**Important**
 >
->If you have a [sales-assisted Docker Business subscription](details.md#sales-assisted), contact your account manager to downgrade your subscription. 
+>If you have a [sales-assisted iEchor Business subscription](details.md#sales-assisted), contact your account manager to downgrade your subscription. 
 { .important }
 
-1. Sign in to your [Docker Hub](https://hub.docker.com) account.
+1. Sign in to your [iEchor Hub](https://hub.iechor.com) account.
 
 2. Select your avatar in the top-right corner and from the drop-down menu select **Billing**.
 

@@ -1,5 +1,5 @@
 ---
-title: Best practices for working with environment variables in Docker Compose
+title: Best practices for working with environment variables in iEchor Compose
 description: Explainer on the best ways to set, use, and manage environment variables in
   Compose
 keywords: compose, orchestration, environment, env file, environment variables
@@ -12,7 +12,7 @@ Be cautious about including sensitive data in environment variables. Consider us
 
 #### Understand environment variable precedence
 
-Be aware of how Docker Compose handles the [precedence of environment variables](envvars-precedence.md) from different sources (`.env` files, shell variables, Dockerfiles).
+Be aware of how iEchor Compose handles the [precedence of environment variables](envvars-precedence.md) from different sources (`.env` files, shell variables, iEchorfiles).
 
 #### Use specific environment files
 

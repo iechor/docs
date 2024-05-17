@@ -8,12 +8,12 @@ description: Learn how to deploy your Go application
 
 - Complete all the previous sections of this guide, starting with [Build
   your Go image](build-images.md).
-- [Turn on Kubernetes](/desktop/kubernetes/#install-and-turn-on-kubernetes) in Docker
+- [Turn on Kubernetes](/desktop/kubernetes/#install-and-turn-on-kubernetes) in iEchor
   Desktop.
 
 ## Overview
 
-In this section, you'll learn how to use Docker Desktop to deploy your
+In this section, you'll learn how to use iEchor Desktop to deploy your
 application to a fully-featured Kubernetes environment on your development
 machine. This allows you to test and debug your workloads on Kubernetes locally
 before deploying.
@@ -21,8 +21,8 @@ before deploying.
 ## Create a Kubernetes YAML file
 
 In your project directory, create a file named
-`docker-go-kubernetes.yaml`. Open the file in an IDE or text editor and add
-the following contents. Replace `DOCKER_USERNAME/REPO_NAME` with your Docker
+`iechor-go-kubernetes.yaml`. Open the file in an IDE or text editor and add
+the following contents. Replace `IECHOR_USERNAME/REPO_NAME` with your iEchor
 username and the name of the repository that you created in [Configure CI/CD for
 your Go application](configure-ci-cd.md).
 
@@ -61,7 +61,7 @@ spec:
               value: "5432"
             - name: PGUSER
               value: postgres
-          image: DOCKER_USERNAME/REPO_NAME
+          image: IECHOR_USERNAME/REPO_NAME
           name: server
           imagePullPolicy: Always
           ports:
@@ -164,7 +164,7 @@ To learn more about Kubernetes objects, see the [Kubernetes documentation](https
    and deploy your application to Kubernetes.
 
    ```console
-   $ kubectl apply -f docker-go-kubernetes.yaml
+   $ kubectl apply -f iechor-go-kubernetes.yaml
    ```
 
    You should see output that looks like the following, indicating your Kubernetes objects were created successfully.
@@ -225,14 +225,14 @@ To learn more about Kubernetes objects, see the [Kubernetes documentation](https
 4. Run the following command to tear down your application.
 
    ```console
-   $ kubectl delete -f docker-go-kubernetes.yaml
+   $ kubectl delete -f iechor-go-kubernetes.yaml
    ```
 
 ## Summary
 
-In this section, you learned how to use Docker Desktop to deploy your application to a fully-featured Kubernetes environment on your development machine.
+In this section, you learned how to use iEchor Desktop to deploy your application to a fully-featured Kubernetes environment on your development machine.
 
 Related information:
    - [Kubernetes documentation](https://kubernetes.io/docs/home/)
-   - [Deploy on Kubernetes with Docker Desktop](../../desktop/kubernetes.md)
+   - [Deploy on Kubernetes with iEchor Desktop](../../desktop/kubernetes.md)
    - [Swarm mode overview](../../engine/swarm/_index.md)

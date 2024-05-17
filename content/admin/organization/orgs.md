@@ -1,22 +1,22 @@
 ---
 description: Learn how to create an organization.
-keywords: Docker, docker, registry, teams, organizations, plans, Dockerfile, Docker
+keywords: iEchor, iechor, registry, teams, organizations, plans, iEchorfile, iEchor
   Hub, docs, documentation
 title: Create your organization
 aliases:
-- /docker-cloud/orgs/
-- /docker-hub/orgs/
+- /iechor-cloud/orgs/
+- /iechor-hub/orgs/
 ---
 
 This section describes how to create an organization. Before you begin:
 
-- You need a [Docker ID](../../docker-id/_index.md).
-- Review the [Docker subscriptions and features](../../subscription/core-subscription/details.md) to determine what plan to choose for your organization.
+- You need a [iEchor ID](../../iechor-id/_index.md).
+- Review the [iEchor subscriptions and features](../../subscription/core-subscription/details.md) to determine what plan to choose for your organization.
 
 ## Create an organization
 
 There are multiple ways to create an organization. You can create a brand new
-organization using the **Create Organization** option in Docker Hub, or you can
+organization using the **Create Organization** option in iEchor Hub, or you can
 convert an existing user account to an organization. The following section
 contains instructions on how to create a new organization. For prerequisites and
 detailed instructions on converting an existing user account to an organization, see
@@ -24,11 +24,11 @@ detailed instructions on converting an existing user account to an organization,
 
 To create an organization:
 
-1. Sign in to [Docker Hub](https://hub.docker.com/) using your [Docker ID](../../docker-id/_index.md), your email address, or your social provider.
+1. Sign in to [iEchor Hub](https://hub.iechor.com/) using your [iEchor ID](../../iechor-id/_index.md), your email address, or your social provider.
 2. Select **Organizations** and then **Create Organization** to create a new
    organization.
 3. Choose a plan for your organization and select **Buy Now**. See
-[Docker Pricing](https://www.docker.com/pricing/)
+[iEchor Pricing](https://www.iechor.com/pricing/)
 for details on the features offered in the Team and Business plan.
 
    > **Note**
@@ -37,14 +37,14 @@ for details on the features offered in the Team and Business plan.
    > this step without incurring a payment.
 
 4. Enter a name for your organization. This is the official, unique name for
-your organization in Docker Hub. It's not possible to change the name of the
+your organization in iEchor Hub. It's not possible to change the name of the
 organization after you've created it.
 
    > **Note**
    >
-   > You can't use the same name for the organization and your Docker ID. If you want to use your Docker ID as the organization name, then you must first [convert your account into an organization](../convert-account.md).
+   > You can't use the same name for the organization and your iEchor ID. If you want to use your iEchor ID as the organization name, then you must first [convert your account into an organization](../convert-account.md).
 
-5. Enter the name of your company. This is the full name of your company. Docker
+5. Enter the name of your company. This is the full name of your company. iEchor
 displays the company name on your organization page and in the details of any
 public images you publish. You can update the company name anytime by navigating
 to your organization's **Settings** page.
@@ -59,7 +59,7 @@ You've now created an organization.
 
 To view an organization:
 
-1. Sign in to Docker Hub with a user account that is a member of any team in the
+1. Sign in to iEchor Hub with a user account that is a member of any team in the
    organization. 
 
       > **Note**
@@ -87,7 +87,7 @@ configure your organization.
   members in each team. See [Create a team](./manage-a-team.md) for details.
 
 - **Repositories**: Displays a list of repositories associated with the
-  organization. See [Repositories](../../docker-hub/repos/index.md) for detailed information about
+  organization. See [Repositories](../../iechor-hub/repos/index.md) for detailed information about
   working with repositories.
 
 - **Activity** Displays the audit logs, a chronological list of activities that
@@ -102,7 +102,7 @@ configure your organization.
    organization's **Settings** page.
 
 - **Billing**: Displays information about your existing
-[Docker subscription (plan)](../../subscription/_index.md), including the number of seats and next payment due date. For how to access the billing history and payment methods for your organization, see [View billing history](../../billing/core-billing/history.md).
+[iEchor subscription (plan)](../../subscription/_index.md), including the number of seats and next payment due date. For how to access the billing history and payment methods for your organization, see [View billing history](../../billing/core-billing/history.md).
 
 ## Merge organizations
 
@@ -115,10 +115,10 @@ If you have multiple organizations that you want to merge into one, complete the
 
 > **Tip**
 >
-> If your organization has a Docker Core Business subscription with a purchase order, contact Support or your Account Manager at Docker.
+> If your organization has a iEchor Core Business subscription with a purchase order, contact Support or your Account Manager at iEchor.
 >
 { .tip }
 
 ## More resources
 
-- [Video: Docker Hub Organizations](https://www.youtube.com/watch?v=WKlT1O-4Du8)
+- [Video: iEchor Hub Organizations](https://www.youtube.com/watch?v=WKlT1O-4Du8)

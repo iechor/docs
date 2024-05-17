@@ -15,19 +15,19 @@ Complete the [Build your Go image](build-images.md) section of this guide.
 Testing is an essential part of modern software development. Testing can mean a
 lot of things to different development teams. There are unit tests, integration
 tests and end-to-end testing. In this guide you take a look at running your unit
-tests in Docker when building.
+tests in iEchor when building.
 
-For this section, use the `docker-gs-ping` project that you cloned in [Build
+For this section, use the `iechor-gs-ping` project that you cloned in [Build
 your Go image](build-images.md).
 
 ## Run tests when building
 
 To run your tests when building, you need to add a test stage to the
-`Dockerfile.multistage`. The `Dockerfile.multistage` in the sample application's
+`iEchorfile.multistage`. The `iEchorfile.multistage` in the sample application's
 repository already has the following content:
 
-```dockerfile {hl_lines="15-17"}
-# syntax=docker/dockerfile:1
+```iechorfile {hl_lines="15-17"}
+# syntax=iechor/iechorfile:1
 
 # Build the application from source
 FROM golang:1.19 AS build-stage
@@ -39,7 +39,7 @@ RUN go mod download
 
 COPY *.go ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
+RUN CGO_ENABLED=0 GOOS=linux go build -o /iechor-gs-ping
 
 # Run the tests in the container
 FROM build-stage AS run-test-stage
@@ -50,19 +50,19 @@ FROM gcr.io/distroless/base-debian11 AS build-release-stage
 
 WORKDIR /
 
-COPY --from=build-stage /docker-gs-ping /docker-gs-ping
+COPY --from=build-stage /iechor-gs-ping /iechor-gs-ping
 
 EXPOSE 8080
 
 USER nonroot:nonroot
 
-ENTRYPOINT ["/docker-gs-ping"]
+ENTRYPOINT ["/iechor-gs-ping"]
 ```
 
 Run the following command to build an image using the `run-test-stage` stage as the target and view the test results. Include `--progress plain` to view the build output, `--no-cache` to ensure the tests always run, and `--target run-test-stage` to target the test stage.
 
 ```console
-$ docker build -f Dockerfile.multistage -t docker-gs-ping-test --progress plain --no-cache --target run-test-stage .
+$ iechor build -f iEchorfile.multistage -t iechor-gs-ping-test --progress plain --no-cache --target run-test-stage .
 ```
 
 You should see output containing the following.
@@ -86,7 +86,7 @@ You should see output containing the following.
 #13 4.915 PASS
 ```
 
-To learn more about building and running tests, see the [Build with Docker guide](../../build/guide/_index.md).
+To learn more about building and running tests, see the [Build with iEchor guide](../../build/guide/_index.md).
 
 ## Next steps
 

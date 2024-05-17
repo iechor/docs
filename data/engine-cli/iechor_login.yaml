@@ -1,0 +1,210 @@
+command: iechor login
+short: Log in to a registry
+long: Log in to a registry.
+usage: iechor login [OPTIONS] [SERVER]
+pname: iechor
+plink: iechor.yaml
+options:
+    - option: password
+      shorthand: p
+      value_type: string
+      description: Password
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: password-stdin
+      value_type: bool
+      default_value: "false"
+      description: Take the password from stdin
+      details_url: '#password-stdin'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: username
+      shorthand: u
+      value_type: string
+      description: Username
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### Login to a self-hosted registry
+
+    If you want to log in to a self-hosted registry you can specify this by
+    adding the server name.
+
+    ```console
+    $ iechor login localhost:8080
+    ```
+
+    ### Provide a password using STDIN (--password-stdin) {#password-stdin}
+
+    To run the `iechor login` command non-interactively, you can set the
+    `--password-stdin` flag to provide a password through `STDIN`. Using
+    `STDIN` prevents the password from ending up in the shell's history,
+    or log-files.
+
+    The following example reads a password from a file, and passes it to the
+    `iechor login` command using `STDIN`:
+
+    ```console
+    $ cat ~/my_password.txt | iechor login --username foo --password-stdin
+    ```
+
+    ### Privileged user requirement
+
+    `iechor login` requires you to use `sudo` or be `root`, except when:
+
+    - Connecting to a remote daemon, such as a `iechor-machine` provisioned `iechor engine`.
+    - The user is added to the `iechor` group. This will impact the security of your system; the `iechor` group is `root` equivalent.  See [iEchor Daemon Attack Surface](/engine/security/#iechor-daemon-attack-surface) for details.
+
+    You can log in to any public or private repository for which you have
+    credentials.  When you log in, the command stores credentials in
+    `$HOME/.iechor/config.json` on Linux or `%USERPROFILE%/.iechor/config.json` on
+    Windows, via the procedure described below.
+
+    ### Credential stores
+
+    The iEchor Engine can keep user credentials in an external credential store,
+    such as the native keychain of the operating system. Using an external store
+    is more secure than storing credentials in the iEchor configuration file.
+
+    To use a credential store, you need an external helper program to interact
+    with a specific keychain or external store. iEchor requires the helper
+    program to be in the client's host `$PATH`.
+
+    You can download the helpers from the `iechor-credential-helpers`
+    [releases page](https://github.com/iechor/iechor-credential-helpers/releases).
+    Helpers are available for the following credential stores:
+
+    - D-Bus Secret Service
+    - Apple macOS keychain
+    - Microsoft Windows Credential Manager
+    - [pass](https://www.passwordstore.org/)
+
+    #### Configure the credential store
+
+    You need to specify the credential store in `$HOME/.iechor/config.json`
+    to tell the iEchor Engine to use it. The value of the config property should be
+    the suffix of the program to use (i.e. everything after `iechor-credential-`).
+    For example, to use `iechor-credential-osxkeychain`:
+
+    ```json
+    {
+      "credsStore": "osxkeychain"
+    }
+    ```
+
+    If you are currently logged in, run `iechor logout` to remove
+    the credentials from the file and run `iechor login` again.
+
+    #### Default behavior
+
+    By default, iEchor looks for the native binary on each of the platforms, i.e.
+    "osxkeychain" on macOS, "wincred" on windows, and "pass" on Linux. A special
+    case is that on Linux, iEchor will fall back to the "secretservice" binary if
+    it cannot find the "pass" binary. If none of these binaries are present, it
+    stores the credentials (i.e. password) in base64 encoding in the config files
+    described above.
+
+    #### Credential helper protocol
+
+    Credential helpers can be any program or script that follows a very simple protocol.
+    This protocol is heavily inspired by Git, but it differs in the information shared.
+
+    The helpers always use the first argument in the command to identify the action.
+    There are only three possible values for that argument: `store`, `get`, and `erase`.
+
+    The `store` command takes a JSON payload from the standard input. That payload carries
+    the server address, to identify the credential, the user name, and either a password
+    or an identity token.
+
+    ```json
+    {
+      "ServerURL": "https://index.iechor.io/v1",
+      "Username": "david",
+      "Secret": "passw0rd1"
+    }
+    ```
+
+    If the secret being stored is an identity token, the Username should be set to
+    `<token>`.
+
+    The `store` command can write error messages to `STDOUT` that the iEchor Engine
+    will show if there was an issue.
+
+    The `get` command takes a string payload from the standard input. That payload carries
+    the server address that the iEchor Engine needs credentials for. This is
+    an example of that payload: `https://index.iechor.io/v1`.
+
+    The `get` command writes a JSON payload to `STDOUT`. iEchor reads the user name
+    and password from this payload:
+
+    ```json
+    {
+      "Username": "david",
+      "Secret": "passw0rd1"
+    }
+    ```
+
+    The `erase` command takes a string payload from `STDIN`. That payload carries
+    the server address that the iEchor Engine wants to remove credentials for. This is
+    an example of that payload: `https://index.iechor.io/v1`.
+
+    The `erase` command can write error messages to `STDOUT` that the iEchor Engine
+    will show if there was an issue.
+
+    ### Credential helpers
+
+    Credential helpers are similar to the credential store above, but act as the
+    designated programs to handle credentials for specific registries. The default
+    credential store (`credsStore` or the config file itself) will not be used for
+    operations concerning credentials of the specified registries.
+
+    #### Configure credential helpers
+
+    If you are currently logged in, run `iechor logout` to remove
+    the credentials from the default store.
+
+    Credential helpers are specified in a similar way to `credsStore`, but
+    allow for multiple helpers to be configured at a time. Keys specify the
+    registry domain, and values specify the suffix of the program to use
+    (i.e. everything after `iechor-credential-`).
+    For example:
+
+    ```json
+    {
+      "credHelpers": {
+        "registry.example.com": "registryhelper",
+        "awesomereg.example.org": "hip-star",
+        "unicorn.example.io": "vcbait"
+      }
+    }
+    ```
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

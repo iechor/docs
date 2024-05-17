@@ -1,5 +1,5 @@
 ---
 title: Nextcloud samples
-description: Docker samples for Nextcloud.
+description: iEchor samples for Nextcloud.
 service: nextcloud
 ---

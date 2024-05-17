@@ -1,0 +1,36 @@
+command: iechor export
+aliases: iechor container export, iechor export
+short: Export a container's filesystem as a tar archive
+long: Export a container's filesystem as a tar archive
+usage: iechor export [OPTIONS] CONTAINER
+pname: iechor
+plink: iechor.yaml
+options:
+    - option: output
+      shorthand: o
+      value_type: string
+      description: Write to a file, instead of STDOUT
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

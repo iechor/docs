@@ -1,7 +1,7 @@
 ---
 title: Dashboard
-description: Docker extension API
-keywords: Docker, extensions, sdk, API
+description: iEchor extension API
+keywords: iEchor, extensions, sdk, API
 ---
 
 ## User notifications
@@ -75,7 +75,7 @@ This function opens an external URL with the system default browser.
 ▸ **openExternal**(`url`): `void`
 
 ```typescript
-ddClient.host.openExternal("https://docker.com");
+ddClient.host.openExternal("https://iechor.com");
 ```
 
 > The URL must have the protocol `http` or `https`.
@@ -87,9 +87,9 @@ For more details about method parameters and the return types available, see [De
 > This method is deprecated and will be removed in a future version. Use the methods specified above.
 
 ```typescript
-window.ddClient.openExternal("https://docker.com");
+window.ddClient.openExternal("https://iechor.com");
 ```
 
 ## Navigation to Dashboard routes
 
-From your extension, you can also [navigate](dashboard-routes-navigation.md) to other parts of the Docker Desktop Dashboard.
+From your extension, you can also [navigate](dashboard-routes-navigation.md) to other parts of the iEchor Desktop Dashboard.

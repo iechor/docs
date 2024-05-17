@@ -1,160 +1,160 @@
 ---
-description: How to uninstall Docker Desktop
-keywords: Windows, unintall, Mac, Linux, Docker Desktop
-title: Uninstall Docker Desktop
+description: How to uninstall iEchor Desktop
+keywords: Windows, unintall, Mac, Linux, iEchor Desktop
+title: Uninstall iEchor Desktop
 ---
 
 > **Warning**
 >
-> Uninstalling Docker Desktop destroys Docker containers, images, volumes, and
-> other Docker-related data local to the machine, and removes the files generated
+> Uninstalling iEchor Desktop destroys iEchor containers, images, volumes, and
+> other iEchor-related data local to the machine, and removes the files generated
 > by the application. To learn how to preserve important data before uninstalling, refer to the [back up and restore data](backup-and-restore.md) section .
 { .warning }
 
 {{< tabs >}}
 {{< tab name="Windows" >}}
 
-To uninstall Docker Desktop from your Windows machine:
+To uninstall iEchor Desktop from your Windows machine:
 
 1. From the Windows **Start** menu, select **Settings** > **Apps** > **Apps & features**.
-2. Select **Docker Desktop** from the **Apps & features** list and then select **Uninstall**.
+2. Select **iEchor Desktop** from the **Apps & features** list and then select **Uninstall**.
 3. Select **Uninstall** to confirm your selection.
 
-You can also uninstall Docker Desktop from the CLI:
+You can also uninstall iEchor Desktop from the CLI:
 
 1. Locate the installer:
    ```console
-   $ C:\Program Files\Docker\Docker\Docker Desktop Installer.exe
+   $ C:\Program Files\iEchor\iEchor\iEchor Desktop Installer.exe
    ```
-2. Uninstall Docker Desktop. 
+2. Uninstall iEchor Desktop. 
  - In PowerShell, run:
     ```console
-    $ Start-Process 'Docker Desktop Installer.exe' -Wait uninstall
+    $ Start-Process 'iEchor Desktop Installer.exe' -Wait uninstall
     ```
  - In the Command Prompt, run:
     ```console
-    $ start /w "" "Docker Desktop Installer.exe" uninstall
+    $ start /w "" "iEchor Desktop Installer.exe" uninstall
     ```
 
-After uninstalling Docker Desktop, there may be some residual files left behind which you can remove manually. These are:
+After uninstalling iEchor Desktop, there may be some residual files left behind which you can remove manually. These are:
 
 ```console
-C:\ProgramData\Docker
-C:\ProgramData\DockerDesktop
-C:\Program Files\Docker
-C:\Users\<your user name>\AppData\Local\Docker
-C:\Users\<your user name>\AppData\Roaming\Docker
-C:\Users\<your user name>\AppData\Roaming\Docker Desktop
-C:\Users\<your user name>\.docker
+C:\ProgramData\iEchor
+C:\ProgramData\iEchorDesktop
+C:\Program Files\iEchor
+C:\Users\<your user name>\AppData\Local\iEchor
+C:\Users\<your user name>\AppData\Roaming\iEchor
+C:\Users\<your user name>\AppData\Roaming\iEchor Desktop
+C:\Users\<your user name>\.iechor
 ```
  
 {{< /tab >}}
 {{< tab name="Mac" >}}
 
-To uninstall Docker Desktop from your Mac:
+To uninstall iEchor Desktop from your Mac:
 
-1. From the Docker menu, select the **Troubleshoot** icon in the top-right corner of Docker Dashboard and then select **Uninstall**.
+1. From the iEchor menu, select the **Troubleshoot** icon in the top-right corner of iEchor Dashboard and then select **Uninstall**.
 2. Select **Uninstall** to confirm your selection.
 
-You can also uninstall Docker Desktop from the CLI. Run:
+You can also uninstall iEchor Desktop from the CLI. Run:
 
 ```console
-$ /Applications/Docker.app/Contents/MacOS/uninstall
+$ /Applications/iEchor.app/Contents/MacOS/uninstall
 ```
 
-After uninstalling Docker Desktop, there may be some residual files left behind which you can remove:
+After uninstalling iEchor Desktop, there may be some residual files left behind which you can remove:
 
 ```console
-$ rm -rf ~/Library/Group\ Containers/group.com.docker
-$ rm -rf ~/Library/Containers/com.docker.docker
-$ rm -rf ~/.docker
+$ rm -rf ~/Library/Group\ Containers/group.com.iechor
+$ rm -rf ~/Library/Containers/com.iechor.iechor
+$ rm -rf ~/.iechor
 ```
 
 {{< /tab >}}
 {{< tab name="Linux" >}}
 
-Docker Desktop is removed from a Linux host using the package manager.
+iEchor Desktop is removed from a Linux host using the package manager.
 
-Once Docker Desktop is removed, users must delete the `credsStore` and `currentContext` properties from the `~/.docker/config.json`.
+Once iEchor Desktop is removed, users must delete the `credsStore` and `currentContext` properties from the `~/.iechor/config.json`.
 
 {{< /tab >}}
 {{< tab name="Ubuntu" >}}
 
-To remove Docker Desktop for Ubuntu, run:
+To remove iEchor Desktop for Ubuntu, run:
 
 ```console
-$ sudo apt remove docker-desktop
+$ sudo apt remove iechor-desktop
 ```
 
-For a complete cleanup, remove configuration and data files at `$HOME/.docker/desktop`, the symlink at `/usr/local/bin/com.docker.cli`, and purge
+For a complete cleanup, remove configuration and data files at `$HOME/.iechor/desktop`, the symlink at `/usr/local/bin/com.iechor.cli`, and purge
 the remaining systemd service files.
 
 ```console
-$ rm -r $HOME/.docker/desktop
-$ sudo rm /usr/local/bin/com.docker.cli
-$ sudo apt purge docker-desktop
+$ rm -r $HOME/.iechor/desktop
+$ sudo rm /usr/local/bin/com.iechor.cli
+$ sudo apt purge iechor-desktop
 ```
 
-Remove the `credsStore` and `currentContext` properties from `$HOME/.docker/config.json`. Additionally, you must delete any edited configuration files manually. 
+Remove the `credsStore` and `currentContext` properties from `$HOME/.iechor/config.json`. Additionally, you must delete any edited configuration files manually. 
 
 {{< /tab >}}
 {{< tab name="Debian" >}}
 
-To remove Docker Desktop for Debian, run:
+To remove iEchor Desktop for Debian, run:
 
 ```console
-$ sudo apt remove docker-desktop
+$ sudo apt remove iechor-desktop
 ```
 
-For a complete cleanup, remove configuration and data files at `$HOME/.docker/desktop`, the symlink at `/usr/local/bin/com.docker.cli`, and purge
+For a complete cleanup, remove configuration and data files at `$HOME/.iechor/desktop`, the symlink at `/usr/local/bin/com.iechor.cli`, and purge
 the remaining systemd service files.
 
 ```console
-$ rm -r $HOME/.docker/desktop
-$ sudo rm /usr/local/bin/com.docker.cli
-$ sudo apt purge docker-desktop
+$ rm -r $HOME/.iechor/desktop
+$ sudo rm /usr/local/bin/com.iechor.cli
+$ sudo apt purge iechor-desktop
 ```
 
-Remove the `credsStore` and `currentContext` properties from `$HOME/.docker/config.json`. Additionally, you must delete any edited configuration files manually.
+Remove the `credsStore` and `currentContext` properties from `$HOME/.iechor/config.json`. Additionally, you must delete any edited configuration files manually.
 
 {{< /tab >}}
 {{< tab name="Fedora" >}}
 
-To remove Docker Desktop for Fedora, run:
+To remove iEchor Desktop for Fedora, run:
 
 ```console
-$ sudo dnf remove docker-desktop
+$ sudo dnf remove iechor-desktop
 ```
 
-For a complete cleanup, remove configuration and data files at `$HOME/.docker/desktop`, the symlink at `/usr/local/bin/com.docker.cli`, and purge
+For a complete cleanup, remove configuration and data files at `$HOME/.iechor/desktop`, the symlink at `/usr/local/bin/com.iechor.cli`, and purge
 the remaining systemd service files.
 
 ```console
-$ rm -r $HOME/.docker/desktop
-$ sudo rm /usr/local/bin/com.docker.cli
+$ rm -r $HOME/.iechor/desktop
+$ sudo rm /usr/local/bin/com.iechor.cli
 ```
 
-Remove the `credsStore` and `currentContext` properties from `$HOME/.docker/config.json`. Additionally, you must delete any edited configuration files manually. 
+Remove the `credsStore` and `currentContext` properties from `$HOME/.iechor/config.json`. Additionally, you must delete any edited configuration files manually. 
 
 {{< /tab >}}
 {{< tab name="Arch" >}}
 
-To remove Docker Desktop for Arch, run:
+To remove iEchor Desktop for Arch, run:
 
 ```console
-$ sudo pacman -R docker-desktop
+$ sudo pacman -R iechor-desktop
 ```
 
-For a complete cleanup, remove configuration and data files at `$HOME/.docker/desktop`, the symlink at `/usr/local/bin/com.docker.cli`, and purge
+For a complete cleanup, remove configuration and data files at `$HOME/.iechor/desktop`, the symlink at `/usr/local/bin/com.iechor.cli`, and purge
 the remaining systemd service files.
 
 ```console
-$ rm -r $HOME/.docker/desktop
-$ sudo rm /usr/local/bin/com.docker.cli
-$ sudo pacman -Rns docker-desktop
+$ rm -r $HOME/.iechor/desktop
+$ sudo rm /usr/local/bin/com.iechor.cli
+$ sudo pacman -Rns iechor-desktop
 ```
 
-Remove the `credsStore` and `currentContext` properties from `$HOME/.docker/config.json`. Additionally, you must delete any edited configuration files manually. 
+Remove the `credsStore` and `currentContext` properties from `$HOME/.iechor/config.json`. Additionally, you must delete any edited configuration files manually. 
 
 {{< /tab >}}
 {{< /tabs >}}

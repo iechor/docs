@@ -4,40 +4,40 @@ keywords: build, buildx, builders, buildkit, drivers, backend
 description: null
 ---
 
-You can create, inspect, and manage builders using `docker buildx` commands,
-or [using Docker Desktop](#manage-builders-with-docker-desktop).
+You can create, inspect, and manage builders using `iechor buildx` commands,
+or [using iEchor Desktop](#manage-builders-with-iechor-desktop).
 
 ## Create a new builder
 
-The default builder uses the [`docker` driver](../drivers/docker.md).
-You can't manually create new `docker` builders, but you can create builders
+The default builder uses the [`iechor` driver](../drivers/iechor.md).
+You can't manually create new `iechor` builders, but you can create builders
 that use other drivers, such as the
-[`docker-container` driver](../drivers/docker-container.md),
+[`iechor-container` driver](../drivers/iechor-container.md),
 which runs the BuildKit daemon in a container.
 
 Use the
-[`docker buildx create`](../../reference/cli/docker/buildx/create.md)
+[`iechor buildx create`](../../reference/cli/iechor/buildx/create.md)
 command to create a builder.
 
 ```console
-$ docker buildx create --name=<builder-name>
+$ iechor buildx create --name=<builder-name>
 ```
 
-Buildx uses the `docker-container` driver by default if you omit the `--driver`
+Buildx uses the `iechor-container` driver by default if you omit the `--driver`
 flag. For more information about available drivers, see
 [Build drivers](../drivers/index.md).
 
 ## List available builders
 
-Use `docker buildx ls` to see builder instances available on your system, and
+Use `iechor buildx ls` to see builder instances available on your system, and
 the drivers they're using.
 
 ```console
-$ docker buildx ls
+$ iechor buildx ls
 NAME/NODE       DRIVER/ENDPOINT      STATUS   BUILDKIT PLATFORMS
-default *       docker
+default *       iechor
   default       default              running  v0.11.6  linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/386
-my_builder      docker-container
+my_builder      iechor-container
   my_builder0   default              running  v0.11.6  linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/386
 ```
 
@@ -46,35 +46,35 @@ The asterisk (`*`) next to the builder name indicates the
 
 ## Inspect a builder
 
-To inspect a builder with the CLI, use `docker buildx inspect <name>`.
+To inspect a builder with the CLI, use `iechor buildx inspect <name>`.
 You can only inspect a builder if the builder is active.
 You can add the `--bootstrap` flag to the command to start the builder.
 
 ```console
-$ docker buildx inspect --bootstrap my_builder
+$ iechor buildx inspect --bootstrap my_builder
 [+] Building 1.7s (1/1) FINISHED                                                                  
  => [internal] booting buildkit                                                              1.7s
  => => pulling image moby/buildkit:buildx-stable-1                                           1.3s
  => => creating container buildx_buildkit_my_builder0                                        0.4s
 Name:          my_builder
-Driver:        docker-container
+Driver:        iechor-container
 Last Activity: 2023-06-21 18:28:37 +0000 UTC
 
 Nodes:
 Name:      my_builder0
-Endpoint:  unix:///var/run/docker.sock
+Endpoint:  unix:///var/run/iechor.sock
 Status:    running
 Buildkit:  v0.11.6
 Platforms: linux/arm64, linux/amd64, linux/amd64/v2, linux/riscv64, linux/ppc64le, linux/s390x, linux/386, linux/mips64le, linux/mips64, linux/arm/v7, linux/arm/v6
 ```
 
 If you want to see how much disk space a builder is using, use the
-`docker buildx du` command. By default, this command shows the total disk usage
+`iechor buildx du` command. By default, this command shows the total disk usage
 for all available builders. To see usage for a specific builder, use the
 `--builder` flag.
 
 ```console
-$ docker buildx du --builder my_builder
+$ iechor buildx du --builder my_builder
 ID                                        RECLAIMABLE SIZE        LAST ACCESSED
 olkri5gq6zsh8q2819i69aq6l                 true        797.2MB     37 seconds ago
 6km4kasxgsywxkm6cxybdumbb*                true        438.5MB     36 seconds ago
@@ -100,15 +100,15 @@ Total:        2.01GB
 ## Remove a builder
 
 Use the
-[`docker buildx remove`](../../reference/cli/docker/buildx/create.md)
+[`iechor buildx remove`](../../reference/cli/iechor/buildx/create.md)
 command to remove a builder.
 
 ```console
-$ docker buildx rm <builder-name>
+$ iechor buildx rm <builder-name>
 ```
 
 If you remove your currently selected builder,
-the default `docker` builder is automatically selected.
+the default `iechor` builder is automatically selected.
 You can't remove the default builder.
 
 Local build cache for the builder is also removed.
@@ -119,11 +119,11 @@ Removing a remote builder doesn't affect the remote build cache.
 It also doesn't stop the remote BuildKit daemon.
 It only removes your connection to the builder.
 
-## Manage builders with Docker Desktop
+## Manage builders with iEchor Desktop
 
 If you have turned on the
-[Docker Desktop Builds view](../../desktop/use-desktop/builds.md),
-you can inspect builders in Docker Desktop settings. See:
+[iEchor Desktop Builds view](../../desktop/use-desktop/builds.md),
+you can inspect builders in iEchor Desktop settings. See:
 
 - [Change settings, Windows](../../desktop/settings/windows.md#builders)
 - [Change settings, Mac](../../desktop/settings/mac.md#builders)

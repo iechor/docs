@@ -1,12 +1,12 @@
 ---
-description: Containerize Python apps using Docker
-keywords: Docker, getting started, Python, language
+description: Containerize Python apps using iEchor
+keywords: iEchor, getting started, Python, language
 title: Python language-specific guide
 toc_min: 1
 toc_max: 2
 ---
 
-The Python language-specific guide teaches you how to containerize a Python application using Docker. In this guide, you’ll learn how to:
+The Python language-specific guide teaches you how to containerize a Python application using iEchor. In this guide, you’ll learn how to:
 
 * Containerize and run a Python application
 * Set up a local environment to develop a Python application using containers

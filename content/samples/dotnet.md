@@ -1,6 +1,6 @@
 ---
 title: .NET samples
-description: Docker samples for .NET.
+description: iEchor samples for .NET.
 service: .net
 aliases:
 - /samples/dotnetcore/

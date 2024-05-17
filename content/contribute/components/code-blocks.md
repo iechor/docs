@@ -1,5 +1,5 @@
 ---
-description: components and formatting examples used in Docker's docs
+description: components and formatting examples used in iEchor's docs
 title: Code blocks
 toc_max: 3
 ---
@@ -52,8 +52,8 @@ incoming := map[string]interface{}{
 
 ## Collapsible code blocks
 
-```dockerfile {collapse=true}
-# syntax=docker/dockerfile:1
+```iechorfile {collapse=true}
+# syntax=iechor/iechorfile:1
 
 ARG GO_VERSION="1.21"
 
@@ -98,7 +98,7 @@ Use the `bash` language code block when you want to show a Bash script:
 
 ```bash
 #!/usr/bin/bash
-echo "deb https://packages.docker.com/1.12/apt/repo ubuntu-trusty main" | sudo tee /etc/apt/sources.list.d/docker.list
+echo "deb https://packages.iechor.com/1.12/apt/repo ubuntu-trusty main" | sudo tee /etc/apt/sources.list.d/iechor.list
 ```
 
 If you want to show an interactive shell, use `console` instead.
@@ -106,7 +106,7 @@ In cases where you use `console`, make sure to add a dollar character
 for the user sign:
 
 ```console
-$ echo "deb https://packages.docker.com/1.12/apt/repo ubuntu-trusty main" | sudo tee /etc/apt/sources.list.d/docker.list
+$ echo "deb https://packages.iechor.com/1.12/apt/repo ubuntu-trusty main" | sudo tee /etc/apt/sources.list.d/iechor.list
 ```
 
 ## Go
@@ -127,10 +127,10 @@ incoming := map[string]interface{}{
 ## PowerShell
 
 ```powershell
-Install-Module DockerMsftProvider -Force
-Install-Package Docker -ProviderName DockerMsftProvider -Force
-[System.Environment]::SetEnvironmentVariable("DOCKER_FIPS", "1", "Machine")
-Expand-Archive docker-18.09.1.zip -DestinationPath $Env:ProgramFiles -Force
+Install-Module iEchorMsftProvider -Force
+Install-Package iEchor -ProviderName iEchorMsftProvider -Force
+[System.Environment]::SetEnvironmentVariable("IECHOR_FIPS", "1", "Machine")
+Expand-Archive iechor-18.09.1.zip -DestinationPath $Env:ProgramFiles -Force
 ```
 
 ## Python
@@ -142,7 +142,7 @@ return html.format(name=os.getenv('NAME', "world"), hostname=socket.gethostname(
 ## Ruby
 
 ```ruby
-docker_service 'default' do
+iechor_service 'default' do
   action [:create, :start]
 end
 ```
@@ -197,10 +197,10 @@ nodaemon=true
 command=/usr/sbin/sshd -D
 ```
 
-## Dockerfile
+## iEchorfile
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 FROM ubuntu
 
@@ -216,8 +216,8 @@ RUN apt-get update && apt-get install -y python-software-properties software-pro
 USER postgres
 
 RUN    /etc/init.d/postgresql start &&\
-    psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
-    createdb -O docker docker
+    psql --command "CREATE USER iechor WITH SUPERUSER PASSWORD 'iechor';" &&\
+    createdb -O iechor iechor
 
 RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.3/main/pg_hba.conf
 
@@ -234,7 +234,7 @@ CMD ["/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main
 
 ```yaml
 authorizedkeys:
-  image: dockercloud/authorizedkeys
+  image: iechorcloud/authorizedkeys
   deployment_strategy: every_node
   autodestroy: always
   environment:

@@ -4,22 +4,22 @@ description: Tutorials for networking with standalone containers
 keywords: networking, bridge, routing, ports, overlay
 ---
 
-This series of tutorials deals with networking for standalone Docker containers.
+This series of tutorials deals with networking for standalone iEchor containers.
 For networking with swarm services, see
 [Networking with swarm services](network-tutorial-overlay.md). If you need to
-learn more about Docker networking in general, see the [overview](index.md).
+learn more about iEchor networking in general, see the [overview](index.md).
 
 This topic includes two different tutorials. You can run each of them on
-Linux, Windows, or a Mac, but for the last one, you need a second Docker
+Linux, Windows, or a Mac, but for the last one, you need a second iEchor
 host running elsewhere.
 
 - [Use the default bridge network](#use-the-default-bridge-network) demonstrates
-  how to use the default `bridge` network that Docker sets up for you
+  how to use the default `bridge` network that iEchor sets up for you
   automatically. This network is not the best choice for production systems.
 
 - [Use user-defined bridge networks](#use-user-defined-bridge-networks) shows
   how to create and use your own custom bridge networks, to connect containers
-  running on the same Docker host. This is recommended for standalone containers
+  running on the same iEchor host. This is recommended for standalone containers
   running in production.
 
 Although [overlay networks](drivers/overlay.md) are generally used for swarm services,
@@ -28,17 +28,17 @@ part of the [tutorial on using overlay networks](network-tutorial-overlay.md#use
 
 ## Use the default bridge network
 
-In this example, you start two different `alpine` containers on the same Docker
+In this example, you start two different `alpine` containers on the same iEchor
 host and do some tests to understand how they communicate with each other. You
-need to have Docker installed and running.
+need to have iEchor installed and running.
 
 1.  Open a terminal window. List current networks before you do anything else.
     Here's what you should see if you've never added a network or initialized a
-    swarm on this Docker daemon. You may see different networks, but you should
+    swarm on this iEchor daemon. You may see different networks, but you should
     at least see these (the network IDs will be different):
 
     ```console
-    $ docker network ls
+    $ iechor network ls
 
     NETWORK ID          NAME                DRIVER              SCOPE
     17e324f45964        bridge              bridge              local
@@ -48,7 +48,7 @@ need to have Docker installed and running.
 
     The default `bridge` network is listed, along with `host` and `none`. The
     latter two are not fully-fledged networks, but are used to start a container
-    connected directly to the Docker daemon host's networking stack, or to start
+    connected directly to the iEchor daemon host's networking stack, or to start
     a container with no network devices. This tutorial will connect two
     containers to the `bridge` network.
 
@@ -61,15 +61,15 @@ need to have Docker installed and running.
     `--network` flags, the containers connect to the default `bridge` network.
 
     ```console
-    $ docker run -dit --name alpine1 alpine ash
+    $ iechor run -dit --name alpine1 alpine ash
 
-    $ docker run -dit --name alpine2 alpine ash
+    $ iechor run -dit --name alpine2 alpine ash
     ```
 
     Check that both containers are actually started:
 
     ```console
-    $ docker container ls
+    $ iechor container ls
 
     CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
     602dbf1edc81        alpine              "ash"               4 seconds ago       Up 3 seconds                            alpine2
@@ -79,7 +79,7 @@ need to have Docker installed and running.
 3.  Inspect the `bridge` network to see what containers are connected to it.
 
     ```console
-    $ docker network inspect bridge
+    $ iechor network inspect bridge
 
     [
         {
@@ -118,12 +118,12 @@ need to have Docker installed and running.
                 }
             },
             "Options": {
-                "com.docker.network.bridge.default_bridge": "true",
-                "com.docker.network.bridge.enable_icc": "true",
-                "com.docker.network.bridge.enable_ip_masquerade": "true",
-                "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
-                "com.docker.network.bridge.name": "docker0",
-                "com.docker.network.driver.mtu": "1500"
+                "com.iechor.network.bridge.default_bridge": "true",
+                "com.iechor.network.bridge.enable_icc": "true",
+                "com.iechor.network.bridge.enable_ip_masquerade": "true",
+                "com.iechor.network.bridge.host_binding_ipv4": "0.0.0.0",
+                "com.iechor.network.bridge.name": "iechor0",
+                "com.iechor.network.driver.mtu": "1500"
             },
             "Labels": {}
         }
@@ -131,16 +131,16 @@ need to have Docker installed and running.
     ```
 
     Near the top, information about the `bridge` network is listed, including
-    the IP address of the gateway between the Docker host and the `bridge`
+    the IP address of the gateway between the iEchor host and the `bridge`
     network (`172.17.0.1`). Under the `Containers` key, each connected container
     is listed, along with information about its IP address (`172.17.0.2` for
     `alpine1` and `172.17.0.3` for `alpine2`).
 
-4.  The containers are running in the background. Use the `docker attach`
+4.  The containers are running in the background. Use the `iechor attach`
     command to connect to `alpine1`.
 
     ```console
-    $ docker attach alpine1
+    $ iechor attach alpine1
 
     / #
     ```
@@ -218,8 +218,8 @@ need to have Docker installed and running.
 8.  Stop and remove both containers.
 
     ```console
-    $ docker container stop alpine1 alpine2
-    $ docker container rm alpine1 alpine2
+    $ iechor container stop alpine1 alpine2
+    $ iechor container rm alpine1 alpine2
     ```
 
 Remember, the default `bridge` network is not recommended for production. To
@@ -239,13 +239,13 @@ connected to both networks.
     since it's the default, but this example shows how to specify it.
 
     ```console
-    $ docker network create --driver bridge alpine-net
+    $ iechor network create --driver bridge alpine-net
     ```
 
-2.  List Docker's networks:
+2.  List iEchor's networks:
 
     ```console
-    $ docker network ls
+    $ iechor network ls
 
     NETWORK ID          NAME                DRIVER              SCOPE
     e9261a8c9a19        alpine-net          bridge              local
@@ -258,7 +258,7 @@ connected to both networks.
     that no containers are connected to it:
 
     ```console
-    $ docker network inspect alpine-net
+    $ iechor network inspect alpine-net
 
     [
         {
@@ -292,26 +292,26 @@ connected to both networks.
     may be different on your system.
 
 3.  Create your four containers. Notice the `--network` flags. You can only
-    connect to one network during the `docker run` command, so you need to use
-    `docker network connect` afterward to connect `alpine4` to the `bridge`
+    connect to one network during the `iechor run` command, so you need to use
+    `iechor network connect` afterward to connect `alpine4` to the `bridge`
     network as well.
 
     ```console
-    $ docker run -dit --name alpine1 --network alpine-net alpine ash
+    $ iechor run -dit --name alpine1 --network alpine-net alpine ash
 
-    $ docker run -dit --name alpine2 --network alpine-net alpine ash
+    $ iechor run -dit --name alpine2 --network alpine-net alpine ash
 
-    $ docker run -dit --name alpine3 alpine ash
+    $ iechor run -dit --name alpine3 alpine ash
 
-    $ docker run -dit --name alpine4 --network alpine-net alpine ash
+    $ iechor run -dit --name alpine4 --network alpine-net alpine ash
 
-    $ docker network connect bridge alpine4
+    $ iechor network connect bridge alpine4
     ```
 
     Verify that all containers are running:
 
     ```console
-    $ docker container ls
+    $ iechor container ls
 
     CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS               NAMES
     156849ccd902        alpine              "ash"               41 seconds ago       Up 41 seconds                           alpine4
@@ -323,7 +323,7 @@ connected to both networks.
 4.  Inspect the `bridge` network and the `alpine-net` network again:
 
     ```console
-    $ docker network inspect bridge
+    $ iechor network inspect bridge
 
     [
         {
@@ -362,12 +362,12 @@ connected to both networks.
                 }
             },
             "Options": {
-                "com.docker.network.bridge.default_bridge": "true",
-                "com.docker.network.bridge.enable_icc": "true",
-                "com.docker.network.bridge.enable_ip_masquerade": "true",
-                "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
-                "com.docker.network.bridge.name": "docker0",
-                "com.docker.network.driver.mtu": "1500"
+                "com.iechor.network.bridge.default_bridge": "true",
+                "com.iechor.network.bridge.enable_icc": "true",
+                "com.iechor.network.bridge.enable_ip_masquerade": "true",
+                "com.iechor.network.bridge.host_binding_ipv4": "0.0.0.0",
+                "com.iechor.network.bridge.name": "iechor0",
+                "com.iechor.network.driver.mtu": "1500"
             },
             "Labels": {}
         }
@@ -377,7 +377,7 @@ connected to both networks.
     Containers `alpine3` and `alpine4` are connected to the `bridge` network.
 
     ```console
-    $ docker network inspect alpine-net
+    $ iechor network inspect alpine-net
 
     [
         {
@@ -442,7 +442,7 @@ connected to both networks.
     > Automatic service discovery can only resolve custom container names, not default automatically generated container names,
 
     ```console
-    $ docker container attach alpine1
+    $ iechor container attach alpine1
 
     # ping -c 2 alpine2
 
@@ -485,7 +485,7 @@ connected to both networks.
     ```
 
     Not only that, but you can't connect to `alpine3` from `alpine1` by its IP
-    address either. Look back at the `docker network inspect` output for the
+    address either. Look back at the `iechor network inspect` output for the
     `bridge` network and find `alpine3`'s IP address: `172.17.0.2` Try to ping
     it.
 
@@ -507,7 +507,7 @@ connected to both networks.
     and run the tests.
 
     ```console
-    $ docker container attach alpine4
+    $ iechor container attach alpine4
 
     # ping -c 2 alpine1
 
@@ -573,7 +573,7 @@ connected to both networks.
 
     CTRL+p CTRL+q
 
-    $ docker container attach alpine3
+    $ iechor container attach alpine3
 
     # ping -c 2 google.com
 
@@ -587,7 +587,7 @@ connected to both networks.
 
     CTRL+p CTRL+q
 
-    $ docker container attach alpine1
+    $ iechor container attach alpine1
 
     # ping -c 2 google.com
 
@@ -605,11 +605,11 @@ connected to both networks.
 9.  Stop and remove all containers and the `alpine-net` network.
 
     ```console
-    $ docker container stop alpine1 alpine2 alpine3 alpine4
+    $ iechor container stop alpine1 alpine2 alpine3 alpine4
 
-    $ docker container rm alpine1 alpine2 alpine3 alpine4
+    $ iechor container rm alpine1 alpine2 alpine3 alpine4
 
-    $ docker network rm alpine-net
+    $ iechor network rm alpine-net
     ```
 
 

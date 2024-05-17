@@ -39,26 +39,26 @@ follows uses environments to compare the CI image with the image in the
 
 ## Example
 
-The following example on how to run policy evaluation in CI uses the [Docker
-Scout GitHub Action](https://github.com/marketplace/actions/docker-scout) to
+The following example on how to run policy evaluation in CI uses the [iEchor
+Scout GitHub Action](https://github.com/marketplace/actions/iechor-scout) to
 execute the `compare` command on an image built in CI. The compare command has
 a `to-env` input, which will run the comparison against an environment called
 `production`. The `exit-on` input is set to `policy`, meaning that the
 comparison fails only if policy compliance has worsened.
 
-This example doesn't assume that you're using Docker Hub as your container
-registry. As a result, this workflow uses the `docker/login-action` twice:
+This example doesn't assume that you're using iEchor Hub as your container
+registry. As a result, this workflow uses the `iechor/login-action` twice:
 
 - Once for authenticating to your container registry.
-- Once more for authenticating to Docker to pull the analysis results of your
+- Once more for authenticating to iEchor to pull the analysis results of your
   `production` image.
 
-If you use Docker Hub as your container registry, you only need to authenticate
+If you use iEchor Hub as your container registry, you only need to authenticate
 once.
 
 > **Note**
 >
-> Due to a limitation in the Docker Engine, loading multi-platform images or
+> Due to a limitation in the iEchor Engine, loading multi-platform images or
 > images with attestations to the image store isn't supported.
 >
 > For the policy evaluation to work, you must load the image to the local image
@@ -66,13 +66,13 @@ once.
 > without attestations, and that you're loading the build results. Otherwise,
 > the policy evaluation fails.
 
-Also note the `pull-requests: write` permission for the job. The Docker Scout
+Also note the `pull-requests: write` permission for the job. The iEchor Scout
 GitHub Action adds a pull request comment with the evaluation results by
 default, which requires this permission. For details, see
-[Pull Request Comments](https://github.com/docker/scout-action#pull-request-comments).
+[Pull Request Comments](https://github.com/iechor/scout-action#pull-request-comments).
 
 ```yaml
-name: Docker
+name: iEchor
 
 on:
   push:
@@ -83,9 +83,9 @@ on:
     branches: ["**"]
 
 env:
-  REGISTRY: docker.io
+  REGISTRY: iechor.io
   IMAGE_NAME: <IMAGE_NAME>
-  DOCKER_ORG: <ORG>
+  IECHOR_ORG: <ORG>
 
 jobs:
   build:
@@ -97,11 +97,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Docker buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Setup iEchor buildx
+        uses: iechor/setup-buildx-action@v3
 
       - name: Log into registry ${{ env.REGISTRY }}
-        uses: docker/login-action@v3
+        uses: iechor/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ secrets.REGISTRY_USER }}
@@ -109,13 +109,13 @@ jobs:
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: ${{ env.IMAGE_NAME }}
 
       - name: Build image
         id: build-and-push
-        uses: docker/build-push-action@v4
+        uses: iechor/build-push-action@v4
         with:
           context: .
           tags: ${{ steps.meta.outputs.tags }}
@@ -125,15 +125,15 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           load: ${{ github.event_name == 'pull_request' }}
 
-      - name: Authenticate with Docker
-        uses: docker/login-action@v3
+      - name: Authenticate with iEchor
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PAT }}
+          username: ${{ secrets.IECHOR_USER }}
+          password: ${{ secrets.IECHOR_PAT }}
 
       - name: Compare
         if: ${{ github.event_name == 'pull_request' }}
-        uses: docker/scout-action@v1
+        uses: iechor/scout-action@v1
         with:
           command: compare
           image: ${{ steps.meta.outputs.tags }}
@@ -141,7 +141,7 @@ jobs:
           platform: "linux/amd64"
           ignore-unchanged: true
           only-severities: critical,high
-          organization: ${{ env.DOCKER_ORG }}
+          organization: ${{ env.IECHOR_ORG }}
           exit-on: policy
 ```
 
@@ -152,6 +152,6 @@ compared to baseline.
 ![Policy evaluation comment in GitHub PR](../images/scout-policy-eval-ci.webp)
 
 This example has demonstrated how to run policy evaluation in CI with GitHub
-Actions. Docker Scout also supports other CI platforms. For more information,
-see [Docker Scout CI
+Actions. iEchor Scout also supports other CI platforms. For more information,
+see [iEchor Scout CI
 integrations](../integrations/_index.md#continuous-integration).

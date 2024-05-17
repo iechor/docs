@@ -14,13 +14,13 @@ you can think of the difference between annotations and labels as follows:
 
 - Annotations describe OCI image components, such as [manifests], [indexes],
   and [descriptors].
-- Labels describe Docker resources, such as images, containers, networks, and
+- Labels describe iEchor resources, such as images, containers, networks, and
   volumes.
 
 The OCI image [specification] defines the format of annotations, as well as a set
 of pre-defined annotation keys. Adhering to the specified standards ensures
 that metadata about images can be surfaced automatically and consistently, by
-tools like Docker Scout.
+tools like iEchor Scout.
 
 Annotations are not to be confused with [attestations]:
 
@@ -38,16 +38,16 @@ manifest or index.
 
 > **Note**
 > 
-> The Docker Engine image store doesn't support loading images with
+> The iEchor Engine image store doesn't support loading images with
 > annotations. To build with annotations, make sure to push the image directly
 > to a registry, using the `--push` CLI flag or the
 > [registry exporter](../exporters/image-registry.md).
 
 To specify annotations on the command line, use the `--annotation` flag for the
-`docker build` command:
+`iechor build` command:
 
 ```console
-$ docker build --push --annotation "foo=bar" .
+$ iechor build --push --annotation "foo=bar" .
 ```
 
 If you're using [Bake](../bake/_index.md), you can use the `annotations`
@@ -63,21 +63,21 @@ target "default" {
 For examples on how to add annotations to images built with GitHub Actions, see
 [Add image annotations with GitHub Actions](../ci/github-actions/annotations.md)
 
-You can also add annotations to an image created using `docker buildx
+You can also add annotations to an image created using `iechor buildx
 imagetools create`. This command only supports adding annotations to an index
 or manifest descriptors, see
-[CLI reference](../../reference/cli/docker/buildx/imagetools/create.md#annotations).
+[CLI reference](../../reference/cli/iechor/buildx/imagetools/create.md#annotations).
 
 ## Inspect annotations
 
-To view annotations on an **image index**, use the `docker buildx imagetools
+To view annotations on an **image index**, use the `iechor buildx imagetools
 inspect` command. This shows you any annotations for the index and descriptors
 (references to manifests) that the index contains. The following example shows
 an `org.opencontainers.image.documentation` annotation on a descriptor, and an
 `org.opencontainers.image.authors` annotation on the index.
 
 ```console {hl_lines=["10-12","19-21"]}
-$ docker buildx imagetools inspect <IMAGE> --raw
+$ iechor buildx imagetools inspect <IMAGE> --raw
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.index.v1+json",
@@ -101,12 +101,12 @@ $ docker buildx imagetools inspect <IMAGE> --raw
 }
 ```
 
-To inspect annotations on a manifest, use the `docker buildx imagetools
+To inspect annotations on a manifest, use the `iechor buildx imagetools
 inspect` command and specify `<IMAGE>@<DIGEST>`, where `<DIGEST>` is the digest
 of the manifest:
 
 ```console {hl_lines="22-25"}
-$ docker buildx imagetools inspect <IMAGE>@sha256:d20246ef744b1d05a1dd69d0b3fa907db007c07f79fe3e68c17223439be9fefb --raw
+$ iechor buildx imagetools inspect <IMAGE>@sha256:d20246ef744b1d05a1dd69d0b3fa907db007c07f79fe3e68c17223439be9fefb --raw
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -149,7 +149,7 @@ For example, to build an image with the annotation `foo=bar` attached to the
 image index:
 
 ```console
-$ docker build --tag <IMAGE> --push --annotation "index:foo=bar" .
+$ iechor build --tag <IMAGE> --push --annotation "index:foo=bar" .
 ```
 
 It's possible to specify types, separated by a comma, to add the annotation to
@@ -157,7 +157,7 @@ more than one level. The following example creates an image with the annotation
 `foo=bar` on both the image index and the image manifest:
 
 ```console
-$ docker build --tag <IMAGE> --push --annotation "index,manifest:foo=bar" .
+$ iechor build --tag <IMAGE> --push --annotation "index,manifest:foo=bar" .
 ```
 
 You can also specify a platform qualifier in the type prefix, to annotate only
@@ -165,7 +165,7 @@ components matching specific OS and architectures. The following example adds
 the `foo=bar` annotation only to the `linux/amd64` manifest:
 
 ```console
-$ docker build --tag <IMAGE> --push --annotation "manifest[linux/amd64]:foo=bar" .
+$ iechor build --tag <IMAGE> --push --annotation "manifest[linux/amd64]:foo=bar" .
 ```
 
 ## Related information
@@ -177,9 +177,9 @@ Related articles:
 
 Reference information:
 
-- [`docker buildx build --annotation`](../../reference/cli/docker/buildx/build.md#annotation)
+- [`iechor buildx build --annotation`](../../reference/cli/iechor/buildx/build.md#annotation)
 - [Bake file reference: `annotations`](../bake/reference.md#targetannotations)
-- [`docker buildx imagetools create --annotation`](../../reference/cli/docker/buildx/imagetools/create.md#annotation)
+- [`iechor buildx imagetools create --annotation`](../../reference/cli/iechor/buildx/imagetools/create.md#annotation)
 
 <!-- links -->
 

@@ -1,12 +1,12 @@
 ---
 description: Compose pre-defined environment variables
-keywords: fig, composition, compose, docker, orchestration, cli, reference
-title: Set or change pre-defined environment variables in Docker Compose
+keywords: fig, composition, compose, iechor, orchestration, cli, reference
+title: Set or change pre-defined environment variables in iEchor Compose
 aliases:
 - /compose/reference/envvars/
 ---
 
-Compose already comes with pre-defined environment variables. It also inherits common Docker CLI environment variables, such as `DOCKER_HOST` and `DOCKER_CONTEXT`. See [Docker CLI environment variable reference](/engine/reference/commandline/cli/#environment-variables) for details.
+Compose already comes with pre-defined environment variables. It also inherits common iEchor CLI environment variables, such as `IECHOR_HOST` and `IECHOR_CONTEXT`. See [iEchor CLI environment variable reference](/engine/reference/commandline/cli/#environment-variables) for details.
 
 This page contains information on how you can set or change the following pre-defined environment variables if you need to:
 
@@ -14,7 +14,7 @@ This page contains information on how you can set or change the following pre-de
 - `COMPOSE_FILE`
 - `COMPOSE_PROFILES`
 - `COMPOSE_PROJECT_NAME`
-- `DOCKER_CERT_PATH`
+- `IECHOR_CERT_PATH`
 - `COMPOSE_PARALLEL_LIMIT`
 - `COMPOSE_IGNORE_ORPHANS`
 - `COMPOSE_REMOVE_ORPHANS`
@@ -66,14 +66,14 @@ See also the [command-line options overview](../reference/index.md#command-optio
 
 Specifies the path to a Compose file. Specifying multiple Compose files is supported.
 
-- Default behavior: If not provided, Compose looks for a file named `compose.yaml` or `docker-compose.yaml` in the current directory and, if not found, then Compose searches each parent directory recursively until a file by that name is found.
+- Default behavior: If not provided, Compose looks for a file named `compose.yaml` or `iechor-compose.yaml` in the current directory and, if not found, then Compose searches each parent directory recursively until a file by that name is found.
 - Default separator: When specifying multiple Compose files, the path separators are, by default, on:
     * Mac and Linux: `:` (colon),
     * Windows: `;` (semicolon).
 
 The path separator can also be customized using `COMPOSE_PATH_SEPARATOR`.  
 
-Example: `COMPOSE_FILE=docker-compose.yml:docker-compose.prod.yml`.  
+Example: `COMPOSE_FILE=iechor-compose.yml:iechor-compose.prod.yml`.  
 
 See also the [command-line options overview](../reference/index.md#command-options-overview-and-help) and [using `-f` to specify name and path of one or more Compose files](../reference/index.md#use--f-to-specify-name-and-path-of-one-or-more-compose-files).
 
@@ -82,7 +82,7 @@ See also the [command-line options overview](../reference/index.md#command-optio
 Specifies one or more profiles to be enabled on `compose up` execution.
 Services with matching profiles are started as well as any services for which no profile has been defined.
 
-For example, calling `docker compose up`with `COMPOSE_PROFILES=frontend` selects services with the 
+For example, calling `iechor compose up`with `COMPOSE_PROFILES=frontend` selects services with the 
 `frontend` profile as well as any services without a profile specified.
 
 * Default separator: specify a list of profiles using a comma as separator.
@@ -152,11 +152,11 @@ When using multiple environment files, use a comma as a separator. For example,
 COMPOSE_ENV_FILES=.env.envfile1, .env.envfile2
 ```
 
-If `COMPOSE_ENV_FILES` is not set, and you don't provide `--env-file` in the CLI, Docker Compose uses the default behavior, which is to look for an `.env` file in the project directory.
+If `COMPOSE_ENV_FILES` is not set, and you don't provide `--env-file` in the CLI, iEchor Compose uses the default behavior, which is to look for an `.env` file in the project directory.
 
 ### COMPOSE\_MENU
 
-When enabled, Compose displays a navigation menu where you can choose to open the Compose stack in Docker Desktop, switch on [`watch` mode](../file-watch.md), or use [Docker Debug](../../reference/cli/docker/debug.md).
+When enabled, Compose displays a navigation menu where you can choose to open the Compose stack in iEchor Desktop, switch on [`watch` mode](../file-watch.md), or use [iEchor Debug](../../reference/cli/iechor/debug.md).
 
 * Supported values:
   * `true` or `1`, to enable,
@@ -165,7 +165,7 @@ When enabled, Compose displays a navigation menu where you can choose to open th
 
 > **Note**
 >
-> Available in Docker Compose version 2.26.0 and later, and Docker Desktop version 4.29 and later
+> Available in iEchor Compose version 2.26.0 and later, and iEchor Desktop version 4.29 and later
 
 ### COMPOSE\_EXPERIMENTAL
 
@@ -178,7 +178,7 @@ This is an opt-out variable. When turned off it deactivates the experimental fea
 
 > **Note**
 >
-> Available in Docker Compose version 2.26.0 and later, and Docker Desktop version 4.29 and later
+> Available in iEchor Compose version 2.26.0 and later, and iEchor Desktop version 4.29 and later
 
 ## Unsupported in Compose V2
 
@@ -186,11 +186,11 @@ The environment variables listed below have no effect in Compose V2.
 For more information, see [Migrate to Compose V2](../migrate.md).
 
 - `COMPOSE_API_VERSION`
-    By default the API version is negotiated with the server. Use `DOCKER_API_VERSION`.  
-    See the [Docker CLI environment variable reference](../../../engine/reference/commandline/cli/#environment-variables) page.
+    By default the API version is negotiated with the server. Use `IECHOR_API_VERSION`.  
+    See the [iEchor CLI environment variable reference](../../../engine/reference/commandline/cli/#environment-variables) page.
 - `COMPOSE_HTTP_TIMEOUT`
 - `COMPOSE_TLS_VERSION`
 - `COMPOSE_FORCE_WINDOWS_HOST`
 - `COMPOSE_INTERACTIVE_NO_CLI`
-- `COMPOSE_DOCKER_CLI_BUILD`
-    Use `DOCKER_BUILDKIT` to select between BuildKit and the classic builder. If `DOCKER_BUILDKIT=0` then `docker compose build` uses the classic builder to build images.
+- `COMPOSE_IECHOR_CLI_BUILD`
+    Use `IECHOR_BUILDKIT` to select between BuildKit and the classic builder. If `IECHOR_BUILDKIT=0` then `iechor compose build` uses the classic builder to build images.

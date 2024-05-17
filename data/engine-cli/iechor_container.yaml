@@ -1,0 +1,76 @@
+command: iechor container
+short: Manage containers
+long: Manage containers.
+usage: iechor container
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor container attach
+    - iechor container commit
+    - iechor container cp
+    - iechor container create
+    - iechor container diff
+    - iechor container exec
+    - iechor container export
+    - iechor container inspect
+    - iechor container kill
+    - iechor container logs
+    - iechor container ls
+    - iechor container pause
+    - iechor container port
+    - iechor container prune
+    - iechor container rename
+    - iechor container restart
+    - iechor container rm
+    - iechor container run
+    - iechor container start
+    - iechor container stats
+    - iechor container stop
+    - iechor container top
+    - iechor container unpause
+    - iechor container update
+    - iechor container wait
+clink:
+    - iechor_container_attach.yaml
+    - iechor_container_commit.yaml
+    - iechor_container_cp.yaml
+    - iechor_container_create.yaml
+    - iechor_container_diff.yaml
+    - iechor_container_exec.yaml
+    - iechor_container_export.yaml
+    - iechor_container_inspect.yaml
+    - iechor_container_kill.yaml
+    - iechor_container_logs.yaml
+    - iechor_container_ls.yaml
+    - iechor_container_pause.yaml
+    - iechor_container_port.yaml
+    - iechor_container_prune.yaml
+    - iechor_container_rename.yaml
+    - iechor_container_restart.yaml
+    - iechor_container_rm.yaml
+    - iechor_container_run.yaml
+    - iechor_container_start.yaml
+    - iechor_container_stats.yaml
+    - iechor_container_stop.yaml
+    - iechor_container_top.yaml
+    - iechor_container_unpause.yaml
+    - iechor_container_update.yaml
+    - iechor_container_wait.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

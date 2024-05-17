@@ -8,11 +8,11 @@
     "strip": false
   },
   {
-    "prefix": "docker-hub-enterprise/",
+    "prefix": "iechor-hub-enterprise/",
     "strip": false
   },
   {
-    "prefix": "docker-trusted-registry/",
+    "prefix": "iechor-trusted-registry/",
     "strip": false
   },
   {

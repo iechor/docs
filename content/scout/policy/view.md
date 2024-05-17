@@ -1,7 +1,7 @@
 ---
-title: View Docker Scout policy status
+title: View iEchor Scout policy status
 description: |
-  The Docker Scout Dashboard and the `docker scout policy` command lets you
+  The iEchor Scout Dashboard and the `iechor scout policy` command lets you
   view policy status of images.
 keywords: scout, policy, status, vulnerabilities, supply chain, cves, licenses
 ---
@@ -9,15 +9,15 @@ keywords: scout, policy, status, vulnerabilities, supply chain, cves, licenses
 > **Early Access**
 >
 > Policy Evaluation is an [Early Access](/release-lifecycle/#early-access-ea)
-> feature of Docker Scout.
+> feature of iEchor Scout.
 { .restricted }
 
-You can track policy status for your artifacts from the [Docker Scout
+You can track policy status for your artifacts from the [iEchor Scout
 Dashboard](#dashboard), or using the [CLI](#cli).
 
 ## Dashboard
 
-The **Overview** tab of the [Docker Scout Dashboard](https://scout.docker.com/)
+The **Overview** tab of the [iEchor Scout Dashboard](https://scout.iechor.com/)
 displays a summary of recent changes in policy for your repositories.
 This summary shows images that have seen the most change in their policy
 evaluation between the most recent image and the previous image.
@@ -53,7 +53,7 @@ predecessor.
 ### Detailed results and remediation
 
 To view the full evaluation results for an image, navigate to the image tag in
-the Docker Scout Dashboard and open the **Policy** tab. This shows a breakdown
+the iEchor Scout Dashboard and open the **Policy** tab. This shows a breakdown
 for all policy violations for the current image.
 
 ![Detailed Policy Evaluation results](../images/policy-detailed-results.webp)
@@ -74,14 +74,14 @@ package distributed under a more appropriate license.
 
 ## CLI
 
-To view policy status for an image from the CLI, use the `docker scout policy`
+To view policy status for an image from the CLI, use the `iechor scout policy`
 command.
 
 ```console
-$ docker scout policy \
-  --org dockerscoutpolicy \
+$ iechor scout policy \
+  --org iechorscoutpolicy \
   --platform linux/amd64 \
-  dockerscoutpolicy/email-api-service:0.0.2
+  iechorscoutpolicy/email-api-service:0.0.2
 
     ✓ Pulled
     ✓ Policy evaluation results found
@@ -91,7 +91,7 @@ $ docker scout policy \
 ​
 ​             │               Analyzed Image
 ​─────────────┼──────────────────────────────────────────────
-​  Target     │  dockerscoutpolicy/email-api-service:0.0.2
+​  Target     │  iechorscoutpolicy/email-api-service:0.0.2
 ​    digest   │  17b1fde0329c
 ​    platform │ linux/amd64
 ​
@@ -117,4 +117,4 @@ $ docker scout policy \
 ```
 
 For more information about the command, refer to the [CLI
-reference](../../reference/cli/docker/scout/policy.md).
+reference](../../reference/cli/iechor/scout/policy.md).

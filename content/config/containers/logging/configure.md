@@ -1,6 +1,6 @@
 ---
-description: Learn how to configure logging driver for the Docker daemon
-keywords: docker, logging, driver
+description: Learn how to configure logging driver for the iEchor daemon
+keywords: iechor, logging, driver
 title: Configure logging drivers
 aliases:
   - /config/containers/logging/logentries/
@@ -11,15 +11,15 @@ aliases:
   - /engine/admin/logging/overview/
 ---
 
-Docker includes multiple logging mechanisms to help you
+iEchor includes multiple logging mechanisms to help you
 [get information from running containers and services](index.md).
-These mechanisms are called logging drivers. Each Docker daemon has a default
+These mechanisms are called logging drivers. Each iEchor daemon has a default
 logging driver, which each container uses unless you configure it to use a
 different logging driver, or log driver for short.
 
-As a default, Docker uses the [`json-file` logging driver](json-file.md), which
+As a default, iEchor uses the [`json-file` logging driver](json-file.md), which
 caches container logs as JSON internally. In addition to using the logging drivers
-included with Docker, you can also implement and use [logging driver plugins](plugins.md).
+included with iEchor, you can also implement and use [logging driver plugins](plugins.md).
 
 > **Tip: use the `local` logging driver to prevent disk-exhaustion**
 >
@@ -28,9 +28,9 @@ included with Docker, you can also implement and use [logging driver plugins](pl
 > a significant amount of disk space to be used for containers that generate much
 > output, which can lead to disk space exhaustion.
 >
-> Docker keeps the json-file logging driver (without log-rotation) as a default
-> to remain backward compatibility with older versions of Docker, and for situations
-> where Docker is used as runtime for Kubernetes.
+> iEchor keeps the json-file logging driver (without log-rotation) as a default
+> to remain backward compatibility with older versions of iEchor, and for situations
+> where iEchor is used as runtime for Kubernetes.
 >
 > For other situations, the `local` logging driver is recommended as it performs
 > log-rotation by default, and uses a more efficient file format. Refer to the
@@ -42,10 +42,10 @@ included with Docker, you can also implement and use [logging driver plugins](pl
 
 ## Configure the default logging driver
 
-To configure the Docker daemon to default to a specific logging driver, set the
+To configure the iEchor daemon to default to a specific logging driver, set the
 value of `log-driver` to the name of the logging driver in the `daemon.json`
 configuration file. Refer to the "daemon configuration file" section in the
-[`dockerd` reference manual](/reference/cli/dockerd/#daemon-configuration-file)
+[`iechord` reference manual](/reference/cli/iechord/#daemon-configuration-file)
 for details.
 
 The default logging driver is `json-file`. The following example sets the default
@@ -73,7 +73,7 @@ example sets four configurable options on the `json-file` logging driver:
 }
 ```
 
-Restart Docker for the changes to take effect for newly created containers.
+Restart iEchor for the changes to take effect for newly created containers.
 Existing containers don't use the new logging configuration automatically.
 
 > **Note**
@@ -83,12 +83,12 @@ Existing containers don't use the new logging configuration automatically.
 > `max-file` in the example above) must therefore be enclosed in quotes (`"`).
 
 If you don't specify a logging driver, the default is `json-file`.
-To find the current default logging driver for the Docker daemon, run
-`docker info` and search for `Logging Driver`. You can use the following
+To find the current default logging driver for the iEchor daemon, run
+`iechor info` and search for `Logging Driver`. You can use the following
 command on Linux, macOS, or PowerShell on Windows:
 
 ```console
-$ docker info --format '{{.LoggingDriver}}'
+$ iechor info --format '{{.LoggingDriver}}'
 
 json-file
 ```
@@ -107,7 +107,7 @@ json-file
 ## Configure the logging driver for a container
 
 When you start a container, you can configure it to use a different logging
-driver than the Docker daemon's default, using the `--log-driver` flag. If the
+driver than the iEchor daemon's default, using the `--log-driver` flag. If the
 logging driver has configurable options, you can set them using one or more
 instances of the `--log-opt <NAME>=<VALUE>` flag. Even if the container uses the
 default logging driver, it can use different configurable options.
@@ -115,22 +115,22 @@ default logging driver, it can use different configurable options.
 The following example starts an Alpine container with the `none` logging driver.
 
 ```console
-$ docker run -it --log-driver none alpine ash
+$ iechor run -it --log-driver none alpine ash
 ```
 
 To find the current logging driver for a running container, if the daemon
-is using the `json-file` logging driver, run the following `docker inspect`
+is using the `json-file` logging driver, run the following `iechor inspect`
 command, substituting the container name or ID for `<CONTAINER>`:
 
 ```console
-$ docker inspect -f '{{.HostConfig.LogConfig.Type}}' <CONTAINER>
+$ iechor inspect -f '{{.HostConfig.LogConfig.Type}}' <CONTAINER>
 
 json-file
 ```
 
 ## Configure the delivery mode of log messages from container to log driver
 
-Docker provides two modes for delivering messages from the container to the log
+iEchor provides two modes for delivering messages from the container to the log
 driver:
 
 - (default) direct, blocking delivery from container to driver
@@ -157,18 +157,18 @@ The following example starts an Alpine container with log output in non-blocking
 mode and a 4 megabyte buffer:
 
 ```console
-$ docker run -it --log-opt mode=non-blocking --log-opt max-buffer-size=4m alpine ping 127.0.0.1
+$ iechor run -it --log-opt mode=non-blocking --log-opt max-buffer-size=4m alpine ping 127.0.0.1
 ```
 
 ### Use environment variables or labels with logging drivers
 
 Some logging drivers add the value of a container's `--env|-e` or `--label`
-flags to the container's logs. This example starts a container using the Docker
+flags to the container's logs. This example starts a container using the iEchor
 daemon's default logging driver (in the following example, `json-file`) but
 sets the environment variable `os=ubuntu`.
 
 ```console
-$ docker run -dit --label production_status=testing -e os=ubuntu alpine sh
+$ iechor run -dit --label production_status=testing -e os=ubuntu alpine sh
 ```
 
 If the logging driver supports it, this adds additional fields to the logging
@@ -187,9 +187,9 @@ see more options.
 
 | Driver                        | Description                                                                                                 |
 | :---------------------------- | :---------------------------------------------------------------------------------------------------------- |
-| `none`                        | No logs are available for the container and `docker logs` does not return any output.                       |
+| `none`                        | No logs are available for the container and `iechor logs` does not return any output.                       |
 | [`local`](local.md)           | Logs are stored in a custom format designed for minimal overhead.                                           |
-| [`json-file`](json-file.md)   | The logs are formatted as JSON. The default logging driver for Docker.                                      |
+| [`json-file`](json-file.md)   | The logs are formatted as JSON. The default logging driver for iEchor.                                      |
 | [`syslog`](syslog.md)         | Writes logging messages to the `syslog` facility. The `syslog` daemon must be running on the host machine.  |
 | [`journald`](journald.md)     | Writes log messages to `journald`. The `journald` daemon must be running on the host machine.               |
 | [`gelf`](gelf.md)             | Writes log messages to a Graylog Extended Log Format (GELF) endpoint such as Graylog or Logstash.           |
@@ -204,5 +204,5 @@ see more options.
 - Reading log information requires decompressing rotated log files, which causes
   a temporary increase in disk usage (until the log entries from the rotated
   files are read) and an increased CPU usage while decompressing.
-- The capacity of the host storage where the Docker data directory resides
+- The capacity of the host storage where the iEchor data directory resides
   determines the maximum size of the log file information.

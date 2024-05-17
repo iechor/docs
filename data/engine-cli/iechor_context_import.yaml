@@ -1,0 +1,26 @@
+command: iechor context import
+short: Import a context from a tar or zip file
+long: |-
+    Imports a context previously exported with `iechor context export`. To import
+    from stdin, use a hyphen (`-`) as filename.
+usage: iechor context import CONTEXT FILE|-
+pname: iechor context
+plink: iechor_context.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

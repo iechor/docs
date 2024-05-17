@@ -1,7 +1,7 @@
 ---
 title: Build the extensions for multiple architectures
 description: Step three in creating an extension.
-keywords: Docker, Extensions, sdk, build, multi-arch
+keywords: iEchor, Extensions, sdk, build, multi-arch
 ---
 
 It is highly recommended that, at a minimum, your extension is supported for the following architectures:
@@ -9,16 +9,16 @@ It is highly recommended that, at a minimum, your extension is supported for the
 - `linux/amd64`
 - `linux/arm64`
 
-Docker Desktop retrieves the extension image according to the user’s system architecture. If the extension does not provide an image that matches the user’s system architecture, Docker Desktop is not able to install the extension. As a result, users can’t run the extension in Docker Desktop.
+iEchor Desktop retrieves the extension image according to the user’s system architecture. If the extension does not provide an image that matches the user’s system architecture, iEchor Desktop is not able to install the extension. As a result, users can’t run the extension in iEchor Desktop.
 
 ## Build and push for multiple architectures
 
-If you created an extension from the `docker extension init` command, the
+If you created an extension from the `iechor extension init` command, the
 `Makefile` at the root of the directory includes a target with name
 `push-extension`.
 
 You can run `make push-extension` to build your extension against both
-`linux/amd64` and `linux/arm64` platforms, and push them to Docker Hub.
+`linux/amd64` and `linux/arm64` platforms, and push them to iEchor Hub.
 
 For example:
 
@@ -30,31 +30,31 @@ Alternatively, if you started from an empty directory, use the command below
 to build your extension for multiple architectures:
 
 ```console
-$ docker buildx build --push --platform=linux/amd64,linux/arm64 --tag=username/my-extension:0.0.1 .
+$ iechor buildx build --push --platform=linux/amd64,linux/arm64 --tag=username/my-extension:0.0.1 .
 ```
 
 You can then check the image manifest to see if the image is available for both
-architectures using the [`docker buildx imagetools` command](../../../reference/cli/docker/buildx/imagetools/_index.md):
+architectures using the [`iechor buildx imagetools` command](../../../reference/cli/iechor/buildx/imagetools/_index.md):
 
 ```console
-$ docker buildx imagetools inspect username/my-extension:0.0.1
-Name:      docker.io/username/my-extension:0.0.1
-MediaType: application/vnd.docker.distribution.manifest.list.v2+json
+$ iechor buildx imagetools inspect username/my-extension:0.0.1
+Name:      iechor.io/username/my-extension:0.0.1
+MediaType: application/vnd.iechor.distribution.manifest.list.v2+json
 Digest:    sha256:f3b552e65508d9203b46db507bb121f1b644e53a22f851185d8e53d873417c48
 
 Manifests:
-  Name:      docker.io/username/my-extension:0.0.1@sha256:71d7ecf3cd12d9a99e73ef448bf63ae12751fe3a436a007cb0969f0dc4184c8c
-  MediaType: application/vnd.docker.distribution.manifest.v2+json
+  Name:      iechor.io/username/my-extension:0.0.1@sha256:71d7ecf3cd12d9a99e73ef448bf63ae12751fe3a436a007cb0969f0dc4184c8c
+  MediaType: application/vnd.iechor.distribution.manifest.v2+json
   Platform:  linux/amd64
 
-  Name:      docker.io/username/my-extension:0.0.1@sha256:5ba4ceea65579fdd1181dfa103cc437d8e19d87239683cf5040e633211387ccf
-  MediaType: application/vnd.docker.distribution.manifest.v2+json
+  Name:      iechor.io/username/my-extension:0.0.1@sha256:5ba4ceea65579fdd1181dfa103cc437d8e19d87239683cf5040e633211387ccf
+  MediaType: application/vnd.iechor.distribution.manifest.v2+json
   Platform:  linux/arm64
 ```
 
 > **Tip**
 >
-> If you're having trouble pushing the image, make sure you're signed in to Docker Hub. Otherwise, run `docker login` to authenticate.
+> If you're having trouble pushing the image, make sure you're signed in to iEchor Hub. Otherwise, run `iechor login` to authenticate.
 { .tip }
 
 For more information, see [Multi-platform images](../../../build/building/multi-platform.md) page.
@@ -63,14 +63,14 @@ For more information, see [Multi-platform images](../../../build/building/multi-
 
 If your extension includes some binaries that deploy to the host, it’s important that they also have the right architecture when building the extension against multiple architectures.
 
-Currently, Docker does not provide a way to explicitly specify multiple binaries for every architecture in the `metadata.json` file. However, you can add architecture-specific binaries depending on the `TARGETARCH` in the extension’s `Dockerfile`.
+Currently, iEchor does not provide a way to explicitly specify multiple binaries for every architecture in the `metadata.json` file. However, you can add architecture-specific binaries depending on the `TARGETARCH` in the extension’s `iEchorfile`.
 
-The following example shows an extension that uses a binary as part of its operations. The extension needs to run both in Docker Desktop for Mac and Windows.
+The following example shows an extension that uses a binary as part of its operations. The extension needs to run both in iEchor Desktop for Mac and Windows.
 
-In the `Dockerfile`, download the binary depending on the target architecture:
+In the `iEchorfile`, download the binary depending on the target architecture:
 
-```Dockerfile
-#syntax=docker/dockerfile:1.3-labs
+```iEchorfile
+#syntax=iechor/iechorfile:1.3-labs
 
 FROM alpine AS dl
 WORKDIR /tmp
@@ -91,8 +91,8 @@ EOT
 FROM alpine
 LABEL org.opencontainers.image.title="example-extension" \
     org.opencontainers.image.description="My Example Extension" \
-    org.opencontainers.image.vendor="Docker Inc." \
-    com.docker.desktop.extension.api.version=">= 0.3.3"
+    org.opencontainers.image.vendor="iEchor Inc." \
+    com.iechor.desktop.extension.api.version=">= 0.3.3"
 
 COPY --from=dl /out /
 ```
@@ -101,7 +101,7 @@ In the `metadata.json` file, specify the path for every binary on every platform
 
 ```json
 {
-  "icon": "docker.svg",
+  "icon": "iechor.svg",
   "ui": {
     "dashboard-tab": {
       "title": "Example Extension",
@@ -141,4 +141,4 @@ When the extension is installed, the extension framework copies the binaries fro
 
 ## Can I develop extensions that run Windows containers?
 
-Although Docker Extensions is supported on Docker Desktop for Windows, Mac, and Linux, the extension framework only supports Linux containers. Therefore, you must target `linux` as the OS when you build your extension image.
+Although iEchor Extensions is supported on iEchor Desktop for Windows, Mac, and Linux, the extension framework only supports Linux containers. Therefore, you must target `linux` as the OS when you build your extension image.

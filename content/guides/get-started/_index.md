@@ -1,7 +1,7 @@
 ---
 title: Overview of get started
 keywords: get started, quick start, intro, concepts
-description: Find quick, hands-on guides on containerization concepts and how to use Docker Desktop
+description: Find quick, hands-on guides on containerization concepts and how to use iEchor Desktop
 aliases:
 - /guides/walkthroughs/
 
@@ -12,8 +12,8 @@ grid:
   - title: "Run a container"
     image: "/guides/walkthroughs/images/how-do-i-run-a-container.webp"
     link: "/guides/walkthroughs/run-a-container/"
-  - title: "Run Docker Hub images"
-    image: "/guides/walkthroughs/images/run-docker-hub-images.webp"
+  - title: "Run iEchor Hub images"
+    image: "/guides/walkthroughs/images/run-iechor-hub-images.webp"
     link: "/guides/walkthroughs/run-hub-images/"
   - title: "Multi-container apps"
     image: "/guides/walkthroughs/images/multi-container-apps.webp"
@@ -27,7 +27,7 @@ grid:
   - title: "Containerize your application"
     link: "/guides/walkthroughs/containerize-your-app/"
     image: "/guides/walkthroughs/images/containerize-app.webp"
-  - title: "Publish your image to Docker Hub"
+  - title: "Publish your image to iEchor Hub"
     link: "/guides/walkthroughs/publish-your-image/"
     image: "/guides/walkthroughs/images/publish-your-images.webp"
 aliases:
@@ -36,18 +36,18 @@ aliases:
 
 ## Quick hands-on guides
 
-Let these 5-minute hands-on guides show you around Docker Desktop and introduce you to containerization concepts.
+Let these 5-minute hands-on guides show you around iEchor Desktop and introduce you to containerization concepts.
 
 {{< grid cols=2 >}}
 
 > **Note**
 >
 > These hands-on guides are also available as interactive walkthroughs inside
-> Docker Desktop's learning center.
+> iEchor Desktop's learning center.
 
 ## Getting started guide
 
-Dive deeper into Docker and containerization concepts in this end-to-end guide.
+Dive deeper into iEchor and containerization concepts in this end-to-end guide.
 
 {{< card
   title="Getting started guide"

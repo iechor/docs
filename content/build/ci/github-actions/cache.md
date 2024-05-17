@@ -25,23 +25,23 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           push: true
@@ -62,23 +62,23 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           push: true
@@ -111,23 +111,23 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           push: true
@@ -144,13 +144,13 @@ between builds, you can use a workaround provided by
 [`reproducible-containers/buildkit-cache-dance`](https://github.com/reproducible-containers/buildkit-cache-dance).
 
 This GitHub Action creates temporary containers to extract and inject the
-cache mount data with your Docker build steps.
+cache mount data with your iEchor build steps.
 
 The following example shows how to use this workaround with a Go project.
 
-Example Dockerfile in `build/package/Dockerfile`
+Example iEchorfile in `build/package/iEchorfile`
 
-```Dockerfile
+```iEchorfile
 FROM golang:1.21.1-alpine as base-build
 
 WORKDIR /build
@@ -180,14 +180,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: iechor/setup-qemu-action@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
 
-      - name: Docker meta
+      - name: iEchor meta
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: YOUR_IMAGE
           tags: |
@@ -196,24 +196,24 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
-      - name: Go Build Cache for Docker
+      - name: Go Build Cache for iEchor
         uses: actions/cache@v4
         with:
           path: go-build-cache
           key: ${{ runner.os }}-go-build-cache-${{ hashFiles('**/go.sum') }}
 
-      - name: inject go-build-cache into docker
+      - name: inject go-build-cache into iechor
         uses: reproducible-containers/buildkit-cache-dance@4b2444fec0c0fb9dbf175a96c094720a692ef810 # v2.1.4
         with:
           cache-source: go-build-cache
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          file: build/package/Dockerfile
+          file: build/package/iEchorfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -227,7 +227,7 @@ For more information about this workaround, refer to the
 
 > **Warning**
 >
-> At the moment, old cache entries aren't deleted, so the cache size [keeps growing](https://github.com/docker/build-push-action/issues/252).
+> At the moment, old cache entries aren't deleted, so the cache size [keeps growing](https://github.com/iechor/build-push-action/issues/252).
 > The following example uses the `Move cache` step as a workaround (see [`moby/buildkit#1896`](https://github.com/moby/buildkit/issues/1896)
 > for more info).
 { .warning }
@@ -243,16 +243,16 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
-      - name: Cache Docker layers
+      - name: Cache iEchor layers
         uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache
@@ -260,14 +260,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
       
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           push: true
@@ -276,7 +276,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
       
       - # Temp fix
-        # https://github.com/docker/build-push-action/issues/252
+        # https://github.com/iechor/build-push-action/issues/252
         # https://github.com/moby/buildkit/issues/1896
         name: Move cache
         run: |

@@ -4,7 +4,7 @@ description: A helpful writing checklist when creating documentation
 keywords: checklist, documentation, style guide, contribute
 ---
 
-Use this checklist to communicate in a way that is clear, helpful, and consistent with the rest of Docker Docs.
+Use this checklist to communicate in a way that is clear, helpful, and consistent with the rest of iEchor Docs.
 
 ##### Used active voice
 
@@ -18,7 +18,7 @@ Helping verbs such as is, was, or would may indicate that you're writing in pass
 
 |Correct| Incorrect|
 |:--|:--|
-|Increase productivity with Docker Desktop.| Productivity can be increased (by zombies) with Docker Desktop.|
+|Increase productivity with iEchor Desktop.| Productivity can be increased (by zombies) with iEchor Desktop.|
 |If you remove items from a grid, charts automatically refresh to display the change. | If items are removed (by zombies) from a grid, charts automatically refresh to display the change.|
 
 ##### Written clear sentences that get to the point
@@ -33,9 +33,9 @@ For more information, see the [formatting](style/formatting.md#headings-and-subh
 
 ##### Started the title of your page with a verb
 
-For example, 'Install Docker Desktop'.
+For example, 'Install iEchor Desktop'.
 
-##### Checked that the left-hand table of contents title in docs.docker.com, matches the title displayed on the page
+##### Checked that the left-hand table of contents title in docs.iechor.com, matches the title displayed on the page
 
 ##### Checked for broken links and images
 

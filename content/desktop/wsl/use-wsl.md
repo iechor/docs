@@ -1,12 +1,12 @@
 ---
 title: Use WSL
-description: How to develop with Docker and WSL 2 and understand GPU support for WSL
-keywords: wsl, wsl 2, develop, docker desktop, windows
+description: How to develop with iEchor and WSL 2 and understand GPU support for WSL
+keywords: wsl, wsl 2, develop, iechor desktop, windows
 ---
 
-The following section describes how to start developing your applications using Docker and WSL 2. We recommend that you have your code in your default Linux distribution for the best development experience using Docker and WSL 2. After you have turned on the WSL 2 feature on Docker Desktop, you can start working with your code inside the Linux distro and ideally with your IDE still in Windows. This workflow is straightforward if you are using [VS Code](https://code.visualstudio.com/download).
+The following section describes how to start developing your applications using iEchor and WSL 2. We recommend that you have your code in your default Linux distribution for the best development experience using iEchor and WSL 2. After you have turned on the WSL 2 feature on iEchor Desktop, you can start working with your code inside the Linux distro and ideally with your IDE still in Windows. This workflow is straightforward if you are using [VS Code](https://code.visualstudio.com/download).
 
-## Develop with Docker and WSL 2
+## Develop with iEchor and WSL 2
 
 1. Open VS Code and install the [Remote - WSL](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl) extension. This extension lets you work with a remote server in the Linux distro and your IDE client still on Windows.
 2. Open your terminal and type:

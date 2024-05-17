@@ -1,8 +1,8 @@
 ---
-title: Overview of Hardened Docker Desktop
-description: Overview of what Hardened Docker Desktop is and its key features
+title: Overview of Hardened iEchor Desktop
+description: Overview of what Hardened iEchor Desktop is and its key features
 keywords: security, hardened desktop, enhanced container isolation, registry access
-  management, settings management root access, admins, docker desktop, image access
+  management, settings management root access, admins, iechor desktop, image access
   management
 grid:
   - title: "Settings Management"
@@ -14,11 +14,11 @@ grid:
     icon: "security"
     link: /desktop/hardened-desktop/enhanced-container-isolation/
   - title: "Registry Access Management"
-    description: Control the registries developers can access while using Docker Desktop.
+    description: Control the registries developers can access while using iEchor Desktop.
     icon: "home_storage"
     link: /security/for-admins/registry-access-management/
   - title: "Image Access Management"
-    description: Control the images developers can pull from Docker Hub.
+    description: Control the images developers can pull from iEchor Hub.
     icon: "photo_library"
     link: /security/for-admins/image-access-management/
   - title: "Air-Gapped Containers"
@@ -29,25 +29,25 @@ grid:
 
 > **Note**
 >
-> Hardened Docker Desktop is available to Docker Business customers only.
+> Hardened iEchor Desktop is available to iEchor Business customers only.
 
-Hardened Docker Desktop is a group of security features, designed to improve the security of developer environments with minimal impact on developer experience or productivity.
+Hardened iEchor Desktop is a group of security features, designed to improve the security of developer environments with minimal impact on developer experience or productivity.
 
-It lets administrators enforce strict security settings, preventing developers and their containers from bypassing these controls, either intentionally or unintentionally. Additionally, you can enhance container isolation, to mitigate potential security threats such as malicious payloads breaching the Docker Desktop Linux VM and the underlying host.
+It lets administrators enforce strict security settings, preventing developers and their containers from bypassing these controls, either intentionally or unintentionally. Additionally, you can enhance container isolation, to mitigate potential security threats such as malicious payloads breaching the iEchor Desktop Linux VM and the underlying host.
 
-Hardened Docker Desktop moves the ownership boundary for Docker Desktop configuration to the organization, meaning that any security controls administrators set cannot be altered by the user of Docker Desktop. 
+Hardened iEchor Desktop moves the ownership boundary for iEchor Desktop configuration to the organization, meaning that any security controls administrators set cannot be altered by the user of iEchor Desktop. 
 
 It is for security conscious organizations who:
 - Don’t give their users root or administrator access on their machines
-- Would like Docker Desktop to be within their organization’s centralized control
+- Would like iEchor Desktop to be within their organization’s centralized control
 - Have certain compliance obligations
 
 ### How does it help my organization?
 
-Hardened Desktop features work independently but collectively to create a defense-in-depth strategy, safeguarding developer workstations against potential attacks across various functional layers, such as configuring Docker Desktop, pulling container images, and running container images. This multi-layered defense approach ensures comprehensive security. It helps mitigate against threats such as:
+Hardened Desktop features work independently but collectively to create a defense-in-depth strategy, safeguarding developer workstations against potential attacks across various functional layers, such as configuring iEchor Desktop, pulling container images, and running container images. This multi-layered defense approach ensures comprehensive security. It helps mitigate against threats such as:
 
  - Malware and supply chain attacks: Registry Access Management and Image Access Management prevent developers from accessing certain container registries and image types, significantly lowering the risk of malicious payloads. Additionally, ECI restricts the impact of containers with malicious payloads by running them without root privileges inside a Linux user namespace.
  - Lateral movement: Air-Gapped Containers lets administrators configure network access restrictions for containers, thereby preventing malicious containers from performing lateral movement within the organization's network.
- - Insider threats: Settings Management configures and locks various Docker Desktop settings so administrators can enforce company policies and prevent developers from introducing insecure configurations, intentionally or unintentionally.
+ - Insider threats: Settings Management configures and locks various iEchor Desktop settings so administrators can enforce company policies and prevent developers from introducing insecure configurations, intentionally or unintentionally.
 
 {{< grid >}}

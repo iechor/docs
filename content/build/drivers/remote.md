@@ -17,7 +17,7 @@ BuildKit daemon is exposed from another source.
 ## Synopsis
 
 ```console
-$ docker buildx create \
+$ iechor buildx create \
   --name remote \
   --driver remote \
   tcp://localhost:1234
@@ -32,7 +32,7 @@ pass to `--driver-opt`:
 | `cert`         | String  |                    | Absolute path to the TLS client certificate to present to `buildkitd`. |
 | `cacert`       | String  |                    | Absolute path to the TLS certificate authority used for validation.    |
 | `servername`   | String  | Endpoint hostname. | TLS server name used in requests.                                      |
-| `default-load` | Boolean | `false`            | Automatically load images to the Docker Engine image store.            |
+| `default-load` | Boolean | `false`            | Automatically load images to the iEchor Engine image store.            |
 
 ## Example: Remote BuildKit over Unix sockets
 
@@ -61,41 +61,41 @@ Unix socket, and have Buildx connect through it.
 3. Connect Buildx to it using the remote driver:
 
    ```console
-   $ docker buildx create \
+   $ iechor buildx create \
      --name remote-unix \
      --driver remote \
      unix://$HOME/buildkitd.sock
    ```
 
-4. List available builders with `docker buildx ls`. You should then see
+4. List available builders with `iechor buildx ls`. You should then see
    `remote-unix` among them:
 
    ```console
-   $ docker buildx ls
+   $ iechor buildx ls
    NAME/NODE           DRIVER/ENDPOINT                        STATUS  PLATFORMS
    remote-unix         remote
      remote-unix0      unix:///home/.../buildkitd.sock        running linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/386
-   default *           docker
+   default *           iechor
      default           default                                running linux/amd64, linux/386
    ```
 
 You can switch to this new builder as the default using
-`docker buildx use remote-unix`, or specify it per build using `--builder`:
+`iechor buildx use remote-unix`, or specify it per build using `--builder`:
 
 ```console
-$ docker buildx build --builder=remote-unix -t test --load .
+$ iechor buildx build --builder=remote-unix -t test --load .
 ```
 
 Remember that you need to use the `--load` flag if you want to load the build
-result into the Docker daemon.
+result into the iEchor daemon.
 
-## Example: Remote BuildKit in Docker container
+## Example: Remote BuildKit in iEchor container
 
-This guide will show you how to create setup similar to the `docker-container`
-driver, by manually booting a BuildKit Docker container and connecting to it
+This guide will show you how to create setup similar to the `iechor-container`
+driver, by manually booting a BuildKit iEchor container and connecting to it
 using the Buildx remote driver. This procedure will manually create a container
 and access it via it's exposed port. (You'd probably be better of just using the
-`docker-container` driver that connects to BuildKit through the Docker daemon,
+`iechor-container` driver that connects to BuildKit through the iEchor daemon,
 but this is for illustration purposes.)
 
 1.  Generate certificates for BuildKit.
@@ -104,7 +104,7 @@ but this is for illustration purposes.)
     as a starting point:
 
     ```console
-    SAN="localhost 127.0.0.1" docker buildx bake "https://github.com/moby/buildkit.git#master:examples/create-certs"
+    SAN="localhost 127.0.0.1" iechor buildx bake "https://github.com/moby/buildkit.git#master:examples/create-certs"
     ```
 
     Note that while it's possible to expose BuildKit over TCP without using
@@ -114,7 +114,7 @@ but this is for illustration purposes.)
 2.  With certificates generated in `.certs/`, startup the container:
 
     ```console
-    $ docker run -d --rm \
+    $ iechor run -d --rm \
       --name=remote-buildkitd \
       --privileged \
       -p 1234:1234 \
@@ -132,21 +132,21 @@ but this is for illustration purposes.)
 3.  Connect to this running container using Buildx:
 
     ```console
-    $ docker buildx create \
+    $ iechor buildx create \
       --name remote-container \
       --driver remote \
       --driver-opt cacert=${PWD}/.certs/client/ca.pem,cert=${PWD}/.certs/client/cert.pem,key=${PWD}/.certs/client/key.pem,servername=<TLS_SERVER_NAME> \
       tcp://localhost:1234
     ```
 
-    Alternatively, use the `docker-container://` URL scheme to connect to the
+    Alternatively, use the `iechor-container://` URL scheme to connect to the
     BuildKit container without specifying a port:
 
     ```console
-    $ docker buildx create \
+    $ iechor buildx create \
       --name remote-container \
       --driver remote \
-      docker-container://remote-container
+      iechor-container://remote-container
     ```
 
 ## Example: Remote BuildKit in Kubernetes
@@ -170,7 +170,7 @@ copied between them.
    Buildx, ensuring that the listed certificate files are present:
 
    ```console
-   $ docker buildx create \
+   $ iechor buildx create \
      --name remote-kubernetes \
      --driver remote \
      --driver-opt cacert=${PWD}/.certs/client/ca.pem,cert=${PWD}/.certs/client/cert.pem,key=${PWD}/.certs/client/key.pem \
@@ -191,7 +191,7 @@ in the deployment.
 ```console
 $ kubectl get pods --selector=app=buildkitd -o json | jq -r '.items[].metadata.name'
 buildkitd-XXXXXXXXXX-xxxxx
-$ docker buildx create \
+$ iechor buildx create \
   --name remote-container \
   --driver remote \
   kube-pod://buildkitd-XXXXXXXXXX-xxxxx

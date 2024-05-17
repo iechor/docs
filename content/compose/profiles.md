@@ -1,6 +1,6 @@
 ---
 title: Using profiles with Compose
-desription: How to use profiles with Docker Compose
+desription: How to use profiles with iEchor Compose
 keywords: cli, compose, profile, profiles reference
 ---
 
@@ -43,7 +43,7 @@ Here the services `frontend` and `phpmyadmin` are assigned to the profiles
 respective profiles are enabled.
 
 Services without a `profiles` attribute are always enabled. In this
-case running `docker compose up` would only start `backend` and `db`.
+case running `iechor compose up` would only start `backend` and `db`.
 
 Valid profiles names follow the regex format of `[a-zA-Z0-9][a-zA-Z0-9_.-]+`.
 
@@ -59,10 +59,10 @@ To start a specific profile supply the `--profile` [command-line option](referen
 use the [`COMPOSE_PROFILES` environment variable](environment-variables/envvars.md#compose_profiles):
 
 ```console
-$ docker compose --profile debug up
+$ iechor compose --profile debug up
 ```
 ```console
-$ COMPOSE_PROFILES=debug docker compose up
+$ COMPOSE_PROFILES=debug iechor compose up
 ```
 
 The above commands would both start your application with the `debug` profile enabled.
@@ -72,21 +72,21 @@ In the example, `compose.yml` file above, this starts the services `backend`,
 ### Start multiple profiles
 
 You can also enable
-multiple profiles, e.g. with `docker compose --profile frontend --profile debug up`
+multiple profiles, e.g. with `iechor compose --profile frontend --profile debug up`
 the profiles `frontend` and `debug` will be enabled.
 
 Multiple profiles can be specified by passing multiple `--profile` flags or
 a comma-separated list for the `COMPOSE_PROFILES` environment variable:
 
 ```console
-$ docker compose --profile frontend --profile debug up
+$ iechor compose --profile frontend --profile debug up
 ```
 
 ```console
-$ COMPOSE_PROFILES=frontend,debug docker compose up
+$ COMPOSE_PROFILES=frontend,debug iechor compose up
 ```
 
-If you want to enable all profiles at the same time, you can run `docker compose --profile "*"`.
+If you want to enable all profiles at the same time, you can run `iechor compose --profile "*"`.
 
 ## Auto-starting profiles and dependency resolution
 
@@ -114,14 +114,14 @@ services:
 
 ```sh
 # Only start backend and db
-$ docker compose up -d
+$ iechor compose up -d
 
 # This runs db-migrations (and,if necessary, start db)
 # by implicitly enabling the profiles `tools`
-$ docker compose run db-migrations
+$ iechor compose run db-migrations
 ```
 
-But keep in mind that `docker compose` only automatically starts the
+But keep in mind that `iechor compose` only automatically starts the
 profiles of the services on the command line and not of any dependencies. 
 
 This means that any other services the targeted service `depends_on` should either:
@@ -152,14 +152,14 @@ services:
 
 ```sh
 # Only start "web"
-$ docker compose up -d
+$ iechor compose up -d
 
 # Start mock-backend (and, if necessary, db)
 # by implicitly enabling profiles `dev`
-$ docker compose up -d mock-backend
+$ iechor compose up -d mock-backend
 
 # This fails because profiles "dev" is not enabled
-$ docker compose up phpmyadmin
+$ iechor compose up phpmyadmin
 ```
 
 Although targeting `phpmyadmin` automatically starts the profiles `debug`, it doesn't automatically start the profiles required by `db` which is `dev`. 
@@ -176,8 +176,8 @@ or start the `dev` profile explicitly:
 
 ```console
 # Profiles "debug" is started automatically by targeting phpmyadmin
-$ docker compose --profile dev up phpmyadmin
-$ COMPOSE_PROFILES=dev docker compose up phpmyadmin
+$ iechor compose --profile dev up phpmyadmin
+$ COMPOSE_PROFILES=dev iechor compose up phpmyadmin
 ```
 
 ## Reference information

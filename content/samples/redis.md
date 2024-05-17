@@ -1,5 +1,5 @@
 ---
 title: Redis samples
-description: Docker samples for Redis.
+description: iEchor samples for Redis.
 service: redis
 ---

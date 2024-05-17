@@ -5,25 +5,25 @@
 
 /content/build/ @crazy-max @dvdksn
 
-/content/compose/ @aevesdocker
+/content/compose/ @aevesiechor
 
-/content/desktop/ @aevesdocker
+/content/desktop/ @aevesiechor
 
-/content/desktop/extensions/ @aevesdocker
+/content/desktop/extensions/ @aevesiechor
 
-/content/desktop/extensions-sdk/ @aevesdocker
+/content/desktop/extensions-sdk/ @aevesiechor
 
 /content/scout/ @dvdksn
 
-/content/docker-hub/ @aevesdocker @craig-osterhout @stephaurelio
+/content/iechor-hub/ @aevesiechor @craig-osterhout @stephaurelio
 
 /content/engine/ @dvdksn
 
-/content/subscription/ @aevesdocker @stephaurelio
+/content/subscription/ @aevesiechor @stephaurelio
 
-/content/docker-hub/publish/ @aevesdocker
+/content/iechor-hub/publish/ @aevesiechor
 
-/content/docker-hub/official_images/ @aevesdocker
+/content/iechor-hub/official_images/ @aevesiechor
 
 /content/registry/ @dvdksn
 

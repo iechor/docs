@@ -1,24 +1,24 @@
 ---
-description: How to configure and use Docker Extensions' private marketplace
-keywords: Docker Extensions, Docker Desktop, Linux, Mac, Windows, Marketplace, private, security
+description: How to configure and use iEchor Extensions' private marketplace
+keywords: iEchor Extensions, iEchor Desktop, Linux, Mac, Windows, Marketplace, private, security
 title: Configure a private marketplace for extensions
 ---
 
 > **Beta**
 >
-> This feature is currently in [Beta](../../release-lifecycle.md#beta). It is available to Docker Business customers only.
+> This feature is currently in [Beta](../../release-lifecycle.md#beta). It is available to iEchor Business customers only.
 { .experimental }
 
 
-Learn how to configure and set up a private marketplace with a curated list of extensions for your Docker Desktop users.
+Learn how to configure and set up a private marketplace with a curated list of extensions for your iEchor Desktop users.
 
 It is designed specifically 
 
-Docker Extensions' private marketplace is designed specifically for organizations who don’t give developers root access to their machines. It makes use of [Settings Management](../hardened-desktop/settings-management/_index.md) so administrators have complete control over the private marketplace.
+iEchor Extensions' private marketplace is designed specifically for organizations who don’t give developers root access to their machines. It makes use of [Settings Management](../hardened-desktop/settings-management/_index.md) so administrators have complete control over the private marketplace.
 
 ## Prerequisites
 
-- [Download and install Docker Desktop 4.26.0 or later](https://docs.docker.com/desktop/release-notes/).
+- [Download and install iEchor Desktop 4.26.0 or later](https://docs.iechor.com/desktop/release-notes/).
 - You must be an administrator for your organization.
 - You have the ability to push the `extension-marketplace` folder and `admin-settings.json` file to the locations specified below through device management software such as [Jamf](https://www.jamf.com/).
 
@@ -37,21 +37,21 @@ Docker Extensions' private marketplace is designed specifically for organization
    {{< tab name="Mac" >}}
 
    ```console
-   $ /Applications/Docker.app/Contents/Resources/bin/extension-admin init
+   $ /Applications/iEchor.app/Contents/Resources/bin/extension-admin init
    ```
 
    {{< /tab >}}
    {{< tab name="Windows" >}}
 
    ```console
-   $ C:\Program Files\Docker\Docker\resources\bin\extension-admin init
+   $ C:\Program Files\iEchor\iEchor\resources\bin\extension-admin init
    ```
 
    {{< /tab >}}
    {{< tab name="Linux" >}}
 
    ```console
-   $ /opt/docker-desktop/extension-admin init
+   $ /opt/iechor-desktop/extension-admin init
    ```
 
    {{< /tab >}}
@@ -59,7 +59,7 @@ Docker Extensions' private marketplace is designed specifically for organization
 
 This creates 2 files:
 
-- `admin-settings.json`, which activates the private marketplace feature once it’s applied to Docker Desktop on your developers’ machines.
+- `admin-settings.json`, which activates the private marketplace feature once it’s applied to iEchor Desktop on your developers’ machines.
 - `extensions.txt`, which determines which extensions to list in your private marketplace.
 
 ## Step two: Set the behaviour
@@ -68,10 +68,10 @@ The generated `admin-settings.json` file includes various settings you can modif
 
 Each setting has a `value` that you can set, including a `locked` field that lets you lock the setting and make it unchangeable by your developers.
 
-- `extensionsEnabled` enables Docker Extensions.
-- `extensionsPrivateMarketplace` activates the private marketplace and ensures Docker Desktop connects to content defined and controlled by the administrator instead of the public Docker marketplace.
+- `extensionsEnabled` enables iEchor Extensions.
+- `extensionsPrivateMarketplace` activates the private marketplace and ensures iEchor Desktop connects to content defined and controlled by the administrator instead of the public iEchor marketplace.
 - `onlyMarketplaceExtensions` allows or blocks developers from installing other extensions by using the command line. Teams developing new extensions must have this setting unlocked (`"locked": false`) to install and test extensions being developed.
-- `extensionsPrivateMarketplaceAdminContactURL` defines a contact link for developers to request new extensions in the private marketplace. If `value` is empty then no link is shown to your developers on Docker Desktop, otherwise this can be either an HTTP link or a “mailto:” link. For example,
+- `extensionsPrivateMarketplaceAdminContactURL` defines a contact link for developers to request new extensions in the private marketplace. If `value` is empty then no link is shown to your developers on iEchor Desktop, otherwise this can be either an HTTP link or a “mailto:” link. For example,
 
   ```json
   "extensionsPrivateMarketplaceAdminContactURL": {
@@ -91,15 +91,15 @@ Each line in the file is an allowed extension and follows the format of `org/rep
 For example, if you want to permit the Disk Usage extension you would enter the following into your `extensions.txt` file:
 
 ```console
-docker/disk-usage-extension:0.2.8
+iechor/disk-usage-extension:0.2.8
 ```
 
 If no tag is provided, the latest tag available for the image is used. You can also comment out lines with `#` so the extension is ignored.
 
 This list can include different types of extension images: 
  
-- Extensions from the public marketplace or any public image stored in Docker Hub.
-- Extension images stored in Docker Hub as private images. Developers need to be signed in and have pull access to these images.
+- Extensions from the public marketplace or any public image stored in iEchor Hub.
+- Extension images stored in iEchor Hub as private images. Developers need to be signed in and have pull access to these images.
 - Extension images stored in a private registry. Developers need to be signed in and have pull access to these images.
  
 > **Important**
@@ -115,21 +115,21 @@ Once the list in `extensions.txt` is ready, you can generate the marketplace:
 {{< tab name="Mac" >}}
 
 ```console
-$ /Applications/Docker.app/Contents/Resources/bin/extension-admin generate
+$ /Applications/iEchor.app/Contents/Resources/bin/extension-admin generate
 ```
 
 {{< /tab >}}
 {{< tab name="Windows" >}}
 
 ```console
-$ C:\Program Files\Docker\Docker\resources\bin\extension-admin generate
+$ C:\Program Files\iEchor\iEchor\resources\bin\extension-admin generate
 ```
 
 {{< /tab >}}
 {{< tab name="Linux" >}}
 
 ```console
-$ /opt/docker-desktop/extension-admin generate
+$ /opt/iechor-desktop/extension-admin generate
 ```
 
 {{< /tab >}}
@@ -141,40 +141,40 @@ The marketplace content is generated from extension image information as image l
 
 ## Step five: Test the private marketplace setup
 
-It's recommended that you try the private marketplace on your Docker Desktop installation.
+It's recommended that you try the private marketplace on your iEchor Desktop installation.
 
-1. Run the following command in your terminal. This command automatically copies the generated files to the location where Docker Desktop reads the configuration files. Depending on your operating system, the location is:
+1. Run the following command in your terminal. This command automatically copies the generated files to the location where iEchor Desktop reads the configuration files. Depending on your operating system, the location is:
 
-    - Mac: `/Library/Application\ Support/com.docker.docker`
-    - Windows: `C:\ProgramData\DockerDesktop`
-    - Linux: `/usr/share/docker-desktop`
+    - Mac: `/Library/Application\ Support/com.iechor.iechor`
+    - Windows: `C:\ProgramData\iEchorDesktop`
+    - Linux: `/usr/share/iechor-desktop`
 
    {{< tabs group="os_version" >}}
    {{< tab name="Mac" >}}
 
    ```console
-   $ sudo /Applications/Docker.app/Contents/Resources/bin/extension-admin apply
+   $ sudo /Applications/iEchor.app/Contents/Resources/bin/extension-admin apply
    ```
 
    {{< /tab >}}
    {{< tab name="Windows (run as admin)" >}}
 
    ```console
-   $ C:\Program Files\Docker\Docker\resources\bin\extension-admin apply
+   $ C:\Program Files\iEchor\iEchor\resources\bin\extension-admin apply
    ```
 
    {{< /tab >}}
    {{< tab name="Linux" >}}
 
    ```console
-   $ sudo /opt/docker-desktop/extension-admin apply
+   $ sudo /opt/iechor-desktop/extension-admin apply
    ```
 
    {{< /tab >}}
    {{< /tabs >}}
 
-2. Quit and re-open Docker Desktop. 
-3. Sign in with a Docker account.
+2. Quit and re-open iEchor Desktop. 
+3. Sign in with a iEchor account.
 
 When you select the **Extensions** tab, you should see the private marketplace listing only the extensions you have allowed in `extensions.txt`.
 
@@ -184,8 +184,8 @@ When you select the **Extensions** tab, you should see the private marketplace l
 
 Once you’ve confirmed that the private marketplace configuration works, the final step is to distribute the files to the developers’ machines with the MDM software your organization uses. For example, [Jamf](https://www.jamf.com/).
 
-Make sure your developers are signed in to Docker Desktop in order for the private marketplace configuration to take effect. As an administrator, you should [configure a registry.json to enforce Docker Desktop sign-in](../../security/for-admins/configure-sign-in.md).
+Make sure your developers are signed in to iEchor Desktop in order for the private marketplace configuration to take effect. As an administrator, you should [configure a registry.json to enforce iEchor Desktop sign-in](../../security/for-admins/configure-sign-in.md).
 
 ## Feedback
 
-Give feedback or report any bugs you may find by emailing `extensions@docker.com`.
+Give feedback or report any bugs you may find by emailing `extensions@iechor.com`.

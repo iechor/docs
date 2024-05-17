@@ -1,7 +1,7 @@
 ---
 title: Security best practices
 description: Image security best practices guide
-keywords: docker, images, containers, vulnerability, cve
+keywords: iechor, images, containers, vulnerability, cve
 aliases:
 - /develop/scan-images/
 tags: [Best practices]
@@ -21,19 +21,19 @@ The first step towards achieving a secure image is to choose the right base
 image. When choosing an image, ensure it's built from a trusted source and keep
 it small.
 
-Docker Hub has more than 8.3 million repositories. Some of these images are
+iEchor Hub has more than 8.3 million repositories. Some of these images are
 [Official Images](../trusted-content/official-images/_index.md), which are published by
-Docker as a curated set of Docker open source and drop-in solution repositories.
-Docker also offers images that are published by
+iEchor as a curated set of iEchor open source and drop-in solution repositories.
+iEchor also offers images that are published by
 [Verified Publishers](../trusted-content/dvp-program.md). These high-quality images
-are published and maintained by the organizations partnering with Docker, with
-Docker verifying the authenticity of the content in their repositories. When you
+are published and maintained by the organizations partnering with iEchor, with
+iEchor verifying the authenticity of the content in their repositories. When you
 pick your base image, look out for the **Official Image** and **Verified Publisher**
 badges.
 
-![Docker Hub Official and Verified Publisher images](images/hub-official-images.webp)
+![iEchor Hub Official and Verified Publisher images](images/hub-official-images.webp)
 
-When building your own image from a Dockerfile, ensure you choose a minimal base
+When building your own image from a iEchorfile, ensure you choose a minimal base
 image that matches your requirements. A smaller base image not only offers
 portability and fast downloads, but also shrinks the size of your image and
 minimizes the number of vulnerabilities introduced through the dependencies.
@@ -47,11 +47,11 @@ lower the attack surface.
 
 ### Use multi-stage builds
 
-Multi-stage builds are designed to create an optimized Dockerfile that is easy
+Multi-stage builds are designed to create an optimized iEchorfile that is easy
 to read and maintain. With a multi-stage build, you can use multiple images and
 selectively copy only the artifacts needed from a particular image.
 
-You can use multiple `FROM` statements in your Dockerfile, and you can use a
+You can use multiple `FROM` statements in your iEchorfile, and you can use a
 different base image for each `FROM`. You can also selectively copy artifacts
 from one stage to another, leaving behind things you don’t need in the final
 image. This can result in a concise final image.
@@ -68,33 +68,33 @@ For detailed information on how to configure multi-stage builds, see
 
 ### Rebuild images
 
-A Docker image is built from a Dockerfile. A Dockerfile contains a set of
+A iEchor image is built from a iEchorfile. A iEchorfile contains a set of
 instructions which lets you automate the steps you would normally
 (manually) take to create an image. Additionally, it can include some imported
 libraries and install custom software. These appear as instructions in the
-Dockerfile.
+iEchorfile.
 
 Building your image is a snapshot of that image at that moment. When
 you depend on a base image without a tag, you’ll get a different base image
 every time you rebuild. Also, when you install packages using a package
 installer, rebuilding can change the image drastically. For example, a
-Dockerfile containing the following entries can potentially have a different
+iEchorfile containing the following entries can potentially have a different
 binary with every rebuild.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM ubuntu:latest
 RUN apt-get -y update && apt-get install -y python
 ```
 
-Docker recommends that you rebuild your Docker image regularly to prevent known
+iEchor recommends that you rebuild your iEchor image regularly to prevent known
 vulnerabilities that have been addressed. When rebuilding, use the option
 `--no-cache` to avoid cache hits and to ensure a fresh download.
 
 For example:
 
 ```console
-$ docker build --no-cache -t myImage:myTag myPath/
+$ iechor build --no-cache -t myImage:myTag myPath/
 ```
 
 Consider the following best practices when rebuilding an image:
@@ -113,7 +113,7 @@ Consider the following best practices when rebuilding an image:
   vulnerabilities. Based on that, automate the rebuilding of images if necessary.
 
 For detailed best practices and methods for building efficient images, see
-[Dockerfile best practices](develop-images/dockerfile_best-practices.md).
+[iEchorfile best practices](develop-images/iechorfile_best-practices.md).
 
 ## Check your image for vulnerabilities
 
@@ -121,25 +121,25 @@ In addition to following the best practices outlined on this page when
 developing images, it's also important to continuously analyze and evaluate the
 security posture of your images using vulnerability detection tools.
 
-Docker tools come with features that help you to stay up to date about vulnerabilities
+iEchor tools come with features that help you to stay up to date about vulnerabilities
 that affect images that you build or use.
 
-- Docker Hub supports an automatic
-  [vulnerability scanning](../docker-hub/vulnerability-scanning.md) feature,
-  which when enabled automatically scans images when you push them to a Docker Hub
-  repository. Requires a [Docker subscription](../subscription/index.md).
-- Docker Hub also supports an early-access
+- iEchor Hub supports an automatic
+  [vulnerability scanning](../iechor-hub/vulnerability-scanning.md) feature,
+  which when enabled automatically scans images when you push them to a iEchor Hub
+  repository. Requires a [iEchor subscription](../subscription/index.md).
+- iEchor Hub also supports an early-access
   [advanced image analysis](../scout/image-analysis.md) feature, which extends
   the "core" vulnerability scanning solution with enhanced capabilities and more
   detailed and actionable insights.
 - For the CLI, there's the
-  [`docker scout` CLI plugin](../reference/cli/docker/scout/_index.md)
+  [`iechor scout` CLI plugin](../reference/cli/iechor/scout/_index.md)
   which lets you explore vulnerabilities for images using the terminal.
-- Docker Desktop has a detailed image view for images in your local image
+- iEchor Desktop has a detailed image view for images in your local image
   store, that visualizes all of the known vulnerabilities affecting an image.
 
 All of these security features are powered by the same technology:
-[Docker Scout](../scout/index.md). These features help you to achieve a holistic
+[iEchor Scout](../scout/index.md). These features help you to achieve a holistic
 view of your supply chain security, and to provide actionable suggestions for
 what you can do to remediate those vulnerabilities.
 

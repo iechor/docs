@@ -1,10 +1,10 @@
 # reusable workflow to validate docs from upstream repository for which pages are remotely fetched
-# - module-name: the name of the module, without github.com prefix (e.g., docker/buildx)
+# - module-name: the name of the module, without github.com prefix (e.g., iechor/buildx)
 # - data-files-id: id of the artifact (using actions/upload-artifact) containing the YAML data files to validate (optional)
 # - data-files-folder: folder in _data containing the files to download and copy to (e.g., buildx)
 # if changes are made in this workflow, please keep commit sha updated on downstream workflows:
-# - https://github.com/docker/buildx/blob/master/.github/workflows/docs-upstream.yml
-# - https://github.com/docker/compose/blob/main/.github/workflows/docs-upstream.yml
+# - https://github.com/iechor/buildx/blob/master/.github/workflows/docs-upstream.yml
+# - https://github.com/iechor/compose/blob/main/.github/workflows/docs-upstream.yml
 name: validate-upstream
 
 on:
@@ -31,7 +31,7 @@ jobs:
         name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: docker/docs
+          repository: iechor/docs
       -
         name: Download data files
         uses: actions/download-artifact@v4
@@ -78,14 +78,14 @@ jobs:
               await fs.copyFileSync(yamlSrcPath, yamlDestPath);
             }
       -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       -
         name: Validate
-        uses: docker/bake-action@v4
+        uses: iechor/bake-action@v4
         with:
           files: |
-            docker-bake.hcl
+            iechor-bake.hcl
           targets: validate-upstream
           set: |
             *.cache-from=type=gha,scope=docs-upstream

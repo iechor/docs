@@ -1,12 +1,12 @@
 ---
-description: Run Docker Engine in swarm mode
-keywords: guide, swarm mode, node, Docker Engines
-title: Run Docker Engine in swarm mode
+description: Run iEchor Engine in swarm mode
+keywords: guide, swarm mode, node, iEchor Engines
+title: Run iEchor Engine in swarm mode
 ---
 
-When you first install and start working with Docker Engine, Swarm mode is
+When you first install and start working with iEchor Engine, Swarm mode is
 disabled by default. When you enable Swarm mode, you work with the concept of
-services managed through the `docker service` command.
+services managed through the `iechor service` command.
 
 There are two ways to run the engine in Swarm mode:
 
@@ -18,7 +18,7 @@ test services based upon images you've created or other available images. In
 your production environment, Swarm mode provides a fault-tolerant platform with
 cluster management features to keep your services running and available.
 
-These instructions assume you have installed the Docker Engine on
+These instructions assume you have installed the iEchor Engine on
 a machine to serve as a manager node in your swarm.
 
 If you haven't already, read through the [Swarm mode key concepts](key-concepts.md)
@@ -26,9 +26,9 @@ and try the [Swarm mode tutorial](swarm-tutorial/index.md).
 
 ## Create a swarm
 
-When you run the command to create a swarm, Docker Engine starts running in Swarm mode.
+When you run the command to create a swarm, iEchor Engine starts running in Swarm mode.
 
-Run [`docker swarm init`](../../reference/cli/docker/swarm/init.md)
+Run [`iechor swarm init`](../../reference/cli/iechor/swarm/init.md)
 to create a single-node swarm on the current node. The engine sets up the swarm
 as follows:
 
@@ -48,20 +48,20 @@ swarm.
 external to the swarm.
 * Creates an overlay default IP addresses and subnet mask for your networks
 
-The output for `docker swarm init` provides the connection command to use when
+The output for `iechor swarm init` provides the connection command to use when
 you join new worker nodes to the swarm:
 
 ```console
-$ docker swarm init
+$ iechor swarm init
 Swarm initialized: current node (dxn1zf6l61qsb1josjja83ngz) is now a manager.
 
 To add a worker to this swarm, run the following command:
 
-    docker swarm join \
+    iechor swarm join \
     --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
     192.168.99.100:2377
 
-To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+To add a manager to this swarm, run 'iechor swarm join-token manager' and follow the instructions.
 ```
 
 ### Configuring default address pools
@@ -78,36 +78,36 @@ To configure custom default address pools, you must define pools at swarm initia
 `--default-addr-pool` command line option. This command line option uses CIDR notation for defining the subnet mask.
 To create the custom address pool for Swarm, you must define at least one default address pool, and an optional default address pool subnet mask. For example, for the `10.0.0.0/27`, use the value `27`.
 
-Docker allocates subnet addresses from the address ranges specified by the `--default-addr-pool` option. For example, a command line option `--default-addr-pool 10.10.0.0/16` indicates that Docker will allocate subnets from that `/16` address range. If `--default-addr-pool-mask-len` were unspecified or set explicitly to 24, this would result in 256 `/24` networks of the form `10.10.X.0/24`.
+iEchor allocates subnet addresses from the address ranges specified by the `--default-addr-pool` option. For example, a command line option `--default-addr-pool 10.10.0.0/16` indicates that iEchor will allocate subnets from that `/16` address range. If `--default-addr-pool-mask-len` were unspecified or set explicitly to 24, this would result in 256 `/24` networks of the form `10.10.X.0/24`.
 
-The subnet range comes from the `--default-addr-pool`, (such as `10.10.0.0/16`). The size of 16 there represents the number of networks one can create within that `default-addr-pool` range. The `--default-addr-pool` option may occur multiple times with each option providing additional addresses for docker to use for overlay subnets.
+The subnet range comes from the `--default-addr-pool`, (such as `10.10.0.0/16`). The size of 16 there represents the number of networks one can create within that `default-addr-pool` range. The `--default-addr-pool` option may occur multiple times with each option providing additional addresses for iechor to use for overlay subnets.
 
 The format of the command is:
 
 ```console
-$ docker swarm init --default-addr-pool <IP range in CIDR> [--default-addr-pool <IP range in CIDR> --default-addr-pool-mask-length <CIDR value>]
+$ iechor swarm init --default-addr-pool <IP range in CIDR> [--default-addr-pool <IP range in CIDR> --default-addr-pool-mask-length <CIDR value>]
 ```
 
 The command to create a default IP address pool with a /16 (class B) for the `10.20.0.0` network looks like this:
 
 ```console
-$ docker swarm init --default-addr-pool 10.20.0.0/16
+$ iechor swarm init --default-addr-pool 10.20.0.0/16
 ```
 
 The command to create a default IP address pool with a `/16` (class B) for the `10.20.0.0` and `10.30.0.0` networks, and to 
 create a subnet mask of `/26` for each network looks like this:
 
 ```console
-$ docker swarm init --default-addr-pool 10.20.0.0/16 --default-addr-pool 10.30.0.0/16 --default-addr-pool-mask-length 26
+$ iechor swarm init --default-addr-pool 10.20.0.0/16 --default-addr-pool 10.30.0.0/16 --default-addr-pool-mask-length 26
 ```
 
-In this example, `docker network create -d overlay net1` will result in `10.20.0.0/26` as the allocated subnet for `net1`, 
-and `docker network create -d overlay net2` will result in `10.20.0.64/26` as the allocated subnet for `net2`. This continues until 
+In this example, `iechor network create -d overlay net1` will result in `10.20.0.0/26` as the allocated subnet for `net1`, 
+and `iechor network create -d overlay net2` will result in `10.20.0.64/26` as the allocated subnet for `net2`. This continues until 
 all the subnets are exhausted. 
 
 Refer to the following pages for more information:
 - [Swarm networking](./networking.md) for more information about the default address pool usage
-- `docker swarm init` [CLI reference](../../reference/cli/docker/swarm/init.md) for more detail on the `--default-addr-pool` flag.
+- `iechor swarm init` [CLI reference](../../reference/cli/iechor/swarm/init.md) for more detail on the `--default-addr-pool` flag.
 
 ### Configure the advertise address
 
@@ -115,14 +115,14 @@ Manager nodes use an advertise address to allow other nodes in the swarm access
 to the Swarmkit API and overlay networking. The other nodes on the swarm must be
 able to access the manager node on its advertise address.
 
-If you don't specify an advertise address, Docker checks if the system has a
-single IP address. If so, Docker uses the IP address with the listening port
+If you don't specify an advertise address, iEchor checks if the system has a
+single IP address. If so, iEchor uses the IP address with the listening port
 `2377` by default. If the system has multiple IP addresses, you must specify the
 correct `--advertise-addr` to enable inter-manager communication and overlay
 networking:
 
 ```console
-$ docker swarm init --advertise-addr <MANAGER-IP>
+$ iechor swarm init --advertise-addr <MANAGER-IP>
 ```
 
 You must also specify the `--advertise-addr` if the address where other nodes
@@ -133,7 +133,7 @@ you use for access from outside that region. In this case, specify the external
 address with `--advertise-addr` so that the node can propagate that information
 to other nodes that subsequently connect to it.
 
-Refer to the `docker swarm init` [CLI reference](../../reference/cli/docker/swarm/init.md)
+Refer to the `iechor swarm init` [CLI reference](../../reference/cli/iechor/swarm/init.md)
 for more detail on the advertise address.
 
 ### View the join command or update a swarm join token
@@ -148,11 +148,11 @@ swarm.
 To retrieve the join command including the join token for worker nodes, run:
 
 ```console
-$ docker swarm join-token worker
+$ iechor swarm join-token worker
 
 To add a worker to this swarm, run the following command:
 
-    docker swarm join \
+    iechor swarm join \
     --token SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
     192.168.99.100:2377
 
@@ -162,11 +162,11 @@ This node joined a swarm as a worker.
 To view the join command and token for manager nodes, run:
 
 ```console
-$ docker swarm join-token manager
+$ iechor swarm join-token manager
 
 To add a manager to this swarm, run the following command:
 
-    docker swarm join \
+    iechor swarm join \
     --token SWMTKN-1-59egwe8qangbzbqb3ryawxzk3jn97ifahlsrw01yar60pmkr90-bdjfnkcflhooyafetgjod97sz \
     192.168.99.100:2377
 ```
@@ -174,7 +174,7 @@ To add a manager to this swarm, run the following command:
 Pass the `--quiet` flag to print only the token:
 
 ```console
-$ docker swarm join-token --quiet worker
+$ iechor swarm join-token --quiet worker
 
 SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c
 ```
@@ -202,11 +202,11 @@ token. Specify whether you want to rotate the token for `worker` or `manager`
 nodes:
 
 ```console
-$ docker swarm join-token  --rotate worker
+$ iechor swarm join-token  --rotate worker
 
 To add a worker to this swarm, run the following command:
 
-    docker swarm join \
+    iechor swarm join \
     --token SWMTKN-1-2kscvs0zuymrsc9t0ocyy1rdns9dhaodvpl639j2bqx55uptag-ebmn5u927reawo27s3azntd44 \
     192.168.99.100:2377
 ```
@@ -214,5 +214,5 @@ To add a worker to this swarm, run the following command:
 ## Learn more
 
 * [Join nodes to a swarm](join-nodes.md)
-* `swarm init` [command line reference](../../reference/cli/docker/swarm/init.md)
+* `swarm init` [command line reference](../../reference/cli/iechor/swarm/init.md)
 * [Swarm mode tutorial](swarm-tutorial/index.md)

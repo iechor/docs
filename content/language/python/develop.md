@@ -22,20 +22,20 @@ You'll need to clone a new repository to get a sample application that includes 
 1. Change to a directory where you want to clone the repository and run the following command.
 
    ```console
-   $ git clone https://github.com/docker/python-docker-dev
+   $ git clone https://github.com/iechor/python-iechor-dev
    ```
 
-2. In the cloned repository's directory, run `docker init` to create the necessary Docker files. Refer to the following example to answer the prompts from `docker init`.
+2. In the cloned repository's directory, run `iechor init` to create the necessary iEchor files. Refer to the following example to answer the prompts from `iechor init`.
 
    ```console
-   $ docker init
-   Welcome to the Docker Init CLI!
+   $ iechor init
+   Welcome to the iEchor Init CLI!
 
    This utility will walk you through creating the following files with sensible defaults for your project:
-     - .dockerignore
-     - Dockerfile
+     - .iechorignore
+     - iEchorfile
      - compose.yaml
-     - README.Docker.md
+     - README.iEchor.md
 
    Let's get started!
 
@@ -49,7 +49,7 @@ You'll need to clone a new repository to get a sample application that includes 
 
 You can use containers to set up local services, like a database. In this section, you'll update the `compose.yaml` file to define a database service and a volume to persist data.
 
-In the cloned repository's directory, open the `compose.yaml` file in an IDE or text editor. `docker init` handled creating most of the instructions, but you'll need to update it for your unique application.
+In the cloned repository's directory, open the `compose.yaml` file in an IDE or text editor. `iechor init` handled creating most of the instructions, but you'll need to update it for your unique application.
 
 In the `compose.yaml` file, you need to uncomment all of the database instructions. In addition, you need to add the database password file as an environment variable to the server service and specify the secret file to use .
 
@@ -109,26 +109,26 @@ mysecretpassword
 
 Save and close the `password.txt` file.
 
-You should now have the following contents in your `python-docker-dev`
+You should now have the following contents in your `python-iechor-dev`
 directory.
 
 ```text
-├── python-docker-dev/
+├── python-iechor-dev/
 │ ├── db/
 │ │ └── password.txt
 │ ├── app.py
 │ ├── requirements.txt
-│ ├── .dockerignore
+│ ├── .iechorignore
 │ ├── compose.yaml
-│ ├── Dockerfile
-│ ├── README.Docker.md
+│ ├── iEchorfile
+│ ├── README.iEchor.md
 │ └── README.md
 ```
 
-Now, run the following `docker compose up` command to start your application.
+Now, run the following `iechor compose up` command to start your application.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
 Now test your API endpoint. Open a new terminal then make a request to the server using the curl commands:
@@ -203,30 +203,30 @@ secrets:
 Run the following command to run your application with Compose Watch.
 
 ```console
-$ docker compose watch
+$ iechor compose watch
 ```
 
 In a terminal, curl the application to get a response.
 
 ```console
 $ curl http://localhost:5000
-Hello, Docker!
+Hello, iEchor!
 ```
 
 Any changes to the application's source files on your local machine will now be immediately reflected in the running container.
 
-Open `python-docker-dev/app.py` in an IDE or text editor and update the `Hello, Docker!` string by adding a few more exclamation marks.
+Open `python-iechor-dev/app.py` in an IDE or text editor and update the `Hello, iEchor!` string by adding a few more exclamation marks.
 
 ```diff
--    return 'Hello, Docker!'
-+    return 'Hello, Docker!!!'
+-    return 'Hello, iEchor!'
++    return 'Hello, iEchor!!!'
 ```
 
 Save the changes to `app.py` and then wait a few seconds for the application to rebuild. Curl the application again and verify that the updated text appears.
 
 ```console
 $ curl http://localhost:5000
-Hello, Docker!!!
+Hello, iEchor!!!
 ```
 
 Press `ctrl+c` in the terminal to stop your application.

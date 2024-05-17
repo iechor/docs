@@ -1,7 +1,7 @@
 ---
-description: Enabling content trust in Docker
-keywords: content, trust, security, docker, documentation
-title: Content trust in Docker
+description: Enabling content trust in iEchor
+keywords: content, trust, security, iechor, documentation
+title: Content trust in iEchor
 aliases:
 - /engine/security/trust/content_trust/
 - /notary/getting_started/
@@ -18,15 +18,15 @@ aliases:
 When transferring data among networked systems, trust is a central concern. In
 particular, when communicating over an untrusted medium such as the internet, it
 is critical to ensure the integrity and the publisher of all the data a system
-operates on. You use Docker Engine to push and pull images (data) to a
+operates on. You use iEchor Engine to push and pull images (data) to a
 public or private registry. Content trust gives you the ability to verify both
 the integrity and the publisher of all the data received from a registry over
 any channel.
 
-## About Docker Content Trust (DCT)
+## About iEchor Content Trust (DCT)
 
-Docker Content Trust (DCT) provides the ability to use digital signatures for
-data sent to and received from remote Docker registries. These signatures allow
+iEchor Content Trust (DCT) provides the ability to use digital signatures for
+data sent to and received from remote iEchor registries. These signatures allow
 client-side or runtime verification of the integrity and publisher of specific
 image tags.
 
@@ -53,7 +53,7 @@ have discretion on which tags they sign.
 
 An image repository can contain an image with one tag that is signed and another
 tag that is not. For example, consider [the Mongo image
-repository](https://hub.docker.com/r/library/mongo/tags/). The `latest`
+repository](https://hub.iechor.com/r/library/mongo/tags/). The `latest`
 tag could be unsigned while the `3.1.6` tag could be signed. It is the
 responsibility of the image publisher to decide if an image tag is signed or
 not. In this representation, some image tags are signed, others are not:
@@ -76,11 +76,11 @@ only signed image tags and the less desirable, unsigned image tags are
 
 ![Trust view](images/trust_view.png)
 
-To the consumer who has not enabled DCT, nothing about how they work with Docker
+To the consumer who has not enabled DCT, nothing about how they work with iEchor
 images changes. Every image is visible regardless of whether it is signed or
 not.
 
-### Docker Content Trust Keys
+### iEchor Content Trust Keys
 
 Trust for an image tag is managed through the use of signing keys. A key set is
 created when an operation using DCT is first invoked. A key set consists
@@ -97,7 +97,7 @@ The following image depicts the various signing keys and their relationships:
 
 > **Warning**
 >
->The root key once lost is not recoverable. If you lose any other key, send an email to [Docker Hub Support](mailto:hub-support@docker.com). This loss also requires manual intervention from every
+>The root key once lost is not recoverable. If you lose any other key, send an email to [iEchor Hub Support](mailto:hub-support@iechor.com). This loss also requires manual intervention from every
 consumer that used a signed tag from this repository prior to the loss.
 { .warning }
 
@@ -106,29 +106,29 @@ to create new repositories, it is a good idea to store it offline in hardware.
 For details on securing, and backing up your keys, make sure you
 read how to [manage keys for DCT](trust_key_mng.md).
 
-## Signing images with Docker Content Trust
+## Signing images with iEchor Content Trust
 
-Within the Docker CLI we can sign and push a container image with the
-`$ docker trust` command syntax. This is built on top of the Notary feature
+Within the iEchor CLI we can sign and push a container image with the
+`$ iechor trust` command syntax. This is built on top of the Notary feature
 set. For more information, see the [Notary GitHub repository](https://github.com/theupdateframework/notary).
 
-A prerequisite for signing an image is a Docker Registry with a Notary server
-attached (Such as the Docker Hub ). Instructions for
+A prerequisite for signing an image is a iEchor Registry with a Notary server
+attached (Such as the iEchor Hub ). Instructions for
 standing up a self-hosted environment can be found [here](/engine/security/trust/deploying_notary/).
 
-To sign a Docker Image you will need a delegation key pair. These keys
-can be generated locally using `$ docker trust key generate` or generated
+To sign a iEchor Image you will need a delegation key pair. These keys
+can be generated locally using `$ iechor trust key generate` or generated
 by a certificate authority.
 
-First we will add the delegation private key to the local Docker trust
-repository. (By default this is stored in `~/.docker/trust/`). If you are
-generating delegation keys with `$ docker trust key generate`, the private key
+First we will add the delegation private key to the local iEchor trust
+repository. (By default this is stored in `~/.iechor/trust/`). If you are
+generating delegation keys with `$ iechor trust key generate`, the private key
 is automatically added to the local trust store. If you are importing a separate
 key, you will need to use the
-`$ docker trust key load` command.
+`$ iechor trust key load` command.
 
 ```console
-$ docker trust key generate jeff
+$ iechor trust key generate jeff
 Generating key for jeff...
 Enter passphrase for new jeff key with ID 9deed25:
 Repeat passphrase for new jeff key with ID 9deed25:
@@ -138,7 +138,7 @@ Successfully generated and loaded private key. Corresponding public key availabl
 Or if you have an existing key:
 
 ```console
-$ docker trust key load key.pem --name jeff
+$ iechor trust key load key.pem --name jeff
 Loading key from "key.pem"...
 Enter passphrase for new jeff key with ID 8ae710e:
 Repeat passphrase for new jeff key with ID 8ae710e:
@@ -154,7 +154,7 @@ role of delegations, head to
 [delegations for content trust](trust_delegation.md).
 
 ```console
-$ docker trust signer add --key cert.pem jeff registry.example.com/admin/demo
+$ iechor trust signer add --key cert.pem jeff registry.example.com/admin/demo
 Adding signer "jeff" to registry.example.com/admin/demo...
 Enter passphrase for new repository key with ID 10b5e94:
 ```
@@ -163,7 +163,7 @@ Finally, we will use the delegation private key to sign a particular tag and
 push it up to the registry.
 
 ```console
-$ docker trust sign registry.example.com/admin/demo:1
+$ iechor trust sign registry.example.com/admin/demo:1
 Signing and pushing trust data for local image registry.example.com/admin/demo:1, may overwrite remote trust data
 The push refers to repository [registry.example.com/admin/demo]
 7bff100f35cb: Pushed
@@ -174,12 +174,12 @@ Successfully signed registry.example.com/admin/demo:1
 ```
 
 Alternatively, once the keys have been imported an image can be pushed with the
-`$ docker push` command, by exporting the DCT environmental variable.
+`$ iechor push` command, by exporting the DCT environmental variable.
 
 ```console
-$ export DOCKER_CONTENT_TRUST=1
+$ export IECHOR_CONTENT_TRUST=1
 
-$ docker push registry.example.com/admin/demo:1
+$ iechor push registry.example.com/admin/demo:1
 The push refers to repository [registry.example.com/admin/demo:1]
 7bff100f35cb: Pushed
 1: digest: sha256:3d2e482b82608d153a374df3357c0291589a61cc194ec4a9ca2381073a17f58e size: 528
@@ -189,10 +189,10 @@ Successfully signed registry.example.com/admin/demo:1
 ```
 
 Remote trust data for a tag or a repository can be viewed by the
-`$ docker trust inspect` command:
+`$ iechor trust inspect` command:
 
 ```console
-$ docker trust inspect --pretty registry.example.com/admin/demo:1
+$ iechor trust inspect --pretty registry.example.com/admin/demo:1
 
 Signatures for registry.example.com/admin/demo:1
 
@@ -210,21 +210,21 @@ Administrative keys for registry.example.com/admin/demo:1
   Root Key:	84ca6e4416416d78c4597e754f38517bea95ab427e5f95871f90d460573071fc
 ```
 
-Remote Trust data for a tag can be removed by the `$ docker trust revoke` command:
+Remote Trust data for a tag can be removed by the `$ iechor trust revoke` command:
 
 ```console
-$ docker trust revoke registry.example.com/admin/demo:1
+$ iechor trust revoke registry.example.com/admin/demo:1
 Enter passphrase for signer key with ID 8ae710e:
 Successfully deleted signature for registry.example.com/admin/demo:1
 ```
 
-## Client enforcement with Docker Content Trust
+## Client enforcement with iEchor Content Trust
 
-Content trust is disabled by default in the Docker Client. To enable
-it, set the `DOCKER_CONTENT_TRUST` environment variable to `1`. This prevents
+Content trust is disabled by default in the iEchor Client. To enable
+it, set the `IECHOR_CONTENT_TRUST` environment variable to `1`. This prevents
 users from working with tagged images unless they contain a signature.
 
-When DCT is enabled in the Docker client, `docker` CLI commands that operate on
+When DCT is enabled in the iEchor client, `iechor` CLI commands that operate on
 tagged images must either have content signatures or explicit content hashes.
 The commands that operate with DCT are:
 
@@ -234,15 +234,15 @@ The commands that operate with DCT are:
 * `pull`
 * `run`
 
-For example, with DCT enabled a `docker pull someimage:latest` only
+For example, with DCT enabled a `iechor pull someimage:latest` only
 succeeds if `someimage:latest` is signed. However, an operation with an explicit
 content hash always succeeds as long as the hash exists:
 
 ```console
-$ docker pull registry.example.com/user/image:1
+$ iechor pull registry.example.com/user/image:1
 Error: remote trust data does not exist for registry.example.com/user/image: registry.example.com does not have trust data for registry.example.com/user/image
 
-$ docker pull registry.example.com/user/image@sha256:d149ab53f8718e987c3a3024bb8aa0e2caadf6c0328f1d9d850b2a2a67f2819a
+$ iechor pull registry.example.com/user/image@sha256:d149ab53f8718e987c3a3024bb8aa0e2caadf6c0328f1d9d850b2a2a67f2819a
 sha256:ee7491c9c31db1ffb7673d91e9fac5d6354a89d0e97408567e09df069a1687c1: Pulling from user/image
 ff3a5c916c92: Pull complete
 a59a168caba3: Pull complete

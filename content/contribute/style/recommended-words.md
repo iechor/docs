@@ -76,11 +76,11 @@ Use `earlier` when talking about version numbers.
 
 Use:
 
-_In Docker Desktop 4.1 and earlier._
+_In iEchor Desktop 4.1 and earlier._
 
 Instead of:
 
-_In Docker Desktop 4.1 and lower._
+_In iEchor Desktop 4.1 and lower._
 
 #### easy, easily
 
@@ -112,11 +112,11 @@ Use `later` when talking about version numbers.
 
 Use:
 
-_In Docker Desktop 4.1 and later._
+_In iEchor Desktop 4.1 and later._
 
 Instead of:
 
-_In Docker Desktop 4.1 and higher…_ or _In Docker Desktop 4.1 and above…_
+_In iEchor Desktop 4.1 and higher…_ or _In iEchor Desktop 4.1 and above…_
 
 #### please
 
@@ -152,7 +152,7 @@ Use `sign up` or `create account` instead of `register` when talking about creat
 
 Use `view` when referring to a major section in a UI. Use `tab` when referring to a sub-section in the UI. 
 
-For example, in Docker Desktop, the **Images** view and the **Local** tab.
+For example, in iEchor Desktop, the **Images** view and the **Local** tab.
 
 #### toggle
 
@@ -170,7 +170,7 @@ Don't use `vs` or `vs.` as an abbreviation for versus; instead, use the unabbrev
 
 #### we
 
-Try to avoid `we` and focus instead on how the user can carry out something in Docker.
+Try to avoid `we` and focus instead on how the user can carry out something in iEchor.
 
 Use:
 

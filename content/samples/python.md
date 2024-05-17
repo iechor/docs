@@ -1,5 +1,5 @@
 ---
 title: Python samples
-description: Docker samples for Python.
+description: iEchor samples for Python.
 service: python
 ---

@@ -7,11 +7,11 @@ keywords: compose, orchestration, environment, env file
 
 Use environment variables to pass configuration information to containers at runtime. 
 
-Environment variables are key-value pairs that contain data that can be used by processes running inside a Docker container. They are often used to configure application settings and other parameters that may vary between different environments, such as development, testing, and production.  
+Environment variables are key-value pairs that contain data that can be used by processes running inside a iEchor container. They are often used to configure application settings and other parameters that may vary between different environments, such as development, testing, and production.  
 
 > **Tip**
 >
-> Before using environment variables, read through all of the information first to get a full picture of environment variables in Docker Compose.
+> Before using environment variables, read through all of the information first to get a full picture of environment variables in iEchor Compose.
 { .tip }
 
 This section covers:

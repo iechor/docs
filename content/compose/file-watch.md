@@ -14,7 +14,7 @@ For many projects, this allows for a hands-off development workflow once Compose
 * All paths are relative to the project directory
 * Directories are watched recursively
 * Glob patterns aren't supported
-* Rules from `.dockerignore` apply
+* Rules from `.iechorignore` apply
   * Use `ignore` option to define additional paths to be ignored (same syntax)
   * Temporary/backup files for common IDEs (Vim, Emacs, JetBrains, & more) are ignored automatically
   * `.git` directories are ignored automatically
@@ -51,10 +51,10 @@ In order to work properly, `watch` relies on common executables. Make sure your 
 * rmdir
 
 `watch` also requires that the container's `USER` can write to the target path so it can update files. A common pattern is for 
-initial content to be copied into the container using the `COPY` instruction in a Dockerfile. To ensure such files are owned 
+initial content to be copied into the container using the `COPY` instruction in a iEchorfile. To ensure such files are owned 
 by the configured user, use the `COPY --chown` flag:
 
-```dockerfile
+```iechorfile
 # Run as a non-privileged user
 FROM node:18-alpine
 RUN useradd -ms /bin/sh -u 1001 app
@@ -83,7 +83,7 @@ More generally, `sync` rules can be used in place of bind mounts for many develo
 
 If `action` is set to `rebuild`, Compose automatically builds a new image with BuildKit and replaces the running service container.
 
-The behavior is the same as running `docker compose up --build <svc>`.
+The behavior is the same as running `iechor compose up --build <svc>`.
 
 Rebuild is ideal for compiled languages or as fallbacks for modifications to particular files that require a full
 image rebuild (e.g. `package.json`).
@@ -97,7 +97,7 @@ It will work well when you update a database configuration or your `nginx.conf` 
 
 >**Tip**
 >
-> Optimize your `Dockerfile` for speedy
+> Optimize your `iEchorfile` for speedy
 incremental rebuilds with [image layer caching](/build/cache)
 and [multi-stage builds](/build/building/multi-stage/).
 { .tip }
@@ -120,7 +120,7 @@ myproject/
 ├── web/
 │   ├── App.jsx
 │   └── index.js
-├── Dockerfile
+├── iEchorfile
 ├── compose.yaml
 └── package.json
 ```
@@ -141,7 +141,7 @@ services:
           path: package.json
 ```
 
-In this example, when running `docker compose up --watch`, a container for the `web` service is launched using an image built from the `Dockerfile` in the project's root.
+In this example, when running `iechor compose up --watch`, a container for the `web` service is launched using an image built from the `iEchorfile` in the project's root.
 The `web` service runs `npm start` for its command, which then launches a development version of the application with Hot Module Reload enabled in the bundler (Webpack, Vite, Turbopack, etc).
 
 After the service is up, the watch mode starts monitoring the target directories and files.
@@ -158,20 +158,20 @@ This pattern can be followed for many languages and frameworks, such as Python w
 ## Use `watch`
 
 1. Add `watch` sections to one or more services in `compose.yaml`.
-2. Run `docker compose up --watch` to build and launch a Compose project and start the file watch mode.
+2. Run `iechor compose up --watch` to build and launch a Compose project and start the file watch mode.
 3. Edit service source files using your preferred IDE or editor.
 
 > **Looking for a sample project to test things out?**
 >
-> Check out [`dockersamples/avatars`](https://github.com/dockersamples/avatars),
-> or [local setup for Docker docs](https://github.com/docker/docs/blob/main/CONTRIBUTING.md)
+> Check out [`iechorsamples/avatars`](https://github.com/iechorsamples/avatars),
+> or [local setup for iEchor docs](https://github.com/iechor/docs/blob/main/CONTRIBUTING.md)
 > for a demonstration of Compose `watch`.
 { .tip }
 
 
 > **Tip**
 >
-> Watch can also be used with the dedicated `docker compose watch` command if you don't want to 
+> Watch can also be used with the dedicated `iechor compose watch` command if you don't want to 
 > get the application logs mixed with the (re)build logs and filesystem sync events.
 { .tip }
 

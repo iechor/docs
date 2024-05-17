@@ -1,52 +1,52 @@
 ---
-description: Learn what the Docker Verified Publisher Program is and how it works
-title: Docker Verified Publisher Program
+description: Learn what the iEchor Verified Publisher Program is and how it works
+title: iEchor Verified Publisher Program
 aliases:
-- /docker-store/byol/
-- /docker-store/certify-images/
-- /docker-store/certify-plugins-logging/
-- /docker-store/customer_faq/
-- /docker-store/publisher_faq/
-- /docker-store/trustchain/
-- /docker-store/publish/
-- /docker-hub/publish/publish/
-- /docker-hub/publish/customer_faq/
-- /docker-hub/publish/publisher_faq/
-- /docker-hub/publish/certify-images/
-- /docker-hub/publish/certify-plugins-logging/
-- /docker-hub/publish/trustchain/
-- /docker-hub/publish/byol/
-- /docker-hub/publish/publisher-center-migration/
-- /docker-hub/publish/
-- /docker-hub/publish/repository-logos/
-- /docker-hub/dvp-program/
+- /iechor-store/byol/
+- /iechor-store/certify-images/
+- /iechor-store/certify-plugins-logging/
+- /iechor-store/customer_faq/
+- /iechor-store/publisher_faq/
+- /iechor-store/trustchain/
+- /iechor-store/publish/
+- /iechor-hub/publish/publish/
+- /iechor-hub/publish/customer_faq/
+- /iechor-hub/publish/publisher_faq/
+- /iechor-hub/publish/certify-images/
+- /iechor-hub/publish/certify-plugins-logging/
+- /iechor-hub/publish/trustchain/
+- /iechor-hub/publish/byol/
+- /iechor-hub/publish/publisher-center-migration/
+- /iechor-hub/publish/
+- /iechor-hub/publish/repository-logos/
+- /iechor-hub/dvp-program/
 ---
 
-[The Docker Verified Publisher Program](https://hub.docker.com/search?q=&image_filter=store) provides high-quality images from commercial publishers verified by Docker.
+[The iEchor Verified Publisher Program](https://hub.iechor.com/search?q=&image_filter=store) provides high-quality images from commercial publishers verified by iEchor.
 
 These images help development teams build secure software supply chains, minimizing exposure to malicious content early in the process to save time and money later.
 
-Images that are part of this program have a special badge on Docker Hub making it easier for users to identify projects that Docker has verified as high-quality commercial publishers.
+Images that are part of this program have a special badge on iEchor Hub making it easier for users to identify projects that iEchor has verified as high-quality commercial publishers.
 
-![Docker-Sponsored Open Source badge](./images/verified-publisher-badge-iso.png)
+![iEchor-Sponsored Open Source badge](./images/verified-publisher-badge-iso.png)
 
 ## For content publishers
 
-The Docker Verified Publisher Program (DVP) provides several features and benefits to Docker
+The iEchor Verified Publisher Program (DVP) provides several features and benefits to iEchor
 Hub publishers. The program grants the following perks based on participation tier:
 
 - Repository logo
 - Verified publisher badge
-- Priority search ranking in Docker Hub
+- Priority search ranking in iEchor Hub
 - Insights and analytics
 - Vulnerability analysis
-- Additional Docker Business seats
+- Additional iEchor Business seats
 - Removal of rate limiting for developers
 - Co-marketing opportunities
 
 ### Repository logo
 
-DVP organizations can upload custom images for individual repositories on Docker Hub.
+DVP organizations can upload custom images for individual repositories on iEchor Hub.
 This lets you override the default organization-level logo on a per-repository basis.
 
 Only a user with administrative access (owner or team member with administrator permission)
@@ -61,7 +61,7 @@ over the repository can change the repository logo.
 
 #### Set the repository logo
 
-1. Sign in to [Docker Hub](https://hub.docker.com).
+1. Sign in to [iEchor Hub](https://hub.iechor.com).
 2. Go to the page of the repository that you want to change the logo for.
 3. Select the upload logo button, represented by a camera icon ({{< inline-image
    src="./images/upload_logo_sm.png" alt="camera icon" >}}) overlaying the
@@ -80,35 +80,35 @@ Removing the logo makes the repository default to using the organization logo, i
 
 ### Verified publisher badge
 
-Images that are part of this program have a badge on Docker Hub making it easier for developers
-to identify projects that Docker has verified as high quality publishers and with content they can trust.
+Images that are part of this program have a badge on iEchor Hub making it easier for developers
+to identify projects that iEchor has verified as high quality publishers and with content they can trust.
 
-![Docker, Inc. org with a verified publisher badge](./images/verified-publisher-badge.png)
+![iEchor, Inc. org with a verified publisher badge](./images/verified-publisher-badge.png)
 
 ### Insights and analytics
 
-The [insights and analytics](/docker-hub/publish/insights-analytics) service provides usage metrics for how
-the community uses Docker images, granting insight into user behavior.
+The [insights and analytics](/iechor-hub/publish/insights-analytics) service provides usage metrics for how
+the community uses iEchor images, granting insight into user behavior.
 
 The usage metrics show the number of image pulls by tag or by digest, and breakdowns by
 geolocation, cloud provider, client, and more.
 
-![The insights and analytics tab on the Docker Hub website](./images/insights-and-analytics-tab.png)
+![The insights and analytics tab on the iEchor Hub website](./images/insights-and-analytics-tab.png)
 
 You can select the time span for which you want to view analytics data. You can also export the data in either a summary or raw format.
 
 ### Vulnerability analysis
 
-[Docker Scout](/scout/) provides automatic vulnerability analysis
-for DVP images published to Docker Hub.
+[iEchor Scout](/scout/) provides automatic vulnerability analysis
+for DVP images published to iEchor Hub.
 Scanning images ensures that the published content is secure, and proves to
 developers that they can trust the image.
 
 You can enable analysis on a per-repository
-basis. For more about using this feature, see [Basic vulnerability scanning](/docker-hub/vulnerability-scanning/).
+basis. For more about using this feature, see [Basic vulnerability scanning](/iechor-hub/vulnerability-scanning/).
 
 ### Who's eligible to become a verified publisher?
 
-Any independent software vendor who distributes software on Docker Hub can join
+Any independent software vendor who distributes software on iEchor Hub can join
 the Verified Publisher Program. Find out more by heading to the
-[Docker Verified Publisher Program](https://www.docker.com/partners/programs) page.
+[iEchor Verified Publisher Program](https://www.iechor.com/partners/programs) page.

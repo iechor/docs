@@ -1,5 +1,5 @@
 ---
-description: Guide to using Docker Compose in production
+description: Guide to using iEchor Compose in production
 keywords: compose, orchestration, containers, production
 title: Use Compose in production
 ---
@@ -34,7 +34,7 @@ Once you have a second configuration file, you can use it with the
 `-f` option:
 
 ```console
-$ docker compose -f compose.yml -f production.yml up -d
+$ iechor compose -f compose.yml -f production.yml up -d
 ```
 
 See [Using multiple compose files](multiple-compose-files/index.md) for a more complete example, and other options.
@@ -46,8 +46,8 @@ recreate your app's containers. To redeploy a service called
 `web`, use:
 
 ```console
-$ docker compose build web
-$ docker compose up --no-deps -d web
+$ iechor compose build web
+$ iechor compose up --no-deps -d web
 ```
 
 This first command rebuilds the image for `web` and then stops, destroys, and recreates
@@ -56,9 +56,9 @@ recreating any services which `web` depends on.
 
 ### Running Compose on a single server
 
-You can use Compose to deploy an app to a remote Docker host by setting the
-`DOCKER_HOST`, `DOCKER_TLS_VERIFY`, and `DOCKER_CERT_PATH` environment variables
+You can use Compose to deploy an app to a remote iEchor host by setting the
+`IECHOR_HOST`, `IECHOR_TLS_VERIFY`, and `IECHOR_CERT_PATH` environment variables
 appropriately. For more information, see [pre-defined environment variables](environment-variables/envvars.md).
 
-Once you've set up your environment variables, all the normal `docker compose`
+Once you've set up your environment variables, all the normal `iechor compose`
 commands work with no further configuration.

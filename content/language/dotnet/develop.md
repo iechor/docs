@@ -17,12 +17,12 @@ In this section, you'll learn how to set up a development environment for your c
 
 ## Update the application
 
-This section uses a different branch of the `docker-dotnet-sample` repository
+This section uses a different branch of the `iechor-dotnet-sample` repository
 that contains an updated .NET application. The updated application is on the
 `add-db` branch of the repository you cloned in [Containerize a .NET
 application](containerize.md).
 
-To get the updated code, you need to checkout the `add-db` branch. For the changes you made in [Containerize a .NET application](containerize.md), for this section, you can stash them. In a terminal, run the following commands in the `docker-dotnet-sample` directory.
+To get the updated code, you need to checkout the `add-db` branch. For the changes you made in [Containerize a .NET application](containerize.md), for this section, you can stash them. In a terminal, run the following commands in the `iechor-dotnet-sample` directory.
 
 1. Stash any previous changes.
 
@@ -36,12 +36,12 @@ To get the updated code, you need to checkout the `add-db` branch. For the chang
    $ git checkout add-db
    ```
 
-In the `add-db` branch, only the .NET application has been updated. None of the Docker assets have been updated yet.
+In the `add-db` branch, only the .NET application has been updated. None of the iEchor assets have been updated yet.
 
-You should now have the following in your `docker-dotnet-sample` directory.
+You should now have the following in your `iechor-dotnet-sample` directory.
 
 ```text
-├── docker-dotnet-sample/
+├── iechor-dotnet-sample/
 │ ├── .git/
 │ ├── src/
 │ │ ├── Data/
@@ -57,11 +57,11 @@ You should now have the following in your `docker-dotnet-sample` directory.
 │ │ ├── tests.csproj
 │ │ ├── UnitTest1.cs
 │ │ └── Usings.cs
-│ ├── .dockerignore
+│ ├── .iechorignore
 │ ├── .gitignore
 │ ├── compose.yaml
-│ ├── Dockerfile
-│ ├── README.Docker.md
+│ ├── iEchorfile
+│ ├── README.iEchor.md
 │ └── README.md
 ```
 
@@ -73,7 +73,7 @@ You can use containers to set up local services, like a database. In this sectio
 Open the `compose.yaml` file in an IDE or text editor. You'll notice it
 already contains commented-out instructions for a PostgreSQL database and volume.
 
-Open `docker-dotnet-sample/src/appsettings.json` in an IDE or text editor. You'll
+Open `iechor-dotnet-sample/src/appsettings.json` in an IDE or text editor. You'll
 notice the connection string with all the database information. The
 `compose.yaml` already contains this information, but it's commented out.
 Uncomment the database instructions in the `compose.yaml` file.
@@ -125,7 +125,7 @@ Before you run the application using Compose, notice that this Compose file uses
 `secrets` and specifies a `password.txt` file to hold the database's password.
 You must create this file as it's not included in the source repository.
 
-In the `docker-dotnet-sample` directory, create a new directory named `db` and
+In the `iechor-dotnet-sample` directory, create a new directory named `db` and
 inside that directory create a file named `password.txt`. Open `password.txt` in an IDE or text editor and add the following password. The password must be on a single line, with no additional lines in the file.
 
 ```text
@@ -134,27 +134,27 @@ example
 
 Save and close the `password.txt` file.
 
-You should now have the following in your `docker-dotnet-sample` directory.
+You should now have the following in your `iechor-dotnet-sample` directory.
 
 ```text
-├── docker-dotnet-sample/
+├── iechor-dotnet-sample/
 │ ├── .git/
 │ ├── db/
 │ │ └── password.txt
 │ ├── src/
 │ ├── tests/
-│ ├── .dockerignore
+│ ├── .iechorignore
 │ ├── .gitignore
 │ ├── compose.yaml
-│ ├── Dockerfile
-│ ├── README.Docker.md
+│ ├── iEchorfile
+│ ├── README.iEchor.md
 │ └── README.md
 ```
 
 Run the following command to start your application.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
 Open a browser and view the application at [http://localhost:8080](http://localhost:8080). You should see a simple web application with the text `Student name is`.
@@ -165,27 +165,27 @@ The application doesn't display a name because the database is empty. For this a
 
 For the sample application, you must access the database directly to create sample records.
 
-You can run commands inside the database container using the `docker exec`
+You can run commands inside the database container using the `iechor exec`
 command. Before running that command, you must get the ID of the database
 container. Open a new terminal window and run the following command to list all
 your running containers.
 
 ```console
-$ docker container ls
+$ iechor container ls
 ```
 
 You should see output like the following.
 
 ```console
 CONTAINER ID   IMAGE                  COMMAND                  CREATED              STATUS                        PORTS                  NAMES
-cb36e310aa7e   docker-dotnet-server   "dotnet myWebApp.dll"    About a minute ago   Up About a minute             0.0.0.0:8080->80/tcp   docker-dotnet-server-1
-39fdcf0aff7b   postgres               "docker-entrypoint.s…"   About a minute ago   Up About a minute (healthy)   5432/tcp               docker-dotnet-db-1
+cb36e310aa7e   iechor-dotnet-server   "dotnet myWebApp.dll"    About a minute ago   Up About a minute             0.0.0.0:8080->80/tcp   iechor-dotnet-server-1
+39fdcf0aff7b   postgres               "iechor-entrypoint.s…"   About a minute ago   Up About a minute (healthy)   5432/tcp               iechor-dotnet-db-1
 ```
 
 In the previous example, the container ID is `39fdcf0aff7b`. Run the following command to connect to the postgres database in the container. Replace the container ID with your own container ID.
 
 ```console
-$ docker exec -it 39fdcf0aff7b psql -d example -U postgres
+$ iechor exec -it 39fdcf0aff7b psql -d example -U postgres
 ```
 
 And finally, insert a record into the database.
@@ -212,11 +212,11 @@ Open a browser and view the application at [http://localhost:8080](http://localh
 
 Press `ctrl+c` in the terminal to stop your application.
 
-In the terminal, run `docker compose rm` to remove your containers and then run `docker compose up` to run your application again.
+In the terminal, run `iechor compose rm` to remove your containers and then run `iechor compose up` to run your application again.
 
 ```console
-$ docker compose rm
-$ docker compose up --build
+$ iechor compose rm
+$ iechor compose up --build
 ```
 
 Refresh [http://localhost:8080](http://localhost:8080) in your browser and verify that the student name persisted, even after the containers were removed and ran again.
@@ -271,7 +271,7 @@ secrets:
 Run the following command to run your application with Compose Watch.
 
 ```console
-$ docker compose watch
+$ iechor compose watch
 ```
 
 Open a browser and verify that the application is running at [http://localhost:8080](http://localhost:8080).
@@ -279,7 +279,7 @@ Open a browser and verify that the application is running at [http://localhost:8
 Any changes to the application's source files on your local machine will now be
 immediately reflected in the running container.
 
-Open `docker-dotnet-sample/src/Pages/Index.cshtml` in an IDE or text editor and update the student name text on line 13 from `Student name is` to `Student name:`.
+Open `iechor-dotnet-sample/src/Pages/Index.cshtml` in an IDE or text editor and update the student name text on line 13 from `Student name is` to `Student name:`.
 
 ```diff
 -    <p>Student Name is @Model.StudentName</p>
@@ -292,14 +292,14 @@ Press `ctrl+c` in the terminal to stop your application.
 
 ## Create a development container
 
-At this point, when you run your containerized application, it's using the .NET runtime image. While this small image is good for production, it lacks the SDK tools and dependencies you may need when developing. Also, during development, you may not need to run `dotnet publish`. You can use multi-stage builds to build stages for both development and production in the same Dockerfile. For more details, see [Multi-stage builds](../../build/building/multi-stage.md).
+At this point, when you run your containerized application, it's using the .NET runtime image. While this small image is good for production, it lacks the SDK tools and dependencies you may need when developing. Also, during development, you may not need to run `dotnet publish`. You can use multi-stage builds to build stages for both development and production in the same iEchorfile. For more details, see [Multi-stage builds](../../build/building/multi-stage.md).
 
-Add a new development stage to your Dockerfile and update your `compose.yaml` file to use this stage for local development.
+Add a new development stage to your iEchorfile and update your `compose.yaml` file to use this stage for local development.
 
-The following is the updated Dockerfile.
+The following is the updated iEchorfile.
 
-```Dockerfile {hl_lines="10-13"}
-# syntax=docker/dockerfile:1
+```iEchorfile {hl_lines="10-13"}
+# syntax=iechor/iechorfile:1
 
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 ARG TARGETARCH
@@ -388,6 +388,6 @@ Related information:
 
 ## Next steps
 
-In the next section, you'll learn how to run unit tests using Docker.
+In the next section, you'll learn how to run unit tests using iEchor.
 
 {{< button text="Run your tests" url="run-tests.md" >}}

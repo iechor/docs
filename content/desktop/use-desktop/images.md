@@ -1,14 +1,14 @@
 ---
-description: Understand what you can do with the Images view on Docker Dashboard
-keywords: Docker Dashboard, manage, containers, gui, dashboard, images, user manual
-title: Explore the Images view in Docker Desktop
+description: Understand what you can do with the Images view on iEchor Dashboard
+keywords: iEchor Dashboard, manage, containers, gui, dashboard, images, user manual
+title: Explore the Images view in iEchor Desktop
 ---
 
-The **Images** view lets you manage Docker images without having to use the CLI. By default, it displays a list of all Docker images on your local disk. 
+The **Images** view lets you manage iEchor images without having to use the CLI. By default, it displays a list of all iEchor images on your local disk. 
 
-You can also view Hub images once you have signed in to Docker Hub. This allows you to collaborate with your team and manage your images directly through Docker Desktop.
+You can also view Hub images once you have signed in to iEchor Hub. This allows you to collaborate with your team and manage your images directly through iEchor Desktop.
 
-The **Images** view lets you perform core operations such as running an image as a container, pulling the latest version of an image from Docker Hub, pushing the image to Docker Hub, and inspecting images.
+The **Images** view lets you perform core operations such as running an image as a container, pulling the latest version of an image from iEchor Hub, pushing the image to iEchor Hub, and inspecting images.
 
 It also displays metadata about the image such as the:
 - Tag
@@ -52,24 +52,24 @@ To inspect an image, select the image row. Inspecting an image displays detailed
 - Vulnerabilities found
 - Packages inside the image
 
-[Docker Scout](../../scout/index.md) powers this vulnerability information.
+[iEchor Scout](../../scout/index.md) powers this vulnerability information.
 For more information about this view, see [Image details view](../../scout/image-details-view.md)
 
-## Pull the latest image from Docker Hub
+## Pull the latest image from iEchor Hub
 
 Select the image from the list, select the **More options** button and select **Pull**.
 
 > **Note**
 >
-> The repository must exist on Docker Hub in order to pull the latest version of an image. You must be signed in to pull private images.
+> The repository must exist on iEchor Hub in order to pull the latest version of an image. You must be signed in to pull private images.
 
-## Push an image to Docker Hub
+## Push an image to iEchor Hub
 
 Select the image from the list, select the **More options** button and select **Push to Hub**.
 
 > **Note**
 >
-> You can only push an image to Docker Hub if the image belongs to your Docker ID or your organization. That is, the image must contain the correct username/organization in its tag to be able to push it to Docker Hub.
+> You can only push an image to iEchor Hub if the image belongs to your iEchor ID or your organization. That is, the image must contain the correct username/organization in its tag to be able to push it to iEchor Hub.
 
 ## Remove an image
 
@@ -81,26 +81,26 @@ An unused image is an image which is not used by any running or stopped containe
 
 To remove individual images, select the bin icon. 
 
-## Docker Hub repositories
+## iEchor Hub repositories
 
-The **Images** view also allows you to manage and interact with images in Docker Hub repositories.
-By default, when you go to **Images** in Docker Desktop, you see a list of images that exist in your local image store.
+The **Images** view also allows you to manage and interact with images in iEchor Hub repositories.
+By default, when you go to **Images** in iEchor Desktop, you see a list of images that exist in your local image store.
 The **Local** and **Hub** tabs near the top toggles between viewing images in your local image store,
-and images in remote Docker Hub repositories that you have access to.
+and images in remote iEchor Hub repositories that you have access to.
 
-Switching to the **Hub** tab prompts you to sign in to your Docker Hub account, if you're not already signed in.
-When signed in, it shows you a list of images in Docker Hub organizations and repositories that you have access to.
+Switching to the **Hub** tab prompts you to sign in to your iEchor Hub account, if you're not already signed in.
+When signed in, it shows you a list of images in iEchor Hub organizations and repositories that you have access to.
 
 Select an organization from the drop-down to view a list of repositories for that organization.
 
-If you have enabled [Docker Scout](../../scout/_index.md) on the repositories, image analysis results appear next to the image tags.
+If you have enabled [iEchor Scout](../../scout/_index.md) on the repositories, image analysis results appear next to the image tags.
 
 Hovering over an image tag reveals two options:
 
-- **Pull**: Pull the latest version of the image from Docker Hub.
-- **View in Hub**: Open the Docker Hub page and display detailed information about the image.
+- **Pull**: Pull the latest version of the image from iEchor Hub.
+- **View in Hub**: Open the iEchor Hub page and display detailed information about the image.
 
 ## Additional resources
 
-- [Run Docker Hub images](../../guides/walkthroughs/run-hub-images.md)
+- [Run iEchor Hub images](../../guides/walkthroughs/run-hub-images.md)
 - [Publish your image](../../guides/walkthroughs/publish-your-image.md)

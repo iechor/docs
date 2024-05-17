@@ -1,7 +1,7 @@
 ---
 title: Use-case guides
 keywords: guide, use-case
-description: Learn how to accomplish tasks with Docker.
+description: Learn how to accomplish tasks with iEchor.
 notoc: true
 
 grid_genai:
@@ -14,7 +14,7 @@ grid_genai:
   icon: play_circle
   link: /guides/use-case/genai-video-bot/
 - title: Face detection with TensorFlow.js
-  description: Explore a face detection app built with TensorFlow.js and Docker.
+  description: Explore a face detection app built with TensorFlow.js and iEchor.
   icon: face
   link: /guides/use-case/tensorflowjs/
 - title: Language translation
@@ -39,9 +39,9 @@ grid_genai:
   icon: summarize
 ---
 
-Explore this collection of use-case guides designed to help you leverage Docker
+Explore this collection of use-case guides designed to help you leverage iEchor
 for a variety of advanced applications. From generative AI to security, discover
-how Docker can streamline your projects and workflows.
+how iEchor can streamline your projects and workflows.
 
 ## Data science
 

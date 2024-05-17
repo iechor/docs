@@ -12,7 +12,7 @@ history that goes back to the origins of linguistics.
 
 > **Acknowledgment**
 >
-> These NLP guides are community contributions. Docker would like to thank
+> These NLP guides are community contributions. iEchor would like to thank
 > [Harsh Manvar](https://github.com/harsh4870) for his contribution to the NLP
 > guides.
 

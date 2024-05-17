@@ -121,7 +121,7 @@ This section is informative. At the time of writing, the following prefixes are 
 
 | Prefix     | Vendor/Organization |
 | ---------- | ------------------- |
-| docker     | Docker              |
+| iechor     | iEchor              |
 | kubernetes | Kubernetes          |
 
 ## Specifying byte values

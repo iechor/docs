@@ -22,7 +22,7 @@ with the values you want to set/override and use it in the list of regular
 output files.
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 variable "FOO" {
   default = "abc"
 }
@@ -37,7 +37,7 @@ target "app" {
 You can use this file directly:
 
 ```console
-$ docker buildx bake --print app
+$ iechor buildx bake --print app
 ```
 
 ```json
@@ -50,7 +50,7 @@ $ docker buildx bake --print app
   "target": {
     "app": {
       "context": ".",
-      "dockerfile": "Dockerfile",
+      "iechorfile": "iEchorfile",
       "args": {
         "v1": "pre-abc"
       }
@@ -70,7 +70,7 @@ FOO="def-${WHOAMI}"
 And invoke bake together with both of the files:
 
 ```console
-$ docker buildx bake -f docker-bake.hcl -f env.hcl --print app
+$ iechor buildx bake -f iechor-bake.hcl -f env.hcl --print app
 ```
 
 ```json
@@ -83,7 +83,7 @@ $ docker buildx bake -f docker-bake.hcl -f env.hcl --print app
   "target": {
     "app": {
       "context": ".",
-      "dockerfile": "Dockerfile",
+      "iechorfile": "iEchorfile",
       "args": {
         "v1": "pre-def-myuser"
       }
@@ -98,13 +98,13 @@ You can also refer to attributes defined as part of other targets, to help
 reduce duplication between targets.
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 target "foo" {
-  dockerfile = "${target.foo.name}.Dockerfile"
+  iechorfile = "${target.foo.name}.iEchorfile"
   tags       = [target.foo.name]
 }
 target "bar" {
-  dockerfile = "${target.foo.name}.Dockerfile"
+  iechorfile = "${target.foo.name}.iEchorfile"
   tags       = [target.bar.name]
 }
 ```
@@ -112,7 +112,7 @@ target "bar" {
 You can use this file directly:
 
 ```console
-$ docker buildx bake --print foo bar
+$ iechor buildx bake --print foo bar
 ```
 
 ```json
@@ -125,12 +125,12 @@ $ docker buildx bake --print foo bar
   "target": {
     "foo": {
       "context": ".",
-      "dockerfile": "foo.Dockerfile",
+      "iechorfile": "foo.iEchorfile",
       "tags": ["foo"]
     },
     "bar": {
       "context": ".",
-      "dockerfile": "foo.Dockerfile",
+      "iechorfile": "foo.iEchorfile",
       "tags": ["bar"]
     }
   }
@@ -140,10 +140,10 @@ $ docker buildx bake --print foo bar
 ## From command line
 
 You can also override target configurations from the command line with the
-[`--set` flag](../../reference/cli/docker/buildx/bake.md#set):
+[`--set` flag](../../reference/cli/iechor/buildx/bake.md#set):
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 target "app" {
   args = {
     mybuildarg = "foo"
@@ -152,7 +152,7 @@ target "app" {
 ```
 
 ```console
-$ docker buildx bake --set app.args.mybuildarg=bar --set app.platform=linux/arm64 app --print
+$ iechor buildx bake --set app.args.mybuildarg=bar --set app.platform=linux/arm64 app --print
 ```
 
 ```json
@@ -165,7 +165,7 @@ $ docker buildx bake --set app.args.mybuildarg=bar --set app.platform=linux/arm6
   "target": {
     "app": {
       "context": ".",
-      "dockerfile": "Dockerfile",
+      "iechorfile": "iEchorfile",
       "args": {
         "mybuildarg": "bar"
       },
@@ -179,9 +179,9 @@ Pattern matching syntax defined in [https://golang.org/pkg/path/#Match](https://
 is also supported:
 
 ```console
-$ docker buildx bake --set foo*.args.mybuildarg=value  # overrides build arg for all targets starting with "foo"
-$ docker buildx bake --set *.platform=linux/arm64      # overrides platform for all targets
-$ docker buildx bake --set foo*.no-cache               # bypass caching only for targets starting with "foo"
+$ iechor buildx bake --set foo*.args.mybuildarg=value  # overrides build arg for all targets starting with "foo"
+$ iechor buildx bake --set *.platform=linux/arm64      # overrides platform for all targets
+$ iechor buildx bake --set foo*.no-cache               # bypass caching only for targets starting with "foo"
 ```
 
 Complete list of overridable fields:
@@ -190,7 +190,7 @@ Complete list of overridable fields:
 - `cache-from`
 - `cache-to`
 - `context`
-- `dockerfile`
+- `iechorfile`
 - `labels`
 - `no-cache`
 - `output`
@@ -207,7 +207,7 @@ When multiple files are specified, one file can use variables defined in
 another file.
 
 ```hcl
-# docker-bake1.hcl
+# iechor-bake1.hcl
 variable "FOO" {
   default = upper("${BASE}def")
 }
@@ -224,7 +224,7 @@ target "app" {
 ```
 
 ```hcl
-# docker-bake2.hcl
+# iechor-bake2.hcl
 variable "BASE" {
   default = "abc"
 }
@@ -237,7 +237,7 @@ target "app" {
 ```
 
 ```console
-$ docker buildx bake -f docker-bake1.hcl -f docker-bake2.hcl --print app
+$ iechor buildx bake -f iechor-bake1.hcl -f iechor-bake2.hcl --print app
 ```
 
 ```json
@@ -250,7 +250,7 @@ $ docker buildx bake -f docker-bake1.hcl -f docker-bake2.hcl --print app
   "target": {
     "app": {
       "context": ".",
-      "dockerfile": "Dockerfile",
+      "iechorfile": "iEchorfile",
       "args": {
         "v1": "pre--ABCDEF-",
         "v2": "ABCDEF-post"

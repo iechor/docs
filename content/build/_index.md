@@ -1,6 +1,6 @@
 ---
-title: Overview of Docker Build
-description: Get an overview of Docker Build to package and bundle your code and ship it anywhere
+title: Overview of iEchor Build
+description: Get an overview of iEchor Build to package and bundle your code and ship it anywhere
 keywords: build, buildx, buildkit
 grid:
 - title: Packaging your software
@@ -30,7 +30,7 @@ grid:
   icon: engineering
   link: /build/drivers/
 - title: Exporters
-  description: Export any artifact you like, not just Docker images.
+  description: Export any artifact you like, not just iEchor images.
   icon: output
   link: /build/exporters
 - title: Build caching
@@ -47,12 +47,12 @@ aliases:
 - /develop/develop-images/build_enhancements/
 ---
 
-Docker Build is one of Docker Engine's most used features. Whenever you are
-creating an image you are using Docker Build. Build is a key part of your
+iEchor Build is one of iEchor Engine's most used features. Whenever you are
+creating an image you are using iEchor Build. Build is a key part of your
 software development life cycle allowing you to package and bundle your code and
 ship it anywhere.
 
-Docker Build is more than a command for building images, and it's not only about
+iEchor Build is more than a command for building images, and it's not only about
 packaging your code. It's a whole ecosystem of tools and features that support
 not only common workflow tasks but also provides support for more complex and
 advanced scenarios.

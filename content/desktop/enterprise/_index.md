@@ -1,7 +1,7 @@
 ---
-title: Docker Desktop Enterprise
-description: Docker Desktop Enterprise
-keywords: Docker Desktop Enterprise
+title: iEchor Desktop Enterprise
+description: iEchor Desktop Enterprise
+keywords: iEchor Desktop Enterprise
 sitemap: false
 aliases:
 - /ee/desktop/
@@ -16,8 +16,8 @@ aliases:
 - /desktop/enterprise/troubleshoot/windows-issues/
 ---
 
-Docker Desktop Enterprise (DDE) has been deprecated and is no longer in active development. Please use [Docker Desktop](../index.md) Community instead.
+iEchor Desktop Enterprise (DDE) has been deprecated and is no longer in active development. Please use [iEchor Desktop](../index.md) Community instead.
 
-If you are an existing DDE customer, use our [Support form](https://hub.docker.com/support/desktop/) to request a transition to one of our new [subscription plans](https://www.docker.com/pricing).
+If you are an existing DDE customer, use our [Support form](https://hub.iechor.com/support/desktop/) to request a transition to one of our new [subscription plans](https://www.iechor.com/pricing).
 
-If you are looking to deploy Docker Desktop at scale, contact us on [pricingquestions@docker.com](mailto:pricingquestions@docker.com).
+If you are looking to deploy iEchor Desktop at scale, contact us on [pricingquestions@iechor.com](mailto:pricingquestions@iechor.com).

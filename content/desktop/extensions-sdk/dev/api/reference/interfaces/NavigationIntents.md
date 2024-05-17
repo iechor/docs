@@ -1,6 +1,6 @@
 ---
-description: Docker extension API reference
-keywords: Docker, extensions, sdk, API, reference
+description: iEchor extension API reference
+keywords: iEchor, extensions, sdk, API, reference
 ---
 
 # Interface: NavigationIntents
@@ -15,7 +15,7 @@ keywords: Docker, extensions, sdk, API, reference
 
 ▸ **viewContainers**(): `Promise`<`void`\>
 
-Navigate to the **Containers** tab in Docker Desktop.
+Navigate to the **Containers** tab in iEchor Desktop.
 
 ```typescript
 ddClient.desktopUI.navigate.viewContainers()
@@ -31,7 +31,7 @@ ___
 
 ▸ **viewContainer**(`id`): `Promise`<`void`\>
 
-Navigate to the **Container** tab in Docker Desktop.
+Navigate to the **Container** tab in iEchor Desktop.
 
 ```typescript
 await ddClient.desktopUI.navigate.viewContainer(id)
@@ -41,7 +41,7 @@ await ddClient.desktopUI.navigate.viewContainer(id)
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `docker ps` command to display the full container id. |
+| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `iechor ps` command to display the full container id. |
 
 #### Returns
 
@@ -55,7 +55,7 @@ ___
 
 ▸ **viewContainerLogs**(`id`): `Promise`<`void`\>
 
-Navigate to the **Container logs** tab in Docker Desktop.
+Navigate to the **Container logs** tab in iEchor Desktop.
 
 ```typescript
 await ddClient.desktopUI.navigate.viewContainerLogs(id)
@@ -65,7 +65,7 @@ await ddClient.desktopUI.navigate.viewContainerLogs(id)
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `docker ps` command to display the full container id. |
+| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `iechor ps` command to display the full container id. |
 
 #### Returns
 
@@ -79,7 +79,7 @@ ___
 
 ▸ **viewContainerInspect**(`id`): `Promise`<`void`\>
 
-Navigate to the **Inspect container** view in Docker Desktop.
+Navigate to the **Inspect container** view in iEchor Desktop.
 
 ```typescript
 await ddClient.desktopUI.navigate.viewContainerInspect(id)
@@ -89,7 +89,7 @@ await ddClient.desktopUI.navigate.viewContainerInspect(id)
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `docker ps` command to display the full container id. |
+| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `iechor ps` command to display the full container id. |
 
 #### Returns
 
@@ -103,7 +103,7 @@ ___
 
 ▸ **viewContainerTerminal**(`id`): `Promise`<`void`\>
 
-Navigate to the container terminal window in Docker Desktop.
+Navigate to the container terminal window in iEchor Desktop.
 
 ```typescript
 await ddClient.desktopUI.navigate.viewContainerTerminal(id)
@@ -117,7 +117,7 @@ await ddClient.desktopUI.navigate.viewContainerTerminal(id)
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `docker ps` command to display the full container id. |
+| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `iechor ps` command to display the full container id. |
 
 #### Returns
 
@@ -141,7 +141,7 @@ await ddClient.desktopUI.navigate.viewContainerStats(id)
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `docker ps` command to display the full container id. |
+| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `iechor ps` command to display the full container id. |
 
 #### Returns
 
@@ -157,7 +157,7 @@ ___
 
 ▸ **viewImages**(): `Promise`<`void`\>
 
-Navigate to the **Images** tab in Docker Desktop.
+Navigate to the **Images** tab in iEchor Desktop.
 
 ```typescript
 await ddClient.desktopUI.navigate.viewImages()
@@ -173,7 +173,7 @@ ___
 
 ▸ **viewImage**(`id`, `tag`): `Promise`<`void`\>
 
-Navigate to a specific image referenced by `id` and `tag` in Docker Desktop.
+Navigate to a specific image referenced by `id` and `tag` in iEchor Desktop.
 In this navigation route you can find the image layers, commands, created time and size.
 
 ```typescript
@@ -201,7 +201,7 @@ ___
 
 ▸ **viewDevEnvironments**(): `Promise`<`void`\>
 
-Navigate to the Dev Environments window in Docker Desktop.
+Navigate to the Dev Environments window in iEchor Desktop.
 
 ```typescript
 ddClient.desktopUI.navigate.viewDevEnvironments()
@@ -219,7 +219,7 @@ ___
 
 ▸ **viewVolumes**(): `Promise`<`void`\>
 
-Navigate to the **Volumes** tab in Docker Desktop.
+Navigate to the **Volumes** tab in iEchor Desktop.
 
 ```typescript
 ddClient.desktopUI.navigate.viewVolumes()
@@ -235,7 +235,7 @@ ___
 
 ▸ **viewVolume**(`volume`): `Promise`<`void`\>
 
-Navigate to a specific volume in Docker Desktop.
+Navigate to a specific volume in iEchor Desktop.
 
 ```typescript
 await ddClient.desktopUI.navigate.viewVolume(volume)

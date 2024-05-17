@@ -1,19 +1,19 @@
 ---
-title: Install Docker Scout
-description: Installation instructions for the Docker Scout CLI plugin
+title: Install iEchor Scout
+description: Installation instructions for the iEchor Scout CLI plugin
 keywords: scout, cli, install, download
 ---
 
-The Docker Scout CLI plugin comes pre-installed with Docker Desktop.
+The iEchor Scout CLI plugin comes pre-installed with iEchor Desktop.
 
-If you run Docker Engine without Docker Desktop,
-Docker Scout doesn't come pre-installed,
+If you run iEchor Engine without iEchor Desktop,
+iEchor Scout doesn't come pre-installed,
 but you can install it as a standalone binary.
 
 To install the latest version of the plugin, run the following commands:
 
 ```console
-$ curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
+$ curl -fsSL https://raw.githubusercontent.com/iechor/scout-cli/main/install.sh -o install-scout.sh
 $ sh install-scout.sh
 ```
 
@@ -24,7 +24,7 @@ $ sh install-scout.sh
 > limitations of the convenience script.
 
 If you want to install the plugin manually, you can find full instructions
-and links to download in the [scout-cli repository](https://github.com/docker/scout-cli).
+and links to download in the [scout-cli repository](https://github.com/iechor/scout-cli).
 
-The Docker Scout CLI plugin is also available as [a container image](https://hub.docker.com/r/docker/scout-cli)
-and as [a GitHub action](https://github.com/docker/scout-action).
+The iEchor Scout CLI plugin is also available as [a container image](https://hub.iechor.com/r/iechor/scout-cli)
+and as [a GitHub action](https://github.com/iechor/scout-action).

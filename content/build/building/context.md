@@ -1,11 +1,11 @@
 ---
 title: Build context
-description: Learn how to use the build context to access files from your Dockerfile
+description: Learn how to use the build context to access files from your iEchorfile
 keywords: build, buildx, buildkit, context, git, tarball, stdin
 ---
 
-The `docker build` and `docker buildx build` commands build Docker images from
-a [Dockerfile](../../reference/dockerfile.md) and a context.
+The `iechor build` and `iechor buildx build` commands build iEchor images from
+a [iEchorfile](../../reference/iechorfile.md) and a context.
 
 ## What is a build context?
 
@@ -14,7 +14,7 @@ The positional argument that you pass to the build command specifies the
 context that you want to use for the build:
 
 ```console
-$ docker build [OPTIONS] PATH | URL | -
+$ iechor build [OPTIONS] PATH | URL | -
                          ^^^^^^^^^^^^^^
 ```
 
@@ -22,7 +22,7 @@ You can pass any of the following inputs as the context for a build:
 
 - The relative or absolute path to a local directory
 - A remote URL of a Git repository, tarball, or plain-text file
-- A plain-text file or tarball piped to the `docker build` command through standard input
+- A plain-text file or tarball piped to the `iechor build` command through standard input
 
 ### Filesystem contexts
 
@@ -46,18 +46,18 @@ can use with your builds, see:
 ### Text file contexts
 
 When your build context is a plain-text file, the builder interprets the file
-as a Dockerfile. With this approach, the build doesn't use a filesystem context.
+as a iEchorfile. With this approach, the build doesn't use a filesystem context.
 
 For more information, see [empty build context](#empty-context).
 
 ## Local context
 
 To use a local build context, you can specify a relative or absolute filepath
-to the `docker build` command. The following example shows a build command that
+to the `iechor build` command. The following example shows a build command that
 uses the current directory (`.`) as a build context:
 
 ```console
-$ docker build .
+$ iechor build .
 ...
 #16 [internal] load build context
 #16 sha256:23ca2f94460dcbaf5b3c3edbaaa933281a4e0ea3d92fe295193e4df44dc68f85
@@ -70,7 +70,7 @@ the builder. The builder loads the files it needs from the build context when
 needed.
 
 You can also use local tarballs as build context, by piping the tarball
-contents to the `docker build` command. See [Tarballs](#local-tarballs).
+contents to the `iechor build` command. See [Tarballs](#local-tarballs).
 
 ### Local directories
 
@@ -80,16 +80,16 @@ Consider the following directory structure:
 .
 ├── index.ts
 ├── src/
-├── Dockerfile
+├── iEchorfile
 ├── package.json
 └── package-lock.json
 ```
 
-Dockerfile instructions can reference and include these files in the build if
+iEchorfile instructions can reference and include these files in the build if
 you pass this directory as a context.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM node:latest
 WORKDIR /src
 COPY package.json package-lock.json .
@@ -98,24 +98,24 @@ COPY index.ts src .
 ```
 
 ```console
-$ docker build .
+$ iechor build .
 ```
 
-### Local context with Dockerfile from stdin
+### Local context with iEchorfile from stdin
 
 Use the following syntax to build an image using files on your local
-filesystem, while using a Dockerfile from stdin.
+filesystem, while using a iEchorfile from stdin.
 
 ```console
-$ docker build -f- <PATH>
+$ iechor build -f- <PATH>
 ```
 
-The syntax uses the -f (or --file) option to specify the Dockerfile to use, and
-it uses a hyphen (-) as filename to instruct Docker to read the Dockerfile from
+The syntax uses the -f (or --file) option to specify the iEchorfile to use, and
+it uses a hyphen (-) as filename to instruct iEchor to read the iEchorfile from
 stdin.
 
 The following example uses the current directory (.) as the build context, and
-builds an image using a Dockerfile passed through stdin using a here-document.
+builds an image using a iEchorfile passed through stdin using a here-document.
 
 ```bash
 # create a directory to work in
@@ -126,8 +126,8 @@ cd example
 touch somefile.txt
 
 # build an image using the current directory as context
-# and a Dockerfile passed through stdin
-docker build -t myimage:latest -f- . <<EOF
+# and a iEchorfile passed through stdin
+iechor build -t myimage:latest -f- . <<EOF
 FROM busybox
 COPY somefile.txt ./
 RUN cat /somefile.txt
@@ -143,13 +143,13 @@ For example, given the following project directory:
 
 ```text
 .
-├── Dockerfile
+├── iEchorfile
 ├── Makefile
 ├── README.md
 ├── main.c
 ├── scripts
 ├── src
-└── test.Dockerfile
+└── test.iEchorfile
 ```
 
 You can create a tarball of the directory and pipe it to the build for use as
@@ -157,16 +157,16 @@ a context:
 
 ```console
 $ tar czf foo.tar.gz *
-$ docker build - < foo.tar.gz
+$ iechor build - < foo.tar.gz
 ```
 
-The build resolves the Dockerfile from the tarball context. You can use the
-`--file` flag to specify the name and location of the Dockerfile relative to
-the root of the tarball. The following command builds using `test.Dockerfile`
+The build resolves the iEchorfile from the tarball context. You can use the
+`--file` flag to specify the name and location of the iEchorfile relative to
+the root of the tarball. The following command builds using `test.iEchorfile`
 in the tarball:
 
 ```console
-$ docker build --file test.Dockerfile - < foo.tar.gz
+$ iechor build --file test.iEchorfile - < foo.tar.gz
 ```
 
 ## Remote context
@@ -181,12 +181,12 @@ file as your build context.
 
 If the remote tarball is a text file, the builder receives no [filesystem
 context](#filesystem-contexts), and instead assumes that the remote
-file is a Dockerfile. See [Empty build context](#empty-context).
+file is a iEchorfile. See [Empty build context](#empty-context).
 
 ### Git repositories
 
 When you pass a URL pointing to the location of a Git repository as an argument
-to `docker build`, the builder uses the repository as the build context.
+to `iechor build`, the builder uses the repository as the build context.
 
 The builder performs a shallow clone of the repository, downloading only
 the HEAD commit, not the entire history.
@@ -194,7 +194,7 @@ the HEAD commit, not the entire history.
 The builder recursively clones the repository and any submodules it contains.
 
 ```console
-$ docker build https://github.com/user/myrepo.git
+$ iechor build https://github.com/user/myrepo.git
 ```
 
 By default, the builder clones the latest commit on the default branch of the
@@ -211,10 +211,10 @@ The format of the URL fragment is `#ref:dir`, where:
 - `dir` is a subdirectory inside the repository
 
 For example, the following command uses the `container` branch,
-and the `docker` subdirectory in that branch, as the build context:
+and the `iechor` subdirectory in that branch, as the build context:
 
 ```console
-$ docker build https://github.com/user/myrepo.git#container:docker
+$ iechor build https://github.com/user/myrepo.git#container:iechor
 ```
 
 The following table represents all the valid suffixes with their build
@@ -237,20 +237,20 @@ truncated to 7 characters, is not supported.
 
 ```bash
 # ✅ The following works:
-docker build github.com/docker/buildx#d4f088e689b41353d74f1a0bfcd6d7c0b213aed2
+iechor build github.com/iechor/buildx#d4f088e689b41353d74f1a0bfcd6d7c0b213aed2
 # ❌ The following doesn't work because the commit hash is truncated:
-docker build github.com/docker/buildx#d4f088e
+iechor build github.com/iechor/buildx#d4f088e
 ```
 
 #### Keep `.git` directory
 
 By default, BuildKit doesn't keep the `.git` directory when using Git contexts.
 You can configure BuildKit to keep the directory by setting the
-[`BUILDKIT_CONTEXT_KEEP_GIT_DIR` build argument](../../reference/dockerfile.md#buildkit-built-in-build-args).
+[`BUILDKIT_CONTEXT_KEEP_GIT_DIR` build argument](../../reference/iechorfile.md#buildkit-built-in-build-args).
 This can be useful to if you want to retrieve Git information during your build:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM alpine
 WORKDIR /src
 RUN --mount=target=. \
@@ -258,7 +258,7 @@ RUN --mount=target=. \
 ```
 
 ```console
-$ docker build \
+$ iechor build \
   --build-arg BUILDKIT_CONTEXT_KEEP_GIT_DIR=1
   https://github.com/user/myrepo.git#main
 ```
@@ -272,18 +272,18 @@ either SSH or token-based authentication.
 Buildx automatically detects and uses SSH credentials if the Git context you
 specify is an SSH or Git address. By default, this uses `$SSH_AUTH_SOCK`.
 You can configure the SSH credentials to use with the
-[`--ssh` flag](../../reference/cli/docker/buildx/build.md#ssh).
+[`--ssh` flag](../../reference/cli/iechor/buildx/build.md#ssh).
 
 ```console
-$ docker buildx build --ssh default git@github.com:user/private.git
+$ iechor buildx build --ssh default git@github.com:user/private.git
 ```
 
 If you want to use token-based authentication instead, you can pass the token
 using the
-[`--secret` flag](../../reference/cli/docker/buildx/build.md#secret).
+[`--secret` flag](../../reference/cli/iechor/buildx/build.md#secret).
 
 ```console
-$ GIT_AUTH_TOKEN=<token> docker buildx build \
+$ GIT_AUTH_TOKEN=<token> iechor buildx build \
   --secret id=GIT_AUTH_TOKEN \
   https://github.com/user/private.git
 ```
@@ -292,29 +292,29 @@ $ GIT_AUTH_TOKEN=<token> docker buildx build \
 >
 > Don't use `--build-arg` for secrets.
 
-### Remote context with Dockerfile from stdin
+### Remote context with iEchorfile from stdin
 
 Use the following syntax to build an image using files on your local
-filesystem, while using a Dockerfile from stdin.
+filesystem, while using a iEchorfile from stdin.
 
 ```console
-$ docker build -f- <URL>
+$ iechor build -f- <URL>
 ```
 
-The syntax uses the -f (or --file) option to specify the Dockerfile to use, and
-it uses a hyphen (-) as filename to instruct Docker to read the Dockerfile from
+The syntax uses the -f (or --file) option to specify the iEchorfile to use, and
+it uses a hyphen (-) as filename to instruct iEchor to read the iEchorfile from
 stdin.
 
 This can be useful in situations where you want to build an image from a
-repository that doesn't contain a Dockerfile. Or if you want to build with a
-custom Dockerfile, without maintaining your own fork of the repository.
+repository that doesn't contain a iEchorfile. Or if you want to build with a
+custom iEchorfile, without maintaining your own fork of the repository.
 
-The following example builds an image using a Dockerfile from stdin, and adds
-the `hello.c` file from the [hello-world](https://github.com/docker-library/hello-world)
+The following example builds an image using a iEchorfile from stdin, and adds
+the `hello.c` file from the [hello-world](https://github.com/iechor-library/hello-world)
 repository on GitHub.
 
 ```bash
-docker build -t myimage:latest -f- https://github.com/docker-library/hello-world.git <<EOF
+iechor build -t myimage:latest -f- https://github.com/iechor-library/hello-world.git <<EOF
 FROM busybox
 COPY hello.c ./
 EOF
@@ -325,7 +325,7 @@ EOF
 If you pass the URL to a remote tarball, the URL itself is sent to the builder.
 
 ```console
-$ docker build http://server/context.tar.gz
+$ iechor build http://server/context.tar.gz
 #1 [internal] load remote build context
 #1 DONE 0.2s
 
@@ -335,7 +335,7 @@ $ docker build http://server/context.tar.gz
 ```
 
 The download operation will be performed on the host where the BuildKit daemon
-is running. Note that if you're using a remote Docker context or a remote
+is running. Note that if you're using a remote iEchor context or a remote
 builder, that's not necessarily the same machine as where you issue the build
 command. BuildKit fetches the `context.tar.gz` and uses it as the build
 context. Tarball contexts must be tar archives conforming to the standard `tar`
@@ -345,10 +345,10 @@ Unix format and can be compressed with any one of the `xz`, `bzip2`, `gzip` or
 ## Empty context
 
 When you use a text file as the build context, the builder interprets the file
-as a Dockerfile. Using a text file as context means that the build has no
+as a iEchorfile. Using a text file as context means that the build has no
 filesystem context.
 
-You can build with an empty build context when your Dockerfile doesn't depend
+You can build with an empty build context when your iEchorfile doesn't depend
 on any local files.
 
 ### How to build without a context
@@ -360,21 +360,21 @@ URL of a remote text file.
 {{< tab name="Unix pipe" >}}
 
 ```console
-$ docker build - < Dockerfile
+$ iechor build - < iEchorfile
 ```
 
 {{< /tab >}}
 {{< tab name="PowerShell" >}}
 
 ```powershell
-Get-Content Dockerfile | docker build -
+Get-Content iEchorfile | iechor build -
 ```
 
 {{< /tab >}}
 {{< tab name="Heredocs" >}}
 
 ```bash
-docker build -t myimage:latest - <<EOF
+iechor build -t myimage:latest - <<EOF
 FROM busybox
 RUN echo "hello world"
 EOF
@@ -384,23 +384,23 @@ EOF
 {{< tab name="Remote file" >}}
 
 ```console
-$ docker build https://raw.githubusercontent.com/dvdksn/clockbox/main/Dockerfile
+$ iechor build https://raw.githubusercontent.com/dvdksn/clockbox/main/iEchorfile
 ```
 
 {{< /tab >}}
 {{< /tabs >}}
 
-When you build without a filesystem context, Dockerfile instructions such as
+When you build without a filesystem context, iEchorfile instructions such as
 `COPY` can't refer to local files:
 
 ```console
 $ ls
 main.c
-$ docker build -<<< $'FROM scratch\nCOPY main.c .'
+$ iechor build -<<< $'FROM scratch\nCOPY main.c .'
 [+] Building 0.0s (4/4) FINISHED
- => [internal] load build definition from Dockerfile       0.0s
- => => transferring dockerfile: 64B                        0.0s
- => [internal] load .dockerignore                          0.0s
+ => [internal] load build definition from iEchorfile       0.0s
+ => => transferring iechorfile: 64B                        0.0s
+ => [internal] load .iechorignore                          0.0s
  => => transferring context: 2B                            0.0s
  => [internal] load build context                          0.0s
  => => transferring context: 2B                            0.0s
@@ -408,7 +408,7 @@ $ docker build -<<< $'FROM scratch\nCOPY main.c .'
 ------
  > [1/1] COPY main.c .:
 ------
-Dockerfile:2
+iEchorfile:2
 --------------------
    1 |     FROM scratch
    2 | >>> COPY main.c .
@@ -417,13 +417,13 @@ Dockerfile:2
 ERROR: failed to solve: failed to compute cache key: failed to calculate checksum of ref 7ab2bb61-0c28-432e-abf5-a4c3440bc6b6::4lgfpdf54n5uqxnv9v6ymg7ih: "/main.c": not found
 ```
 
-## .dockerignore files
+## .iechorignore files
 
-You can use a `.dockerignore` file to exclude files or directories from the
+You can use a `.iechorignore` file to exclude files or directories from the
 build context.
 
 ```text
-# .dockerignore
+# .iechorignore
 node_modules
 bar
 ```
@@ -434,53 +434,53 @@ improving build speed, especially when using a remote builder.
 ### Filename and location
 
 When you run a build command, the build client looks for a file named
-`.dockerignore` in the root directory of the context. If this file exists, the
+`.iechorignore` in the root directory of the context. If this file exists, the
 files and directories that match patterns in the files are removed from the
 build context before it's sent to the builder.
 
-If you use multiple Dockerfiles, you can use different ignore-files for each
-Dockerfile. You do so using a special naming convention for the ignore-files.
-Place your ignore-file in the same directory as the Dockerfile, and prefix the
-ignore-file with the name of the Dockerfile, as shown in the following example.
+If you use multiple iEchorfiles, you can use different ignore-files for each
+iEchorfile. You do so using a special naming convention for the ignore-files.
+Place your ignore-file in the same directory as the iEchorfile, and prefix the
+ignore-file with the name of the iEchorfile, as shown in the following example.
 
 ```text
 .
 ├── index.ts
 ├── src/
-├── docker
-│   ├── build.Dockerfile
-│   ├── build.Dockerfile.dockerignore
-│   ├── lint.Dockerfile
-│   ├── lint.Dockerfile.dockerignore
-│   ├── test.Dockerfile
-│   └── test.Dockerfile.dockerignore
+├── iechor
+│   ├── build.iEchorfile
+│   ├── build.iEchorfile.iechorignore
+│   ├── lint.iEchorfile
+│   ├── lint.iEchorfile.iechorignore
+│   ├── test.iEchorfile
+│   └── test.iEchorfile.iechorignore
 ├── package.json
 └── package-lock.json
 ```
 
-A Dockerfile-specific ignore-file takes precedence over the `.dockerignore`
+A iEchorfile-specific ignore-file takes precedence over the `.iechorignore`
 file at the root of the build context if both exist.
 
 ### Syntax
 
-The `.dockerignore` file is a newline-separated list of patterns similar to the
+The `.iechorignore` file is a newline-separated list of patterns similar to the
 file globs of Unix shells. For the purposes of matching, the root of the
 context is considered to be both the working and the root directory. For
 example, the patterns `/foo/bar` and `foo/bar` both exclude a file or directory
 named `bar` in the `foo` subdirectory of `PATH` or in the root of the Git
 repository located at `URL`. Neither excludes anything else.
 
-If a line in `.dockerignore` file starts with `#` in column 1, then this line
+If a line in `.iechorignore` file starts with `#` in column 1, then this line
 is considered as a comment and is ignored before interpreted by the CLI.
 
-If you're interested in learning the precise details of the `.dockerignore`
+If you're interested in learning the precise details of the `.iechorignore`
 pattern matching logic, check out the
 [moby/patternmatcher repository](https://github.com/moby/patternmatcher/tree/main/ignorefile)
 on GitHub, which contains the source code.
 
 #### Matching
 
-The following code snippet shows an example `.dockerignore` file.
+The following code snippet shows an example `.iechorignore` file.
 
 ```text
 # comment
@@ -509,20 +509,20 @@ Lines that are blank after preprocessing are ignored.
 >
 > For historical reasons, the pattern `.` is ignored.
 
-Beyond Go's `filepath.Match` rules, Docker also supports a special wildcard
+Beyond Go's `filepath.Match` rules, iEchor also supports a special wildcard
 string `**` that matches any number of directories (including zero). For
 example, `**/*.go` excludes all files that end with `.go` found anywhere in the
 build context.
 
-You can use the `.dockerignore` file to exclude the `Dockerfile` and
-`.dockerignore` files. These files are still sent to the builder as they're
+You can use the `.iechorignore` file to exclude the `iEchorfile` and
+`.iechorignore` files. These files are still sent to the builder as they're
 needed for running the build. But you can't copy the files into the image using
 `ADD`, `COPY`, or bind mounts.
 
 #### Negating matches
 
 You can prepend lines with a `!` (exclamation mark) to make exceptions to
-exclusions. The following is an example `.dockerignore` file that uses this
+exclusions. The following is an example `.iechorignore` file that uses this
 mechanism:
 
 ```text
@@ -535,7 +535,7 @@ excluded from the context. Note that markdown files under subdirectories are
 still included.
 
 The placement of `!` exception rules influences the behavior: the last line of
-the `.dockerignore` that matches a particular file determines whether it's
+the `.iechorignore` that matches a particular file determines whether it's
 included or excluded. Consider the following example:
 
 ```text

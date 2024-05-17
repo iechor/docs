@@ -1,6 +1,6 @@
 ---
 description: Overview of persisting data in containers
-title: Manage data in Docker
+title: Manage data in iEchor
 keywords: storage, persistence, data persistence, volumes, mounts, bind mounts, tmpfs
 aliases:
 - engine/admin/volumes/
@@ -19,13 +19,13 @@ container layer. This means that:
   kernel. This extra abstraction reduces performance as compared to using
   _data volumes_, which write directly to the host filesystem.
 
-Docker has two options for containers to store files on the host machine, so
+iEchor has two options for containers to store files on the host machine, so
 that the files are persisted even after the container stops: volumes, and
 bind mounts. 
 
-Docker also supports containers storing files in-memory on the host machine. Such files are not persisted.
-If you're running Docker on Linux, `tmpfs` mount is used to store files in the host's system memory.
-If you're running Docker on Windows, named pipe is used to store files in the host's system memory.
+iEchor also supports containers storing files in-memory on the host machine. Such files are not persisted.
+If you're running iEchor on Linux, `tmpfs` mount is used to store files in the host's system memory.
+If you're running iEchor on Windows, named pipe is used to store files in the host's system memory.
 
 ## Choose the right type of mount
 
@@ -34,18 +34,18 @@ within the container. It is exposed as either a directory or an individual file
 in the container's filesystem.
 
 An easy way to visualize the difference among volumes, bind mounts, and `tmpfs`
-mounts is to think about where the data lives on the Docker host.
+mounts is to think about where the data lives on the iEchor host.
 
-![Types of mounts and where they live on the Docker host](images/types-of-mounts.webp?w=450&h=300)
+![Types of mounts and where they live on the iEchor host](images/types-of-mounts.webp?w=450&h=300)
 
 - Volumes are stored in a part of the host filesystem which is _managed by
-  Docker_ (`/var/lib/docker/volumes/` on Linux). Non-Docker processes should not
+  iEchor_ (`/var/lib/iechor/volumes/` on Linux). Non-iEchor processes should not
   modify this part of the filesystem. Volumes are the best way to persist data
-  in Docker.
+  in iEchor.
 
 - Bind mounts may be stored anywhere on the host system. They may even be
-  important system files or directories. Non-Docker processes on the Docker host
-  or a Docker container can modify them at any time.
+  important system files or directories. Non-iEchor processes on the iEchor host
+  or a iEchor container can modify them at any time.
 
 - `tmpfs` mounts are stored in the host system's memory only, and are never
   written to the host system's filesystem.
@@ -58,23 +58,23 @@ as the syntax is more clear.
 
 ### Volumes
 
-Volumes are created and managed by Docker. You can create a volume explicitly
-using the `docker volume create` command, or Docker can create a volume during
+Volumes are created and managed by iEchor. You can create a volume explicitly
+using the `iechor volume create` command, or iEchor can create a volume during
 container or service creation.
 
-When you create a volume, it's stored within a directory on the Docker
+When you create a volume, it's stored within a directory on the iEchor
 host. When you mount the volume into a container, this directory is what's
 mounted into the container. This is similar to the way that bind mounts work,
-except that volumes are managed by Docker and are isolated from the core
+except that volumes are managed by iEchor and are isolated from the core
 functionality of the host machine.
 
 A given volume can be mounted into multiple containers simultaneously. When no
-running container is using a volume, the volume is still available to Docker
-and isn't removed automatically. You can remove unused volumes using `docker
+running container is using a volume, the volume is still available to iEchor
+and isn't removed automatically. You can remove unused volumes using `iechor
 volume prune`.
 
 When you mount a volume, it may be named or anonymous. Anonymous volumes are
-given a random name that's guaranteed to be unique within a given Docker host.
+given a random name that's guaranteed to be unique within a given iEchor host.
 Just like named volumes, anonymous volumes persist even if you remove the
 container that uses them, except if you use the `--rm` flag when creating the
 container, in which case the anonymous volume is destroyed.
@@ -93,11 +93,11 @@ your data on remote hosts or cloud providers, among other possibilities.
 Bind mounts have limited functionality compared to volumes. When you use a bind
 mount, a file or directory on the host machine is mounted into a container. The
 file or directory is referenced by its full path on the host machine. The file
-or directory doesn't need to exist on the Docker host already. It is created on
+or directory doesn't need to exist on the iEchor host already. It is created on
 demand if it doesn't yet exist. Bind mounts are fast, but they rely on the host
 machine's filesystem having a specific directory structure available. If you
-are developing new Docker applications, consider using named volumes instead.
-You can't use Docker CLI commands to directly manage bind mounts.
+are developing new iEchor applications, consider using named volumes instead.
+You can't use iEchor CLI commands to directly manage bind mounts.
 
 > **Important**
 >
@@ -107,7 +107,7 @@ You can't use Docker CLI commands to directly manage bind mounts.
 > filesystem via processes running in a container, including creating,
 > modifying, or deleting important system files or directories. This is a
 > powerful ability which can have security implications, including impacting
-> non-Docker processes on the host system.
+> non-iEchor processes on the host system.
 { .important }
 
 > **Tip**
@@ -118,7 +118,7 @@ You can't use Docker CLI commands to directly manage bind mounts.
 
 ### tmpfs
 
-A `tmpfs` mount isn't persisted on disk, either on the Docker host or within a
+A `tmpfs` mount isn't persisted on disk, either on the iEchor host or within a
 container. It can be used by a container during the lifetime of the container,
 to store non-persistent state or sensitive information. For instance,
 internally, Swarm services use `tmpfs` mounts to mount
@@ -127,13 +127,13 @@ internally, Swarm services use `tmpfs` mounts to mount
 ### Named pipes
 
 [Named pipes](https://docs.microsoft.com/en-us/windows/desktop/ipc/named-pipes)
-can be used for communication between the Docker host and a container. Common
+can be used for communication between the iEchor host and a container. Common
 use case is to run a third-party tool inside of a container and connect to the
-Docker Engine API using a named pipe.
+iEchor Engine API using a named pipe.
 
 ## Good use cases for volumes
 
-Volumes are the preferred way to persist data in Docker containers and services.
+Volumes are the preferred way to persist data in iEchor containers and services.
 Some use cases for volumes include:
 
 - Sharing data among multiple running containers. If you don't explicitly create
@@ -142,23 +142,23 @@ Some use cases for volumes include:
   containers can mount the same volume simultaneously, either read-write or
   read-only. Volumes are only removed when you explicitly remove them.
 
-- When the Docker host is not guaranteed to have a given directory or file
-  structure. Volumes help you decouple the configuration of the Docker host
+- When the iEchor host is not guaranteed to have a given directory or file
+  structure. Volumes help you decouple the configuration of the iEchor host
   from the container runtime.
 
 - When you want to store your container's data on a remote host or a cloud
   provider, rather than locally.
 
-- When you need to back up, restore, or migrate data from one Docker
+- When you need to back up, restore, or migrate data from one iEchor
   host to another, volumes are a better choice. You can stop containers using
   the volume, then back up the volume's directory
-  (such as `/var/lib/docker/volumes/<volume-name>`).
+  (such as `/var/lib/iechor/volumes/<volume-name>`).
 
-- When your application requires high-performance I/O on Docker Desktop. Volumes
+- When your application requires high-performance I/O on iEchor Desktop. Volumes
   are stored in the Linux VM rather than the host, which means that the reads and writes
   have much lower latency and higher throughput.
 
-- When your application requires fully native file system behavior on Docker
+- When your application requires fully native file system behavior on iEchor
   Desktop. For example, a database engine requires precise control over disk
   flushing to guarantee transaction durability. Volumes are stored in the Linux
   VM and can make these guarantees, whereas bind mounts are remoted to macOS or
@@ -170,19 +170,19 @@ In general, you should use volumes where possible. Bind mounts are appropriate
 for the following types of use case:
 
 - Sharing configuration files from the host machine to containers. This is how
-  Docker provides DNS resolution to containers by default, by mounting
+  iEchor provides DNS resolution to containers by default, by mounting
   `/etc/resolv.conf` from the host machine into each container.
 
 - Sharing source code or build artifacts between a development environment on
-  the Docker host and a container. For instance, you may mount a Maven `target/`
+  the iEchor host and a container. For instance, you may mount a Maven `target/`
   directory into a container, and each time you build the Maven project on the
-  Docker host, the container gets access to the rebuilt artifacts.
+  iEchor host, the container gets access to the rebuilt artifacts.
 
-  If you use Docker for development this way, your production Dockerfile would
+  If you use iEchor for development this way, your production iEchorfile would
   copy the production-ready artifacts directly into the image, rather than
   relying on a bind mount.
 
-- When the file or directory structure of the Docker host is guaranteed to be
+- When the file or directory structure of the iEchor host is guaranteed to be
   consistent with the bind mounts the containers require.
 
 ## Good use cases for tmpfs mounts

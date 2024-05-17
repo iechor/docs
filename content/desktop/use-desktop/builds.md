@@ -1,32 +1,32 @@
 ---
 title: Explore Builds
-description: Understand how to use the Builds view in Docker Desktop
-keywords: Docker Dashboard, manage, gui, dashboard, builders, builds
+description: Understand how to use the Builds view in iEchor Desktop
+keywords: iEchor Dashboard, manage, gui, dashboard, builders, builds
 ---
 
-![Builds view in Docker Desktop](../images/builds-view.webp)
+![Builds view in iEchor Desktop](../images/builds-view.webp)
 
 The **Builds** view is a simple interface that lets you inspect your build
-history and manage builders using Docker Desktop.
+history and manage builders using iEchor Desktop.
 
-Opening the **Builds** view in Docker Desktop displays a list of completed builds.
+Opening the **Builds** view in iEchor Desktop displays a list of completed builds.
 By default, the list is sorted by date, showing the most recent builds at the top.
 You can switch to **Active builds** to view any ongoing builds.
 
 ![Build UI screenshot active builds](../images/build-ui-active-builds.webp)
 
-If you're connected to a cloud builder through [Docker Build Cloud](../../build/cloud/_index.md),
+If you're connected to a cloud builder through [iEchor Build Cloud](../../build/cloud/_index.md),
 the Builds view also lists any active or completed cloud builds by other team members
 connected to the same cloud builder.
 
 ## Show build list
 
-Select the **Builds** view in the Docker Dashboard to open the build list.
+Select the **Builds** view in the iEchor Dashboard to open the build list.
 
 The build list shows running and completed builds for your active builders. The
 top-right corner shows the name of your currently selected builder, and the
 **Builder settings** button lets you [manage builders](#manage-builders) in the
-Docker Desktop settings.
+iEchor Desktop settings.
 
 Running builds are displayed in the top section of this view, with information
 about the build target and progress.
@@ -53,7 +53,7 @@ platform:
 ![Platform filter](../images/build-ui-platform-menu.webp?w=400)
 
 The **Source details** section shows information about the frontend
-[frontend](../../build/dockerfile/frontend.md) and, if available,
+[frontend](../../build/iechorfile/frontend.md) and, if available,
 the source code repository used for the build.
 
 ### Build timing
@@ -74,9 +74,9 @@ operations are defined as follows:
 | Build operation      | Description                                                                                                                                                                     |
 | :------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Local file transfers | Time spent transferring local files from the client to the builder.                                                                                                             |
-| File operations      | Any operations that involve creating and copying files in the build. For example, the `COPY`, `WORKDIR`, `ADD` instructions in a Dockerfile frontend all incur file operations. |
+| File operations      | Any operations that involve creating and copying files in the build. For example, the `COPY`, `WORKDIR`, `ADD` instructions in a iEchorfile frontend all incur file operations. |
 | Image pulls          | Time spent pulling images.                                                                                                                                                      |
-| Executions           | Container executions, for example commands defined as `RUN` instructions in a Dockerfile frontend.                                                                              |
+| Executions           | Container executions, for example commands defined as `RUN` instructions in a iEchorfile frontend.                                                                              |
 | HTTP                 | Remote artifact downloads using `ADD`.                                                                                                                                          |
 | Git                  | Same as **HTTP** but for Git URLs.                                                                                                                                              |
 | Result exports       | Time spent exporting the build results.                                                                                                                                         |
@@ -89,8 +89,8 @@ The **Dependencies** section shows images and remote resources used during
 the build. Resources listed here include:
 
 - Container images used during the build
-- Git repositories included using the `ADD` Dockerfile instruction
-- Remote HTTPS resources included using the `ADD` Dockerfile instruction
+- Git repositories included using the `ADD` iEchorfile instruction
+- Remote HTTPS resources included using the `ADD` iEchorfile instruction
 
 ### Arguments, secrets, and other parameters
 
@@ -100,7 +100,7 @@ The **Configuration** section of the Info tab shows parameters passed to the bui
 - Secrets, including their IDs (but not their values)
 - SSH sockets
 - Labels
-- [Additional contexts](/reference/cli/docker/buildx/build/#build-context)
+- [Additional contexts](/reference/cli/iechor/buildx/build/#build-context)
 
 ### Outputs and artifacts
 
@@ -114,22 +114,22 @@ For more information about attestations, see [Build attestations](../../build/at
 
 Build traces capture information about the build execution steps in Buildx and
 BuildKit. The traces are available in two formats: OTLP and Jaeger. You can
-download build traces from Docker Desktop by opening the actions menu and
+download build traces from iEchor Desktop by opening the actions menu and
 selecting the format you want to download.
 
 #### Inspect build traces with Jaeger
 
-Using a Jaeger client, you can import and inspect build traces from Docker
-Desktop. The following steps show you how to export a trace from Docker Desktop
+Using a Jaeger client, you can import and inspect build traces from iEchor
+Desktop. The following steps show you how to export a trace from iEchor Desktop
 and view it in [Jaeger](https://www.jaegertracing.io/):
 
 1. Start Jaeger UI:
 
    ```console
-   $ docker run -d --name jaeger -p "16686:16686" jaegertracing/all-in-one
+   $ iechor run -d --name jaeger -p "16686:16686" jaegertracing/all-in-one
    ```
 
-2. Open the Builds view in Docker Desktop, and select a completed build.
+2. Open the Builds view in iEchor Desktop, and select a completed build.
 
 3. Navigate to the **Build results** section, open the actions menu and select **Download as Jaeger format**.
 
@@ -145,17 +145,17 @@ Now you can analyze the build trace using the Jaeger UI:
 
 ![Jaeger UI screenshot](../images/build-ui-jaeger-screenshot.png "Screenshot of a build trace in the Jaeger UI")
 
-### Dockerfile source and errors
+### iEchorfile source and errors
 
 When inspecting a successful completed build or an ongoing active build,
-the **Source** tab shows the [frontend](../../build/dockerfile/frontend.md)
+the **Source** tab shows the [frontend](../../build/iechorfile/frontend.md)
 used to create the build.
 
 If the build failed, an **Error** tab displays instead of the **Source** tab.
-The error message is inlined in the Dockerfile source,
+The error message is inlined in the iEchorfile source,
 indicating where the failure happened and why.
 
-![Build error displayed inline in the Dockerfile](../images/build-ui-error.webp)
+![Build error displayed inline in the iEchorfile](../images/build-ui-error.webp)
 
 ### Build logs
 
@@ -178,7 +178,7 @@ The **History** tab displays statistics data about completed builds.
 The time series chart illustrates trends in duration, build steps, and cache usage for related builds,
 helping you identify patterns and shifts in build operations over time.
 For instance, significant spikes in build duration or a high number of cache misses
-could signal opportunities for optimizing the Dockerfile.
+could signal opportunities for optimizing the iEchorfile.
 
 ![Build history chart](../images/build-ui-history.webp)
 
@@ -187,7 +187,7 @@ or using the **Past builds** list below the chart.
 
 ## Manage builders
 
-The **Builder settings** view in the Docker Desktop settings lets you:
+The **Builder settings** view in the iEchor Desktop settings lets you:
 
 - Inspect the state and configuration of active builders
 - Start and stop a builder

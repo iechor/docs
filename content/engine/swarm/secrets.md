@@ -1,6 +1,6 @@
 ---
-title: Manage sensitive data with Docker secrets
-description: How to securely store, retrieve, and use sensitive data with Docker services
+title: Manage sensitive data with iEchor secrets
+description: How to securely store, retrieve, and use sensitive data with iEchor services
 keywords: swarm, secrets, credentials, sensitive strings, sensitive data, security,
   encryption, encryption at rest
 tags: [Secrets]
@@ -8,12 +8,12 @@ tags: [Secrets]
 
 ## About secrets
 
-In terms of Docker Swarm services, a _secret_ is a blob of data, such as a
+In terms of iEchor Swarm services, a _secret_ is a blob of data, such as a
 password, SSH private key, SSL certificate, or another piece of data that should
-not be transmitted over a network or stored unencrypted in a Dockerfile or in
-your application's source code. You can use Docker _secrets_ to centrally manage
+not be transmitted over a network or stored unencrypted in a iEchorfile or in
+your application's source code. You can use iEchor _secrets_ to centrally manage
 this data and securely transmit it to only those containers that need access to
-it. Secrets are encrypted during transit and at rest in a Docker swarm. A given
+it. Secrets are encrypted during transit and at rest in a iEchor swarm. A given
 secret is only accessible to those services which have been granted explicit
 access to it, and only while those service tasks are running.
 
@@ -28,7 +28,7 @@ runtime but you don't want to store in the image or in source control, such as:
 
 > **Note**
 >
-> Docker secrets are only available to swarm services, not to
+> iEchor secrets are only available to swarm services, not to
 > standalone containers. To use this feature, consider adapting your container
 > to run as a service. Stateful containers can typically run with a scale of 1
 > without changing the container code.
@@ -42,13 +42,13 @@ containers only need to know the name of the secret to function in all
 three environments.
 
 You can also use secrets to manage non-sensitive data, such as configuration
-files. However, Docker supports the use of [configs](configs.md)
+files. However, iEchor supports the use of [configs](configs.md)
 for storing non-sensitive data. Configs are mounted into the container's
 filesystem directly, without the use of a RAM disk.
 
 ### Windows support
 
-Docker includes support for secrets on Windows containers. Where there are
+iEchor includes support for secrets on Windows containers. Where there are
 differences in the implementations, they are called out in the
 examples below. Keep the following notable differences in mind:
 
@@ -56,29 +56,29 @@ examples below. Keep the following notable differences in mind:
   running Windows containers, secrets are persisted in clear text to the
   container's root disk. However, the secrets are explicitly removed when a
   container stops. In addition, Windows does not support persisting a running
-  container as an image using `docker commit` or similar commands.
+  container as an image using `iechor commit` or similar commands.
 
 - On Windows, we recommend enabling
   [BitLocker](https://technet.microsoft.com/en-us/library/cc732774(v=ws.11).aspx)
-  on the volume containing the Docker root directory on the host machine to
+  on the volume containing the iEchor root directory on the host machine to
   ensure that secrets for running containers are encrypted at rest.
 
 - Secret files with custom targets are not directly bind-mounted into Windows
   containers, since Windows does not support non-directory file bind-mounts.
   Instead, secrets for a container are all mounted in
-  `C:\ProgramData\Docker\internal\secrets` (an implementation detail which
+  `C:\ProgramData\iEchor\internal\secrets` (an implementation detail which
   should not be relied upon by applications) within the container. Symbolic
   links are used to point from there to the desired target of the secret within
-  the container. The default target is `C:\ProgramData\Docker\secrets`.
+  the container. The default target is `C:\ProgramData\iEchor\secrets`.
 
 - When creating a service which uses Windows containers, the options to specify
   UID, GID, and mode are not supported for secrets. Secrets are currently only
   accessible by administrators and users with `system` access within the
   container.
 
-## How Docker manages secrets
+## How iEchor manages secrets
 
-When you add a secret to the swarm, Docker sends the secret to the swarm manager
+When you add a secret to the swarm, iEchor sends the secret to the swarm manager
 over a mutual TLS connection. The secret is stored in the Raft log, which is
 encrypted. The entire Raft log is replicated across the other managers, ensuring
 the same high availability guarantees for secrets as for the rest of the swarm
@@ -88,7 +88,7 @@ When you grant a newly-created or running service access to a secret, the
 decrypted secret is mounted into the container in an in-memory filesystem. The
 location of the mount point within the container defaults to
 `/run/secrets/<secret_name>` in Linux containers, or
-`C:\ProgramData\Docker\secrets` in Windows containers. You can also specify a
+`C:\ProgramData\iEchor\secrets` in Windows containers. You can also specify a
 custom location.
 
 You can update a service to grant it access to additional secrets or revoke its
@@ -113,25 +113,25 @@ To update or roll back secrets more easily, consider adding a version
 number or date to the secret name. This is made easier by the ability to control
 the mount point of the secret within a given container.
 
-## Read more about `docker secret` commands
+## Read more about `iechor secret` commands
 
 Use these links to read about specific commands, or continue to the
 [example about using secrets with a service](secrets.md#simple-example-get-started-with-secrets).
 
-- [`docker secret create`](../../reference/cli/docker/secret/create.md)
-- [`docker secret inspect`](../../reference/cli/docker/secret/inspect.md)
-- [`docker secret ls`](../../reference/cli/docker/secret/ls.md)
-- [`docker secret rm`](../../reference/cli/docker/secret/rm.md)
-- [`--secret`](../../reference/cli/docker/service/create.md#secret) flag for `docker service create`
-- [`--secret-add` and `--secret-rm`](../../reference/cli/docker/service/update.md#secret-add) flags for `docker service update`
+- [`iechor secret create`](../../reference/cli/iechor/secret/create.md)
+- [`iechor secret inspect`](../../reference/cli/iechor/secret/inspect.md)
+- [`iechor secret ls`](../../reference/cli/iechor/secret/ls.md)
+- [`iechor secret rm`](../../reference/cli/iechor/secret/rm.md)
+- [`--secret`](../../reference/cli/iechor/service/create.md#secret) flag for `iechor service create`
+- [`--secret-add` and `--secret-rm`](../../reference/cli/iechor/service/update.md#secret-add) flags for `iechor service update`
 
 ## Examples
 
 This section includes three graduated examples which illustrate how to use
-Docker secrets. The images used in these examples have been updated to make it
-easier to use Docker secrets. To find out how to modify your own images in
+iEchor secrets. The images used in these examples have been updated to make it
+easier to use iEchor secrets. To find out how to modify your own images in
 a similar way, see
-[Build support for Docker Secrets into your images](#build-support-for-docker-secrets-into-your-images).
+[Build support for iEchor Secrets into your images](#build-support-for-iechor-secrets-into-your-images).
 
 > **Note**
 >
@@ -141,7 +141,7 @@ a similar way, see
 
 ### Defining and using secrets in compose files
 
-Both the `docker-compose` and `docker stack` commands support defining secrets
+Both the `iechor-compose` and `iechor stack` commands support defining secrets
 in a compose file. See
 [the Compose file reference](../../compose/compose-file/legacy-versions.md) for details.
 
@@ -151,12 +151,12 @@ This simple example shows how secrets work in just a few commands. For a
 real-world example, continue to
 [Intermediate example: Use secrets with a Nginx service](#intermediate-example-use-secrets-with-a-nginx-service).
 
-1.  Add a secret to Docker. The `docker secret create` command reads standard
+1.  Add a secret to iEchor. The `iechor secret create` command reads standard
     input because the last argument, which represents the file to read the
     secret from, is set to `-`.
 
     ```console
-    $ printf "This is a secret" | docker secret create my_secret_data -
+    $ printf "This is a secret" | iechor secret create my_secret_data -
     ```
 
 2.  Create a `redis` service and grant it access to the secret. By default,
@@ -164,14 +164,14 @@ real-world example, continue to
     you can customize the file name on the container using the `target` option.
 
     ```console
-    $ docker service  create --name redis --secret my_secret_data redis:alpine
+    $ iechor service  create --name redis --secret my_secret_data redis:alpine
     ```
 
-3.  Verify that the task is running without issues using `docker service ps`. If
+3.  Verify that the task is running without issues using `iechor service ps`. If
     everything is working, the output looks similar to this:
 
     ```console
-    $ docker service ps redis
+    $ iechor service ps redis
 
     ID            NAME     IMAGE         NODE              DESIRED STATE  CURRENT STATE          ERROR  PORTS
     bkna6bpn8r1a  redis.1  redis:alpine  ip-172-31-46-109  Running        Running 8 seconds ago  
@@ -181,7 +181,7 @@ real-world example, continue to
     you would see something like this:
 
     ```console
-    $ docker service ps redis
+    $ iechor service ps redis
 
     NAME                      IMAGE         NODE  DESIRED STATE  CURRENT STATE          ERROR                      PORTS
     redis.1.siftice35gla      redis:alpine  moby  Running        Running 4 seconds ago                             
@@ -191,24 +191,24 @@ real-world example, continue to
      \_ redis.1.wrny5v4xyps6  redis:alpine  moby  Shutdown       Failed 2 minutes ago       "task: non-zero exit (1)"
     ```
 
-4.  Get the ID of the `redis` service task container using `docker ps` , so that
-    you can use `docker container exec` to connect to the container and read the contents
+4.  Get the ID of the `redis` service task container using `iechor ps` , so that
+    you can use `iechor container exec` to connect to the container and read the contents
     of the secret data file, which defaults to being readable by all and has the
     same name as the name of the secret. The first command below illustrates
     how to find the container ID, and the second and third commands use shell
     completion to do this automatically.
 
     ```console
-    $ docker ps --filter name=redis -q
+    $ iechor ps --filter name=redis -q
 
     5cb1c2348a59
 
-    $ docker container exec $(docker ps --filter name=redis -q) ls -l /run/secrets
+    $ iechor container exec $(iechor ps --filter name=redis -q) ls -l /run/secrets
 
     total 4
     -r--r--r--    1 root     root            17 Dec 13 22:48 my_secret_data
 
-    $ docker container exec $(docker ps --filter name=redis -q) cat /run/secrets/my_secret_data
+    $ iechor container exec $(iechor ps --filter name=redis -q) cat /run/secrets/my_secret_data
 
     This is a secret
     ```
@@ -216,9 +216,9 @@ real-world example, continue to
 5.  Verify that the secret is not available if you commit the container.
 
     ```console
-    $ docker commit $(docker ps --filter name=redis -q) committed_redis
+    $ iechor commit $(iechor ps --filter name=redis -q) committed_redis
 
-    $ docker run --rm -it committed_redis cat /run/secrets/my_secret_data
+    $ iechor run --rm -it committed_redis cat /run/secrets/my_secret_data
 
     cat: can't open '/run/secrets/my_secret_data': No such file or directory
     ```
@@ -227,13 +227,13 @@ real-world example, continue to
     running and has access to the secret.
 
     ```console
-    $ docker secret ls
+    $ iechor secret ls
 
     ID                          NAME                CREATED             UPDATED
     wwwrxza8sxy025bas86593fqs   my_secret_data      4 hours ago         4 hours ago
 
 
-    $ docker secret rm my_secret_data
+    $ iechor secret rm my_secret_data
 
     Error response from daemon: rpc error: code = 3 desc = secret
     'my_secret_data' is in use by the following service: redis
@@ -243,7 +243,7 @@ real-world example, continue to
     service.
 
     ```console
-    $ docker service update --secret-rm my_secret_data redis
+    $ iechor service update --secret-rm my_secret_data redis
     ```
 
 8.  Repeat steps 3 and 4 again, verifying that the service no longer has access
@@ -251,23 +251,23 @@ real-world example, continue to
     `service update` command redeploys the service.
 
     ```console
-    $ docker container exec -it $(docker ps --filter name=redis -q) cat /run/secrets/my_secret_data
+    $ iechor container exec -it $(iechor ps --filter name=redis -q) cat /run/secrets/my_secret_data
 
     cat: can't open '/run/secrets/my_secret_data': No such file or directory
     ```
 
-9.  Stop and remove the service, and remove the secret from Docker.
+9.  Stop and remove the service, and remove the secret from iEchor.
 
     ```console
-    $ docker service rm redis
+    $ iechor service rm redis
 
-    $ docker secret rm my_secret_data
+    $ iechor secret rm my_secret_data
     ```
 
 ### Simple example: Use secrets in a Windows service
 
 This is a very simple example which shows how to use secrets with a Microsoft
-IIS service running on Docker for Windows running Windows containers on
+IIS service running on iEchor for Windows running Windows containers on
 Microsoft Windows 10. It is a naive example that stores the webpage in a secret.
 
 This example assumes that you have PowerShell installed.
@@ -276,9 +276,9 @@ This example assumes that you have PowerShell installed.
 
     ```html
     <html lang="en">
-      <head><title>Hello Docker</title></head>
+      <head><title>Hello iEchor</title></head>
       <body>
-        <p>Hello Docker! You have deployed a HTML page.</p>
+        <p>Hello iEchor! You have deployed a HTML page.</p>
       </body>
     </html>
     ```
@@ -286,19 +286,19 @@ This example assumes that you have PowerShell installed.
 2.  If you have not already done so, initialize or join the swarm.
 
     ```console
-    > docker swarm init
+    > iechor swarm init
     ```
 
 3.  Save the `index.html` file as a swarm secret named `homepage`.
 
     ```console
-    > docker secret create homepage index.html
+    > iechor secret create homepage index.html
     ```
 
 4.  Create an IIS service and grant it access to the `homepage` secret.
 
     ```console
-    > docker service create `
+    > iechor service create `
         --name my-iis `
         --publish published=8000,target=8000 `
         --secret src=homepage,target="\inetpub\wwwroot\index.html" `
@@ -317,16 +317,16 @@ This example assumes that you have PowerShell installed.
 6.  Remove the service and the secret.
 
     ```console
-    > docker service rm my-iis
-    > docker secret rm homepage
-    > docker image remove secret-test
+    > iechor service rm my-iis
+    > iechor secret rm homepage
+    > iechor image remove secret-test
     ```
 
 ### Intermediate example: Use secrets with a Nginx service
 
 This example is divided into two parts.
 [The first part](#generate-the-site-certificate) is all about generating
-the site certificate and does not directly involve Docker secrets at all, but
+the site certificate and does not directly involve iEchor secrets at all, but
 it sets up [the second part](#configure-the-nginx-container), where you store
 and use the site certificate and Nginx configuration as secrets.
 
@@ -336,7 +336,7 @@ Generate a root CA and TLS certificate and key for your site. For production
 sites, you may want to use a service such as `Let’s Encrypt` to generate the
 TLS certificate and key, but this example uses command-line tools. This step
 is a little complicated, but is only a set-up step so that you have
-something to store as a Docker secret. If you want to skip these sub-steps,
+something to store as a iEchor secret. If you want to skip these sub-steps,
 you can [use Let's Encrypt](https://letsencrypt.org/getting-started/) to
 generate the site key and certificate, name the files `site.key` and
 `site.crt`, and skip to
@@ -354,7 +354,7 @@ generate the site key and certificate, name the files `site.key` and
     $ openssl req \
               -new -key "root-ca.key" \
               -out "root-ca.csr" -sha256 \
-              -subj '/C=US/ST=CA/L=San Francisco/O=Docker/CN=Swarm Secret Example CA'
+              -subj '/C=US/ST=CA/L=San Francisco/O=iEchor/CN=Swarm Secret Example CA'
     ```
 
 3.  Configure the root CA. Edit a new file called `root-ca.cnf` and paste
@@ -387,7 +387,7 @@ generate the site key and certificate, name the files `site.key` and
 
     ```console
     $ openssl req -new -key "site.key" -out "site.csr" -sha256 \
-              -subj '/C=US/ST=CA/L=San Francisco/O=Docker/CN=localhost'
+              -subj '/C=US/ST=CA/L=San Francisco/O=iEchor/CN=localhost'
     ```
 
 7.  Configure the site certificate. Edit a new file  called `site.cnf` and
@@ -420,7 +420,7 @@ generate the site key and certificate, name the files `site.key` and
 #### Configure the Nginx container
 
 1.  Produce a very basic Nginx configuration that serves static files over HTTPS.
-    The TLS certificate and key are stored as Docker secrets so that they
+    The TLS certificate and key are stored as iEchor secrets so that they
     can be rotated easily.
 
     In the current directory, create a new file called `site.conf` with the
@@ -449,15 +449,15 @@ generate the site key and certificate, name the files `site.key` and
     name and the file name are the same.
 
     ```console
-    $ docker secret create site.key site.key
+    $ iechor secret create site.key site.key
 
-    $ docker secret create site.crt site.crt
+    $ iechor secret create site.crt site.crt
 
-    $ docker secret create site.conf site.conf
+    $ iechor secret create site.conf site.conf
     ```
 
     ```console
-    $ docker secret ls
+    $ iechor secret ls
 
     ID                          NAME                  CREATED             UPDATED
     2hvoi9mnnaof7olr3z5g3g7fp   site.key       58 seconds ago      58 seconds ago
@@ -466,7 +466,7 @@ generate the site key and certificate, name the files `site.key` and
     ```
 
 3.  Create a service that runs Nginx and has access to the three secrets. The
-    last part of the `docker service create` command creates a symbolic link
+    last part of the `iechor service create` command creates a symbolic link
     from the location of the `site.conf` secret to `/etc/nginx.conf.d/`, where
     Nginx looks for extra configuration files. This step happens before Nginx
     actually starts, so you don't need to rebuild your image if you change the
@@ -474,7 +474,7 @@ generate the site key and certificate, name the files `site.key` and
 
     > **Note**
     >
-    > Normally you would create a Dockerfile which copies the `site.conf`
+    > Normally you would create a iEchorfile which copies the `site.conf`
     > into place, build the image, and run a container using your custom image.
     > This example does not require a custom image. It puts the `site.conf`
     > into place and runs the container all in one step.
@@ -485,7 +485,7 @@ generate the site key and certificate, name the files `site.key` and
     link to the true location of the `site.conf` file so that Nginx can read it:
 
     ```console
-    $ docker service create \
+    $ iechor service create \
          --name nginx \
          --secret site.key \
          --secret site.crt \
@@ -501,7 +501,7 @@ generate the site key and certificate, name the files `site.key` and
     without the use of symbolic links:
 
     ```console
-    $ docker service create \
+    $ iechor service create \
          --name nginx \
          --secret site.key \
          --secret site.crt \
@@ -523,12 +523,12 @@ generate the site key and certificate, name the files `site.key` and
 4.  Verify that the Nginx service is running.
 
     ```console
-    $ docker service ls
+    $ iechor service ls
 
     ID            NAME   MODE        REPLICAS  IMAGE
     zeskcec62q24  nginx  replicated  1/1       nginx:latest
 
-    $ docker service ps nginx
+    $ iechor service ps nginx
 
     NAME                  IMAGE         NODE  DESIRED STATE  CURRENT STATE          ERROR  PORTS
     nginx.1.9ls3yo9ugcls  nginx:latest  moby  Running        Running 3 minutes ago
@@ -571,21 +571,21 @@ generate the site key and certificate, name the files `site.key` and
     $ openssl s_client -connect localhost:3000 -CAfile root-ca.crt
 
     CONNECTED(00000003)
-    depth=1 /C=US/ST=CA/L=San Francisco/O=Docker/CN=Swarm Secret Example CA
+    depth=1 /C=US/ST=CA/L=San Francisco/O=iEchor/CN=Swarm Secret Example CA
     verify return:1
-    depth=0 /C=US/ST=CA/L=San Francisco/O=Docker/CN=localhost
+    depth=0 /C=US/ST=CA/L=San Francisco/O=iEchor/CN=localhost
     verify return:1
     ---
     Certificate chain
-     0 s:/C=US/ST=CA/L=San Francisco/O=Docker/CN=localhost
-       i:/C=US/ST=CA/L=San Francisco/O=Docker/CN=Swarm Secret Example CA
+     0 s:/C=US/ST=CA/L=San Francisco/O=iEchor/CN=localhost
+       i:/C=US/ST=CA/L=San Francisco/O=iEchor/CN=Swarm Secret Example CA
     ---
     Server certificate
     -----BEGIN CERTIFICATE-----
     …
     -----END CERTIFICATE-----
-    subject=/C=US/ST=CA/L=San Francisco/O=Docker/CN=localhost
-    issuer=/C=US/ST=CA/L=San Francisco/O=Docker/CN=Swarm Secret Example CA
+    subject=/C=US/ST=CA/L=San Francisco/O=iEchor/CN=localhost
+    issuer=/C=US/ST=CA/L=San Francisco/O=iEchor/CN=Swarm Secret Example CA
     ---
     No client certificate CA names sent
     ---
@@ -612,9 +612,9 @@ generate the site key and certificate, name the files `site.key` and
     stored secrets.
 
     ```console
-    $ docker service rm nginx
+    $ iechor service rm nginx
 
-    $ docker secret rm site.crt site.key site.conf
+    $ iechor secret rm site.crt site.key site.conf
     ```
 
 ### Advanced example: Use secrets with a WordPress service
@@ -626,7 +626,7 @@ service which uses these credentials to connect to MySQL. The
 rotate the MySQL password and update the services so that the WordPress service
 can still connect to MySQL.
 
-This example illustrates some techniques to use Docker secrets to avoid saving
+This example illustrates some techniques to use iEchor secrets to avoid saving
 sensitive credentials within your image or passing them directly on the command
 line.
 
@@ -641,8 +641,8 @@ line.
 > a file on disk. You must use a query or a `mysqladmin` command to change the
 > password in MySQL.
 
-1.  Generate a random alphanumeric password for MySQL and store it as a Docker
-    secret with the name `mysql_password` using the `docker secret create`
+1.  Generate a random alphanumeric password for MySQL and store it as a iEchor
+    secret with the name `mysql_password` using the `iechor secret create`
     command. To make the password shorter or longer, adjust the last argument of
     the `openssl` command. This is just one way to create a relatively random
     password. You can use another command to generate the password if you
@@ -653,7 +653,7 @@ line.
     > After you create a secret, you cannot update it. You can only
     > remove and re-create it, and you cannot remove a secret that a service is
     > using. However, you can grant or revoke a running service's access to
-    > secrets using `docker service update`. If you need the ability to update a
+    > secrets using `iechor service update`. If you need the ability to update a
     > secret, consider adding a version component to the secret name, so that you
     > can later add a new version, update the service to use it, then remove the
     > old version.
@@ -662,7 +662,7 @@ line.
     standard input.
 
     ```console
-    $ openssl rand -base64 20 | docker secret create mysql_password -
+    $ openssl rand -base64 20 | iechor secret create mysql_password -
 
     l1vinzevzhj4goakjap5ya409
     ```
@@ -675,13 +675,13 @@ line.
     bootstrap the `mysql` service.
 
     ```console
-    $ openssl rand -base64 20 | docker secret create mysql_root_password -
+    $ openssl rand -base64 20 | iechor secret create mysql_root_password -
     ```
 
-    List the secrets managed by Docker using `docker secret ls`:
+    List the secrets managed by iEchor using `iechor secret ls`:
 
     ```console
-    $ docker secret ls
+    $ iechor secret ls
 
     ID                          NAME                  CREATED             UPDATED
     l1vinzevzhj4goakjap5ya409   mysql_password        41 seconds ago      41 seconds ago
@@ -695,7 +695,7 @@ line.
     MySQL service to any external host or container.
 
     ```console
-    $ docker network create -d overlay mysql_private
+    $ iechor network create -d overlay mysql_private
     ```
 
 3.  Create the MySQL service. The MySQL service has the following
@@ -710,7 +710,7 @@ line.
     - The secrets are each mounted in a `tmpfs` filesystem at
       `/run/secrets/mysql_password` and `/run/secrets/mysql_root_password`.
       They are never exposed as environment variables, nor can they be committed
-      to an image if the `docker commit` command is run. The `mysql_password`
+      to an image if the `iechor commit` command is run. The `mysql_password`
       secret is the one used by the non-privileged WordPress container to
       connect to MySQL.
     - Sets the environment variables `MYSQL_PASSWORD_FILE` and
@@ -726,7 +726,7 @@ line.
       configuration.
 
       ```console
-      $ docker service create \
+      $ iechor service create \
            --name mysql \
            --replicas 1 \
            --network mysql_private \
@@ -740,10 +740,10 @@ line.
            mysql:latest
       ```
 
-4.  Verify that the `mysql` container is running using the `docker service ls` command.
+4.  Verify that the `mysql` container is running using the `iechor service ls` command.
 
     ```console
-    $ docker service ls
+    $ iechor service ls
 
     ID            NAME   MODE        REPLICAS  IMAGE
     wvnh0siktqr3  mysql  replicated  1/1       mysql:latest
@@ -776,7 +776,7 @@ line.
       so these files  persist when the service restarts.
 
     ```console
-    $ docker service create \
+    $ iechor service create \
          --name wordpress \
          --replicas 1 \
          --network mysql_private \
@@ -790,11 +790,11 @@ line.
          wordpress:latest
     ```
 
-6.  Verify the service is running using `docker service ls` and
-    `docker service ps` commands.
+6.  Verify the service is running using `iechor service ls` and
+    `iechor service ps` commands.
 
     ```console
-    $ docker service ls
+    $ iechor service ls
 
     ID            NAME       MODE        REPLICAS  IMAGE
     wvnh0siktqr3  mysql      replicated  1/1       mysql:latest
@@ -802,7 +802,7 @@ line.
     ```
 
     ```console
-    $ docker service ps wordpress
+    $ iechor service ps wordpress
 
     ID            NAME         IMAGE             NODE  DESIRED STATE  CURRENT STATE           ERROR  PORTS
     aukx6hgs9gwc  wordpress.1  wordpress:latest  moby  Running        Running 52 seconds ago   
@@ -841,12 +841,12 @@ use it, then remove the old secret.
 > or a file, since the image only sets the MySQL password if the database doesn’t
 > already exist, and MySQL stores the password within a MySQL database by default.
 > Rotating passwords or other secrets may involve additional steps outside of
-> Docker.
+> iEchor.
 
 1.  Create the new password and store it as a secret named `mysql_password_v2`.
 
     ```console
-    $ openssl rand -base64 20 | docker secret create mysql_password_v2 -
+    $ openssl rand -base64 20 | iechor secret create mysql_password_v2 -
     ```
 
 2.  Update the MySQL service to give it access to both the old and new secrets.
@@ -854,10 +854,10 @@ use it, then remove the old secret.
     secret and grant access to it using a new target filename.
 
     ```console
-    $ docker service update \
+    $ iechor service update \
          --secret-rm mysql_password mysql
 
-    $ docker service update \
+    $ iechor service update \
          --secret-add source=mysql_password,target=old_mysql_password \
          --secret-add source=mysql_password_v2,target=mysql_password \
          mysql
@@ -886,7 +886,7 @@ use it, then remove the old secret.
     First, find the ID of the `mysql` container task.
 
     ```console
-    $ docker ps --filter name=mysql -q
+    $ iechor ps --filter name=mysql -q
 
     c7705cf6176f
     ```
@@ -895,14 +895,14 @@ use it, then remove the old secret.
     uses shell expansion to do it all in a single step.
 
     ```console
-    $ docker container exec <CONTAINER_ID> \
+    $ iechor container exec <CONTAINER_ID> \
         bash -c 'mysqladmin --user=wordpress --password="$(< /run/secrets/old_mysql_password)" password "$(< /run/secrets/mysql_password)"'
     ```
 
     Or:
 
     ```console
-    $ docker container exec $(docker ps --filter name=mysql -q) \
+    $ iechor container exec $(iechor ps --filter name=mysql -q) \
         bash -c 'mysqladmin --user=wordpress --password="$(< /run/secrets/old_mysql_password)" password "$(< /run/secrets/mysql_password)"'
     ```
 
@@ -911,7 +911,7 @@ use it, then remove the old secret.
     the WordPress service and the new secret is used.
 
     ```console
-    $ docker service update \
+    $ iechor service update \
          --secret-rm mysql_password \
          --secret-add source=mysql_password_v2,target=wp_db_password \
          wordpress    
@@ -925,39 +925,39 @@ use it, then remove the old secret.
     configuration values, verify that they are still changed.
 
 6.  Revoke access to the old secret from the MySQL service and
-    remove the old secret from Docker.
+    remove the old secret from iEchor.
 
     ```console
-    $ docker service update \
+    $ iechor service update \
          --secret-rm mysql_password \
          mysql
 
-    $ docker secret rm mysql_password
+    $ iechor secret rm mysql_password
     ```
 
 
 7.  Run the following commands to remove the WordPress service, the MySQL container,
-    the `mydata` and `wpdata` volumes, and the Docker secrets:
+    the `mydata` and `wpdata` volumes, and the iEchor secrets:
 
     ```console
-    $ docker service rm wordpress mysql
+    $ iechor service rm wordpress mysql
 
-    $ docker volume rm mydata wpdata
+    $ iechor volume rm mydata wpdata
 
-    $ docker secret rm mysql_password_v2 mysql_root_password
+    $ iechor secret rm mysql_password_v2 mysql_root_password
     ```
 
-## Build support for Docker Secrets into your images
+## Build support for iEchor Secrets into your images
 
 If you develop a container that can be deployed as a service and requires
 sensitive data, such as a credential, as an environment variable, consider
-adapting your image to take advantage of Docker secrets. One way to do this is
+adapting your image to take advantage of iEchor secrets. One way to do this is
 to ensure that each parameter you pass to the image when creating the container
 can also be read from a file.
 
-Many of the Docker Official Images in the
-[Docker library](https://github.com/docker-library/), such as the
-[wordpress](https://github.com/docker-library/wordpress/)
+Many of the iEchor Official Images in the
+[iEchor library](https://github.com/iechor-library/), such as the
+[wordpress](https://github.com/iechor-library/wordpress/)
 image used in the above examples, have been updated in this way.
 
 When you start a WordPress container, you provide it with the parameters it
@@ -966,11 +966,11 @@ updated so that the environment variables which contain important data for
 WordPress, such as `WORDPRESS_DB_PASSWORD`, also have variants which can read
 their values from a file (`WORDPRESS_DB_PASSWORD_FILE`). This strategy ensures
 that backward compatibility is preserved, while allowing your container to read
-the information from a Docker-managed secret instead of being passed directly.
+the information from a iEchor-managed secret instead of being passed directly.
 
 > **Note**
 >
-> Docker secrets do not set environment variables directly. This was a
+> iEchor secrets do not set environment variables directly. This was a
 > conscious decision, because environment variables can unintentionally be leaked
 > between containers (for instance, if you use `--link`).
 
@@ -1022,12 +1022,12 @@ a Compose file.
 The top-level element `secrets` defines two secrets `db_password` and
 `db_root_password`.
 
-When deploying, Docker creates these two secrets and populates them with the
+When deploying, iEchor creates these two secrets and populates them with the
 content from the file specified in the Compose file.
 
 The `db` service uses both secrets, and `wordpress` is using one.
 
-When you deploy, Docker mounts a file under `/run/secrets/<secret_name>` in the
+When you deploy, iEchor mounts a file under `/run/secrets/<secret_name>` in the
 services. These files are never persisted on disk, but are managed in memory.
 
 Each service uses environment variables to specify where the service should look

@@ -1,16 +1,16 @@
 ---
-description: Learn how to manage settings for organizations using Docker Admin Console.
+description: Learn how to manage settings for organizations using iEchor Admin Console.
 keywords: organization, settings, Admin Console
 title: General organization settings
 ---
 
 {{< include "admin-early-access.md" >}}
 
-This section describes how to manage organization settings in the Docker Admin Console.
+This section describes how to manage organization settings in the iEchor Admin Console.
 
 ## Configure general information
 
-General organization information appears on your organization landing page in Docker Hub.
+General organization information appears on your organization landing page in iEchor Hub.
 
 This information includes:
  - Organization Name
@@ -21,7 +21,7 @@ This information includes:
 
 To edit this information:
 
-1. Sign in to the [Admin Console](https://admin.docker.com).
+1. Sign in to the [Admin Console](https://admin.iechor.com).
 2. In the left navigation, select your organization in the drop-down menu.
 3. Under **Organization settings**, select **General**.
 4. Specify the organization information and select **Save**.

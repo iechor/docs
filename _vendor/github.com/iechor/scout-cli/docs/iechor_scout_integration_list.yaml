@@ -1,0 +1,53 @@
+command: iechor scout integration list
+short: Integration iEchor Scout
+long: |
+    The iechor scout integration list configured integrations for an organization.
+usage: iechor scout integration list [INTEGRATION]
+pname: iechor scout integration
+plink: iechor_scout_integration.yaml
+options:
+    - option: name
+      value_type: string
+      description: Name of integration configuration to list
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: org
+      value_type: string
+      description: Namespace of the iEchor organization
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: debug
+      value_type: bool
+      default_value: "false"
+      description: Debug messages
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: verbose-debug
+      value_type: bool
+      default_value: "false"
+      description: Verbose debug
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

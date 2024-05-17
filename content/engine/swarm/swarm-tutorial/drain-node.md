@@ -17,7 +17,7 @@ node and launches replica tasks on a node with `Active` availability.
 > **Important**: 
 >
 > Setting a node to `Drain` does not remove standalone containers from that node,
-> such as those created with `docker run`, `docker compose up`, or the Docker Engine
+> such as those created with `iechor run`, `iechor compose up`, or the iEchor Engine
 > API. A node's status, including `Drain`, only affects the node's ability to schedule
 > swarm service workloads.
 { .important }
@@ -29,7 +29,7 @@ node and launches replica tasks on a node with `Active` availability.
 2.  Verify that all your nodes are actively available.
 
     ```console
-    $ docker node ls
+    $ iechor node ls
 
     ID                           HOSTNAME  STATUS  AVAILABILITY  MANAGER STATUS
     1bcef6utixb0l0ca7gxuivsj0    worker2   Ready   Active
@@ -41,16 +41,16 @@ node and launches replica tasks on a node with `Active` availability.
     [rolling update](rolling-update.md) tutorial, start it now:
 
     ```console
-    $ docker service create --replicas 3 --name redis --update-delay 10s redis:3.0.6
+    $ iechor service create --replicas 3 --name redis --update-delay 10s redis:3.0.6
 
     c5uo6kdmzpon37mgj9mwglcfw
     ```
 
-4.  Run `docker service ps redis` to see how the swarm manager assigned the
+4.  Run `iechor service ps redis` to see how the swarm manager assigned the
 tasks to different nodes:
 
     ```console
-    $ docker service ps redis
+    $ iechor service ps redis
 
     NAME                               IMAGE        NODE     DESIRED STATE  CURRENT STATE
     redis.1.7q92v0nr1hcgts2amcjyqg3pq  redis:3.0.6  manager1 Running        Running 26 seconds
@@ -61,11 +61,11 @@ tasks to different nodes:
     In this case the swarm manager distributed one task to each node. You may
     see the tasks distributed differently among the nodes in your environment.
 
-5.  Run `docker node update --availability drain <NODE-ID>` to drain a node that
+5.  Run `iechor node update --availability drain <NODE-ID>` to drain a node that
 had a task assigned to it:
 
     ```console
-    $ docker node update --availability drain worker1
+    $ iechor node update --availability drain worker1
 
     worker1
     ```
@@ -73,7 +73,7 @@ had a task assigned to it:
 6.  Inspect the node to check its availability:
 
     ```console
-    $ docker node inspect --pretty worker1
+    $ iechor node inspect --pretty worker1
 
     ID:			38ciaotwjuritcdtn9npbnkuz
     Hostname:		worker1
@@ -85,11 +85,11 @@ had a task assigned to it:
 
     The drained node shows `Drain` for `Availability`.
 
-7.  Run `docker service ps redis` to see how the swarm manager updated the
+7.  Run `iechor service ps redis` to see how the swarm manager updated the
 task assignments for the `redis` service:
 
     ```console
-    $ docker service ps redis
+    $ iechor service ps redis
 
     NAME                                    IMAGE        NODE      DESIRED STATE  CURRENT STATE           ERROR
     redis.1.7q92v0nr1hcgts2amcjyqg3pq       redis:3.0.6  manager1  Running        Running 4 minutes
@@ -102,11 +102,11 @@ task assignments for the `redis` service:
     with `Drain` availability and creating a new task on a node with `Active`
     availability.
 
-8.  Run  `docker node update --availability active <NODE-ID>` to return the
+8.  Run  `iechor node update --availability active <NODE-ID>` to return the
 drained node to an active state:
 
     ```console
-    $ docker node update --availability active worker1
+    $ iechor node update --availability active worker1
 
     worker1
     ```
@@ -114,7 +114,7 @@ drained node to an active state:
 9.  Inspect the node to see the updated state:
 
     ```console
-    $ docker node inspect --pretty worker1
+    $ iechor node inspect --pretty worker1
 
     ID:			38ciaotwjuritcdtn9npbnkuz
     Hostname:		worker1

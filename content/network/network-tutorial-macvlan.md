@@ -6,7 +6,7 @@ keywords: networking, macvlan, 802.1Q, standalone
 ---
 
 This series of tutorials deals with networking standalone containers which
-connect to `macvlan` networks. In this type of network, the Docker host accepts
+connect to `macvlan` networks. In this type of network, the iEchor host accepts
 requests for multiple MAC addresses at its IP address, and routes those requests
 to the appropriate container. For other networking topics, see the
 [overview](index.md).
@@ -23,7 +23,7 @@ container to it.
   to your networking equipment.
 
 - The `macvlan` networking driver only works on Linux hosts, and is not supported
-  on Docker Desktop for Mac, Docker Desktop for Windows, or Docker EE for Windows Server.
+  on iEchor Desktop for Mac, iEchor Desktop for Windows, or iEchor EE for Windows Server.
 
 - You need at least version 3.9 of the Linux kernel, and version 4.0 or higher
   is recommended.
@@ -35,7 +35,7 @@ container to it.
 
 ## Bridge example
 
-In the simple bridge example, your traffic flows through `eth0` and Docker
+In the simple bridge example, your traffic flows through `eth0` and iEchor
 routes traffic to your container using its MAC address. To network devices
 on your network, your container appears to be physically attached to the network.
 
@@ -43,14 +43,14 @@ on your network, your container appears to be physically attached to the network
     and `parent` values to values that make sense in your environment.
 
     ```console
-    $ docker network create -d macvlan \
+    $ iechor network create -d macvlan \
       --subnet=172.16.86.0/24 \
       --gateway=172.16.86.1 \
       -o parent=eth0 \
       my-macvlan-net
     ```
 
-    You can use `docker network ls` and `docker network inspect my-macvlan-net`
+    You can use `iechor network ls` and `iechor network inspect my-macvlan-net`
     commands to verify that the network exists and is a `macvlan` network.
 
 2.  Start an `alpine` container and attach it to the `my-macvlan-net` network. The
@@ -58,7 +58,7 @@ on your network, your container appears to be physically attached to the network
     to it. The `--rm` flag means the container is removed when it is stopped.
 
     ```console
-    $ docker run --rm -dit \
+    $ iechor run --rm -dit \
       --network my-macvlan-net \
       --name my-macvlan-alpine \
       alpine:latest \
@@ -69,7 +69,7 @@ on your network, your container appears to be physically attached to the network
     within the `Networks` key:
 
     ```console
-    $ docker container inspect my-macvlan-alpine
+    $ iechor container inspect my-macvlan-alpine
 
     ...truncated...
     "Networks": {
@@ -95,10 +95,10 @@ on your network, your container appears to be physically attached to the network
     ```
 
 4.  Check out how the container sees its own network interfaces by running a
-    couple of `docker exec` commands.
+    couple of `iechor exec` commands.
 
     ```console
-    $ docker exec my-macvlan-alpine ip addr show eth0
+    $ iechor exec my-macvlan-alpine ip addr show eth0
 
     9: eth0@tunl0: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP
     link/ether 02:42:ac:10:56:02 brd ff:ff:ff:ff:ff:ff
@@ -107,25 +107,25 @@ on your network, your container appears to be physically attached to the network
     ```
 
     ```console
-    $ docker exec my-macvlan-alpine ip route
+    $ iechor exec my-macvlan-alpine ip route
 
     default via 172.16.86.1 dev eth0
     172.16.86.0/24 dev eth0 scope link  src 172.16.86.2
     ```
 
-5.  Stop the container (Docker removes it because of the `--rm` flag), and remove
+5.  Stop the container (iEchor removes it because of the `--rm` flag), and remove
     the network.
 
     ```console
-    $ docker container stop my-macvlan-alpine
+    $ iechor container stop my-macvlan-alpine
 
-    $ docker network rm my-macvlan-net
+    $ iechor network rm my-macvlan-net
     ```
 
 ## 802.1Q trunked bridge example
 
 In the 802.1Q trunked bridge example, your traffic flows through a sub-interface
-of `eth0` (called `eth0.10`) and Docker routes traffic to your container using
+of `eth0` (called `eth0.10`) and iEchor routes traffic to your container using
 its MAC address. To network devices on your network, your container appears to
 be physically attached to the network.
 
@@ -134,16 +134,16 @@ be physically attached to the network.
     environment.
 
     ```console
-    $ docker network create -d macvlan \
+    $ iechor network create -d macvlan \
       --subnet=172.16.86.0/24 \
       --gateway=172.16.86.1 \
       -o parent=eth0.10 \
       my-8021q-macvlan-net
     ```
 
-    You can use `docker network ls` and `docker network inspect my-8021q-macvlan-net`
+    You can use `iechor network ls` and `iechor network inspect my-8021q-macvlan-net`
     commands to verify that the network exists, is a `macvlan` network, and
-    has parent `eth0.10`. You can use `ip addr show` on the Docker host to
+    has parent `eth0.10`. You can use `ip addr show` on the iEchor host to
     verify that the interface `eth0.10` exists and has a separate IP address
 
 2.  Start an `alpine` container and attach it to the `my-8021q-macvlan-net`
@@ -152,7 +152,7 @@ be physically attached to the network.
     is stopped.
 
     ```console
-    $ docker run --rm -itd \
+    $ iechor run --rm -itd \
       --network my-8021q-macvlan-net \
       --name my-second-macvlan-alpine \
       alpine:latest \
@@ -163,7 +163,7 @@ be physically attached to the network.
     key within the `Networks` key:
 
     ```console
-    $ docker container inspect my-second-macvlan-alpine
+    $ iechor container inspect my-second-macvlan-alpine
 
     ...truncated...
     "Networks": {
@@ -189,10 +189,10 @@ be physically attached to the network.
     ```
 
 4.  Check out how the container sees its own network interfaces by running a
-    couple of `docker exec` commands.
+    couple of `iechor exec` commands.
 
     ```console
-    $ docker exec my-second-macvlan-alpine ip addr show eth0
+    $ iechor exec my-second-macvlan-alpine ip addr show eth0
 
     11: eth0@if10: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP
     link/ether 02:42:ac:10:56:02 brd ff:ff:ff:ff:ff:ff
@@ -201,19 +201,19 @@ be physically attached to the network.
     ```
 
     ```console
-    $ docker exec my-second-macvlan-alpine ip route
+    $ iechor exec my-second-macvlan-alpine ip route
 
     default via 172.16.86.1 dev eth0
     172.16.86.0/24 dev eth0 scope link  src 172.16.86.2
     ```
 
-5.  Stop the container (Docker removes it because of the `--rm` flag), and remove
+5.  Stop the container (iEchor removes it because of the `--rm` flag), and remove
     the network.
 
     ```console
-    $ docker container stop my-second-macvlan-alpine
+    $ iechor container stop my-second-macvlan-alpine
 
-    $ docker network rm my-8021q-macvlan-net
+    $ iechor network rm my-8021q-macvlan-net
     ```
 
 ## Other networking tutorials

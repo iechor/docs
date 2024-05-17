@@ -13,10 +13,10 @@ As part of the swarm management lifecycle, you may need to:
 
 ## List nodes
 
-To view a list of nodes in the swarm run `docker node ls` from a manager node:
+To view a list of nodes in the swarm run `iechor node ls` from a manager node:
 
 ```console
-$ docker node ls
+$ iechor node ls
 
 ID                           HOSTNAME  STATUS  AVAILABILITY  MANAGER STATUS
 46aqrk4e473hjbt745z53cr3t    node-5    Ready   Active        Reachable
@@ -54,12 +54,12 @@ For more information on swarm administration refer to the [Swarm administration 
 
 ## Inspect an individual node
 
-You can run `docker node inspect <NODE-ID>` on a manager node to view the
+You can run `iechor node inspect <NODE-ID>` on a manager node to view the
 details for an individual node. The output defaults to JSON format, but you can
 pass the `--pretty` flag to print the results in human-readable format. For example:
 
 ```console
-$ docker node inspect self --pretty
+$ iechor node inspect self --pretty
 
 ID:                     ehkv3bcimagdese79dn78otj5
 Hostname:               node-1
@@ -104,7 +104,7 @@ Changing node availability lets you:
 For example, to change a manager node to `Drain` availability:
 
 ```console
-$ docker node update --availability drain node-1
+$ iechor node update --availability drain node-1
 
 node-1
 ```
@@ -118,21 +118,21 @@ Node labels provide a flexible method of node organization. You can also use
 node labels in service constraints. Apply constraints when you create a service
 to limit the nodes where the scheduler assigns tasks for the service.
 
-Run `docker node update --label-add` on a manager node to add label metadata to
+Run `iechor node update --label-add` on a manager node to add label metadata to
 a node. The `--label-add` flag supports either a `<key>` or a `<key>=<value>`
 pair.
 
 Pass the `--label-add` flag once for each node label you want to add:
 
 ```console
-$ docker node update --label-add foo --label-add bar=baz node-1
+$ iechor node update --label-add foo --label-add bar=baz node-1
 
 node-1
 ```
 
-The labels you set for nodes using docker node update apply only to the node
-entity within the swarm. Do not confuse them with the docker daemon labels for
-[dockerd](../../config/labels-custom-metadata.md).
+The labels you set for nodes using iechor node update apply only to the node
+entity within the swarm. Do not confuse them with the iechor daemon labels for
+[iechord](../../config/labels-custom-metadata.md).
 
 Therefore, node labels can be used to limit critical tasks to nodes that meet
 certain requirements. For example, schedule only on machines where special
@@ -148,7 +148,7 @@ decentralized manner. For instance, an engine could have a label to indicate
 that it has a certain type of disk device, which may not be relevant to security
 directly. These labels are more easily "trusted" by the swarm orchestrator.
 
-Refer to the `docker service create` [CLI reference](../../reference/cli/docker/service/create.md)
+Refer to the `iechor service create` [CLI reference](../../reference/cli/iechor/service/create.md)
 for more information about service constraints.
 
 ### Promote or demote a node
@@ -163,27 +163,27 @@ maintenance. Similarly, you can demote a manager node to the worker role.
 > a node, you must always maintain a quorum of manager nodes in the
 > swarm. For more information refer to the [Swarm administration guide](admin_guide.md).
 
-To promote a node or set of nodes, run `docker node promote` from a manager
+To promote a node or set of nodes, run `iechor node promote` from a manager
 node:
 
 ```console
-$ docker node promote node-3 node-2
+$ iechor node promote node-3 node-2
 
 Node node-3 promoted to a manager in the swarm.
 Node node-2 promoted to a manager in the swarm.
 ```
 
-To demote a node or set of nodes, run `docker node demote` from a manager node:
+To demote a node or set of nodes, run `iechor node demote` from a manager node:
 
 ```console
-$ docker node demote node-3 node-2
+$ iechor node demote node-3 node-2
 
 Manager node-3 demoted in the swarm.
 Manager node-2 demoted in the swarm.
 ```
 
-`docker node promote` and `docker node demote` are convenience commands for
-`docker node update --role manager` and `docker node update --role worker`
+`iechor node promote` and `iechor node demote` are convenience commands for
+`iechor node update --role manager` and `iechor node update --role worker`
 respectively.
 
 ## Install plugins on swarm nodes
@@ -192,33 +192,33 @@ If your swarm service relies on one or more
 [plugins](/engine/extend/plugin_api/), these plugins need to be available on
 every node where the service could potentially be deployed. You can manually
 install the plugin on each node or script the installation. You can also deploy
-the plugin in a similar way as a global service using the Docker API, by specifying
+the plugin in a similar way as a global service using the iEchor API, by specifying
 a `PluginSpec` instead of a `ContainerSpec`.
 
 > **Note**
 >
 > There is currently no way to deploy a plugin to a swarm using the
-> Docker CLI or Docker Compose. In addition, it is not possible to install
+> iEchor CLI or iEchor Compose. In addition, it is not possible to install
 > plugins from a private repository.
 
 The [`PluginSpec`](/engine/extend/plugin_api/#json-specification)
-is defined by the plugin developer. To add the plugin to all Docker nodes, use
+is defined by the plugin developer. To add the plugin to all iEchor nodes, use
 the [`service/create`](/engine/api/v1.31/#operation/ServiceCreate) API, passing
 the `PluginSpec` JSON defined in the `TaskTemplate`.
 
 ## Leave the swarm
 
-Run the `docker swarm leave` command on a node to remove it from the swarm.
+Run the `iechor swarm leave` command on a node to remove it from the swarm.
 
 For example to leave the swarm on a worker node:
 
 ```console
-$ docker swarm leave
+$ iechor swarm leave
 
 Node left the swarm.
 ```
 
-When a node leaves the swarm, Docker Engine stops running in Swarm
+When a node leaves the swarm, iEchor Engine stops running in Swarm
 mode. The orchestrator no longer schedules tasks to the node.
 
 If the node is a manager node, you receive a warning about maintaining the
@@ -229,17 +229,17 @@ disaster recovery measures.
 For information about maintaining a quorum and disaster recovery, refer to the
 [Swarm administration guide](admin_guide.md).
 
-After a node leaves the swarm, you can run `docker node rm` on a
+After a node leaves the swarm, you can run `iechor node rm` on a
 manager node to remove the node from the node list.
 
 For instance:
 
 ```console
-$ docker node rm node-2
+$ iechor node rm node-2
 ```
 
 ## Learn more
 
 * [Swarm administration guide](admin_guide.md)
-* [Docker Engine command line reference](../../reference/cli/docker/)
+* [iEchor Engine command line reference](../../reference/cli/iechor/)
 * [Swarm mode tutorial](swarm-tutorial/index.md)

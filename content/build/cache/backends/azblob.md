@@ -15,14 +15,14 @@ aliases:
 The `azblob` cache store uploads your resulting build cache to
 [Azure's blob storage service](https://azure.microsoft.com/en-us/services/storage/blobs/).
 
-This cache storage backend is not supported with the default `docker` driver.
+This cache storage backend is not supported with the default `iechor` driver.
 To use this feature, create a new builder using a different driver. See
 [Build drivers](../../drivers/_index.md) for more information.
 
 ## Synopsis
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --cache-to type=azblob,name=<cache-image>[,parameters...] \
   --cache-from type=azblob,name=<cache-image>[,parameters...] .
 ```
@@ -50,7 +50,7 @@ The environment variables are read from the server, not the Buildx client.
 
 ## Further reading
 
-For an introduction to caching see [Docker build cache](../_index.md).
+For an introduction to caching see [iEchor build cache](../_index.md).
 
 For more information on the `azblob` cache backend, see the
 [BuildKit README](https://github.com/moby/buildkit#azure-blob-storage-cache-experimental).

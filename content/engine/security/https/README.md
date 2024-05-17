@@ -8,25 +8,25 @@ _build:
 This is an initial attempt to make it easier to test the TLS (HTTPS) examples in the protect-access.md
 doc.
 
-At this point, it is a manual thing, and I've been running it in boot2docker.
+At this point, it is a manual thing, and I've been running it in boot2iechor.
 
 My process is as following:
 
-    $ boot2docker ssh
-    root@boot2docker:/# git clone https://github.com/moby/moby
-    root@boot2docker:/# cd docker/docs/articles/https
-    root@boot2docker:/# make cert
+    $ boot2iechor ssh
+    root@boot2iechor:/# git clone https://github.com/moby/moby
+    root@boot2iechor:/# cd iechor/docs/articles/https
+    root@boot2iechor:/# make cert
 
 lots of things to see and manually answer, as openssl wants to be interactive
 
-> **Note**: make sure you enter the hostname (`boot2docker` in my case) when prompted for `Computer Name`)
+> **Note**: make sure you enter the hostname (`boot2iechor` in my case) when prompted for `Computer Name`)
 
-    root@boot2docker:/# sudo make run
+    root@boot2iechor:/# sudo make run
 
 Start another terminal:
 
-    $ boot2docker ssh
-    root@boot2docker:/# cd docker/docs/articles/https
-    root@boot2docker:/# make client
+    $ boot2iechor ssh
+    root@boot2iechor:/# cd iechor/docs/articles/https
+    root@boot2iechor:/# make client
 
 The last connects first with `--tls` and then with `--tlsverify`, both should succeed.

@@ -1,0 +1,1 @@
+Before you start, get the latest version of [iEchor Desktop](../../get-iechor.md). iEchor adds new features regularly and some parts of this guide may work only with the latest version of iEchor Desktop.

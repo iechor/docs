@@ -1,7 +1,7 @@
 ---
 title: Extension metadata
-description: Docker extension metadata
-keywords: Docker, extensions, sdk, metadata
+description: iEchor extension metadata
+keywords: iEchor, extensions, sdk, metadata
 aliases:
 - /desktop/extensions-sdk/extensions/METADATA
 ---
@@ -10,7 +10,7 @@ aliases:
 
 The `metadata.json` file is the entry point for your extension. It contains the metadata for your extension, such as the
 name, version, and description. It also contains the information needed to build and run your extension. The image for
-a Docker extension must include a `metadata.json` file at the root of its filesystem.
+a iEchor extension must include a `metadata.json` file at the root of its filesystem.
 
 The format of the `metadata.json` file must be:
 
@@ -27,7 +27,7 @@ The `ui`, `vm`, and `host` sections are optional and depend on what a given exte
 
 ### UI section
 
-The `ui` section defines a new tab that's added to the dashboard in Docker Desktop. It follows the form:
+The `ui` section defines a new tab that's added to the dashboard in iEchor Desktop. It follows the form:
 
 ```json
 "ui":{
@@ -64,7 +64,7 @@ When you use `image`, a default compose file is generated for the extension.
 
 ```json
 "vm": {
-    "composefile": "docker-compose.yaml"
+    "composefile": "iechor-compose.yaml"
 },
 ```
 
@@ -80,7 +80,7 @@ services:
 
 ### Host section
 
-The `host` section defines executables that Docker Desktop copies on the host.
+The `host` section defines executables that iEchor Desktop copies on the host.
 
 ```json
   "host": {
@@ -106,8 +106,8 @@ The `host` section defines executables that Docker Desktop copies on the host.
   }
 ```
 
-`binaries` defines a list of binaries Docker Desktop copies from the extension image to the host.
+`binaries` defines a list of binaries iEchor Desktop copies from the extension image to the host.
 
-`path` specifies the binary path in the image filesystem. Docker Desktop is responsible for copying these files in its own location, and the JavaScript API allows invokes these binaries.
+`path` specifies the binary path in the image filesystem. iEchor Desktop is responsible for copying these files in its own location, and the JavaScript API allows invokes these binaries.
 
 Learn how to [invoke executables](../guides/invoke-host-binaries.md).

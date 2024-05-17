@@ -6,13 +6,13 @@ toc_max: 4
 ---
 
 Swarm services use a declarative model, which means that you define the
-desired state of the service, and rely upon Docker to maintain this state. The
+desired state of the service, and rely upon iEchor to maintain this state. The
 state includes information such as (but not limited to):
 
 - The image name and tag the service containers should run
 - How many containers participate in the service
 - Whether any ports are exposed to clients outside the swarm
-- Whether the service should start automatically when Docker starts
+- Whether the service should start automatically when iEchor starts
 - The specific behavior that happens when the service is restarted (such as
   whether a rolling restart is used)
 - Characteristics of the nodes where the service can run (such as resource
@@ -30,17 +30,17 @@ randomly-generated name and no published ports. This is a naive example, since
 you can't interact with the Nginx service.
 
 ```console
-$ docker service create nginx
+$ iechor service create nginx
 ```
 
 The service is scheduled on an available node. To confirm that the service
-was created and started successfully, use the `docker service ls` command:
+was created and started successfully, use the `iechor service ls` command:
 
 ```console
-$ docker service ls
+$ iechor service ls
 
 ID                  NAME                MODE                REPLICAS            IMAGE                                                                                             PORTS
-a3iixnklxuem        quizzical_lamarr    replicated          1/1                 docker.io/library/nginx@sha256:41ad9967ea448d7c2b203c699b429abe1ed5af331cd92533900c6d77490e0268
+a3iixnklxuem        quizzical_lamarr    replicated          1/1                 iechor.io/library/nginx@sha256:41ad9967ea448d7c2b203c699b429abe1ed5af331cd92533900c6d77490e0268
 ```
 
 Created services do not always run right away. A service can be in a pending
@@ -52,23 +52,23 @@ information.
 To provide a name for your service, use the `--name` flag:
 
 ```console
-$ docker service create --name my_web nginx
+$ iechor service create --name my_web nginx
 ```
 
 Just like with standalone containers, you can specify a command that the
 service's containers should run, by adding it after the image name. This example
 starts a service called `helloworld` which uses an `alpine` image and runs the
-command `ping docker.com`:
+command `ping iechor.com`:
 
 ```console
-$ docker service create --name helloworld alpine ping docker.com
+$ iechor service create --name helloworld alpine ping iechor.com
 ```
 
 You can also specify an image tag for the service to use. This example modifies
 the previous one to use the `alpine:3.6` tag:
 
 ```console
-$ docker service create --name helloworld alpine:3.6 ping docker.com
+$ iechor service create --name helloworld alpine:3.6 ping iechor.com
 ```
 
 For more details about image tag resolution, see
@@ -80,35 +80,35 @@ For more details about image tag resolution, see
 >
 > This example only works for a Windows container.
 
-Swarm now allows using a Docker config as a gMSA credential spec - a requirement for Active Directory-authenticated applications. This reduces the burden of distributing credential specs to the nodes they're used on. 
+Swarm now allows using a iEchor config as a gMSA credential spec - a requirement for Active Directory-authenticated applications. This reduces the burden of distributing credential specs to the nodes they're used on. 
 
 The following example assumes a gMSA and its credential spec (called credspec.json) already exists, and that the nodes being deployed to are correctly configured for the gMSA.
 
-To use a config as a credential spec, first create the Docker config containing the credential spec:
+To use a config as a credential spec, first create the iEchor config containing the credential spec:
 
 ```console
-$ docker config create credspec credspec.json
+$ iechor config create credspec credspec.json
 ```
 
-Now, you should have a Docker config named credspec, and you can create a service using this credential spec. To do so, use the --credential-spec flag with the config name, like this:
+Now, you should have a iEchor config named credspec, and you can create a service using this credential spec. To do so, use the --credential-spec flag with the config name, like this:
 
 ```console
-$ docker service create --credential-spec="config://credspec" <your image>
+$ iechor service create --credential-spec="config://credspec" <your image>
 ```
 
-Your service uses the gMSA credential spec when it starts, but unlike a typical Docker config (used by passing the --config flag), the credential spec is not mounted into the container.
+Your service uses the gMSA credential spec when it starts, but unlike a typical iEchor config (used by passing the --config flag), the credential spec is not mounted into the container.
 
 ### Create a service using an image on a private registry
 
 If your image is available on a private registry which requires login, use the
-`--with-registry-auth` flag with `docker service create`, after logging in. If
+`--with-registry-auth` flag with `iechor service create`, after logging in. If
 your image is stored on `registry.example.com`, which is a private registry, use
 a command like the following:
 
 ```console
-$ docker login registry.example.com
+$ iechor login registry.example.com
 
-$ docker service  create \
+$ iechor service  create \
   --with-registry-auth \
   --name my_service \
   registry.example.com/acme/my_image:latest
@@ -120,17 +120,17 @@ nodes are able to log into the registry and pull the image.
 
 ### Provide credential specs for managed service accounts
 
- In Enterprise Edition 3.0, security is improved through the centralized distribution and management of Group Managed Service Account(gMSA) credentials using Docker config functionality. Swarm now allows using a Docker config as a gMSA credential spec, which reduces the burden of distributing credential specs to the nodes on which they are used. 
+ In Enterprise Edition 3.0, security is improved through the centralized distribution and management of Group Managed Service Account(gMSA) credentials using iEchor config functionality. Swarm now allows using a iEchor config as a gMSA credential spec, which reduces the burden of distributing credential specs to the nodes on which they are used. 
 
 > **Note**
 >
 > This option is only applicable to services using Windows containers.
 
- Credential spec files are applied at runtime, eliminating the need for host-based credential spec files or registry entries - no gMSA credentials are written to disk on worker nodes. You can make credential specs available to Docker Engine running swarm kit worker nodes before a container starts. When deploying a service using a gMSA-based config, the credential spec is passed directly to the runtime of containers in that service.
+ Credential spec files are applied at runtime, eliminating the need for host-based credential spec files or registry entries - no gMSA credentials are written to disk on worker nodes. You can make credential specs available to iEchor Engine running swarm kit worker nodes before a container starts. When deploying a service using a gMSA-based config, the credential spec is passed directly to the runtime of containers in that service.
 
  The `--credential-spec` must be in one of the following formats:
 
- - `file://<filename>`: The referenced file must be present in the `CredentialSpecs` subdirectory in the docker data directory, which defaults to `C:\ProgramData\Docker\` on Windows. For example, specifying `file://spec.json` loads `C:\ProgramData\Docker\CredentialSpecs\spec.json`.
+ - `file://<filename>`: The referenced file must be present in the `CredentialSpecs` subdirectory in the iechor data directory, which defaults to `C:\ProgramData\iEchor\` on Windows. For example, specifying `file://spec.json` loads `C:\ProgramData\iEchor\CredentialSpecs\spec.json`.
 - `registry://<value-name>`: The credential spec is read from the Windows registry on the daemon’s host. 
 - `config://<config-name>`: The config name is automatically converted to the config ID in the CLI. 
 The credential spec contained in the specified `config` is used.
@@ -145,25 +145,25 @@ $ echo $contents > contents.json
 
 Make sure that the nodes to which you are deploying are correctly configured for the gMSA.
 
- To use a config as a credential spec, create a Docker config in a credential spec file named `credpspec.json`. 
+ To use a config as a credential spec, create a iEchor config in a credential spec file named `credpspec.json`. 
  You can specify any name for the name of the `config`. 
 
 ```console
-$ docker config create --label com.docker.gmsa.name=mygmsa credspec credspec.json
+$ iechor config create --label com.iechor.gmsa.name=mygmsa credspec credspec.json
 ```
 
 Now you can create a service using this credential spec. Specify the `--credential-spec` flag with the config name:
 
 ```console
-$ docker service create --credential-spec="config://credspec" <your image>
+$ iechor service create --credential-spec="config://credspec" <your image>
 ```
 
- Your service uses the gMSA credential spec when it starts, but unlike a typical Docker config (used by passing the --config flag), the credential spec is not mounted into the container.
+ Your service uses the gMSA credential spec when it starts, but unlike a typical iEchor config (used by passing the --config flag), the credential spec is not mounted into the container.
 
 ## Update a service
 
 You can change almost everything about an existing service using the
-`docker service update` command. When you update a service, Docker stops its
+`iechor service update` command. When you update a service, iEchor stops its
 containers and restarts them with the new configuration.
 
 Since Nginx is a web service, it works much better if you publish port 80
@@ -176,16 +176,16 @@ Assuming that the `my_web` service from the previous section still exists, use
 the following command to update it to publish port 80.
 
 ```console
-$ docker service update --publish-add 80 my_web
+$ iechor service update --publish-add 80 my_web
 ```
 
-To verify that it worked, use `docker service ls`:
+To verify that it worked, use `iechor service ls`:
 
 ```console
-$ docker service ls
+$ iechor service ls
 
 ID                  NAME                MODE                REPLICAS            IMAGE                                                                                             PORTS
-4nhxl7oxw5vz        my_web              replicated          1/1                 docker.io/library/nginx@sha256:41ad9967ea448d7c2b203c699b429abe1ed5af331cd92533900c6d77490e0268   *:0->80/tcp
+4nhxl7oxw5vz        my_web              replicated          1/1                 iechor.io/library/nginx@sha256:41ad9967ea448d7c2b203c699b429abe1ed5af331cd92533900c6d77490e0268   *:0->80/tcp
 ```
 
 For more information on how publishing ports works, see
@@ -197,12 +197,12 @@ including the image name and tag it runs. See
 
 ## Remove a service
 
-To remove a service, use the `docker service remove` command. You can remove a
-service by its ID or name, as shown in the output of the `docker service ls`
+To remove a service, use the `iechor service remove` command. You can remove a
+service by its ID or name, as shown in the output of the `iechor service ls`
 command. The following command removes the `my_web` service.
 
 ```console
-$ docker service remove my_web
+$ iechor service remove my_web
 ```
 
 ## Service configuration details
@@ -213,8 +213,8 @@ define a configuration at service creation, you can also update an existing
 service's configuration in a similar way.
 
 See the command-line references for
-[`docker service create`](../../reference/cli/docker/service/create.md) and
-[`docker service update`](../../reference/cli/docker/service/update.md), or run
+[`iechor service create`](../../reference/cli/iechor/service/create.md) and
+[`iechor service update`](../../reference/cli/iechor/service/update.md), or run
 one of those commands with the `--help` flag.
 
 ### Configure the runtime environment
@@ -231,22 +231,22 @@ set to `myvalue`, run from the `/tmp/` directory, and run as the
 `my_user` user.
 
 ```console
-$ docker service create --name helloworld \
+$ iechor service create --name helloworld \
   --env MYVAR=myvalue \
   --workdir /tmp \
   --user my_user \
-  alpine ping docker.com
+  alpine ping iechor.com
 ```
 
 ### Update the command an existing service runs
 
 To update the command an existing service runs, you can use the `--args` flag.
 The following example updates an existing service called `helloworld` so that
-it runs the command `ping docker.com` instead of whatever command it was running
+it runs the command `ping iechor.com` instead of whatever command it was running
 before:
 
 ```console
-$ docker service update --args "ping docker.com" helloworld
+$ iechor service update --args "ping iechor.com" helloworld
 ```
 
 ### Specify the image version a service should use
@@ -258,13 +258,13 @@ different ways, depending on your desired outcome.
 
 An image version can be expressed in several different ways:
 
-- If you specify a tag, the manager (or the Docker client, if you use
+- If you specify a tag, the manager (or the iEchor client, if you use
   [content trust](../security/trust/index.md)) resolves that tag to a digest.
   When the request to create a container task is received on a worker node, the
   worker node only sees the digest, not the tag.
 
   ```console
-  $ docker service create --name="myservice" ubuntu:16.04
+  $ iechor service create --name="myservice" ubuntu:16.04
   ```
 
   Some tags represent discrete releases, such as `ubuntu:16.04`. Tags like this
@@ -283,16 +283,16 @@ An image version can be expressed in several different ways:
   Thus, the following two commands are equivalent:
 
   ```console
-  $ docker service create --name="myservice" ubuntu
+  $ iechor service create --name="myservice" ubuntu
 
-  $ docker service create --name="myservice" ubuntu:latest
+  $ iechor service create --name="myservice" ubuntu:latest
   ```
 
 - If you specify a digest directly, that exact version of the image is always
   used when creating service tasks.
 
   ```console
-  $ docker service create \
+  $ iechor service create \
       --name="myservice" \
       ubuntu:16.04@sha256:35bc48a1ca97c3971611dc4662d08d131869daa692acb281c7e9e052924e38b1
   ```
@@ -323,12 +323,12 @@ unable to pin image <IMAGE-NAME> to digest: <REASON>
 ```
 
 To see an image's current digest, issue the command
-`docker inspect <IMAGE>:<TAG>` and look for the `RepoDigests` line. The
+`iechor inspect <IMAGE>:<TAG>` and look for the `RepoDigests` line. The
 following is the current digest for `ubuntu:latest` at the time this content
 was written. The output is truncated for clarity.
 
 ```console
-$ docker inspect ubuntu:latest
+$ iechor inspect ubuntu:latest
 ```
 
 ```json
@@ -338,7 +338,7 @@ $ docker inspect ubuntu:latest
 ```
 
 After you create a service, its image is never updated unless you explicitly run
-`docker service update` with the `--image` flag as described below. Other update
+`iechor service update` with the `--image` flag as described below. Other update
 operations such as scaling the service, adding or removing networks or volumes,
 renaming the service, or any other type of update operation do not update the
 service's image.
@@ -353,12 +353,12 @@ is constrained to create tasks using a specific digest of an image until you
 update the service using `service update` with the `--image` flag.
 
 When you run `service update` with the `--image` flag, the swarm manager queries
-Docker Hub or your private Docker registry for the digest the tag currently
+iEchor Hub or your private iEchor registry for the digest the tag currently
 points to and updates the service tasks to use that digest.
 
 > **Note**
 >
-> If you use [content trust](../security/trust/index.md), the Docker
+> If you use [content trust](../security/trust/index.md), the iEchor
 > client resolves image and the swarm manager receives the image and digest,
 >  rather than a tag.
 
@@ -374,12 +374,12 @@ worker nodes to redeploy the tasks and use the image at that digest.
 
 - If a worker has cached the image at that digest, it uses it.
 
-- If not, it attempts to pull the image from Docker Hub or the private registry.
+- If not, it attempts to pull the image from iEchor Hub or the private registry.
 
   - If it succeeds, the task is deployed using the new image.
 
   - If the worker fails to pull the image, the service fails to deploy on that
-    worker node. Docker tries again to deploy the task, possibly on a different
+    worker node. iEchor tries again to deploy the task, possibly on a different
     worker node.
 
 #### If the manager cannot resolve the tag
@@ -393,7 +393,7 @@ If the swarm manager cannot resolve the image to a digest, all is not lost:
   that image.
 
 - If the worker does not have a locally cached image that resolves to the tag,
-  the worker tries to connect to Docker Hub or the private registry to pull the
+  the worker tries to connect to iEchor Hub or the private registry to pull the
   image at that tag.
 
   - If this succeeds, the worker uses that image.
@@ -438,7 +438,7 @@ Imagine that you have a 10-node swarm, and you deploy an Nginx service running
 three tasks on a 10-node swarm:
 
 ```console
-$ docker service create --name my_web \
+$ iechor service create --name my_web \
                         --replicas 3 \
                         --publish published=8080,target=80 \
                         nginx
@@ -480,15 +480,15 @@ option to the `--publish` flag.
 > `mode=host` and also set `published=<PORT>` this creates an implicit
 > limitation that you can only run one task for that service on a given swarm
 > node. You can work around this by specifying `published` without a port
-> definition, which causes Docker to assign a random port for each task.
+> definition, which causes iEchor to assign a random port for each task.
 >
 > In addition, if you use `mode=host` and you do not use the
-> `--mode=global` flag on `docker service create`, it is difficult to know
+> `--mode=global` flag on `iechor service create`, it is difficult to know
 > which nodes are running the service to route work to them.
 
 ##### Example: Run an `nginx` web server service on every swarm node
 
-[nginx](https://hub.docker.com/_/nginx/) is an open source reverse proxy, load
+[nginx](https://hub.iechor.com/_/nginx/) is an open source reverse proxy, load
 balancer, HTTP cache, and a web server. If you run nginx as a service using the
 routing mesh, connecting to the nginx port on any swarm node shows you the
 web page for (effectively) a random swarm node running the service.
@@ -497,7 +497,7 @@ The following example runs nginx as a service on each node in your swarm and
 exposes nginx port locally on each swarm node.
 
 ```console
-$ docker service create \
+$ iechor service create \
   --mode global \
   --publish mode=host,target=80,published=8080 \
   --name=nginx \
@@ -518,11 +518,11 @@ service or container on any swarm node which binds to port 8080.
 
 You can use overlay networks to connect one or more services within the swarm.
 
-First, create overlay network on a manager node using the `docker network create`
+First, create overlay network on a manager node using the `iechor network create`
 command with the `--driver overlay` flag.
 
 ```console
-$ docker network create --driver overlay my-network
+$ iechor network create --driver overlay my-network
 ```
 
 After you create an overlay network in swarm mode, all manager nodes have access
@@ -532,7 +532,7 @@ You can create a new service and pass the `--network` flag to attach the service
 to the overlay network:
 
 ```console
-$ docker service create \
+$ iechor service create \
   --replicas 3 \
   --network my-network \
   --name my-web \
@@ -545,24 +545,24 @@ You can also connect an existing service to an overlay network using the
 `--network-add` flag.
 
 ```console
-$ docker service update --network-add my-network my-web
+$ iechor service update --network-add my-network my-web
 ```
 
 To disconnect a running service from a network, use the `--network-rm` flag.
 
 ```console
-$ docker service update --network-rm my-network my-web
+$ iechor service update --network-rm my-network my-web
 ```
 
 For more information on overlay networking and service discovery, refer to
 [Attach services to an overlay network](networking.md) and
-[Docker swarm mode overlay network security model](../../network/drivers/overlay.md).
+[iEchor swarm mode overlay network security model](../../network/drivers/overlay.md).
 
 ### Grant a service access to secrets
 
-To create a service with access to Docker-managed secrets, use the `--secret`
+To create a service with access to iEchor-managed secrets, use the `--secret`
 flag. For more information, see
-[Manage sensitive strings (secrets) for Docker services](secrets.md)
+[Manage sensitive strings (secrets) for iEchor services](secrets.md)
 
 ### Customize a service's isolation mode
 
@@ -571,10 +571,10 @@ flag. For more information, see
 > This setting applies to Windows hosts only and is ignored for Linux hosts.
 { .important }
 
-Docker allows you to specify a swarm service's isolation
+iEchor allows you to specify a swarm service's isolation
 mode. The isolation mode can be one of the following:
 
-- `default`: Use the default isolation mode configured for the Docker host, as
+- `default`: Use the default isolation mode configured for the iEchor host, as
   configured by the `-exec-opt` flag or `exec-opts` array in `daemon.json`. If
   the daemon does not specify an isolation technology, `process` is the default
   for Windows Server, and `hyperv` is the default (and only) choice for
@@ -649,19 +649,19 @@ the number of replica tasks you want to start using the `--replicas` flag. For
 example, to start a replicated nginx service with 3 replica tasks:
 
 ```console
-$ docker service create \
+$ iechor service create \
   --name my_web \
   --replicas 3 \
   nginx
 ```
 
 To start a global service on each available node, pass `--mode global` to
-`docker service create`. Every time a new node becomes available, the scheduler
+`iechor service create`. Every time a new node becomes available, the scheduler
 places a task for the global service on the new node. For example to start a
 service that runs alpine on every node in the swarm:
 
 ```console
-$ docker service create \
+$ iechor service create \
   --name myservice \
   --mode global \
   alpine top
@@ -670,8 +670,8 @@ $ docker service create \
 Service constraints let you set criteria for a node to meet before the scheduler
 deploys a service to the node. You can apply constraints to the
 service based upon node attributes and metadata or engine metadata. For more
-information on constraints, refer to the `docker service create`
-[CLI reference](../../reference/cli/docker/service/create.md).
+information on constraints, refer to the `iechor service create`
+[CLI reference](../../reference/cli/iechor/service/create.md).
 
 #### Reserve memory or CPUs for a service
 
@@ -685,7 +685,7 @@ available to run its tasks.
 
 If your service attempts to use more memory than the swarm node has available,
 you may experience an Out Of Memory Exception (OOME) and a container, or the
-Docker daemon, might be killed by the kernel OOM killer. To prevent this from
+iEchor daemon, might be killed by the kernel OOM killer. To prevent this from
 happening, ensure that your application runs on hosts with adequate memory and
 see
 [Understand the risks of running out of memory](../../config/containers/resource_constraints.md#understand-the-risks-of-running-out-of-memory).
@@ -706,7 +706,7 @@ nodes don't run any replicas. For global services, the service runs on every
 node that meets the placement constraint and any [resource requirements](#reserve-memory-or-cpus-for-a-service).
 
 ```console
-$ docker service create \
+$ iechor service create \
   --name my-nginx \
   --replicas 5 \
   --constraint node.labels.region==east \
@@ -721,7 +721,7 @@ nodes where they are all met. The following example limits the service to run on
 all nodes where `region` is set to `east` and `type` is not set to `devel`:
 
 ```console
-$ docker service create \
+$ iechor service create \
   --name my-nginx \
   --mode global \
   --constraint node.labels.region==east \
@@ -733,8 +733,8 @@ You can also use placement constraints in conjunction with placement preferences
 and CPU/memory constraints. Be careful not to use settings that are not
 possible to fulfill.
 
-For more information on constraints, refer to the `docker service create`
-[CLI reference](../../reference/cli/docker/service/create.md).
+For more information on constraints, refer to the `iechor service create`
+[CLI reference](../../reference/cli/iechor/service/create.md).
 
 #### Placement preferences
 
@@ -759,7 +759,7 @@ based on the value of the `datacenter` label. If some nodes have
 deployed as evenly as possible across the two sets of nodes.
 
 ```console
-$ docker service create \
+$ iechor service create \
   --replicas 9 \
   --name redis_2 \
   --placement-pref 'spread=node.labels.datacenter' \
@@ -782,7 +782,7 @@ multiple placement preferences. Tasks are spread first over the various
 datacenters, and then over racks (as indicated by the respective labels):
 
 ```console
-$ docker service create \
+$ iechor service create \
   --replicas 9 \
   --name redis_2 \
   --placement-pref 'spread=node.labels.datacenter' \
@@ -798,7 +798,7 @@ This diagram illustrates how placement preferences work:
 
 ![How placement preferences work](images/placement_prefs.png)
 
-When updating a service with `docker service update`, `--placement-pref-add`
+When updating a service with `iechor service update`, `--placement-pref-add`
 appends a new placement preference after all existing placement preferences.
 `--placement-pref-rm` removes an existing placement preference that matches the
 argument.
@@ -807,9 +807,9 @@ argument.
 ### Configure a service's update behavior
 
 When you create a service, you can specify a rolling update behavior for how the
-swarm should apply changes to the service when you run `docker service update`.
+swarm should apply changes to the service when you run `iechor service update`.
 You can also specify these flags as part of the update, as arguments to
-`docker service update`.
+`iechor service update`.
 
 The `--update-delay` flag configures the time delay between updates to a service
 task or sets of tasks. You can describe the time `T` as a combination of the
@@ -824,14 +824,14 @@ When an update to an individual task returns a state of `RUNNING`, the scheduler
 continues the update by continuing to another task until all tasks are updated.
 If at any time during an update a task returns `FAILED`, the scheduler pauses
 the update. You can control the behavior using the `--update-failure-action`
-flag for `docker service create` or `docker service update`.
+flag for `iechor service create` or `iechor service update`.
 
 In the example service below, the scheduler applies updates to a maximum of 2
 replicas at a time. When an updated task returns either `RUNNING` or `FAILED`,
 the scheduler waits 10 seconds before stopping the next task to update:
 
 ```console
-$ docker service create \
+$ iechor service create \
   --replicas 10 \
   --name my_web \
   --update-delay 10s \
@@ -856,15 +856,15 @@ after that is not counted.
 
 In case the updated version of a service doesn't function as expected, it's
 possible to manually roll back to the previous version of the service using
-`docker service update`'s `--rollback` flag. This reverts the service
+`iechor service update`'s `--rollback` flag. This reverts the service
 to the configuration that was in place before the most recent
-`docker service update` command.
+`iechor service update` command.
 
 Other options can be combined with `--rollback`; for example,
 `--update-delay 0s`, to execute the rollback without a delay between tasks:
 
 ```console
-$ docker service update \
+$ iechor service update \
   --rollback \
   --update-delay 0s
   my_web
@@ -875,7 +875,7 @@ to deploy. See [Automatically roll back if an update fails](#automatically-roll-
 
 Manual rollback is handled at the server side, which allows manually-initiated
 rollbacks to respect the new rollback parameters. Note that `--rollback` cannot
-be used in conjunction with other flags to `docker service update`.
+be used in conjunction with other flags to `iechor service update`.
 
 ### Automatically roll back if an update fails
 
@@ -894,13 +894,13 @@ set a value, the default is used.
 | `--rollback-parallelism`       | `1`     | The maximum number of tasks to roll back in parallel. By default, one task is rolled back at a time. A value of `0` causes all tasks to be rolled back in parallel.                                                                                                                                                     |
 
 The following example configures a `redis` service to roll back automatically
-if a `docker service update` fails to deploy. Two tasks can be rolled back in
+if a `iechor service update` fails to deploy. Two tasks can be rolled back in
 parallel. Tasks are monitored for 20 seconds after rollback to be sure they do
 not exit, and a maximum failure ratio of 20% is tolerated. Default values are
 used for `--rollback-delay` and `--rollback-failure-action`.
 
 ```console
-$ docker service create --name=my_redis \
+$ iechor service create --name=my_redis \
                         --replicas=5 \
                         --rollback-parallelism=2 \
                         --rollback-monitor=20s \
@@ -932,7 +932,7 @@ created automatically according to the volume specification on the service.
 To use existing data volumes with a service use the `--mount` flag:
 
 ```console
-$ docker service create \
+$ iechor service create \
   --mount src=<VOLUME-NAME>,dst=<CONTAINER-PATH> \
   --name myservice \
   <IMAGE>
@@ -944,7 +944,7 @@ driver is `local`.  To use a different volume driver with this create-on-demand
 pattern, specify the driver and its options with the `--mount` flag:
 
 ```console
-$ docker service create \
+$ iechor service create \
   --mount type=volume,src=<VOLUME-NAME>,dst=<CONTAINER-PATH>,volume-driver=<DRIVER>,volume-opt=<KEY0>=<VALUE0>,volume-opt=<KEY1>=<VALUE1>
   --name myservice \
   <IMAGE>
@@ -957,7 +957,7 @@ drivers, see [Use volumes](../../storage/volumes.md).
 #### Bind mounts
 
 Bind mounts are file system paths from the host where the scheduler deploys
-the container for the task. Docker mounts the path into the container. The
+the container for the task. iEchor mounts the path into the container. The
 file system path must exist before the swarm initializes the container for the
 task.
 
@@ -966,7 +966,7 @@ The following examples show bind mount syntax:
 - To mount a read-write bind:
 
   ```console
-  $ docker service create \
+  $ iechor service create \
     --mount type=bind,src=<HOST-PATH>,dst=<CONTAINER-PATH> \
     --name myservice \
     <IMAGE>
@@ -975,7 +975,7 @@ The following examples show bind mount syntax:
 - To mount a read-only bind:
 
   ```console
-  $ docker service create \
+  $ iechor service create \
     --mount type=bind,src=<HOST-PATH>,dst=<CONTAINER-PATH>,readonly \
     --name myservice \
     <IMAGE>
@@ -989,11 +989,11 @@ The following examples show bind mount syntax:
 > following:
 >
 > - If you bind mount a host path into your service’s containers, the path
->   must exist on every swarm node. The Docker swarm mode scheduler can schedule
+>   must exist on every swarm node. The iEchor swarm mode scheduler can schedule
 >   containers on any machine that meets resource availability requirements
 >   and satisfies all constraints and placement preferences you specify.
 >
-> - The Docker swarm mode scheduler may reschedule your running service
+> - The iEchor swarm mode scheduler may reschedule your running service
 >   containers at any time if they become unhealthy or unreachable.
 >
 > - Host bind mounts are non-portable. When you use bind mounts, there is no
@@ -1032,17 +1032,17 @@ service's name and the ID of the node where the container is running:
 
 
 ```console
-$ docker service create --name hosttempl \
+$ iechor service create --name hosttempl \
                         --hostname="{{.Node.ID}}-{{.Service.Name}}"\
                          busybox top
 ```
 
 
-To see the result of using the template, use the `docker service ps` and
-`docker inspect` commands.
+To see the result of using the template, use the `iechor service ps` and
+`iechor inspect` commands.
 
 ```console
-$ docker service ps va8ew30grofhjoychbr6iot8c
+$ iechor service ps va8ew30grofhjoychbr6iot8c
 
 ID            NAME         IMAGE                                                                                   NODE          DESIRED STATE  CURRENT STATE               ERROR  PORTS
 wo41w8hg8qan  hosttempl.1  busybox:latest@sha256:29f5d56d12684887bdfa50dcd29fc31eea4aaf4ad3bec43daf19026a7ce69912  2e7a8a9c4da2  Running        Running about a minute ago
@@ -1050,12 +1050,12 @@ wo41w8hg8qan  hosttempl.1  busybox:latest@sha256:29f5d56d12684887bdfa50dcd29fc31
 
 
 ```console
-$ docker inspect --format="{{.Config.Hostname}}" hosttempl.1.wo41w8hg8qanxwjwsg4kxpprj
+$ iechor inspect --format="{{.Config.Hostname}}" hosttempl.1.wo41w8hg8qanxwjwsg4kxpprj
 ```
 
 
 ## Learn More
 
 * [Swarm administration guide](admin_guide.md)
-* [Docker Engine command line reference](../../reference/cli/docker/)
+* [iEchor Engine command line reference](../../reference/cli/iechor/)
 * [Swarm mode tutorial](swarm-tutorial/index.md)

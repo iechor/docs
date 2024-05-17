@@ -2,7 +2,7 @@
 title: Build attestations
 keywords: build, attestations, sbom, provenance, metadata
 description: |
-  Introduction to SBOM and provenance attestations with Docker Build,
+  Introduction to SBOM and provenance attestations with iEchor Build,
   what they are, and why they exist
 ---
 
@@ -39,24 +39,24 @@ to see if images you are already using are exposed to vulnerabilities.
 
 ## Creating attestations
 
-When you build an image with `docker buildx build`, you can add attestation
+When you build an image with `iechor buildx build`, you can add attestation
 records to the resulting image using the `--provenance` and `--sbom` options.
 You can opt in to add either the SBOM or provenance attestation type, or both.
 
 ```console
-$ docker buildx build --sbom=true --provenance=true .
+$ iechor buildx build --sbom=true --provenance=true .
 ```
 
 > **Note**
 >
 > The default image store doesn't support attestations. If you're using the
-> default image store and you build an image using the default `docker` driver,
+> default image store and you build an image using the default `iechor` driver,
 > or using a different driver with the `--load` flag, the attestations are
 > lost.
 >
 > To make sure the attestations are preserved, you can:
 >
-> - Use a `docker-container` driver with the `--push` flag to push the image to
+> - Use a `iechor-container` driver with the `--push` flag to push the image to
 >   a registry directly.
 > - Enable the [containerd image store](../../desktop/containerd.md).
 
@@ -100,7 +100,7 @@ attestation.
   "predicateType": "https://spdx.dev/Document",
   "subject": [
     {
-      "name": "pkg:docker/<registry>/<image>@<tag/digest>?platform=<platform>",
+      "name": "pkg:iechor/<registry>/<image>@<tag/digest>?platform=<platform>",
       "digest": {
         "sha256": "e8275b2b76280af67e26f068e5d585eb905f8dfd2f1918b3229db98133cb4862"
       }

@@ -1,10 +1,10 @@
 ---
 title: Navigation
-description: Docker extension API
-keywords: Docker, extensions, sdk, API
+description: iEchor extension API
+keywords: iEchor, extensions, sdk, API
 ---
 
-`ddClient.desktopUI.navigate` enables navigation to specific screens of Docker Desktop such as the containers tab, the images tab, or a specific container's logs.
+`ddClient.desktopUI.navigate` enables navigation to specific screens of iEchor Desktop such as the containers tab, the images tab, or a specific container's logs.
 
 For example, navigate to a given container logs:
 
@@ -24,7 +24,7 @@ try {
 
 | Name | Type     | Description                                                                                                                                                                                            |
 | :--- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `docker ps` command to display the full container id. |
+| `id` | `string` | The full container id, e.g. `46b57e400d801762e9e115734bf902a2450d89669d85881058a46136520aca28`. You can use the `--no-trunc` flag as part of the `iechor ps` command to display the full container id. |
 
 #### Returns
 

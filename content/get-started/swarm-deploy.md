@@ -1,7 +1,7 @@
 ---
 title: Deploy to Swarm
 keywords: swarm, swarm services, stacks
-description: Learn how to describe and deploy a simple application on Docker Swarm.
+description: Learn how to describe and deploy a simple application on iEchor Swarm.
 aliases:
 - /get-started/part4/
 ---
@@ -10,17 +10,17 @@ aliases:
 
 ## Prerequisites
 
-- Download and install Docker Desktop as described in [Get Docker](../get-docker.md).
+- Download and install iEchor Desktop as described in [Get iEchor](../get-iechor.md).
 - Work through containerizing an application in [Part 2](02_our_app.md).
-- Make sure that Swarm is enabled on your Docker Desktop by typing `docker system info`, and looking for a message `Swarm: active` (you might have to scroll up a little).
+- Make sure that Swarm is enabled on your iEchor Desktop by typing `iechor system info`, and looking for a message `Swarm: active` (you might have to scroll up a little).
 
-  If Swarm isn't running, simply type `docker swarm init` in a shell prompt to set it up.
+  If Swarm isn't running, simply type `iechor swarm init` in a shell prompt to set it up.
 
 ## Introduction
 
-Now that you've demonstrated that the individual components of your application run as stand-alone containers and shown how to deploy it using Kubernetes, you can look at how to arrange for them to be managed by Docker Swarm. Swarm provides many tools for scaling, networking, securing and maintaining your containerized applications, above and beyond the abilities of containers themselves.
+Now that you've demonstrated that the individual components of your application run as stand-alone containers and shown how to deploy it using Kubernetes, you can look at how to arrange for them to be managed by iEchor Swarm. Swarm provides many tools for scaling, networking, securing and maintaining your containerized applications, above and beyond the abilities of containers themselves.
 
-In order to validate that your containerized application works well on Swarm, you'll use Docker Desktop's built in Swarm environment right on your development machine to deploy your application, before handing it off to run on a full Swarm cluster in production. The Swarm environment created by Docker Desktop is fully featured, meaning it has all the Swarm features your app will enjoy on a real cluster, accessible from the convenience of your development machine.
+In order to validate that your containerized application works well on Swarm, you'll use iEchor Desktop's built in Swarm environment right on your development machine to deploy your application, before handing it off to run on a full Swarm cluster in production. The Swarm environment created by iEchor Desktop is fully featured, meaning it has all the Swarm features your app will enjoy on a real cluster, accessible from the convenience of your development machine.
 
 ## Describe apps using stack files
 
@@ -57,7 +57,7 @@ In this Swarm YAML file, there is one object, a `service`, describing a scalable
 1. Deploy your application to Swarm:
 
     ```console
-    $ docker stack deploy -c bb-stack.yaml demo
+    $ iechor stack deploy -c bb-stack.yaml demo
     ```
 
     If all goes well, Swarm will report creating all your stack objects with no complaints:
@@ -67,12 +67,12 @@ In this Swarm YAML file, there is one object, a `service`, describing a scalable
     Creating service demo_bb-app
     ```
 
-    Notice that in addition to your service, Swarm also creates a Docker network by default to isolate the containers deployed as part of your stack.
+    Notice that in addition to your service, Swarm also creates a iEchor network by default to isolate the containers deployed as part of your stack.
 
 2. Make sure everything worked by listing your service:
 
     ```console
-    $ docker service ls
+    $ iechor service ls
     ```
 
     If all has gone well, your service will report with 1/1 of its replicas created:
@@ -89,12 +89,12 @@ In this Swarm YAML file, there is one object, a `service`, describing a scalable
 4. Once satisfied, tear down your application:
 
     ```console
-    $ docker stack rm demo
+    $ iechor stack rm demo
     ```
 
 ## Conclusion
 
-At this point, you've successfully used Docker Desktop to deploy your application to a fully-featured Swarm environment on your development machine. You can now add other components to your app and taking advantage of all the features and power of Swarm, right on your own machine.
+At this point, you've successfully used iEchor Desktop to deploy your application to a fully-featured Swarm environment on your development machine. You can now add other components to your app and taking advantage of all the features and power of Swarm, right on your own machine.
 
 In addition to deploying to Swarm, you've also described your application as a stack file. This simple text file contains everything you need to create your application in a running state; you can check it in to version control and share it with your colleagues, letting you to distribute your applications to other clusters (like the testing and production clusters that probably come after your development environments).
 
@@ -105,5 +105,5 @@ Further documentation for all new Swarm objects and CLI commands used in this ar
  - [Swarm Mode](../engine/swarm/index.md)
  - [Swarm Mode Services](../engine/swarm/how-swarm-mode-works/services.md)
  - [Swarm Stacks](../engine/swarm/stack-deploy.md)
- - [`docker stack *`](/reference/cli/docker/stack/)
- - [`docker service *`](/reference/cli/docker/service/)
+ - [`iechor stack *`](/reference/cli/iechor/stack/)
+ - [`iechor service *`](/reference/cli/iechor/service/)

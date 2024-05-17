@@ -1,7 +1,7 @@
 ---
 title: Extension release process
 description: General steps in how to publish an extension
-keywords: Docker, Extensions, sdk, publish
+keywords: iEchor, Extensions, sdk, publish
 ---
 
 This section describes how to make your extension available and more visible, so users can discover it and install it with a single click.
@@ -14,13 +14,13 @@ Releasing your extension consists of:
 
 - Providing information about your extension: description, screenshots, etc. so users can decide to install your extension
 - [Validating](./validate.md) that the extension is built in the right format and includes the required information
-- Making the extension image available on [Docker Hub](https://hub.docker.com/)
+- Making the extension image available on [iEchor Hub](https://hub.iechor.com/)
 
 See [Package and release your extension](DISTRIBUTION.md) for more details about the release process.
 
 ## Promote your extension
 
-Once your extension is available on Docker Hub, users who have access to the extension image can install it using the Docker CLI.
+Once your extension is available on iEchor Hub, users who have access to the extension image can install it using the iEchor CLI.
 
 ### Use a share extension link
 

@@ -1,7 +1,7 @@
 ---
-description: Enabling seccomp in Docker
-keywords: seccomp, security, docker, documentation
-title: Seccomp security profiles for Docker
+description: Enabling seccomp in iEchor
+keywords: seccomp, security, iechor, documentation
+title: Seccomp security profiles for iEchor
 ---
 
 Secure computing mode (`seccomp`) is a Linux kernel feature. You can use it to
@@ -9,7 +9,7 @@ restrict the actions available within the container. The `seccomp()` system
 call operates on the seccomp state of the calling process. You can use this
 feature to restrict your application's access.
 
-This feature is available only if Docker has been built with `seccomp` and the
+This feature is available only if iEchor has been built with `seccomp` and the
 kernel is configured with `CONFIG_SECCOMP` enabled. To check if your kernel
 supports `seccomp`:
 
@@ -22,7 +22,7 @@ CONFIG_SECCOMP=y
 
 The default `seccomp` profile provides a sane default for running containers with
 seccomp and disables around 44 system calls out of 300+. It is moderately
-protective while providing wide application compatibility. The default Docker
+protective while providing wide application compatibility. The default iEchor
 profile can be found
 [here](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json).
 
@@ -35,7 +35,7 @@ allowed, because their `action` is overridden to be `SCMP_ACT_ALLOW`. Finally,
 some specific rules are for individual system calls such as `personality`, and others, 
 to allow variants of those system calls with specific arguments.
 
-`seccomp` is instrumental for running Docker containers with least privilege. It
+`seccomp` is instrumental for running iEchor containers with least privilege. It
 is not recommended to change the default `seccomp` profile.
 
 When you run a container, it uses the default profile unless you override it
@@ -43,7 +43,7 @@ with the `--security-opt` option. For example, the following explicitly
 specifies a policy:
 
 ```console
-$ docker run --rm \
+$ iechor run --rm \
              -it \
              --security-opt seccomp=/path/to/seccomp/profile.json \
              hello-world
@@ -51,7 +51,7 @@ $ docker run --rm \
 
 ### Significant syscalls blocked by the default profile
 
-Docker's default seccomp profile is an allowlist which specifies the calls that
+iEchor's default seccomp profile is an allowlist which specifies the calls that
 are allowed. The table below lists the significant (but not all) syscalls that
 are effectively blocked because they are not on the Allowlist. The table includes
 the reason each syscall is blocked rather than white-listed.
@@ -115,6 +115,6 @@ You can pass `unconfined` to run a container without the default seccomp
 profile.
 
 ```console
-$ docker run --rm -it --security-opt seccomp=unconfined debian:jessie \
+$ iechor run --rm -it --security-opt seccomp=unconfined debian:jessie \
     unshare --map-root-user --user sh -c whoami
 ```

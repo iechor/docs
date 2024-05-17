@@ -4,7 +4,7 @@ description: Introduction to cache mounts and bind mounts in builds
 keywords: build, buildkit, buildx, guide, tutorial, mounts, cache mounts, bind mounts
 ---
 
-This section describes how to use cache mounts and bind mounts with Docker
+This section describes how to use cache mounts and bind mounts with iEchor
 builds.
 
 Cache mounts let you specify a persistent package cache to be used during
@@ -14,7 +14,7 @@ for packages means that even if you rebuild a layer, you only download new or
 changed packages.
 
 Cache mounts are created using the `--mount` flag together with the `RUN`
-instruction in the Dockerfile. To use a cache mount, the format for the flag is
+instruction in the iEchorfile. To use a cache mount, the format for the flag is
 `--mount=type=cache,target=<path>`, where `<path>` is the location of the cache
 directory that you wish to mount into the container.
 
@@ -32,7 +32,7 @@ Update the build steps for downloading packages and compiling the program to
 mount the `/go/pkg/mod` directory as a cache mount:
 
 ```diff
-  # syntax=docker/dockerfile:1
+  # syntax=iechor/iechorfile:1
   FROM golang:{{% param "example_go_version" %}}-alpine AS base
   WORKDIR /src
   COPY go.mod go.sum .
@@ -71,7 +71,7 @@ starting from a clean slate, making it easier to see exactly what the build is
 doing.
 
 ```console
-$ docker builder prune -af
+$ iechor builder prune -af
 ```
 
 Now it’s time to rebuild the image. Invoke the build command, this time together
@@ -79,7 +79,7 @@ with the `--progress=plain` flag, while also redirecting the output to a log
 file.
 
 ```console
-$ docker build --target=client --progress=plain . 2> log1.txt
+$ iechor build --target=client --progress=plain . 2> log1.txt
 ```
 
 When the build has finished, inspect the `log1.txt` file. The logs show how the
@@ -114,14 +114,14 @@ Update the version of the `chi` package that the server component of the
 application uses:
 
 ```console
-$ docker run -v $PWD:$PWD -w $PWD golang:{{% param "example_go_version" %}}-alpine \
+$ iechor run -v $PWD:$PWD -w $PWD golang:{{% param "example_go_version" %}}-alpine \
     go get github.com/go-chi/chi/v5@v5.0.8
 ```
 
 Now, run another build, and again redirect the build logs to a log file:
 
 ```console
-$ docker build --target=client --progress=plain . 2> log2.txt
+$ iechor build --target=client --progress=plain . 2> log2.txt
 ```
 
 Now if you inspect the `log2.txt` file, you’ll find that only the `chi` package
@@ -140,14 +140,14 @@ $ awk '/proxy.golang.org/' log2.txt
 ## Add bind mounts
 
 There are a few more small optimizations that you can implement to improve the
-Dockerfile. Currently, it's using the `COPY` instruction to pull in the `go.mod`
+iEchorfile. Currently, it's using the `COPY` instruction to pull in the `go.mod`
 and `go.sum` files before downloading modules. Instead of copying those files
 over to the container’s filesystem, you can use a bind mount. A bind mount makes
 the files available to the container directly from the host. This change removes
 the need for the additional `COPY` instruction (and layer) entirely.
 
 ```diff
-  # syntax=docker/dockerfile:1
+  # syntax=iechor/iechorfile:1
   FROM golang:{{% param "example_go_version" %}}-alpine AS base
   WORKDIR /src
 - COPY go.mod go.sum .
@@ -179,7 +179,7 @@ Similarly, you can use the same technique to remove the need for the second
 `build-server` stages for mounting the current working directory.
 
 ```diff
-  # syntax=docker/dockerfile:1
+  # syntax=iechor/iechorfile:1
   FROM golang:{{% param "example_go_version" %}}-alpine AS base
   WORKDIR /src
   RUN --mount=type=cache,target=/go/pkg/mod/ \
@@ -214,7 +214,7 @@ mounts.
 
 Related information:
 
-- [Dockerfile reference](../../reference/dockerfile.md#run---mount)
+- [iEchorfile reference](../../reference/iechorfile.md#run---mount)
 - [Bind mounts](../../storage/bind-mounts.md)
 
 ## Next steps

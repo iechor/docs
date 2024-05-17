@@ -17,7 +17,7 @@ In this section, you'll learn how to set up a development environment to access 
 
 > **Note**
 >
-> You can see more samples of containerized GenAI applications in the [GenAI Stack](https://github.com/docker/genai-stack) demo applications.
+> You can see more samples of containerized GenAI applications in the [GenAI Stack](https://github.com/iechor/genai-stack) demo applications.
 
 ## Add a local database
 
@@ -62,13 +62,13 @@ To run the database service:
 
    > **Note**
    >
-   > To learn more about Neo4j, see the [Neo4j Official Docker Image](https://hub.docker.com/_/neo4j).
+   > To learn more about Neo4j, see the [Neo4j Official iEchor Image](https://hub.iechor.com/_/neo4j).
 
-4. Run the application. Inside the `docker-genai-sample` directory,
+4. Run the application. Inside the `iechor-genai-sample` directory,
 run the following command in a terminal.
 
    ```console
-   $ docker compose up --build
+   $ iechor compose up --build
    ```
 
 5. Access the application. Open a browser and view the application at [http://localhost:8000](http://localhost:8000). You should see a simple Streamlit application. Note that asking questions to a PDF will cause the application to fail because the LLM service specified in the `.env` file isn't running yet.
@@ -84,7 +84,7 @@ The sample application supports both [Ollama](https://ollama.ai/) and [OpenAI](h
 
 While all platforms can use any of the previous scenarios, the performance and
 GPU support may vary. You can use the following guidelines to help you choose the appropriate option:
-- Run Ollama in a container if you're on Linux, and using a native installation of the Docker Engine, or Windows 10/11, and using Docker Desktop, you
+- Run Ollama in a container if you're on Linux, and using a native installation of the iEchor Engine, or Windows 10/11, and using iEchor Desktop, you
   have a CUDA-supported GPU, and your system has at least 8 GB of RAM.
 - Run Ollama outside of a container if you're on an Apple silicon Mac.
 - Use OpenAI if the previous two scenarios don't apply to you.
@@ -98,8 +98,8 @@ When running Ollama in a container, you should have a CUDA-supported GPU. While 
 
 To run Ollama in a container and provide GPU access:
 1. Install the prerequisites.
-   - For Docker Engine on Linux, install the [NVIDIA Container Toolkilt](https://github.com/NVIDIA/nvidia-container-toolkit).
-   - For Docker Desktop on Windows 10/11, install the latest [NVIDIA driver](https://www.nvidia.com/Download/index.aspx) and make sure you are using the [WSL2 backend](../../../desktop/wsl/index.md/#turn-on-docker-desktop-wsl-2)
+   - For iEchor Engine on Linux, install the [NVIDIA Container Toolkilt](https://github.com/NVIDIA/nvidia-container-toolkit).
+   - For iEchor Desktop on Windows 10/11, install the latest [NVIDIA driver](https://www.nvidia.com/Download/index.aspx) and make sure you are using the [WSL2 backend](../../../desktop/wsl/index.md/#turn-on-iechor-desktop-wsl-2)
 2. Add the Ollama service and a volume in your `compose.yaml`. The following is
    the updated `compose.yaml`:
 
@@ -146,11 +146,11 @@ To run Ollama in a container and provide GPU access:
 
    > **Note**
    >
-   > For more details about the Compose instructions, see [Turn on GPU access with Docker Compose](../../../compose/gpu-support.md).
+   > For more details about the Compose instructions, see [Turn on GPU access with iEchor Compose](../../../compose/gpu-support.md).
 
 3. Add the ollama-pull service to your `compose.yaml` file. This service uses
-   the `docker/genai:ollama-pull` image, based on the GenAI Stack's
-   [pull_model.Dockerfile](https://github.com/docker/genai-stack/blob/main/pull_model.Dockerfile).
+   the `iechor/genai:ollama-pull` image, based on the GenAI Stack's
+   [pull_model.iEchorfile](https://github.com/iechor/genai-stack/blob/main/pull_model.iEchorfile).
    The service will automatically pull the model for your Ollama
    container. The following is the updated section of the `compose.yaml` file:
 
@@ -169,7 +169,7 @@ To run Ollama in a container and provide GPU access:
          ollama-pull:
            condition: service_completed_successfully
      ollama-pull:
-       image: docker/genai:ollama-pull
+       image: iechor/genai:ollama-pull
        env_file:
          - .env
      # ...
@@ -182,7 +182,7 @@ To run Ollama outside of a container:
 1. [Install](https://github.com/jmorganca/ollama) and run Ollama on your host
    machine.
 2. Update the `OLLAMA_BASE_URL` value in your `.env` file to
-   `http://host.docker.internal:11434`.
+   `http://host.iechor.internal:11434`.
 3. Pull the model to Ollama using the following command.
    ```console
    $ ollama pull llama2
@@ -213,18 +213,18 @@ At this point, you have the following services in your Compose file:
 - (optional) Ollama-pull service to automatically pull the model for the Ollama
   service
 
-To run all the services, run the following command in your `docker-genai-sample`
+To run all the services, run the following command in your `iechor-genai-sample`
 directory:
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
 If your Compose file has the ollama-pull service, it may take several minutes for the ollama-pull service to pull the model. The ollama-pull service will continuously update the console with its status. After pulling the model, the ollama-pull service container will stop and you can access the application.
 
 Once the application is running, open a browser and access the application at [http://localhost:8000](http://localhost:8000).
 
-Upload a PDF file, for example the [Docker CLI Cheat Sheet](https://docs.docker.com/get-started/docker_cheatsheet.pdf), and ask a question about the PDF.
+Upload a PDF file, for example the [iEchor CLI Cheat Sheet](https://docs.iechor.com/get-started/iechor_cheatsheet.pdf), and ask a question about the PDF.
 
 Depending on your system and the LLM service that you chose, it may take several
 minutes to answer. If you are using Ollama and the performance isn't
@@ -236,12 +236,12 @@ In this section, you learned how to set up a development environment to provide
 access all the services that your GenAI application needs.
 
 Related information:
- - [Dockerfile reference](../../../reference/dockerfile.md)
+ - [iEchorfile reference](../../../reference/iechorfile.md)
  - [Compose file reference](../../../compose/compose-file/_index.md)
- - [Ollama Docker image](https://hub.docker.com/r/ollama/ollama)
- - [Neo4j Official Docker Image](https://hub.docker.com/_/neo4j)
- - [GenAI Stack demo applications](https://github.com/docker/genai-stack)
+ - [Ollama iEchor image](https://hub.iechor.com/r/ollama/ollama)
+ - [Neo4j Official iEchor Image](https://hub.iechor.com/_/neo4j)
+ - [GenAI Stack demo applications](https://github.com/iechor/genai-stack)
 
 ## Next steps
 
-See samples of more GenAI applications in the [GenAI Stack demo applications](https://github.com/docker/genai-stack).
+See samples of more GenAI applications in the [GenAI Stack demo applications](https://github.com/iechor/genai-stack).

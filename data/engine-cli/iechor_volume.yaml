@@ -1,0 +1,41 @@
+command: iechor volume
+short: Manage volumes
+long: |-
+    Manage volumes. You can use subcommands to create, inspect, list, remove, or
+    prune volumes.
+usage: iechor volume COMMAND
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor volume create
+    - iechor volume inspect
+    - iechor volume ls
+    - iechor volume prune
+    - iechor volume rm
+    - iechor volume update
+clink:
+    - iechor_volume_create.yaml
+    - iechor_volume_inspect.yaml
+    - iechor_volume_ls.yaml
+    - iechor_volume_prune.yaml
+    - iechor_volume_rm.yaml
+    - iechor_volume_update.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+min_api_version: "1.21"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

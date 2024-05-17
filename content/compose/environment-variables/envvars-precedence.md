@@ -1,5 +1,5 @@
 ---
-title: Environment variables precedence in Docker Compose
+title: Environment variables precedence in iEchor Compose
 description: Scenario overview illustrating how environment variables are resolved
   in Compose
 keywords: compose, environment, env file
@@ -7,26 +7,26 @@ aliases:
 - /compose/envvars-precedence/
 ---
 
-When the same environment variable is set in multiple sources, Docker Compose follows a precedence rule to determine the value for that variable.
+When the same environment variable is set in multiple sources, iEchor Compose follows a precedence rule to determine the value for that variable.
 
 This page contains information on the level of precedence each method of setting environmental variables takes.
 
 The order of precedence (highest to lowest) is as follows:
-1. Set using [`docker compose run -e` in the CLI](set-environment-variables.md#set-environment-variables-with-docker-compose-run---env)
+1. Set using [`iechor compose run -e` in the CLI](set-environment-variables.md#set-environment-variables-with-iechor-compose-run---env)
 2. Substituted from your [shell](set-environment-variables.md#substitute-from-the-shell)
 3. Set using just the [`environment` attribute in the Compose file](set-environment-variables.md#use-the-environment-attribute)
 4. Use of the [`--env-file` argument](set-environment-variables.md#substitute-with---env-file) in the CLI
 5. Use of the [`env_file` attribute](set-environment-variables.md#use-the-env_file-attribute) in the Compose file
 6. Set using an [`.env` file](set-environment-variables.md#substitute-with-an-env-file) placed at base of your project directory
-7. Set in a container image in the [ENV directive](../../reference/dockerfile.md#env).
-   Having any `ARG` or `ENV` setting in a `Dockerfile` evaluates only if there is no Docker Compose entry for `environment`, `env_file` or `run --env`.
+7. Set in a container image in the [ENV directive](../../reference/iechorfile.md#env).
+   Having any `ARG` or `ENV` setting in a `iEchorfile` evaluates only if there is no iEchor Compose entry for `environment`, `env_file` or `run --env`.
 
 ## Simple example
 
 In the example below, we set a different value for the same environment variable in an `.env` file and with the `environment` attribute in the Compose file:
 
 ```console
-$ cat ./Docker/api/api.env
+$ cat ./iEchor/api/api.env
 NODE_ENV=test
 
 $ cat compose.yml
@@ -34,7 +34,7 @@ services:
   api:
     image: 'node:6-alpine'
     env_file:
-     - ./Docker/api/api.env
+     - ./iEchor/api/api.env
     environment:
      - NODE_ENV=production
 ```
@@ -42,7 +42,7 @@ services:
 The environment variable defined with the `environment` attribute takes precedence.
 
 ```console
-$ docker compose exec api node
+$ iechor compose exec api node
 
 > process.env.NODE_ENV
 'production'
@@ -68,7 +68,7 @@ The columns `Host OS environment` and `.env file` is listed only as an illustrat
 Each row represents a combination of contexts where `TAG` is set, substituted, or both. The **Result** column indicates the final value for `TAG` in each scenario.
 
 
-|  # |  `docker compose run --env`  |  `environment` attribute  |  `env_file` attribute  |  Image `ENV` |  `Host OS` environment  |  `.env` file      | |  Result  |
+|  # |  `iechor compose run --env`  |  `environment` attribute  |  `env_file` attribute  |  Image `ENV` |  `Host OS` environment  |  `.env` file      | |  Result  |
 |:--:|:-------------:|:----------------------------------:|:-------------------------------:|:------------:|:-----------------------:|:-----------------:|:---:|:-------------:|
 |  1 |   -           |   -                                |   -                             |   -          |  `TAG=1.4`              |  `TAG=1.3`        || - |
 |  2 |   -           |   -                                |   -                             |`TAG=1.5` |  `TAG=1.4`                  |  `TAG=1.3`        ||**`TAG=1.5`**  |

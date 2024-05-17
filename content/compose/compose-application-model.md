@@ -1,15 +1,15 @@
 ---
 title: How Compose works
 description: Understand how Compose works and the Compose application model with an illustrative example 
-keywords: compose, docker compose, compose specification, compose model 
+keywords: compose, iechor compose, compose specification, compose model 
 aliases:
 - /compose/compose-file/02-model/
 - /compose/compose-yaml-file/
 ---
 
-Docker Compose relies on a YAML configuration file, usually named `compose.yaml`. 
+iEchor Compose relies on a YAML configuration file, usually named `compose.yaml`. 
 
-The `compose.yaml` file follows the rules provided by the [Compose Specification](compose-file/_index.md) in how to define multi-container applications. This is the Docker Compose implementation of the formal [Compose Specification](https://github.com/compose-spec/compose-spec). 
+The `compose.yaml` file follows the rules provided by the [Compose Specification](compose-file/_index.md) in how to define multi-container applications. This is the iEchor Compose implementation of the formal [Compose Specification](https://github.com/compose-spec/compose-spec). 
 
 {{< accordion title="The Compose application model" >}}
 
@@ -29,18 +29,18 @@ A [secret](compose-file/09-secrets.md) is a specific flavor of configuration dat
 
 A project is an individual deployment of an application specification on a platform. A project's name, set with the top-level [`name`](compose-file/04-version-and-name.md) attribute, is used to group
 resources together and isolate them from other applications or other installation of the same Compose-specified application with distinct parameters. If you are creating resources on a platform, you must prefix resource names by project and
-set the label `com.docker.compose.project`.
+set the label `com.iechor.compose.project`.
 
 Compose offers a way for you to set a custom project name and override this name, so that the same `compose.yaml` file can be deployed twice on the same infrastructure, without changes, by just passing a distinct name.
 
 {{< /accordion >}}
 
-You then interact with your Compose application through the [Compose CLI](reference/_index.md). Commands such as `docker compose up` are used to start the application, while `docker compose down` stops and removes the containers.
+You then interact with your Compose application through the [Compose CLI](reference/_index.md). Commands such as `iechor compose up` are used to start the application, while `iechor compose down` stops and removes the containers.
 
 ## The Compose file
 
 The default path for a Compose file is `compose.yaml` (preferred) or `compose.yml` that is placed in the working directory.
-Compose also supports `docker-compose.yaml` and `docker-compose.yml` for backwards compatibility of earlier versions.
+Compose also supports `iechor-compose.yaml` and `iechor-compose.yml` for backwards compatibility of earlier versions.
 If both files exist, Compose prefers the canonical `compose.yaml`.
 
 You can use [fragments](compose-file/10-fragments.md) and [extensions](compose-file/11-extension.md) to keep your Compose file efficient and easy to maintain.
@@ -69,7 +69,7 @@ Both services communicate with each other on an isolated back-tier network, whil
 
 The example application is composed of the following parts:
 
-- 2 services, backed by Docker images: `webapp` and `database`
+- 2 services, backed by iEchor images: `webapp` and `database`
 - 1 secret (HTTPS certificate), injected into the frontend
 - 1 configuration (HTTP), injected into the frontend
 - 1 persistent volume, attached to the backend

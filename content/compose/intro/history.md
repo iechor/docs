@@ -1,13 +1,13 @@
 ---
-title: History and development of Docker Compose
+title: History and development of iEchor Compose
 description: History of Compose V1 and Compose YAML schema versioning
-keywords: compose, compose yaml, swarm, migration, compatibility, docker compose vs docker-compose
+keywords: compose, compose yaml, swarm, migration, compatibility, iechor compose vs iechor-compose
 aliases:
 - /compose/history/
 ---
 
 This page provides:
- - A brief history of the development of the Docker Compose CLI
+ - A brief history of the development of the iEchor Compose CLI
  - A clear explanation of the major versions and file formats that make up Compose V1 and Compose V2
  - The main differences between Compose V1 and Compose V2 
 
@@ -15,21 +15,21 @@ This page provides:
 
 ![Image showing the main differences between Compose V1 and Compose V2](../images/v1-versus-v2.png)
 
-The image above shows that the currently supported version of the Docker Compose CLI is Compose V2 which is defined by the [Compose Specification](../compose-file/_index.md).
+The image above shows that the currently supported version of the iEchor Compose CLI is Compose V2 which is defined by the [Compose Specification](../compose-file/_index.md).
 
 It also provides a quick snapshot of the differences in file formats, command-line syntax, and top-level elements. This is covered in more detail in the following sections.
 
-### Docker Compose CLI versioning
+### iEchor Compose CLI versioning
 
-Version one of the Docker Compose command-line binary was first released in 2014. It was written in Python, and is invoked with `docker-compose`.
+Version one of the iEchor Compose command-line binary was first released in 2014. It was written in Python, and is invoked with `iechor-compose`.
 Typically, Compose V1 projects include a top-level `version` element in the `compose.yml` file, with values ranging from `2.0` to `3.8`, which refer to the specific [file formats](#compose-file-format-versioning).
 
-Version two of the Docker Compose command-line binary was announced in 2020, is written in Go, and is invoked with `docker compose`.
+Version two of the iEchor Compose command-line binary was announced in 2020, is written in Go, and is invoked with `iechor compose`.
 Compose V2 ignores the `version` top-level element in the `compose.yml` file. 
 
 ### Compose file format versioning
 
-The Docker Compose CLIs are defined by specific file formats. 
+The iEchor Compose CLIs are defined by specific file formats. 
 
 Three major versions of the Compose file format for Compose V1 were released:
 - Compose file format 1 with Compose 1.0.0 in 2014

@@ -1,9 +1,9 @@
 ---
 description: Explore the Learning center and understand the benefits of signing in
-  to Docker Desktop
-keywords: Docker Dashboard, manage, containers, gui, dashboard, images, user manual,
+  to iEchor Desktop
+keywords: iEchor Dashboard, manage, containers, gui, dashboard, images, user manual,
   learning center, guide, sign in
-title: Sign in to Docker Desktop
+title: Sign in to iEchor Desktop
 aliases:
 - /desktop/linux/
 - /desktop/linux/index/
@@ -11,13 +11,13 @@ aliases:
 - /desktop/mac/index/
 - /desktop/windows/
 - /desktop/windows/index/
-- /docker-for-mac/
-- /docker-for-mac/index/
-- /docker-for-mac/osx/
-- /docker-for-mac/started/
-- /docker-for-windows/
-- /docker-for-windows/index/
-- /docker-for-windows/started/
+- /iechor-for-mac/
+- /iechor-for-mac/index/
+- /iechor-for-mac/osx/
+- /iechor-for-mac/started/
+- /iechor-for-windows/
+- /iechor-for-windows/index/
+- /iechor-for-windows/started/
 - /mac/
 - /mac/started/
 - /mackit/
@@ -29,31 +29,31 @@ aliases:
 - /winkit/getting-started/
 ---
 
-Docker recommends that you authenticate using the **Sign in** option in the top-right corner of the Docker Dashboard. 
+iEchor recommends that you authenticate using the **Sign in** option in the top-right corner of the iEchor Dashboard. 
 
 In large enterprises where admin access is restricted, administrators can [Configure registry.json to enforce sign-in](../security/for-admins/configure-sign-in.md). 
 
 > **Tip**
 >
-> Explore [Docker's core subscriptions](https://www.docker.com/pricing/) to see what else Docker can offer you. 
+> Explore [iEchor's core subscriptions](https://www.iechor.com/pricing/) to see what else iEchor can offer you. 
 
 ## Benefits of signing in
 
-- You can access your Docker Hub repositories directly from Docker Desktop.
+- You can access your iEchor Hub repositories directly from iEchor Desktop.
 
-- Authenticated users also get a higher pull rate limit compared to anonymous users. For example, if you are authenticated, you get 200 pulls per 6 hour period, compared to 100 pulls per 6 hour period per IP address for anonymous users. For more information, see [Download rate limit](../docker-hub/download-rate-limit.md).
+- Authenticated users also get a higher pull rate limit compared to anonymous users. For example, if you are authenticated, you get 200 pulls per 6 hour period, compared to 100 pulls per 6 hour period per IP address for anonymous users. For more information, see [Download rate limit](../iechor-hub/download-rate-limit.md).
 
 - Improve your organization’s security posture for containerized development by taking advantage of [Hardened Desktop](hardened-desktop/index.md).
 
 > **Note**
 >
-> Docker Desktop automatically signs you out after 90 days, or after 30 days of inactivity. 
+> iEchor Desktop automatically signs you out after 90 days, or after 30 days of inactivity. 
 
-## Signing in with Docker Desktop for Linux
+## Signing in with iEchor Desktop for Linux
 
-Docker Desktop for Linux relies on [`pass`](https://www.passwordstore.org/) to store credentials in gpg2-encrypted files.
-Before signing in to Docker Desktop with your [Docker ID](../docker-id/_index.md), you must initialize `pass`.
-Docker Desktop displays a warning if you've not initialized `pass`.
+iEchor Desktop for Linux relies on [`pass`](https://www.passwordstore.org/) to store credentials in gpg2-encrypted files.
+Before signing in to iEchor Desktop with your [iEchor ID](../iechor-id/_index.md), you must initialize `pass`.
+iEchor Desktop displays a warning if you've not initialized `pass`.
 
 You can initialize pass by using a gpg key. To generate a gpg key, run:
 
@@ -93,20 +93,20 @@ Password store initialized for <generated_gpg-id_public_key>
 ```
 
 Once you initialize `pass`, you can sign in and pull your private images.
-When Docker CLI or Docker Desktop use credentials, a user prompt may pop up for the password you set during the gpg key generation.
+When iEchor CLI or iEchor Desktop use credentials, a user prompt may pop up for the password you set during the gpg key generation.
 
 ```console
-$ docker pull molly/privateimage
+$ iechor pull molly/privateimage
 Using default tag: latest
 latest: Pulling from molly/privateimage
 3b9cc81c3203: Pull complete 
 Digest: sha256:3c6b73ce467f04d4897d7a7439782721fd28ec9bf62ea2ad9e81a5fb7fb3ff96
 Status: Downloaded newer image for molly/privateimage:latest
-docker.io/molly/privateimage:latest
+iechor.io/molly/privateimage:latest
 ```
 
 ## What's next?
 
-- [Explore Docker Desktop](use-desktop/index.md) and its features. 
-- Change your Docker Desktop settings
+- [Explore iEchor Desktop](use-desktop/index.md) and its features. 
+- Change your iEchor Desktop settings
 - [Browse common FAQs](faqs/general.md)

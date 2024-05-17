@@ -1,5 +1,5 @@
 ---
 title: JavaScript samples
-description: Docker samples for JavaScript.
+description: iEchor samples for JavaScript.
 service: javascript
 ---

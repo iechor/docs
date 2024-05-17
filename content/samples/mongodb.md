@@ -1,5 +1,5 @@
 ---
 title: MongoDB samples
-description: Docker samples for MongoDB.
+description: iEchor samples for MongoDB.
 service: mongodb
 ---

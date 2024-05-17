@@ -1,0 +1,25 @@
+command: iechor wait
+aliases: iechor container wait, iechor wait
+short: Block until one or more containers stop, then print their exit codes
+long: Block until one or more containers stop, then print their exit codes
+usage: iechor wait CONTAINER [CONTAINER...]
+pname: iechor
+plink: iechor.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

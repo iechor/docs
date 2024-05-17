@@ -1,6 +1,6 @@
 ---
 title: Add or update a payment method
-description: Learn how to add or update a payment method in Docker Hub
+description: Learn how to add or update a payment method in iEchor Hub
 keywords: payments, billing, subscription, supported payment methods, failed payments, coupons
 billing:
 - /billing/payment-method/
@@ -30,7 +30,7 @@ All currency, for example the amount listed on your billing invoice, is in Unite
 
 ### Personal account
 
-1. Select your avatar in the top-right corner of Docker Hub.
+1. Select your avatar in the top-right corner of iEchor Hub.
 2. From the drop-down menu select **Billing**.
 3. Select the **Payment methods and billing history** link.
 4. In the **Payment method** section, select **Add payment method**.
@@ -44,7 +44,7 @@ All currency, for example the amount listed on your billing invoice, is in Unite
 >
 > You must be an organization owner to make changes to the payment information.
 
-1. Select your avatar in the top-right corner of Docker Hub.
+1. Select your avatar in the top-right corner of iEchor Hub.
 2. From the drop-down menu select **Billing**.
 3. Select the organization account you want to update.
 4. Select the **Payment methods and billing history** link.
@@ -55,19 +55,19 @@ All currency, for example the amount listed on your billing invoice, is in Unite
 
 ## Failed payments
 
-If your subscription payment fails, there is a grace period of 15 days, including the due date. Docker retries to collect the payment 3 times using the following schedule:
+If your subscription payment fails, there is a grace period of 15 days, including the due date. iEchor retries to collect the payment 3 times using the following schedule:
 
 - 3 days after the due date
 - 5 days after the previous attempt
 - 7 days after the previous attempt
 
-Docker also sends an email notification `Action Required - Credit Card Payment Failed` with an attached unpaid invoice after each failed payment attempt. 
+iEchor also sends an email notification `Action Required - Credit Card Payment Failed` with an attached unpaid invoice after each failed payment attempt. 
 
 Once the grace period is over and the invoice is still not paid, the subscription downgrades to a free plan and all paid features are disabled.
 
 ## Redeem a coupon
 
-You can redeem a coupon for any paid Docker subscription.
+You can redeem a coupon for any paid iEchor subscription.
 
 A coupon can be used when you:
 - Sign up to a new paid subscription from a free subscription

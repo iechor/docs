@@ -7,15 +7,15 @@ keywords: compose, compose specification, services, compose file reference
 A service is an abstract definition of a computing resource within an application which can be scaled or replaced
 independently from other components. Services are backed by a set of containers, run by the platform
 according to replication requirements and placement constraints. As services are backed by containers, they are defined
-by a Docker image and set of runtime arguments. All containers within a service are identically created with these
+by a iEchor image and set of runtime arguments. All containers within a service are identically created with these
 arguments.
 
 A Compose file must declare a `services` top-level element as a map whose keys are string representations of service names,
 and whose values are service definitions. A service  definition contains the configuration that is applied to each
 service container.
 
-Each service may also include a `build` section, which defines how to create the Docker image for the service.
-Compose supports building docker images using this service definition. If not used, the `build` section is ignored and the Compose file is still considered valid. Build support is an optional aspect of the Compose Specification, and is
+Each service may also include a `build` section, which defines how to create the iEchor image for the service.
+Compose supports building iechor images using this service definition. If not used, the `build` section is ignored and the Compose file is still considered valid. Build support is an optional aspect of the Compose Specification, and is
 described in detail in the [Compose Build Specification](build.md) documentation.
 
 Each service defines runtime constraints and requirements to run its containers. The `deploy` section groups
@@ -200,13 +200,13 @@ cgroup_parent: m-executor-abcd
 
 ## command
 
-`command` overrides the default command declared by the container image, for example by Dockerfile's `CMD`.
+`command` overrides the default command declared by the container image, for example by iEchorfile's `CMD`.
 
 ```yaml
 command: bundle exec thin -p 3000
 ```
 
-The value can also be a list, in a manner similar to [Dockerfile](https://docs.docker.com/reference/dockerfile/#cmd):
+The value can also be a list, in a manner similar to [iEchorfile](https://docs.iechor.com/reference/iechorfile/#cmd):
 
 ```yaml
 command: [ "bundle", "exec", "thin", "-p", "3000" ]
@@ -219,7 +219,7 @@ i.e. overridden to be empty.
 
 ## configs
 
-Configs allow services to adapt their behaviour without the need to rebuild a Docker image. 
+Configs allow services to adapt their behaviour without the need to rebuild a iEchor image. 
 Services can only access configs when explicitly granted by the `configs` attribute. Two different syntax variants are supported.
 
 Compose reports an error if `config` doesn't exist on the platform or isn't defined in the
@@ -390,7 +390,7 @@ expressed in the short form.
 
 - `restart`: When set to `true` Compose restarts this service after it updates the dependency service.
   This applies to an explicit restart controlled by a Compose operation, and excludes automated restart by the container runtime
-  after the container dies. Introduced in Docker Compose version [2.17.0](../release-notes.md#2170).
+  after the container dies. Introduced in iEchor Compose version [2.17.0](../release-notes.md#2170).
 
 - `condition`: Sets the condition under which dependency is considered satisfied
   - `service_started`: An equivalent of the short syntax described above
@@ -400,7 +400,7 @@ expressed in the short form.
   - `service_completed_successfully`: Specifies that a dependency is expected to run
     to successful completion before starting a dependent service.
 - `required`: When set to `false` Compose only warns you when the dependency service isn't started or available. If it's not defined
-    the default value of `required` is `true`. Introduced in Docker Compose version [2.20.0](../release-notes.md#2200).
+    the default value of `required` is `true`. Introduced in iEchor Compose version [2.20.0](../release-notes.md#2200).
 
 Service dependencies cause the following behaviors:
 
@@ -513,10 +513,10 @@ dns_search:
 ## entrypoint
 
 `entrypoint` declares the default entrypoint for the service container.
-This overrides the `ENTRYPOINT` instruction from the service's Dockerfile.
+This overrides the `ENTRYPOINT` instruction from the service's iEchorfile.
 
 If `entrypoint` is non-null, Compose ignores any default command from the image, for example the `CMD`
-instruction in the Dockerfile.
+instruction in the iEchorfile.
 
 See also [`command`](#command) to set or override the default command to be executed by the entrypoint process.
 
@@ -526,7 +526,7 @@ entrypoint: /code/entrypoint.sh
 ```
 
 Alternatively, the value can also be a list, in a manner similar to the
-[Dockerfile](https://docs.docker.com/reference/dockerfile/#cmd):
+[iEchorfile](https://docs.iechor.com/reference/iechorfile/#cmd):
 
 ```yml
 entrypoint:
@@ -571,7 +571,7 @@ env_file:
   - path: ./override.env
     required: false
 ```
-> `required` attribute is available with Docker Compose version 2.24.0 or later.
+> `required` attribute is available with iEchor Compose version 2.24.0 or later.
 
 Relative path are resolved from the Compose file's parent folder. As absolute paths prevent the Compose
 file from being portable, Compose warns you when such a path is used to set `env_file`.
@@ -664,7 +664,7 @@ expose:
 
 > **Note**
 >
-> If the Dockerfile for the image already exposes ports, it is visible to other containers on the network even if `expose` is not set in your Compose file. 
+> If the iEchorfile for the image already exposes ports, it is visible to other containers on the network even if `expose` is not set in your Compose file. 
 
 ## extends
 
@@ -682,7 +682,7 @@ extends:
 - `service`: Defines the name of the service being referenced as a base, for example `web` or `database`.
 - `file`: The location of a Compose configuration file defining that service.
 
-When a service uses `extends`, it can also specify dependencies on other resources, an explicit `volumes` declaration for instance. However, it's important to note that `extends` does not automatically incorporate the target volume definition into the extending Compose file. Instead, you are responsible for ensuring that an equivalent resource exists for the service being extended to maintain consistency. Docker Compose verifies that a resource with the referenced ID is present within the Compose model.
+When a service uses `extends`, it can also specify dependencies on other resources, an explicit `volumes` declaration for instance. However, it's important to note that `extends` does not automatically incorporate the target volume definition into the extending Compose file. Instead, you are responsible for ensuring that an equivalent resource exists for the service being extended to maintain consistency. iEchor Compose verifies that a resource with the referenced ID is present within the Compose model.
 
 Dependencies on other resources in an `extends` target can be:
 - An explicit reference by `volumes`, `networks`, `configs`, `secrets`, `links`, `volumes_from` or `depends_on`
@@ -889,7 +889,7 @@ extra_hosts:
   - "myhostv6=[::1]"
 ```
 
-The separator `=` is preferred, but `:` can also be used. Introduced in Docker Compose version [2.24.1](../release-notes.md#2241). For example:
+The separator `=` is preferred, but `:` can also be used. Introduced in iEchor Compose version [2.24.1](../release-notes.md#2241). For example:
 
 ```yml
 extra_hosts:
@@ -939,8 +939,8 @@ been the case if `group_add` were not declared.
 ## healthcheck
 
 `healthcheck` declares a check that's run to determine whether or not the service containers are "healthy". It works in the same way, and has the same default values, as the
-[HEALTHCHECK Dockerfile instruction](https://docs.docker.com/reference/dockerfile/#healthcheck)
-set by the service's Docker image. Your Compose file can override the values set in the Dockerfile. 
+[HEALTHCHECK iEchorfile instruction](https://docs.iechor.com/reference/iechorfile/#healthcheck)
+set by the service's iEchor image. Your Compose file can override the values set in the iEchorfile. 
 
 ```yml
 healthcheck:
@@ -952,7 +952,7 @@ healthcheck:
   start_interval: 5s
 ```
 
-`interval`, `timeout`, `start_period`, and `start_interval` are [specified as durations](11-extension.md#specifying-durations). Introduced in Docker Compose version [2.20.2](../release-notes.md#2202)
+`interval`, `timeout`, `start_period`, and `start_interval` are [specified as durations](11-extension.md#specifying-durations). Introduced in iEchor Compose version [2.20.2](../release-notes.md#2202)
 
 `test` defines the command Compose runs to check container health. It can be
 either a string or a list. If it's a list, the first item must be either `NONE`, `CMD` or `CMD-SHELL`.
@@ -974,7 +974,7 @@ test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
 test: curl -f https://localhost || exit 1
 ```
 
-`NONE` disables the healthcheck, and is mostly useful to disable the Healthcheck Dockerfile instruction set by the service's Docker image. Alternatively,
+`NONE` disables the healthcheck, and is mostly useful to disable the Healthcheck iEchorfile instruction set by the service's iEchor image. Alternatively,
 the healthcheck set by the image can be disabled by setting `disable: true`:
 
 ```yml
@@ -997,7 +997,7 @@ as `[<registry>/][<project>/]<image>[:<tag>|@<digest>]`.
     image: redis:5
     image: redis@sha256:0ed5d5928d4737458944eb604cc8509e245c3e19d02ad83935398bc4b991aac7
     image: library/redis
-    image: docker.io/library/redis
+    image: iechor.io/library/redis
     image: my_private.registry:5000/redis
 ```
 
@@ -1062,10 +1062,10 @@ labels:
 
 Compose creates containers with canonical labels:
 
-- `com.docker.compose.project` set on all resources created by Compose to the user project name
-- `com.docker.compose.service` set on service containers with service name as defined in the Compose file
+- `com.iechor.compose.project` set on all resources created by Compose to the user project name
+- `com.iechor.compose.service` set on service containers with service name as defined in the Compose file
 
-The `com.docker.compose` label prefix is reserved. Specifying labels with this prefix in the Compose file
+The `com.iechor.compose` label prefix is reserved. Specifying labels with this prefix in the Compose file
 results in a runtime error.
 
 ## links
@@ -1108,12 +1108,12 @@ are platform specific. Driver specific options can be set with `options` as key-
 
 ## mac_address
 
-> Available with Docker Compose version 2.24.0 and later.
+> Available with iEchor Compose version 2.24.0 and later.
 
 `mac_address` sets a MAC address for the service container.
 
 > **Note**
-> Container runtimes might reject this value (ie. Docker Engine >= v25.0). In that case, you should use [networks.mac_address](#mac_address) instead.
+> Container runtimes might reject this value (ie. iEchor Engine >= v25.0). In that case, you should use [networks.mac_address](#mac_address) instead.
 
 ## mem_limit
 
@@ -1414,7 +1414,7 @@ expressed in the short form.
 - `published`: The publicly exposed port. It is defined as a string and can be set as a range using syntax `start-end`. It means the actual port is assigned a remaining available port, within the set range.
 - `host_ip`: The Host IP mapping, unspecified means all network interfaces (`0.0.0.0`).
 - `protocol`: The port protocol (`tcp` or `udp`). Defaults to `tcp`.
-- `app_protocol`: The application protocol (TCP/IP level 4 / OSI level 7) this port is used for. This is optional and can be used as a hint for Compose to offer richer behavior for protocols that it understands. Introduced in Docker Compose version [2.26.0](../release-notes.md#2260).
+- `app_protocol`: The application protocol (TCP/IP level 4 / OSI level 7) this port is used for. This is optional and can be used as a hint for Compose to offer richer behavior for protocols that it understands. Introduced in iEchor Compose version [2.26.0](../release-notes.md#2260).
 - `mode`: `host`: For publishing a host port on each node, or `ingress` for a port to be load balanced. Defaults to `ingress`.
 - `name`: A human-readable name for the port, used to document it's usage within the service.
 
@@ -1484,7 +1484,7 @@ services:
 - `no`: The default restart policy. It does not restart the container under any circumstances.
 - `always`: The policy always restarts the container until its removal.
 - `on-failure[:max-retries]`: The policy restarts the container if the exit code indicates an error.
-Optionally, limit the number of restart retries the Docker daemon attempts.
+Optionally, limit the number of restart retries the iEchor daemon attempts.
 - `unless-stopped`: The policy restarts the container irrespective of the exit code but stops
   restarting when the service is stopped or removed.
 
@@ -1497,8 +1497,8 @@ Optionally, limit the number of restart retries the Docker daemon attempts.
 ```
 
 You can find more detailed information on restart policies in the
-[Restart Policies (--restart)](../../reference/cli/docker/container/run.md#restart)
-section of the Docker run reference page.
+[Restart Policies (--restart)](../../reference/cli/iechor/container/run.md#restart)
+section of the iEchor run reference page.
 
 ## runtime
 
@@ -1599,7 +1599,7 @@ security_opt:
   - label:role:ROLE
 ```
 
-For further default labeling schemes you can override, see [Security configuration](../../reference/cli/docker/container/run.md#security-opt).
+For further default labeling schemes you can override, see [Security configuration](../../reference/cli/iechor/container/run.md#security-opt).
 
 ## shm_size
 
@@ -1609,7 +1609,7 @@ It's specified as a [byte value](11-extension.md#specifying-byte-values).
 ## stdin_open
 
 `stdin_open` configures a service's container to run with an allocated stdin. This is the same as running a container with the 
-`-i` flag. For more information, see [Keep STDIN open](../../reference/cli/docker/container/run/#interactive).
+`-i` flag. For more information, see [Keep STDIN open](../../reference/cli/iechor/container/run/#interactive).
 
 Supported values are `true` or `false`.
 
@@ -1661,10 +1661,10 @@ sysctls:
   - net.ipv4.tcp_syncookies=0
 ```
 
-You can only use sysctls that are namespaced in the kernel. Docker does not
+You can only use sysctls that are namespaced in the kernel. iEchor does not
 support changing sysctls inside a container that also modify the host system.
 For an overview of supported sysctls, refer to [configure namespaced kernel
-parameters (sysctls) at runtime](../../reference/cli/docker/container/run.md#sysctl).
+parameters (sysctls) at runtime](../../reference/cli/iechor/container/run.md#sysctl).
 
 ## tmpfs
 
@@ -1683,7 +1683,7 @@ tmpfs:
 ## tty
 
 `tty` configures a service's container to run with a TTY. This is the same as This is the same as running a container with the 
-`-t` or `--tty` flag. For more information, see [Allocate a pseudo-TTY](../../reference/cli/docker/container/run/#tty).
+`-t` or `--tty` flag. For more information, see [Allocate a pseudo-TTY](../../reference/cli/iechor/container/run/#tty).
 
 Supported values are `true` or `false`.
 
@@ -1702,7 +1702,7 @@ ulimits:
 
 ## user
 
-`user` overrides the user used to run the container process. The default is set by the image (i.e. Dockerfile `USER`). If it's not set, then `root`.
+`user` overrides the user used to run the container process. The default is set by the image (i.e. iEchorfile `USER`). If it's not set, then `root`.
 
 ## userns_mode
 
@@ -1795,21 +1795,21 @@ expressed in the short form.
   - `propagation`: The propagation mode used for the bind.
   - `create_host_path`: Creates a directory at the source path on host if there is nothing present.
     Compose does nothing if there is something present at the path. This is automatically implied by short syntax
-    for backward compatibility with `docker-compose` legacy.
+    for backward compatibility with `iechor-compose` legacy.
   - `selinux`: The SELinux re-labeling option `z` (shared) or `Z` (private)
 - `volume`: Configures additional volume options:
   - `nocopy`: Flag to disable copying of data from a container when a volume is created.
   - `subpath`: Path inside a volume to mount instead of the volume root.
 - `tmpfs`: Configures additional tmpfs options:
   - `size`: The size for the tmpfs mount in bytes (either numeric or as bytes unit).
-  - `mode`: The file mode for the tmpfs mount as Unix permission bits as an octal number. Introduced in Docker Compose version [2.14.0](../release-notes.md#2260).
+  - `mode`: The file mode for the tmpfs mount as Unix permission bits as an octal number. Introduced in iEchor Compose version [2.14.0](../release-notes.md#2260).
 - `consistency`: The consistency requirements of the mount. Available values are platform specific.
 
 > **Tip**
 >
 > Working with large repositories or monorepos, or with virtual file systems that are no longer scaling with your codebase? 
 > Compose now takes advantage of [Synchronized file shares](../../desktop/synchronized-file-sharing.md) and automatically creates file shares for bind mounts. 
-> Ensure you're signed in to Docker with a paid subscription and have enabled both **Access experimental features** and **Manage Synchronized file shares with Compose** in Docker Desktop's settings.
+> Ensure you're signed in to iEchor with a paid subscription and have enabled both **Access experimental features** and **Manage Synchronized file shares with Compose** in iEchor Desktop's settings.
 { .tip }
 
 ## volumes_from
@@ -1829,4 +1829,4 @@ volumes_from:
 
 ## working_dir
 
-`working_dir` overrides the container's working directory which is specified by the image, for example Dockerfile's `WORKDIR`.
+`working_dir` overrides the container's working directory which is specified by the image, for example iEchorfile's `WORKDIR`.

@@ -19,7 +19,7 @@ registry, then you may want to consider the [registry](./registry.md) cache.
 ## Synopsis
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --cache-to type=inline \
   --cache-from type=registry,ref=<registry>/<image> .
 ```
@@ -30,7 +30,7 @@ To export cache using `inline` storage, pass `type=inline` to the `--cache-to`
 option:
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --cache-to type=inline .
 ```
 
@@ -38,22 +38,22 @@ Alternatively, you can also export inline cache by setting the build argument
 `BUILDKIT_INLINE_CACHE=1`, instead of using the `--cache-to` flag:
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --build-arg BUILDKIT_INLINE_CACHE=1 .
 ```
 
 To import the resulting cache on a future build, pass `type=registry` to
-`--cache-from` which lets you extract the cache from inside a Docker image in
+`--cache-from` which lets you extract the cache from inside a iEchor image in
 the specified registry:
 
 ```console
-$ docker buildx build --push -t <registry>/<image> \
+$ iechor buildx build --push -t <registry>/<image> \
   --cache-from type=registry,ref=<registry>/<image> .
 ```
 
 ## Further reading
 
-For an introduction to caching see [Docker build cache](../_index.md).
+For an introduction to caching see [iEchor build cache](../_index.md).
 
 For more information on the `inline` cache backend, see the
 [BuildKit README](https://github.com/moby/buildkit#inline-push-image-and-cache-together).

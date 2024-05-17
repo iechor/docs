@@ -9,34 +9,34 @@ aliases:
 
 > **Deprecated**
 >
-> The AuFS storage driver has been deprecated, and is removed in Docker Engine
+> The AuFS storage driver has been deprecated, and is removed in iEchor Engine
 > v24.0. If you are using AufS, you must migrate to a supported storage driver
-> before upgrading to Docker Engine v24.0. Read the [Docker storage drivers](select-storage-driver.md)
+> before upgrading to iEchor Engine v24.0. Read the [iEchor storage drivers](select-storage-driver.md)
 > page for supported storage drivers.
 { .warning }
 
 AUFS is a *union filesystem*. The `aufs` storage driver was previously the default
-storage driver used for managing images and layers on Docker for Ubuntu, and for
+storage driver used for managing images and layers on iEchor for Ubuntu, and for
 Debian versions prior to Stretch. If your Linux kernel is version 4.0 or higher,
-and you use Docker Engine - Community, consider using the newer
+and you use iEchor Engine - Community, consider using the newer
 [overlay2](overlayfs-driver.md), which has
 potential performance advantages over the `aufs` storage driver.
 
 ## Prerequisites
 
-- For Docker Engine - Community, AUFS is supported on Ubuntu, and on Debian versions prior to
+- For iEchor Engine - Community, AUFS is supported on Ubuntu, and on Debian versions prior to
   Stretch.
-- For Docker EE, AUFS is supported on Ubuntu.
+- For iEchor EE, AUFS is supported on Ubuntu.
 - If you use Ubuntu, you need to add the AUFS module to the kernel. If you do
   not install these packages, you need to use  `overlay2`.
 - AUFS cannot use the following backing filesystems: `aufs`, `btrfs`, or
   `ecryptfs`. This means that the filesystem which contains
-  `/var/lib/docker/aufs` cannot be one of these filesystem types.
+  `/var/lib/iechor/aufs` cannot be one of these filesystem types.
 
-## Configure Docker with the `aufs` storage driver
+## Configure iEchor with the `aufs` storage driver
 
-If the AUFS driver is loaded into the kernel when you start Docker, and no other
-storage driver is configured, Docker uses it by default.
+If the AUFS driver is loaded into the kernel when you start iEchor, and no other
+storage driver is configured, iEchor uses it by default.
 
 1.  Use the following command to verify that your kernel supports AUFS.
 
@@ -46,14 +46,14 @@ storage driver is configured, Docker uses it by default.
     nodev   aufs
     ```
 
-2.  Check which storage driver Docker is using.
+2.  Check which storage driver iEchor is using.
 
     ```console
-    $ docker info
+    $ iechor info
 
     <truncated output>
     Storage Driver: aufs
-     Root Dir: /var/lib/docker/aufs
+     Root Dir: /var/lib/iechor/aufs
      Backing Filesystem: extfs
      Dirs: 0
      Dirperm1 Supported: true
@@ -62,24 +62,24 @@ storage driver is configured, Docker uses it by default.
 
 3.  If you are using a different storage driver, either AUFS is not included in
     the kernel (in which case a different default driver is used) or that
-    Docker has been explicitly configured to use a different driver. Check
-    `/etc/docker/daemon.json` or the output of `ps auxw | grep dockerd` to see
-    if Docker has been started with the `--storage-driver` flag.
+    iEchor has been explicitly configured to use a different driver. Check
+    `/etc/iechor/daemon.json` or the output of `ps auxw | grep iechord` to see
+    if iEchor has been started with the `--storage-driver` flag.
 
 ## How the `aufs` storage driver works
 
 AUFS is a *union filesystem*, which means that it layers multiple directories on
 a single Linux host and presents them as a single directory. These directories
-are called _branches_ in AUFS terminology, and _layers_ in Docker terminology.
+are called _branches_ in AUFS terminology, and _layers_ in iEchor terminology.
 
 The unification process is referred to as a _union mount_.
 
-The diagram below shows a Docker container based on the `ubuntu:latest` image.
+The diagram below shows a iEchor container based on the `ubuntu:latest` image.
 
 ![Layers of an Ubuntu container](images/aufs_layers.webp) 
 
-Each image layer, and the container layer, are represented on the Docker host as
-subdirectories within `/var/lib/docker/`. The union mount provides the unified
+Each image layer, and the container layer, are represented on the iEchor host as
+subdirectories within `/var/lib/iechor/`. The union mount provides the unified
 view of all layers. The directory names do not directly correspond to the IDs
 of the layers themselves.
 
@@ -88,11 +88,11 @@ minimize overhead.
 
 ### Example: Image and container on-disk constructs
 
-The following `docker pull` command shows a Docker host downloading a Docker
+The following `iechor pull` command shows a iEchor host downloading a iEchor
 image comprising five layers.
 
 ```console
-$ docker pull ubuntu
+$ iechor pull ubuntu
 
 Using default tag: latest
 latest: Pulling from library/ubuntu
@@ -108,15 +108,15 @@ Status: Downloaded newer image for ubuntu:latest
 #### The image layers
 
 > **Warning**: Do not directly manipulate any files or directories within
-> `/var/lib/docker/`. These files and directories are managed by Docker.
+> `/var/lib/iechor/`. These files and directories are managed by iEchor.
 
 All of the information about the image and container layers is stored in
-subdirectories of `/var/lib/docker/aufs/`.
+subdirectories of `/var/lib/iechor/aufs/`.
 
 - `diff/`: the **contents** of each layer, each stored in a separate
   subdirectory
 - `layers/`: metadata about how image layers are stacked. This directory
-  contains one file for each image or container layer on the Docker host. Each
+  contains one file for each image or container layer on the iEchor host. Each
   file contains the IDs of all the layers below it in the stack (its parents).
 - `mnt/`: Mount points, one per image or container layer, which are used to
   assemble and mount the unified filesystem for a container. For images, which
@@ -124,7 +124,7 @@ subdirectories of `/var/lib/docker/aufs/`.
 
 #### The container layer
 
-If a container is running, the contents of `/var/lib/docker/aufs/` change in the
+If a container is running, the contents of `/var/lib/iechor/aufs/` change in the
 following ways:
 
 - `diff/`: Differences introduced in the writable container layer, such as new
@@ -193,7 +193,7 @@ Consider some scenarios where files in a container are modified.
   layer, unless the directory has no children. Your application needs to be
   designed to handle `EXDEV` and fall back to a "copy and unlink" strategy.
 
-## AUFS and Docker performance
+## AUFS and iEchor performance
 
 To summarize some of the performance related aspects already mentioned:
 

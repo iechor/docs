@@ -1,12 +1,12 @@
 ---
-title: Docker Scout CLI release notes
-description: Learn about the latest features of the Docker Scout CLI plugin
-keywords: docker scout, release notes, changelog, cli, features, changes, delta, new, releases, github actions
+title: iEchor Scout CLI release notes
+description: Learn about the latest features of the iEchor Scout CLI plugin
+keywords: iechor scout, release notes, changelog, cli, features, changes, delta, new, releases, github actions
 ---
 
 This page contains information about the new features, improvements, known
-issues, and bug fixes in the Docker Scout [CLI plugin](https://github.com/docker/scout-cli/)
-and the `docker/scout-action` [GitHub Action](https://github.com/docker/scout-action).
+issues, and bug fixes in the iEchor Scout [CLI plugin](https://github.com/iechor/scout-cli/)
+and the `iechor/scout-action` [GitHub Action](https://github.com/iechor/scout-action).
 
 ## 1.8.0
 
@@ -30,7 +30,7 @@ and the `docker/scout-action` [GitHub Action](https://github.com/docker/scout-ac
   EPSS Percentile : 9th percentile
   ```
 
-- Fix markdown output of the `docker scout cves` command when analyzing local filesystem. [docker/scout-cli#113](https://github.com/docker/scout-cli/issues/113)
+- Fix markdown output of the `iechor scout cves` command when analyzing local filesystem. [iechor/scout-cli#113](https://github.com/iechor/scout-cli/issues/113)
 
 ## 1.7.0
 
@@ -38,16 +38,16 @@ and the `docker/scout-action` [GitHub Action](https://github.com/docker/scout-ac
 
 ### New
 
-- The [`docker scout push` command](/reference/cli/docker/scout/push/) is now fully available: analyze images locally and push the SBOM to Docker Scout.
+- The [`iechor scout push` command](/reference/cli/iechor/scout/push/) is now fully available: analyze images locally and push the SBOM to iEchor Scout.
 
 ### Bug fixes and enhancements
 
-- Fix adding attestations with `docker scout attestation add` to images in private repositories
+- Fix adding attestations with `iechor scout attestation add` to images in private repositories
 - Fix image processing for images based on the empty `scratch` base image
-- A new `sbom://` protocol for Docker Scout CLI commands let you read a Docker Scout SBOM from standard input.
+- A new `sbom://` protocol for iEchor Scout CLI commands let you read a iEchor Scout SBOM from standard input.
 
   ```console
-  $ docker scout sbom IMAGE | docker scout qv sbom://
+  $ iechor scout sbom IMAGE | iechor scout qv sbom://
   ```
 
 - Add classifier for Joomla packages
@@ -79,7 +79,7 @@ and the `docker/scout-action` [GitHub Action](https://github.com/docker/scout-ac
 
 ### Removed
 
-- The `docker scout cves --epss-date` and `docker scout cache prune --epss` flags have been removed.
+- The `iechor scout cves --epss-date` and `iechor scout cache prune --epss` flags have been removed.
 
 ## 1.6.1
 
@@ -87,14 +87,14 @@ and the `docker/scout-action` [GitHub Action](https://github.com/docker/scout-ac
 
 > **Note**
 >
-> This release only affects the `docker/scout-action` GitHub Action.
+> This release only affects the `iechor/scout-action` GitHub Action.
 
 ### New
 
 - Add support for passing in SBOM files in SDPX or in-toto SDPX format
 
   ```yaml
-  uses: docker/scout-action@v1
+  uses: iechor/scout-action@v1
   with:
       command: cves
       image: sbom://alpine.spdx.json
@@ -103,7 +103,7 @@ and the `docker/scout-action` [GitHub Action](https://github.com/docker/scout-ac
 - Add support for SBOM files in `syft-json` format
 
   ```yaml
-  uses: docker/scout-action@v1
+  uses: iechor/scout-action@v1
   with:
       command: cves
       image: sbom://alpine.syft.json
@@ -122,34 +122,34 @@ and the `docker/scout-action` [GitHub Action](https://github.com/docker/scout-ac
 - Add support for passing in SBOM files in SDPX or in-toto SDPX format
 
   ```console
-  $ docker scout cves sbom://path/to/sbom.spdx.json
+  $ iechor scout cves sbom://path/to/sbom.spdx.json
   ```
 
 - Add support for SBOM files in `syft-json` format
 
   ```console
-  $ docker scout cves sbom://path/to/sbom.syft.json
+  $ iechor scout cves sbom://path/to/sbom.syft.json
   ```
 
 - Reads SBOM files from standard input
 
   ```console
-  $ syft -o json alpine | docker scout cves sbom://
+  $ syft -o json alpine | iechor scout cves sbom://
   ```
 
 - Prioritize CVEs by EPSS score
 
   - `--epss` to display and prioritise the CVEs
   - `--epss-score` and `--epss-percentile` to filter by score and percentile
-  - Prune cached EPSS files with `docker scout cache prune --epss`
+  - Prune cached EPSS files with `iechor scout cache prune --epss`
 
 ### Bug fixes and enhancements
 
 - Use Windows cache from WSL2
   
-  When inside WSL2 with Docker Desktop running, the Docker Scout CLI plugin now
+  When inside WSL2 with iEchor Desktop running, the iEchor Scout CLI plugin now
   uses the cache from Windows. That way, if an image has been indexed for
-  instance by Docker Desktop there's no need anymore to re-index it on WSL2
+  instance by iEchor Desktop there's no need anymore to re-index it on WSL2
   side.
 - Indexing is now blocked in the CLI if it has been disabled using
   [Settings Management](../../desktop/hardened-desktop/settings-management/configure.md) feature.
@@ -159,5 +159,5 @@ and the `docker/scout-action` [GitHub Action](https://github.com/docker/scout-ac
 
 ## Earlier versions
 
-Release notes for earlier versions of the Docker Scout CLI plugin are available
-on [GitHub](https://github.com/docker/scout-cli/releases).
+Release notes for earlier versions of the iEchor Scout CLI plugin are available
+on [GitHub](https://github.com/iechor/scout-cli/releases).

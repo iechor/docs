@@ -1,16 +1,16 @@
 ---
-title: OpenTelemetry for the Docker CLI
-description: Learn about how to capture OpenTelemetry metrics for the Docker command line
+title: OpenTelemetry for the iEchor CLI
+description: Learn about how to capture OpenTelemetry metrics for the iEchor command line
 keywords: otel, opentelemetry, telemetry, traces, tracing, metrics, logs
 ---
 
 {{< introduced engine 26.1.0 >}}
 
-The Docker CLI supports [OpenTelemetry](https://opentelemetry.io/docs/) instrumentation
+The iEchor CLI supports [OpenTelemetry](https://opentelemetry.io/docs/) instrumentation
 for emitting metrics about command invocations. This is disabled by default.
 You can configure the CLI to start emitting metrics to the endpoint that you
-specify. This allows you to capture information about your `docker` command
-invocations for more insight into your Docker usage.
+specify. This allows you to capture information about your `iechor` command
+invocations for more insight into your iEchor usage.
 
 Exporting metrics is opt-in, and you control where data is being sent by
 specifying the destination address of the metrics collector.
@@ -22,22 +22,22 @@ creating and managing telemetry data, such as traces, metrics, and logs.
 OpenTelemetry is vendor- and tool-agnostic, meaning that it can be used with a
 broad variety of Observability backends.
 
-Support for OpenTelemetry instrumentation in the Docker CLI means that the CLI can emit
+Support for OpenTelemetry instrumentation in the iEchor CLI means that the CLI can emit
 information about events that take place, using the protocols and conventions
 defined in the Open Telemetry specification.
 
 ## How it works
 
-The Docker CLI doesn't emit telemetry data by default. Only if you've set an
-environment variable on your system will Docker CLI attempt to emit OpenTelemetry
+The iEchor CLI doesn't emit telemetry data by default. Only if you've set an
+environment variable on your system will iEchor CLI attempt to emit OpenTelemetry
 metrics, to the endpoint that you specify.
 
 ```bash
-DOCKER_CLI_OTEL_EXPORTER_OTLP_ENDPOINT=<endpoint>
+IECHOR_CLI_OTEL_EXPORTER_OTLP_ENDPOINT=<endpoint>
 ```
 
 The variable specifies the endpoint of an OpenTelemetry collector, where telemetry data
-about `docker` CLI invocation should be sent. To capture the data, you'll need
+about `iechor` CLI invocation should be sent. To capture the data, you'll need
 an OpenTelemetry collector listening on that endpoint.
 
 The purpose of a collector is to receive the telemetry data, process it, and
@@ -51,13 +51,13 @@ generating more useful graphs, such as Grafana.
 
 ## Setup
 
-To get started capturing telemetry data for the Docker CLI, you'll need to:
+To get started capturing telemetry data for the iEchor CLI, you'll need to:
 
-- Set the `DOCKER_CLI_OTEL_EXPORTER_OTLP_ENDPOINT` environment variable to point to an OpenTelemetry collector endpoint
+- Set the `IECHOR_CLI_OTEL_EXPORTER_OTLP_ENDPOINT` environment variable to point to an OpenTelemetry collector endpoint
 - Run an OpenTelemetry collector that receives the signals from CLI command invocations
 - Run a backend for storing the data received from the collector
 
-The following Docker Compose file bootstraps a set of services to get started with OpenTelemetry.
+The following iEchor Compose file bootstraps a set of services to get started with OpenTelemetry.
 It includes an OpenTelemetry collector that the CLI can send metrics to,
 and a Prometheus backend that scrapes the metrics off the collector.
 
@@ -126,23 +126,23 @@ This service assumes that the following two configuration files exist alongside
 
 With these files in place:
 
-1. Start the Docker Compose services:
+1. Start the iEchor Compose services:
 
    ```console
-   $ docker compose up
+   $ iechor compose up
    ```
 
-2. Configure Docker CLI to export telemetry to the OpenTelemetry collector.
+2. Configure iEchor CLI to export telemetry to the OpenTelemetry collector.
 
    ```console
-   $ export DOCKER_CLI_OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+   $ export IECHOR_CLI_OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
    ```
 
-3. Run a `docker` command to trigger the CLI into sending a metric signal to
+3. Run a `iechor` command to trigger the CLI into sending a metric signal to
    the OpenTelemetry collector.
 
    ```console
-   $ docker version
+   $ iechor version
    ```
 
 4. To view telemetry metrics created by the CLI, open the Prometheus expression
@@ -153,7 +153,7 @@ With these files in place:
 
 ## Available metrics
 
-Docker CLI currently exports a single metric, `command.time`, which measures
+iEchor CLI currently exports a single metric, `command.time`, which measures
 the execution duration of a command in milliseconds. This metric has the
 following attributes:
 

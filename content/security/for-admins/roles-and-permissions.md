@@ -2,10 +2,10 @@
 description: >
   Use roles in your organization to control who has access to content,
   registry, and organization management permissions.
-keywords: members, teams, organization, company, roles, access, docker hub, admin console, security 
+keywords: members, teams, organization, company, roles, access, iechor hub, admin console, security 
 title: Roles and permissions
 aliases:
-- /docker-hub/roles-and-permissions/
+- /iechor-hub/roles-and-permissions/
 ---
 
 Organization and company owners can assign roles to individuals giving them different permissions in the organization. This section is for owners who want to learn about the defined roles and their permission scopes.
@@ -21,7 +21,7 @@ The following roles are available to assign:
 - **Organization owner** - Full organization administrative access. Organization owners can manage organization repositories, teams, members, settings, and billing.
 - **Company owner** - In addition to the permissions of an organization owner, company owners can configure settings for their associated organizations.
 
-Owners can manage roles for members of an organization on [Docker Hub](/admin/organization/members/#update-a-member-role), as well members of an [organization](/admin/organization/members/#update-a-member-role) or a [company](/admin/company/users/#update-a-member-role) in the [Docker Admin Console](/admin/).
+Owners can manage roles for members of an organization on [iEchor Hub](/admin/organization/members/#update-a-member-role), as well members of an [organization](/admin/organization/members/#update-a-member-role) or a [company](/admin/company/users/#update-a-member-role) in the [iEchor Admin Console](/admin/).
 
 ## Permissions
 
@@ -74,7 +74,7 @@ The following outlines organization management permissions for member, editor, o
 | Image Access Management                                           | ❌     | ❌     | ✅                 | ✅            |
 | Registry Access Management                                        | ❌     | ❌     | ✅                 | ✅            |
 | Set up Single Sign-On (SSO) and SCIM                              | ❌     | ❌     | ✅ \*              | ✅            |
-| Require Docker Desktop sign-in                                    | ❌     | ❌     | ✅ \*              | ✅            |
+| Require iEchor Desktop sign-in                                    | ❌     | ❌     | ✅ \*              | ✅            |
 | Manage billing information (e.g. billing address)                 | ❌     | ❌     | ✅                 | ✅            |
 | Manage payment methods (e.g. credit card or invoice)              | ❌     | ❌     | ✅                 | ✅            |
 | View billing history                                              | ❌     | ❌     | ✅                 | ✅            |
@@ -84,21 +84,21 @@ The following outlines organization management permissions for member, editor, o
 
 _\* If not part of a company_
 
-### Docker Scout
+### iEchor Scout
 
-The following outlines Docker Scout management permissions for member, editor, and organization owner roles.
+The following outlines iEchor Scout management permissions for member, editor, and organization owner roles.
 
 | Permission                                            | Member | Editor | Organization owner |
 | :---------------------------------------------------- | :----- | :----- | :----------------- |
 | View and compare analysis results                     | ✅     | ✅     | ✅                 |
 | Upload analysis records                               | ✅     | ✅     | ✅                 |
-| Activate and deactivate Docker Scout for a repository | ❌     | ✅     | ✅                 |
+| Activate and deactivate iEchor Scout for a repository | ❌     | ✅     | ✅                 |
 | Create environments                                   | ❌     | ❌     | ✅                 |
 | Manage registry integrations                          | ❌     | ❌     | ✅                 |
 
-### Docker Build Cloud
+### iEchor Build Cloud
 
-The following outlines Docker Build Cloud management permissions for member, editor, and organization owner roles.
+The following outlines iEchor Build Cloud management permissions for member, editor, and organization owner roles.
 
 | Permission                   | Member | Editor | Organization owner |
 | ---------------------------- | :----- | :----- | :----------------- |
@@ -110,4 +110,4 @@ The following outlines Docker Build Cloud management permissions for member, edi
 | Buy minutes                  | ❌     | ❌     | ✅                 |
 | Manage subscription          | ❌     | ❌     | ✅                 |
 
-_\* Requires a Docker Build Cloud seat allocation_
+_\* Requires a iEchor Build Cloud seat allocation_

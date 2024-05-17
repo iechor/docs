@@ -1,5 +1,5 @@
 ---
 title: Plex samples
-description: Docker samples for Plex.
+description: iEchor samples for Plex.
 service: plex
 ---

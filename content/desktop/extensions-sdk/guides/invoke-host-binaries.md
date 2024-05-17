@@ -2,7 +2,7 @@
 title: Invoke host binaries
 description: Add invocations to host binaries from the frontend with the extension
   SDK.
-keywords: Docker, extensions, sdk, build
+keywords: iEchor, extensions, sdk, build
 ---
 
 In some cases, your extension may need to invoke some command from the host. For example, you
@@ -49,10 +49,10 @@ echo "Hello, %1!"
 {{< /tab >}}
 {{< /tabs >}}
 
-Then update the `Dockerfile` to copy the `binaries` folder into the extension's container filesystem and make the
+Then update the `iEchorfile` to copy the `binaries` folder into the extension's container filesystem and make the
 files executable.
 
-```dockerfile
+```iechorfile
 # Copy the binaries into the right folder
 COPY --chmod=0755 binaries/windows/hello.cmd /windows/hello.cmd
 COPY --chmod=0755 binaries/unix/hello.sh /linux/hello.sh
@@ -61,7 +61,7 @@ COPY --chmod=0755 binaries/unix/hello.sh /darwin/hello.sh
 
 ## Invoke the executable from the UI
 
-In your extension, use the Docker Desktop Client object to [invoke the shell script](../dev/api/backend.md#invoke-an-extension-binary-on-the-host)
+In your extension, use the iEchor Desktop Client object to [invoke the shell script](../dev/api/backend.md#invoke-an-extension-binary-on-the-host)
 provided by the extension with the `ddClient.extension.host.cli.exec()` function.
 In this example, the binary returns a string as result, obtained by `result?.stdout`, as soon as the extension view is rendered.
 
@@ -70,7 +70,7 @@ In this example, the binary returns a string as result, obtained by `result?.std
 
 ```typescript
 export function App() {
-  const ddClient = createDockerDesktopClient();
+  const ddClient = createiEchorDesktopClient();
   const [hello, setHello] = useState("");
 
   useEffect(() => {
@@ -127,7 +127,7 @@ export function App() {
 
 ## Configure the metadata file
 
-The host binaries must be specified in the `metadata.json` file so that Docker Desktop copies them on to the host when installing
+The host binaries must be specified in the `metadata.json` file so that iEchor Desktop copies them on to the host when installing
 the extension. Once the extension is uninstalled, the binaries that were copied are removed as well.
 
 ```json

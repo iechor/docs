@@ -1,0 +1,43 @@
+command: iechor network
+short: Manage networks
+long: |-
+    Manage networks. You can use subcommands to create, inspect, list, remove,
+    prune, connect, and disconnect networks.
+usage: iechor network
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor network connect
+    - iechor network create
+    - iechor network disconnect
+    - iechor network inspect
+    - iechor network ls
+    - iechor network prune
+    - iechor network rm
+clink:
+    - iechor_network_connect.yaml
+    - iechor_network_create.yaml
+    - iechor_network_disconnect.yaml
+    - iechor_network_inspect.yaml
+    - iechor_network_ls.yaml
+    - iechor_network_prune.yaml
+    - iechor_network_rm.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+min_api_version: "1.21"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

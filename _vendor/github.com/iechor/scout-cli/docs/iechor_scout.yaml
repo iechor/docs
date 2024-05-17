@@ -1,0 +1,65 @@
+command: iechor scout
+short: Command line tool for iEchor Scout
+long: Command line tool for iEchor Scout
+usage: iechor scout [command]
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor scout attestation
+    - iechor scout cache
+    - iechor scout compare
+    - iechor scout config
+    - iechor scout cves
+    - iechor scout enroll
+    - iechor scout environment
+    - iechor scout help
+    - iechor scout integration
+    - iechor scout policy
+    - iechor scout push
+    - iechor scout quickview
+    - iechor scout recommendations
+    - iechor scout repo
+    - iechor scout version
+clink:
+    - iechor_scout_attestation.yaml
+    - iechor_scout_cache.yaml
+    - iechor_scout_compare.yaml
+    - iechor_scout_config.yaml
+    - iechor_scout_cves.yaml
+    - iechor_scout_enroll.yaml
+    - iechor_scout_environment.yaml
+    - iechor_scout_help.yaml
+    - iechor_scout_integration.yaml
+    - iechor_scout_policy.yaml
+    - iechor_scout_push.yaml
+    - iechor_scout_quickview.yaml
+    - iechor_scout_recommendations.yaml
+    - iechor_scout_repo.yaml
+    - iechor_scout_version.yaml
+options:
+    - option: debug
+      value_type: bool
+      default_value: "false"
+      description: Debug messages
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: verbose-debug
+      value_type: bool
+      default_value: "false"
+      description: Verbose debug
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

@@ -4,7 +4,7 @@ keywords: guide, swarm mode, swarm, network, ingress, routing mesh
 title: Use Swarm mode routing mesh
 ---
 
-Docker Engine Swarm mode makes it easy to publish ports for services to make
+iEchor Engine Swarm mode makes it easy to publish ports for services to make
 them available to resources outside the swarm. All nodes participate in an
 ingress routing mesh. The routing mesh enables each node in the swarm to
 accept connections on published ports for any service running in the swarm, even
@@ -36,7 +36,7 @@ port, a random high-numbered port is bound for each service task. You
 need to inspect the task to determine the port.
 
 ```console
-$ docker service create \
+$ iechor service create \
   --name <SERVICE-NAME> \
   --publish published=<PUBLISHED-PORT>,target=<CONTAINER-PORT> \
   <IMAGE>
@@ -58,14 +58,14 @@ For example, the following command publishes port 80 in the nginx container to
 port 8080 for any node in the swarm:
 
 ```console
-$ docker service create \
+$ iechor service create \
   --name my-web \
   --publish published=8080,target=80 \
   --replicas 2 \
   nginx
 ```
 
-When you access port 8080 on any node, Docker routes your request to an active
+When you access port 8080 on any node, iEchor routes your request to an active
 container. On the swarm nodes themselves, port 8080 may not actually be bound,
 but the routing mesh knows how to route the traffic and prevents any port
 conflicts from happening.
@@ -80,17 +80,17 @@ within the host.
 You can publish a port for an existing service using the following command:
 
 ```console
-$ docker service update \
+$ iechor service update \
   --publish-add published=<PUBLISHED-PORT>,target=<CONTAINER-PORT> \
   <SERVICE>
 ```
 
-You can use `docker service inspect` to view the service's published port. For
+You can use `iechor service inspect` to view the service's published port. For
 instance:
 
 
 ```console
-$ docker service inspect --format="{{json .Endpoint.Spec.Ports}}" my-web
+$ iechor service inspect --format="{{json .Endpoint.Spec.Ports}}" my-web
 
 [{"Protocol":"tcp","TargetPort":80,"PublishedPort":8080}]
 ```
@@ -112,7 +112,7 @@ set the `protocol` key to either `tcp` or `udp`.
 Long syntax:
 
 ```console
-$ docker service create --name dns-cache \
+$ iechor service create --name dns-cache \
   --publish published=53,target=53 \
   dns-cache
 ```
@@ -120,7 +120,7 @@ $ docker service create --name dns-cache \
 Short syntax:
 
 ```console
-$ docker service create --name dns-cache \
+$ iechor service create --name dns-cache \
   -p 53:53 \
   dns-cache
 ```
@@ -130,7 +130,7 @@ $ docker service create --name dns-cache \
 Long syntax:
 
 ```console
-$ docker service create --name dns-cache \
+$ iechor service create --name dns-cache \
   --publish published=53,target=53 \
   --publish published=53,target=53,protocol=udp \
   dns-cache
@@ -139,7 +139,7 @@ $ docker service create --name dns-cache \
 Short syntax:
 
 ```console
-$ docker service create --name dns-cache \
+$ iechor service create --name dns-cache \
   -p 53:53 \
   -p 53:53/udp \
   dns-cache
@@ -150,7 +150,7 @@ $ docker service create --name dns-cache \
 Long syntax:
 
 ```console
-$ docker service create --name dns-cache \
+$ iechor service create --name dns-cache \
   --publish published=53,target=53,protocol=udp \
   dns-cache
 ```
@@ -158,7 +158,7 @@ $ docker service create --name dns-cache \
 Short syntax:
 
 ```console
-$ docker service create --name dns-cache \
+$ iechor service create --name dns-cache \
   -p 53:53/udp \
   dns-cache
 ```
@@ -168,7 +168,7 @@ $ docker service create --name dns-cache \
 By default, swarm services which publish ports do so using the routing mesh.
 When you connect to a published port on any swarm node (whether it is running a
 given service or not), you are redirected to a worker which is running that
-service, transparently. Effectively, Docker acts as a load balancer for your
+service, transparently. Effectively, iEchor acts as a load balancer for your
 swarm services.
 
 You can bypass the routing mesh, so that when you access the bound port on a
@@ -182,7 +182,7 @@ in mind.
 
 - If you expect to run multiple service tasks on each node (such as when you
   have 5 nodes but run 10 replicas), you cannot specify a static target port.
-  Either allow Docker to assign a random high-numbered port (by leaving off the
+  Either allow iEchor to assign a random high-numbered port (by leaving off the
   `published`), or ensure that only a single instance of the service runs on a
   given node, by using a global service rather than a replicated one, or by
   using placement constraints.
@@ -193,7 +193,7 @@ routing mesh is used. The following command creates a global service using
 `host` mode and bypassing the routing mesh.
 
 ```console
-$ docker service create --name dns-cache \
+$ iechor service create --name dns-cache \
   --publish published=53,target=53,protocol=udp,mode=host \
   --mode global \
   dns-cache
@@ -252,13 +252,13 @@ To learn more about HAProxy, see the [HAProxy documentation](https://cbonte.gith
 
 To use an external load balancer without the routing mesh, set `--endpoint-mode`
 to `dnsrr` instead of the default value of `vip`. In this case, there is not a
-single virtual IP. Instead, Docker sets up DNS entries for the service such that
+single virtual IP. Instead, iEchor sets up DNS entries for the service such that
 a DNS query for the service name returns a list of IP addresses, and the client
 connects directly to one of these.
 
 You can't use `--endpoint-mode dnsrr` together with `--publish mode=ingress`.
 You must run your own load balancer in front of the service. A DNS query for
-the service name on the Docker host returns a list of IP addresses for the
+the service name on the iEchor host returns a list of IP addresses for the
 nodes running the service. Configure your load balancer to consume this list
 and balance the traffic across the nodes.
 See [Configure service discovery](networking.md#configure-service-discovery).

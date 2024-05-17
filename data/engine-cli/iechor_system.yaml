@@ -1,0 +1,34 @@
+command: iechor system
+short: Manage iEchor
+long: Manage iEchor.
+usage: iechor system
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor system df
+    - iechor system events
+    - iechor system info
+    - iechor system prune
+clink:
+    - iechor_system_df.yaml
+    - iechor_system_events.yaml
+    - iechor_system_info.yaml
+    - iechor_system_prune.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

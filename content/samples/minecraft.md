@@ -1,5 +1,5 @@
 ---
 title: Minecraft samples
-description: Docker samples for Minecraft.
+description: iEchor samples for Minecraft.
 service: minecraft
 ---

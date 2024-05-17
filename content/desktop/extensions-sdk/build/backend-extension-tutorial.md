@@ -1,7 +1,7 @@
 ---
 title: Add a backend to your extension
 description: Learn how to add a backend to your extension.
-keywords: Docker, extensions, sdk, build
+keywords: iEchor, extensions, sdk, build
 aliases:
 - /desktop/extensions-sdk/tutorials/minimal-backend-extension/
 - /desktop/extensions-sdk/build/minimal-backend-extension/
@@ -10,16 +10,16 @@ aliases:
 
 Your extension can ship a backend part with which the frontend can interact with. This page provides information on why and how to add a backend.
 
-Before you start, make sure you have installed the latest version of [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+Before you start, make sure you have installed the latest version of [iEchor Desktop](https://www.iechor.com/products/iechor-desktop/).
 
 > Tip
 >
-> Check the [Quickstart guide](../quickstart.md) and `docker extension init <my-extension>`. They provide a better base for your extension as it's more up-to-date and related to your install of Docker Desktop.
+> Check the [Quickstart guide](../quickstart.md) and `iechor extension init <my-extension>`. They provide a better base for your extension as it's more up-to-date and related to your install of iEchor Desktop.
 { .tip }
 
 ## Why add a backend?
 
-Thanks to the Docker Extensions SDK, most of the time you should be able to do what you need from the Docker CLI
+Thanks to the iEchor Extensions SDK, most of the time you should be able to do what you need from the iEchor CLI
 directly from [the frontend](./frontend-extension-tutorial.md#use-the-extension-apis-client).
 
 Nonetheless, there are some cases where you might need to add a backend to your extension. So far, extension
@@ -31,14 +31,14 @@ For more information about extension backends, see [Architecture](../architectur
 
 ## Add a backend to the extension
 
-If you created your extension using the `docker extension init` command, you already have a backend setup. Otherwise, you have to first create a `vm` directory that contains the code and updates the Dockerfile to
+If you created your extension using the `iechor extension init` command, you already have a backend setup. Otherwise, you have to first create a `vm` directory that contains the code and updates the iEchorfile to
 containerize it.
 
 Here is the extension folder structure with a backend:
 
 ```bash
 .
-├── Dockerfile # (1)
+├── iEchorfile # (1)
 ├── Makefile
 ├── metadata.json
 ├── ui
@@ -51,12 +51,12 @@ Here is the extension folder structure with a backend:
 1. Contains everything required to build the backend and copy it in the extension's container filesystem.
 2. The source folder that contains the backend code of the extension.
 
-Although you can start from an empty directory or from the `vm-ui extension` [sample](https://github.com/docker/extensions-sdk/tree/main/samples),
-it is highly recommended that you start from the `docker extension init` command and change it to suit your needs.
+Although you can start from an empty directory or from the `vm-ui extension` [sample](https://github.com/iechor/extensions-sdk/tree/main/samples),
+it is highly recommended that you start from the `iechor extension init` command and change it to suit your needs.
 
 > **Tip**
 >
-> The `docker extension init` generates a Go backend. But you can still use it as a starting point for
+> The `iechor extension init` generates a Go backend. But you can still use it as a starting point for
 > your own extension and use any other language like Node.js, Python, Java, .Net, or any other language and framework.
 { .tip }
 
@@ -70,7 +70,7 @@ In this tutorial, the backend service simply exposes one route that returns a JS
 >
 > We recommend that, the frontend and the backend communicate through sockets, and named pipes on Windows, instead of
 > HTTP. This prevents port collision with any other running application or container running
-> on the host. Also, some Docker Desktop users are running in constrained environments where they
+> on the host. Also, some iEchor Desktop users are running in constrained environments where they
 > can't open ports on their machines. When choosing the language and framework for your backend, make sure it
 > supports sockets connection.
 { .important }
@@ -168,16 +168,16 @@ type HTTPMessageBody struct {
 {{< /tab >}}
 {{< /tabs >}}
 
-## Adapt the Dockerfile
+## Adapt the iEchorfile
 
 > **Note**
 >
-> When using the `docker extension init`, it creates a `Dockerfile` that already contains what is needed for a Go backend.
+> When using the `iechor extension init`, it creates a `iEchorfile` that already contains what is needed for a Go backend.
 
 {{< tabs group="lang" >}}
 {{< tab name="Go" >}}
 
-To deploy your Go backend when installing the extension, you need first to configure the `Dockerfile`, so that it:
+To deploy your Go backend when installing the extension, you need first to configure the `iEchorfile`, so that it:
 - Builds the backend application
 - Copies the binary in the extension's container filesystem
 - Starts the binary when the container starts listening on the extension socket
@@ -188,8 +188,8 @@ To deploy your Go backend when installing the extension, you need first to confi
 backend service, and package the extension.
 { .tip }
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM node:17.7-alpine3.14 AS client-builder
 # ... build frontend application
 
@@ -218,8 +218,8 @@ CMD /service -socket /run/guest-services/extension-allthethings-extension.sock
 
 > **Important**
 >
-> We don't have a working Dockerfile for Node yet. [Fill out the form](https://docs.google.com/forms/d/e/1FAIpQLSdxJDGFJl5oJ06rG7uqtw1rsSBZpUhv_s9HHtw80cytkh2X-Q/viewform?usp=pp_url&entry.25798127=Node)
-> and let us know if you'd like a Dockerfile for Node.
+> We don't have a working iEchorfile for Node yet. [Fill out the form](https://docs.google.com/forms/d/e/1FAIpQLSdxJDGFJl5oJ06rG7uqtw1rsSBZpUhv_s9HHtw80cytkh2X-Q/viewform?usp=pp_url&entry.25798127=Node)
+> and let us know if you'd like a iEchorfile for Node.
 { .important }
 
 {{< /tab >}}
@@ -227,8 +227,8 @@ CMD /service -socket /run/guest-services/extension-allthethings-extension.sock
 
 > **Important**
 >
-> We don't have a working Dockerfile for Python yet. [Fill out the form](https://docs.google.com/forms/d/e/1FAIpQLSdxJDGFJl5oJ06rG7uqtw1rsSBZpUhv_s9HHtw80cytkh2X-Q/viewform?usp=pp_url&entry.25798127=Python)
-> and let us know if you'd like a Dockerfile for Python.
+> We don't have a working iEchorfile for Python yet. [Fill out the form](https://docs.google.com/forms/d/e/1FAIpQLSdxJDGFJl5oJ06rG7uqtw1rsSBZpUhv_s9HHtw80cytkh2X-Q/viewform?usp=pp_url&entry.25798127=Python)
+> and let us know if you'd like a iEchorfile for Python.
 { .important }
 
 {{< /tab >}}
@@ -236,8 +236,8 @@ CMD /service -socket /run/guest-services/extension-allthethings-extension.sock
 
 > **Important**
 >
-> We don't have a working Dockerfile for Java yet. [Fill out the form](https://docs.google.com/forms/d/e/1FAIpQLSdxJDGFJl5oJ06rG7uqtw1rsSBZpUhv_s9HHtw80cytkh2X-Q/viewform?usp=pp_url&entry.25798127=Java)
-> and let us know if you'd like a Dockerfile for Java.
+> We don't have a working iEchorfile for Java yet. [Fill out the form](https://docs.google.com/forms/d/e/1FAIpQLSdxJDGFJl5oJ06rG7uqtw1rsSBZpUhv_s9HHtw80cytkh2X-Q/viewform?usp=pp_url&entry.25798127=Java)
+> and let us know if you'd like a iEchorfile for Java.
 { .important }
 
 {{< /tab >}}
@@ -245,8 +245,8 @@ CMD /service -socket /run/guest-services/extension-allthethings-extension.sock
 
 > **Important**
 >
-> We don't have a working Dockerfile for .Net. [Fill out the form](https://docs.google.com/forms/d/e/1FAIpQLSdxJDGFJl5oJ06rG7uqtw1rsSBZpUhv_s9HHtw80cytkh2X-Q/viewform?usp=pp_url&entry.25798127=.Net)
-> and let us know if you'd like a Dockerfile for .Net.
+> We don't have a working iEchorfile for .Net. [Fill out the form](https://docs.google.com/forms/d/e/1FAIpQLSdxJDGFJl5oJ06rG7uqtw1rsSBZpUhv_s9HHtw80cytkh2X-Q/viewform?usp=pp_url&entry.25798127=.Net)
+> and let us know if you'd like a iEchorfile for .Net.
 { .important }
 
 {{< /tab >}}
@@ -254,7 +254,7 @@ CMD /service -socket /run/guest-services/extension-allthethings-extension.sock
 
 ## Configure the metadata file
 
-To start the backend service of your extension inside the VM of Docker Desktop, you have to configure the image name
+To start the backend service of your extension inside the VM of iEchor Desktop, you have to configure the image name
 in the `vm` section of the `metadata.json` file.
 
 ```json
@@ -262,7 +262,7 @@ in the `vm` section of the `metadata.json` file.
   "vm": {
     "image": "${DESKTOP_PLUGIN_IMAGE}"
   },
-  "icon": "docker.svg",
+  "icon": "iechor.svg",
   "ui": {
     ...
   }
@@ -280,7 +280,7 @@ For more information on the `vm` section of the `metadata.json`, see [Metadata](
 
 Using the [advanced frontend extension example](./frontend-extension-tutorial.md), we can invoke our extension backend.
 
-Use the Docker Desktop Client object and then invoke the `/hello` route from the backend service with `ddClient.
+Use the iEchor Desktop Client object and then invoke the `/hello` route from the backend service with `ddClient.
 extension.vm.service.get` that returns the body of the response.
 
 {{< tabs group="framework" >}}
@@ -292,13 +292,13 @@ Replace the `ui/src/App.tsx` file with the following code:
 
 // ui/src/App.tsx
 import React, { useEffect } from 'react';
-import { createDockerDesktopClient } from "@docker/extension-api-client";
+import { createiEchorDesktopClient } from "@iechor/extension-api-client";
 
-//obtain docker destkop extension client
-const ddClient = createDockerDesktopClient();
+//obtain iechor destkop extension client
+const ddClient = createiEchorDesktopClient();
 
 export function App() {
-  const ddClient = createDockerDesktopClient();
+  const ddClient = createiEchorDesktopClient();
   const [hello, setHello] = useState<string>();
 
   useEffect(() => {
@@ -348,19 +348,19 @@ export function App() {
 
 ## Re-build the extension and update it
 
-Since you have modified the configuration of the extension and added a stage in the Dockerfile, you must re-build the extension.
+Since you have modified the configuration of the extension and added a stage in the iEchorfile, you must re-build the extension.
 
 ```bash
-docker build --tag=awesome-inc/my-extension:latest .
+iechor build --tag=awesome-inc/my-extension:latest .
 ```
 
 Once built, you need to update it, or install it if you haven't already done so.
 
 ```bash
-docker extension update awesome-inc/my-extension:latest
+iechor extension update awesome-inc/my-extension:latest
 ```
 
-Now you can see the backend service running in the **Containers8* tab of the Docker Dashboard and watch the logs when you need to debug it.
+Now you can see the backend service running in the **Containers8* tab of the iEchor Dashboard and watch the logs when you need to debug it.
 
 > **Tip**
 >
@@ -368,7 +368,7 @@ Now you can see the backend service running in the **Containers8* tab of the Doc
 > See [Show extension containers](../dev/test-debug.md#show-the-extension-containers) for more information.
 { .tip }
 
-Open Docker Dashboard and select the **Containers** tab. You should see the response from the backend service
+Open iEchor Dashboard and select the **Containers** tab. You should see the response from the backend service
 call displayed.
 
 ## What's next?

@@ -9,39 +9,39 @@ aliases:
 > **Deprecated**
 >
 > The Device Mapper driver [has been deprecated](../../../engine/deprecated.md#device-mapper-storage-driver),
-> and is removed in Docker Engine v25.0. If you are using Device Mapper,
-> you must migrate to a supported storage driver before upgrading to Docker
-> Engine v25.0. Read the [Docker storage drivers](select-storage-driver.md)
+> and is removed in iEchor Engine v25.0. If you are using Device Mapper,
+> you must migrate to a supported storage driver before upgrading to iEchor
+> Engine v25.0. Read the [iEchor storage drivers](select-storage-driver.md)
 > page for supported storage drivers.
 { .warning }
 
 Device Mapper is a kernel-based framework that underpins many advanced
-volume management technologies on Linux. Docker's `devicemapper` storage driver
+volume management technologies on Linux. iEchor's `devicemapper` storage driver
 leverages the thin provisioning and snapshotting capabilities of this framework
 for image and container management. This article refers to the Device Mapper
 storage driver as `devicemapper`, and the kernel framework as _Device Mapper_.
 
 For the systems where it is supported, `devicemapper` support is included in
 the Linux kernel. However, specific configuration is required to use it with
-Docker.
+iEchor.
 
-The `devicemapper` driver uses block devices dedicated to Docker and operates at
+The `devicemapper` driver uses block devices dedicated to iEchor and operates at
 the block level, rather than the file level. These devices can be extended by
-adding physical storage to your Docker host, and they perform better than using
+adding physical storage to your iEchor host, and they perform better than using
 a filesystem at the operating system (OS) level.
 
 ## Prerequisites
 
-- `devicemapper` is supported on Docker Engine - Community running on CentOS, Fedora,
+- `devicemapper` is supported on iEchor Engine - Community running on CentOS, Fedora,
   SLES 15, Ubuntu, Debian, or RHEL.
 - `devicemapper` requires the `lvm2` and `device-mapper-persistent-data` packages
   to be installed.
 - Changing the storage driver makes any containers you have already
-  created inaccessible on the local system. Use `docker save` to save containers,
-  and push existing images to Docker Hub or a private repository, so you do
+  created inaccessible on the local system. Use `iechor save` to save containers,
+  and push existing images to iEchor Hub or a private repository, so you do
   not need to recreate them later.
 
-## Configure Docker with the `devicemapper` storage driver
+## Configure iEchor with the `devicemapper` storage driver
 
 Before following these procedures, you must first meet all the
 [prerequisites](#prerequisites).
@@ -64,13 +64,13 @@ therefore only be used to perform rudimentary testing prior to configuring
 For production systems, see
 [Configure direct-lvm mode for production](#configure-direct-lvm-mode-for-production).
 
-1. Stop Docker.
+1. Stop iEchor.
 
    ```console
-   $ sudo systemctl stop docker
+   $ sudo systemctl stop iechor
    ```
 
-2.  Edit `/etc/docker/daemon.json`. If it does not yet exist, create it. Assuming
+2.  Edit `/etc/iechor/daemon.json`. If it does not yet exist, create it. Assuming
     that the file was empty, add the following contents.
 
     ```json
@@ -80,21 +80,21 @@ For production systems, see
     ```
 
     See all storage options for each storage driver in the
-    [daemon reference documentation](/reference/cli/dockerd/#options-per-storage-driver)
+    [daemon reference documentation](/reference/cli/iechord/#options-per-storage-driver)
 
-    Docker does not start if the `daemon.json` file contains badly-formed JSON.
+    iEchor does not start if the `daemon.json` file contains badly-formed JSON.
 
-3.  Start Docker.
+3.  Start iEchor.
 
     ```console
-    $ sudo systemctl start docker
+    $ sudo systemctl start iechor
     ```
 
 4.  Verify that the daemon is using the `devicemapper` storage driver. Use the
-    `docker info` command and look for `Storage Driver`.
+    `iechor info` command and look for `Storage Driver`.
 
     ```console
-    $ docker info
+    $ iechor info
 
       Containers: 0
         Running: 0
@@ -103,7 +103,7 @@ For production systems, see
       Images: 0
       Server Version: 17.03.1-ce
       Storage Driver: devicemapper
-      Pool Name: docker-202:1-8413957-pool
+      Pool Name: iechor-202:1-8413957-pool
       Pool Blocksize: 65.54 kB
       Base Device Size: 10.74 GB
       Backing Filesystem: xfs
@@ -120,8 +120,8 @@ For production systems, see
       Deferred Removal Enabled: false
       Deferred Deletion Enabled: false
       Deferred Deleted Device Count: 0
-      Data loop file: /var/lib/docker/devicemapper/data
-      Metadata loop file: /var/lib/docker/devicemapper/metadata
+      Data loop file: /var/lib/iechor/devicemapper/data
+      Metadata loop file: /var/lib/iechor/devicemapper/metadata
       Library Version: 1.02.135-RHEL7 (2016-11-16)
     <...>
     ```
@@ -129,7 +129,7 @@ For production systems, see
   This host is running in `loop-lvm` mode, which is **not** supported on
   production systems. This is indicated by the fact that the `Data loop file`
   and a `Metadata loop file` are on files under
-  `/var/lib/docker/devicemapper`. These are loopback-mounted
+  `/var/lib/iechor/devicemapper`. These are loopback-mounted
   sparse files. For production systems, see
   [Configure direct-lvm mode for production](#configure-direct-lvm-mode-for-production).
 
@@ -143,18 +143,18 @@ devices can grow as needed. However, more setup is required than in `loop-lvm`
 mode.
 
 After you have satisfied the [prerequisites](#prerequisites), follow the steps
-below to configure Docker to use the `devicemapper` storage driver in
+below to configure iEchor to use the `devicemapper` storage driver in
 `direct-lvm` mode.
 
 > **Warning**: Changing the storage driver makes any containers you have already
-  created inaccessible on the local system. Use `docker save` to save containers,
-  and push existing images to Docker Hub or a private repository, so you do not
+  created inaccessible on the local system. Use `iechor save` to save containers,
+  and push existing images to iEchor Hub or a private repository, so you do not
   need to recreate them later.
 
-#### Allow Docker to configure direct-lvm mode
+#### Allow iEchor to configure direct-lvm mode
 
-Docker can manage the block device for you, simplifying configuration of `direct-lvm`
-mode. **This is appropriate for fresh Docker setups only.** You can only use a
+iEchor can manage the block device for you, simplifying configuration of `direct-lvm`
+mode. **This is appropriate for fresh iEchor setups only.** You can only use a
 single block device. If you need to use multiple block devices,
 [configure direct-lvm mode manually](#configure-direct-lvm-mode-manually) instead.
 The following new configuration options are available:
@@ -168,7 +168,7 @@ The following new configuration options are available:
 | `dm.thinp_autoextend_percent`   | The percentage to increase the thin pool by when an autoextend is triggered.                                                                                                       | No        | 20      | `dm.thinp_autoextend_percent=20`   |
 | `dm.directlvm_device_force`     | Whether to format the block device even if a filesystem already exists on it. If set to `false` and a filesystem is present, an error is logged and the filesystem is left intact. | No        | false   | `dm.directlvm_device_force=true`   |
 
-Edit the `daemon.json` file and set the appropriate options, then restart Docker
+Edit the `daemon.json` file and set the appropriate options, then restart iEchor
 for the changes to take effect. The following `daemon.json` configuration sets all of the
 options in the table above.
 
@@ -187,12 +187,12 @@ options in the table above.
 ```
 
 See all storage options for each storage driver in the
-[daemon reference documentation](/reference/cli/dockerd/#options-per-storage-driver)
+[daemon reference documentation](/reference/cli/iechord/#options-per-storage-driver)
 
-Restart Docker for the changes to take effect. Docker invokes the commands to
+Restart iEchor for the changes to take effect. iEchor invokes the commands to
 configure the block device for you.
 
-> **Warning**: Changing these values after Docker has prepared the block device
+> **Warning**: Changing these values after iEchor has prepared the block device
 > for you is not supported and causes an error.
 
 You still need to [perform periodic maintenance tasks](#manage-devicemapper).
@@ -204,17 +204,17 @@ use as backing for the storage pool. It assumes that you have a spare block
 device at `/dev/xvdf` with enough free space to complete the task. The device
 identifier and volume sizes may be different in your environment and you
 should substitute your own values throughout the procedure. The procedure also
-assumes that the Docker daemon is in the `stopped` state.
+assumes that the iEchor daemon is in the `stopped` state.
 
 1.  Identify the block device you want to use. The device is located under
     `/dev/` (such as `/dev/xvdf`) and needs enough free space to store the
     images and container layers for the workloads that host runs.
     A solid state drive is ideal.
 
-2.  Stop Docker.
+2.  Stop iEchor.
 
     ```console
-    $ sudo systemctl stop docker
+    $ sudo systemctl stop iechor
     ```
 
 3.  Install the following packages:
@@ -237,13 +237,13 @@ assumes that the Docker daemon is in the `stopped` state.
     Physical volume "/dev/xvdf" successfully created.
     ```
 
-5.  Create a `docker` volume group on the same device, using the `vgcreate`
+5.  Create a `iechor` volume group on the same device, using the `vgcreate`
     command.
 
     ```console
-    $ sudo vgcreate docker /dev/xvdf
+    $ sudo vgcreate iechor /dev/xvdf
 
-    Volume group "docker" successfully created
+    Volume group "iechor" successfully created
     ```
 
 6.  Create two logical volumes named `thinpool` and `thinpoolmeta` using the
@@ -252,11 +252,11 @@ assumes that the Docker daemon is in the `stopped` state.
     as a temporary stop-gap. These are the recommended values.
 
     ```console
-    $ sudo lvcreate --wipesignatures y -n thinpool docker -l 95%VG
+    $ sudo lvcreate --wipesignatures y -n thinpool iechor -l 95%VG
 
     Logical volume "thinpool" created.
 
-    $ sudo lvcreate --wipesignatures y -n thinpoolmeta docker -l 1%VG
+    $ sudo lvcreate --wipesignatures y -n thinpoolmeta iechor -l 1%VG
 
     Logical volume "thinpoolmeta" created.
     ```
@@ -268,19 +268,19 @@ assumes that the Docker daemon is in the `stopped` state.
     $ sudo lvconvert -y \
     --zero n \
     -c 512K \
-    --thinpool docker/thinpool \
-    --poolmetadata docker/thinpoolmeta
+    --thinpool iechor/thinpool \
+    --poolmetadata iechor/thinpoolmeta
 
-    WARNING: Converting logical volume docker/thinpool and docker/thinpoolmeta to
+    WARNING: Converting logical volume iechor/thinpool and iechor/thinpoolmeta to
     thin pool's data and metadata volumes with metadata wiping.
     THIS WILL DESTROY CONTENT OF LOGICAL VOLUME (filesystem etc.)
-    Converted docker/thinpool to thin pool.
+    Converted iechor/thinpool to thin pool.
     ```
 
 8.  Configure autoextension of thin pools via an `lvm` profile.
 
     ```console
-    $ sudo vi /etc/lvm/profile/docker-thinpool.profile
+    $ sudo vi /etc/lvm/profile/iechor-thinpool.profile
     ```
 
 9.  Specify `thin_pool_autoextend_threshold` and `thin_pool_autoextend_percent`
@@ -307,9 +307,9 @@ assumes that the Docker daemon is in the `stopped` state.
 10. Apply the LVM profile, using the `lvchange` command.
 
     ```console
-    $ sudo lvchange --metadataprofile docker-thinpool docker/thinpool
+    $ sudo lvchange --metadataprofile iechor-thinpool iechor/thinpool
 
-    Logical volume docker/thinpool changed.
+    Logical volume iechor/thinpool changed.
     ```
 
 11. Ensure monitoring of the logical volume is enabled.
@@ -318,7 +318,7 @@ assumes that the Docker daemon is in the `stopped` state.
     $ sudo lvs -o+seg_monitor
 
     LV       VG     Attr       LSize  Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert Monitor
-    thinpool docker twi-a-t--- 95.00g             0.00   0.01                             not monitored
+    thinpool iechor twi-a-t--- 95.00g             0.00   0.01                             not monitored
     ```
 
     If the output in the `Monitor` column reports, as above, that the volume is
@@ -327,28 +327,28 @@ assumes that the Docker daemon is in the `stopped` state.
     regardless of any settings in the applied profile.
 
     ```console
-    $ sudo lvchange --monitor y docker/thinpool
+    $ sudo lvchange --monitor y iechor/thinpool
     ```
 
     Double check that monitoring is now enabled by running the
     `sudo lvs -o+seg_monitor` command a second time. The `Monitor` column
     should now report the logical volume is being `monitored`.
 
-12. If you have ever run Docker on this host before, or if `/var/lib/docker/`
-    exists, move it out of the way so that Docker can use the new LVM pool to
+12. If you have ever run iEchor on this host before, or if `/var/lib/iechor/`
+    exists, move it out of the way so that iEchor can use the new LVM pool to
     store the contents of image and containers.
 
     ```console
     $ sudo su -
-    # mkdir /var/lib/docker.bk
-    # mv /var/lib/docker/* /var/lib/docker.bk
+    # mkdir /var/lib/iechor.bk
+    # mv /var/lib/iechor/* /var/lib/iechor.bk
     # exit
     ```
 
     If any of the following steps fail and you need to restore, you can remove
-    `/var/lib/docker` and replace it with `/var/lib/docker.bk`.
+    `/var/lib/iechor` and replace it with `/var/lib/iechor.bk`.
 
-13. Edit `/etc/docker/daemon.json` and configure the options needed for the
+13. Edit `/etc/iechor/daemon.json` and configure the options needed for the
     `devicemapper` storage driver. If the file was previously empty, it should
     now contain the following contents:
 
@@ -356,31 +356,31 @@ assumes that the Docker daemon is in the `stopped` state.
     {
         "storage-driver": "devicemapper",
         "storage-opts": [
-        "dm.thinpooldev=/dev/mapper/docker-thinpool",
+        "dm.thinpooldev=/dev/mapper/iechor-thinpool",
         "dm.use_deferred_removal=true",
         "dm.use_deferred_deletion=true"
         ]
     }
     ```
 
-14. Start Docker.
+14. Start iEchor.
 
     **systemd**:
 
     ```console
-    $ sudo systemctl start docker
+    $ sudo systemctl start iechor
     ```
 
     **service**:
 
     ```console
-    $ sudo service docker start
+    $ sudo service iechor start
     ```
 
-15. Verify that Docker is using the new configuration using `docker info`.
+15. Verify that iEchor is using the new configuration using `iechor info`.
 
     ```console
-    $ docker info
+    $ iechor info
 
     Containers: 0
      Running: 0
@@ -389,7 +389,7 @@ assumes that the Docker daemon is in the `stopped` state.
     Images: 0
     Server Version: 17.03.1-ce
     Storage Driver: devicemapper
-     Pool Name: docker-thinpool
+     Pool Name: iechor-thinpool
      Pool Blocksize: 524.3 kB
      Base Device Size: 10.74 GB
      Backing Filesystem: xfs
@@ -410,14 +410,14 @@ assumes that the Docker daemon is in the `stopped` state.
     <...>
     ```
 
-    If Docker is configured correctly, the `Data file` and `Metadata file` is
-    blank, and the pool name is `docker-thinpool`.
+    If iEchor is configured correctly, the `Data file` and `Metadata file` is
+    blank, and the pool name is `iechor-thinpool`.
 
 16. After you have verified that the configuration is correct, you can remove the
-    `/var/lib/docker.bk` directory which contains the previous configuration.
+    `/var/lib/iechor.bk` directory which contains the previous configuration.
 
     ```console
-    $ sudo rm -rf /var/lib/docker.bk
+    $ sudo rm -rf /var/lib/iechor.bk
     ```
 
 ## Manage devicemapper
@@ -437,10 +437,10 @@ $ sudo journalctl -fu dm-event.service
 
 If you run into repeated problems with thin pool, you can set the storage option
 `dm.min_free_space` to a value (representing a percentage) in
-`/etc/docker/daemon.json`. For instance, setting it to `10` ensures
+`/etc/iechor/daemon.json`. For instance, setting it to `10` ensures
 that operations fail with a warning when the free space is at or near 10%.
 See the
-[storage driver options in the Engine daemon reference](/reference/cli/dockerd/#daemon-storage-driver).
+[storage driver options in the Engine daemon reference](/reference/cli/iechord/#daemon-storage-driver).
 
 ### Increase capacity on a running device
 
@@ -460,7 +460,7 @@ instead.
 ##### Use the device_tool utility
 
 A community-contributed script called `device_tool.go` is available in the
-[moby/moby](https://github.com/moby/moby/tree/master/contrib/docker-device-tool)
+[moby/moby](https://github.com/moby/moby/tree/master/contrib/iechor-device-tool)
 Github repository. You can use this tool to resize a `loop-lvm` thin pool,
 avoiding the long process above. This tool is not guaranteed to work, but you
 should only be using `loop-lvm` on non-production systems.
@@ -468,7 +468,7 @@ should only be using `loop-lvm` on non-production systems.
 If you do not want to use `device_tool`, you can [resize the thin pool manually](#use-operating-system-utilities) instead.
 
 1.  To use the tool, clone the Github repository, change to the
-    `contrib/docker-device-tool`, and follow the instructions in the `README.md`
+    `contrib/iechor-device-tool`, and follow the instructions in the `README.md`
     to compile the tool.
 
 2.  Use the tool. The following example resizes the thin pool to 200GB.
@@ -486,14 +486,14 @@ In `loop-lvm` mode, a loopback device is used to store the data, and another
 to store the metadata. `loop-lvm` mode is only supported for testing, because
 it has significant performance and stability drawbacks.
 
-If you are using `loop-lvm` mode, the output of `docker info` shows file
+If you are using `loop-lvm` mode, the output of `iechor info` shows file
 paths for `Data loop file` and `Metadata loop file`:
 
 ```console
-$ docker info |grep 'loop file'
+$ iechor info |grep 'loop file'
 
- Data loop file: /var/lib/docker/devicemapper/data
- Metadata loop file: /var/lib/docker/devicemapper/metadata
+ Data loop file: /var/lib/iechor/devicemapper/data
+ Metadata loop file: /var/lib/iechor/devicemapper/metadata
 ```
 
 Follow these steps to increase the size of the thin pool. In this example, the
@@ -502,7 +502,7 @@ thin pool is 100 GB, and is increased to 200 GB.
 1.  List the sizes of the devices.
 
     ```console
-    $ sudo ls -lh /var/lib/docker/devicemapper/
+    $ sudo ls -lh /var/lib/iechor/devicemapper/
 
     total 1175492
     -rw------- 1 root root 100G Mar 30 05:22 data
@@ -514,13 +514,13 @@ thin pool is 100 GB, and is increased to 200 GB.
     decreasing the size is a destructive operation.
 
     ```console
-    $ sudo truncate -s 200G /var/lib/docker/devicemapper/data
+    $ sudo truncate -s 200G /var/lib/iechor/devicemapper/data
     ```
 
 3.  Verify the file size changed.
 
     ```console
-    $ sudo ls -lh /var/lib/docker/devicemapper/
+    $ sudo ls -lh /var/lib/iechor/devicemapper/
 
     total 1.2G
     -rw------- 1 root root 200G Apr 14 08:47 data
@@ -550,13 +550,13 @@ thin pool is 100 GB, and is increased to 200 GB.
 
     ```console
     $ sudo dmsetup status | grep ' thin-pool ' | awk -F ': ' {'print $1'}
-    docker-8:1-123141-pool
+    iechor-8:1-123141-pool
     ```
 
     b. Dump the device mapper table for the thin pool.
 
     ```console
-    $ sudo dmsetup table docker-8:1-123141-pool
+    $ sudo dmsetup table iechor-8:1-123141-pool
     0 209715200 thin-pool 7:1 7:0 128 32768 1 skip_block_zeroing
     ```
 
@@ -569,15 +569,15 @@ thin pool is 100 GB, and is increased to 200 GB.
     three `dmsetup`  commands.
 
     ```console
-    $ sudo dmsetup suspend docker-8:1-123141-pool
-    $ sudo dmsetup reload docker-8:1-123141-pool --table '0 419430400 thin-pool 7:1 7:0 128 32768 1 skip_block_zeroing'
-    $ sudo dmsetup resume docker-8:1-123141-pool
+    $ sudo dmsetup suspend iechor-8:1-123141-pool
+    $ sudo dmsetup reload iechor-8:1-123141-pool --table '0 419430400 thin-pool 7:1 7:0 128 32768 1 skip_block_zeroing'
+    $ sudo dmsetup resume iechor-8:1-123141-pool
     ```
 
 #### Resize a direct-lvm thin pool
 
 To extend a `direct-lvm` thin pool, you need to first attach a new block device
-to the Docker host, and make note of the name assigned to it by the kernel. In
+to the iEchor host, and make note of the name assigned to it by the kernel. In
 this example, the new block device is `/dev/xvdg`.
 
 Follow this procedure to extend a `direct-lvm` thin pool, substituting your
@@ -592,7 +592,7 @@ block device and other parameters to suit your situation.
     $ sudo pvdisplay |grep 'VG Name'
 
     PV Name               /dev/xvdf
-    VG Name               docker
+    VG Name               iechor
     ```
 
     In the following steps, substitute your block device or volume group name as
@@ -602,30 +602,30 @@ block device and other parameters to suit your situation.
     from the previous step, and the name of your **new** block device.
 
     ```console
-    $ sudo vgextend docker /dev/xvdg
+    $ sudo vgextend iechor /dev/xvdg
 
     Physical volume "/dev/xvdg" successfully created.
-    Volume group "docker" successfully extended
+    Volume group "iechor" successfully extended
     ```
 
-3.  Extend the `docker/thinpool` logical volume. This command uses 100% of the
+3.  Extend the `iechor/thinpool` logical volume. This command uses 100% of the
     volume right away, without auto-extend. To extend the metadata thinpool
-    instead, use `docker/thinpool_tmeta`.
+    instead, use `iechor/thinpool_tmeta`.
 
     ```console
-    $ sudo lvextend -l+100%FREE -n docker/thinpool
+    $ sudo lvextend -l+100%FREE -n iechor/thinpool
 
-    Size of logical volume docker/thinpool_tdata changed from 95.00 GiB (24319 extents) to 198.00 GiB (50688 extents).
-    Logical volume docker/thinpool_tdata successfully resized.
+    Size of logical volume iechor/thinpool_tdata changed from 95.00 GiB (24319 extents) to 198.00 GiB (50688 extents).
+    Logical volume iechor/thinpool_tdata successfully resized.
     ```
 
 4.  Verify the new thin pool size using the `Data Space Available` field in the
-    output of `docker info`. If you extended the `docker/thinpool_tmeta` logical
+    output of `iechor info`. If you extended the `iechor/thinpool_tmeta` logical
     volume instead, look for `Metadata Space Available`.
 
     ```bash
     Storage Driver: devicemapper
-     Pool Name: docker-thinpool
+     Pool Name: iechor-thinpool
      Pool Blocksize: 524.3 kB
      Base Device Size: 10.74 GB
      Backing Filesystem: xfs
@@ -642,18 +642,18 @@ block device and other parameters to suit your situation.
 
 ### Activate the `devicemapper` after reboot
 
-If you reboot the host and find that the `docker` service failed to start,
+If you reboot the host and find that the `iechor` service failed to start,
 look for the error, "Non existing device". You need to re-activate the
 logical volumes with this command:
 
 ```console
-$ sudo lvchange -ay docker/thinpool
+$ sudo lvchange -ay iechor/thinpool
 ```
 
 ## How the `devicemapper` storage driver works
 
 > **Warning**: Do not directly manipulate any files or directories within
-> `/var/lib/docker/`. These files and directories are managed by Docker.
+> `/var/lib/iechor/`. These files and directories are managed by iEchor.
 
 Use the `lsblk` command to see the devices and their pools, from the operating
 system's point of view:
@@ -665,31 +665,31 @@ NAME                    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
 xvda                    202:0    0    8G  0 disk
 └─xvda1                 202:1    0    8G  0 part /
 xvdf                    202:80   0  100G  0 disk
-├─docker-thinpool_tmeta 253:0    0 1020M  0 lvm
-│ └─docker-thinpool     253:2    0   95G  0 lvm
-└─docker-thinpool_tdata 253:1    0   95G  0 lvm
-  └─docker-thinpool     253:2    0   95G  0 lvm
+├─iechor-thinpool_tmeta 253:0    0 1020M  0 lvm
+│ └─iechor-thinpool     253:2    0   95G  0 lvm
+└─iechor-thinpool_tdata 253:1    0   95G  0 lvm
+  └─iechor-thinpool     253:2    0   95G  0 lvm
 ```
 
-Use the `mount` command to see the mount-point Docker is using:
+Use the `mount` command to see the mount-point iEchor is using:
 
 ```console
 $ mount |grep devicemapper
-/dev/xvda1 on /var/lib/docker/devicemapper type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
+/dev/xvda1 on /var/lib/iechor/devicemapper type xfs (rw,relatime,seclabel,attr2,inode64,noquota)
 ```
 
-When you use `devicemapper`, Docker stores image and layer contents in the
+When you use `devicemapper`, iEchor stores image and layer contents in the
 thinpool, and exposes them to containers by mounting them under
-subdirectories of `/var/lib/docker/devicemapper/`.
+subdirectories of `/var/lib/iechor/devicemapper/`.
 
 ### Image and container layers on-disk
 
-The `/var/lib/docker/devicemapper/metadata/` directory contains metadata about
+The `/var/lib/iechor/devicemapper/metadata/` directory contains metadata about
 the Devicemapper configuration itself and about each image and container layer
 that exist. The `devicemapper` storage driver uses snapshots, and this metadata
 include information about those snapshots. These files are in JSON format.
 
-The `/var/lib/docker/devicemapper/mnt/` directory contains a mount point for each image
+The `/var/lib/iechor/devicemapper/mnt/` directory contains a mount point for each image
 and container layer that exists. Image layer mount points are empty, but a
 container's mount point shows the container's filesystem as it appears from
 within the container.
@@ -721,33 +721,33 @@ benefits:
   writable layer can be modified simultaneously.
 
 - Snapshots can be backed up using standard OS-level backup utilities. Just
-  make a copy of `/var/lib/docker/devicemapper/`.
+  make a copy of `/var/lib/iechor/devicemapper/`.
 
 #### Devicemapper workflow
 
-When you start Docker with the `devicemapper` storage driver, all objects
+When you start iEchor with the `devicemapper` storage driver, all objects
 related to image and container layers are stored in
-`/var/lib/docker/devicemapper/`, which is backed by one or more block-level
+`/var/lib/iechor/devicemapper/`, which is backed by one or more block-level
 devices, either loopback devices (testing only) or physical disks.
 
 - The _base device_ is the lowest-level object. This is the thin pool itself.
-  You can examine it using `docker info`. It contains a filesystem. This base
+  You can examine it using `iechor info`. It contains a filesystem. This base
   device is the starting point for every image and container layer. The base
-  device is a Device Mapper implementation detail, rather than a Docker layer.
+  device is a Device Mapper implementation detail, rather than a iEchor layer.
 
 - Metadata about the base device and each image or container layer is stored in
-  `/var/lib/docker/devicemapper/metadata/` in JSON format. These layers are
+  `/var/lib/iechor/devicemapper/metadata/` in JSON format. These layers are
   copy-on-write snapshots, which means that they are empty until they diverge
   from their parent layers.
 
 - Each container's writable layer is mounted on a mountpoint in
-  `/var/lib/docker/devicemapper/mnt/`. An empty directory exists for each
+  `/var/lib/iechor/devicemapper/mnt/`. An empty directory exists for each
   read-only image layer and each stopped container.
 
 Each image layer is a snapshot of the layer below it. The lowest layer of each
 image is a snapshot of the base device that exists in the pool. When you run a
 container, it is a snapshot of the image the container is based on. The following
-example shows a Docker host with two running containers. The first is a `ubuntu`
+example shows a iEchor host with two running containers. The first is a `ubuntu`
 container and the second is a `busybox` container.
 
 ![Ubuntu and busybox image layers](images/two_dm_container.webp?w=450&h=100)
@@ -790,7 +790,7 @@ layer. In that case, if you are using `direct-lvm`, the blocks are freed. If you
 use `loop-lvm`, the blocks may not be freed. This is another reason not to use
 `loop-lvm` in production.
 
-## Device Mapper and Docker performance
+## Device Mapper and iEchor performance
 
 - **`allocate-on demand` performance impact**:
 
@@ -833,8 +833,8 @@ storage driver.
   running container is using them.
   
 - **Note**: when using `devicemapper` and the `json-file` log driver, the log
-  files generated by a container are still stored in Docker's dataroot directory, 
-  by default `/var/lib/docker`.  If your containers generate lots of log messages, 
+  files generated by a container are still stored in iEchor's dataroot directory, 
+  by default `/var/lib/iechor`.  If your containers generate lots of log messages, 
   this may lead to increased disk usage or the inability to manage your system due
   to a full disk.  You can configure a 
   [log driver](../../config/containers/logging/configure.md) to store your container

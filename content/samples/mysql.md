@@ -1,5 +1,5 @@
 ---
 title: MySQL samples
-description: Docker samples for MySQL.
+description: iEchor samples for MySQL.
 service: mysql
 ---

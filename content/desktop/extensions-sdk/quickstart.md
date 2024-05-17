@@ -6,24 +6,24 @@ aliases:
 - desktop/extensions-sdk/tutorials/initialize/
 ---
 
-Follow this guide to get started with creating a basic Docker extension. The Quickstart guide automatically generates boilerplate files for you.
+Follow this guide to get started with creating a basic iEchor extension. The Quickstart guide automatically generates boilerplate files for you.
 
 ## Prerequisites
 
-- [Docker Desktop](../release-notes.md)
+- [iEchor Desktop](../release-notes.md)
 - [NodeJS](https://nodejs.org/)
 - [Go](https://go.dev/dl/)
 
 > Note
 >
-> NodeJS and Go are only required when you follow the quickstart guide to create an extension. It uses the `docker extension init` command to automatically generate boilerplate files. This command uses a template based on a ReactJS and Go application.
+> NodeJS and Go are only required when you follow the quickstart guide to create an extension. It uses the `iechor extension init` command to automatically generate boilerplate files. This command uses a template based on a ReactJS and Go application.
 
 ## Step one: Set up your directory
 
 To set up your directory, use the `init` subcommand and provide a name for your extension.
 
 ```console
-$ docker extension init <my-extension>
+$ iechor extension init <my-extension>
 ```
 
 The command asks a series of questions about your extension, such as its name, a description, and the name of your Hub repository. This helps the CLI generate a set of boilerplate files for you to get started. It stores the boilerplate files in the `my-extension` directory.
@@ -40,26 +40,26 @@ For more information and guidelines on building the UI, see the [Design and UI s
 To build the extension, move into the newly created directory and run:
 
 ```console
-$ docker build -t <name-of-your-extension> .
+$ iechor build -t <name-of-your-extension> .
 ```
 
-`docker build` builds the extension and generates an image named the same as the chosen hub repository. For example, if you typed `john/my-extension` as the answer to the following question:
+`iechor build` builds the extension and generates an image named the same as the chosen hub repository. For example, if you typed `john/my-extension` as the answer to the following question:
 
 ```console
 ? Hub repository (eg. namespace/repository on hub): john/my-extension`
 ```
 
-The `docker build` generates an image with name `john/my-extension`.
+The `iechor build` generates an image with name `john/my-extension`.
 
 ## Step three: Install and preview the extension
 
-To install the extension in Docker Desktop, run:
+To install the extension in iEchor Desktop, run:
 
 ```console
-$ docker extension install <name-of-your-extension>
+$ iechor extension install <name-of-your-extension>
 ```
 
-To preview the extension in Docker Desktop, once the installation is complete and you should
+To preview the extension in iEchor Desktop, once the installation is complete and you should
 see a **Quickstart** item underneath the **Extensions** menu. Selecting this item opens the extension's frontend.
 
 > **Tip**
@@ -69,19 +69,19 @@ see a **Quickstart** item underneath the **Extensions** menu. Selecting this ite
 { .tip }
 
 You may also want to inspect the containers that belong to the extension. By default, extension containers are
-hidden from the Docker Dashboard. You can change this in **Settings**, see
+hidden from the iEchor Dashboard. You can change this in **Settings**, see
 [how to show extension containers](dev/test-debug.md#show-the-extension-containers) for more information.
 
 ## Step four: Submit and publish your extension to the Marketplace
 
-If you want to make your extension available to all Docker Desktop users, you can submit it for publication in the Marketplace. For more information, see [Publish](extensions/index.md).
+If you want to make your extension available to all iEchor Desktop users, you can submit it for publication in the Marketplace. For more information, see [Publish](extensions/index.md).
 
 ## Clean up
 
 To remove the extension, run:
 
 ```console
-$ docker extension rm <name-of-your-extension>
+$ iechor extension rm <name-of-your-extension>
 ```
 
 ## What's next

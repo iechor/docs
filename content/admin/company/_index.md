@@ -1,5 +1,5 @@
 ---
-description: Learn about managing companies in Docker including how they relate to organizations, their key features, and more
+description: Learn about managing companies in iEchor including how they relate to organizations, their key features, and more
 keywords: company, multiple organizations, manage companies
 title: Overview
 grid:
@@ -38,7 +38,7 @@ grid:
   link: /faq/admin/company-faqs/
   icon: help
 aliases:
-- /docker-hub/creating-companies/
+- /iechor-hub/creating-companies/
 ---
 
 {{< include "admin-company-overview.md" >}}

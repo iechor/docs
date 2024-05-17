@@ -1,10 +1,10 @@
 ---
-description: Understand what you can do with the Volumes view on Docker Dashboard
-keywords: Docker Dashboard, manage, containers, gui, dashboard, volumes, user manual
+description: Understand what you can do with the Volumes view on iEchor Dashboard
+keywords: iEchor Dashboard, manage, containers, gui, dashboard, volumes, user manual
 title: Explore Volumes
 ---
 
-The **Volumes** view in Docker Dashboard lets you create, delete, and perform
+The **Volumes** view in iEchor Dashboard lets you create, delete, and perform
 other actions on your [volumes](../../storage/volumes.md). You can also see
 which volumes are being used as well as inspect the files and folders in your
 volumes.
@@ -34,12 +34,12 @@ doing the following:
 
 Cloning a volume creates a new volume with a copy of all of the data from the
 cloned volume. When cloning a volume used by one or more running containers, the
-containers are temporarily stopped while Docker clones the data, and then
+containers are temporarily stopped while iEchor clones the data, and then
 restarted when the cloning process is completed.
 
 To clone a volume:
 
-1. Sign in to Docker Desktop. You must be signed in to clone a volume.
+1. Sign in to iEchor Desktop. You must be signed in to clone a volume.
 2. Select the **Clone** icon in the **Actions** column for the volume you want
    to clone.
 3. In the **Clone a volume** modal, specify a **Volume name**, and then select
@@ -49,7 +49,7 @@ To clone a volume:
 
 You use the following steps to create an empty volume. Alternatively, if you
 [start a container with a volume](../../storage/volumes.md#start-a-container-with-a-volume)
-that doesn't yet exist, Docker creates the volume for you.
+that doesn't yet exist, iEchor creates the volume for you.
 
 To create a volume:
 
@@ -83,12 +83,12 @@ To delete multiple volumes:
 
 Emptying a volume deletes all a volume's data, but doesn't delete the volume.
 When emptying a volume used by one or more running containers, the containers
-are temporarily stopped while Docker empties the data, and then restarted when
+are temporarily stopped while iEchor empties the data, and then restarted when
 the emptying process is completed.
 
 To empty a volume:
 
-1. Sign in to Docker Desktop. You must be signed in to empty a volume.
+1. Sign in to iEchor Desktop. You must be signed in to empty a volume.
 2. Select the **Show volume actions** icon in the **Actions** column for the
    volume you want to delete.
 3. Select **Empty volume**.
@@ -102,13 +102,13 @@ To empty a volume:
 { .experimental }
 
 You can export the content of a volume to a local file, a local image, or an to
-an image in Docker Hub. When exporting content from a volume used by one or more
-running containers, the containers are temporarily stopped while Docker exports
+an image in iEchor Hub. When exporting content from a volume used by one or more
+running containers, the containers are temporarily stopped while iEchor exports
 the content, and then restarted when the export process is completed.
 
 To export a volume:
 
-1. Sign in to Docker Desktop. You must be signed in to export a volume.
+1. Sign in to iEchor Desktop. You must be signed in to export a volume.
 2. Select the **Export** icon in the **Actions** column for the
    volume you want to export content from.
 3. In the **Export content** modal, select where to export the content to and
@@ -118,10 +118,10 @@ To export a volume:
    - **Local image**: Select a local image to export the content to. Any
     existing data in the image will be replaced by the exported content.
    - **New image**: Specify a name for the new image.
-   - **Registry**: Specify a Docker Hub repository. Note that Docker Hub
+   - **Registry**: Specify a iEchor Hub repository. Note that iEchor Hub
      repositories can be publicly accessible which means your data can be
      publicly accessible. For more details, see
-     [Change a repository from public to private](/docker-hub/repos/#change-a-repository-from-public-to-private).
+     [Change a repository from public to private](/iechor-hub/repos/#change-a-repository-from-public-to-private).
 
 4. Select **Export**.
 
@@ -132,15 +132,15 @@ To export a volume:
 > The import volume feature is currently in [Beta](../../release-lifecycle.md/#beta).
 { .experimental }
 
-You can import a local file, a local image, or an image from Docker Hub. Any
+You can import a local file, a local image, or an image from iEchor Hub. Any
 existing data in the volume is replaced by the imported content. When importing
 content to a volume used by one or more running containers, the containers are
-temporarily stopped while Docker imports the content, and then restarted when
+temporarily stopped while iEchor imports the content, and then restarted when
 the import process is completed.
 
 To import a volume:
 
-1. Sign in to Docker Desktop. You must be signed in to import a volume.
+1. Sign in to iEchor Desktop. You must be signed in to import a volume.
 2. Optionally, [create](#create-a-volume) a new volume to import the content
    into.
 3. Select the **Import** icon in the **Actions** column for the
@@ -150,7 +150,7 @@ To import a volume:
 
    - **Local file**: Select the file that contains the content.
    - **Local image**: Select the local image that contains the content.
-   - **Registry**: Specify the image from Docker Hub that contains the content.
+   - **Registry**: Specify the image from iEchor Hub that contains the content.
 
 5. Select **Import**.
 

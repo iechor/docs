@@ -1,7 +1,7 @@
 ---
 title: "Engine API version history"
 description: "Documentation of changes that have been made to Engine API."
-keywords: "API, Docker, rcli, REST, documentation"
+keywords: "API, iEchor, rcli, REST, documentation"
 ---
 
 <!-- This file is maintained within the moby/moby GitHub
@@ -15,7 +15,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.45 API changes
 
-[Docker Engine API v1.45](https://docs.docker.com/engine/api/v1.45/) documentation
+[iEchor Engine API v1.45](https://docs.iechor.com/engine/api/v1.45/) documentation
 
 * `POST /containers/create` now supports `VolumeOptions.Subpath` which allows a
   subpath of a named volume to be mounted.
@@ -33,7 +33,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.44 API changes
 
-[Docker Engine API v1.44](https://docs.docker.com/engine/api/v1.44/) documentation
+[iEchor Engine API v1.44](https://docs.iechor.com/engine/api/v1.44/) documentation
 
 * GET `/images/json` now accepts an `until` filter. This accepts a timestamp and
   lists all images created before it. The `<timestamp>` can be Unix timestamps,
@@ -44,11 +44,11 @@ keywords: "API, Docker, rcli, REST, documentation"
   and `GET /system/df` responses is now omitted. Use the `Size` field instead,
   which contains the same information.
 * Deprecated: The `is_automated` field in the `GET /images/search` response has
-  been deprecated and will always be set to false in the future because Docker
+  been deprecated and will always be set to false in the future because iEchor
   Hub is deprecating the `is_automated` field in its search API. The deprecation
   is not versioned, and applies to all API versions.
 * Deprecated: The `is-automated` filter for the `GET /images/search` endpoint.
-  The `is_automated` field has been deprecated by Docker Hub's search API.
+  The `is_automated` field has been deprecated by iEchor Hub's search API.
   Consequently, searching for `is-automated=true` will yield no results. The
   deprecation is not versioned, and applies to all API versions.
 * Read-only bind mounts are now made recursively read-only on kernel >= 5.12
@@ -102,7 +102,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.43 API changes
 
-[Docker Engine API v1.43](https://docs.docker.com/engine/api/v1.43/) documentation
+[iEchor Engine API v1.43](https://docs.iechor.com/engine/api/v1.43/) documentation
 
 * `POST /containers/create` now accepts `Annotations` as part of `HostConfig`.
   Can be used to attach arbitrary metadata to the container, which will also be
@@ -119,7 +119,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.42 API changes
 
-[Docker Engine API v1.42](https://docs.docker.com/engine/api/v1.42/) documentation
+[iEchor Engine API v1.42](https://docs.iechor.com/engine/api/v1.42/) documentation
 
 * Removed the `BuilderSize` field on the `GET /system/df` endpoint. This field
   was introduced in API 1.31 as part of an experimental feature, and no longer
@@ -191,8 +191,8 @@ keywords: "API, Docker, rcli, REST, documentation"
   versioned, and affects all API versions if the daemon has this patch.
 * `GET /containers/{id}/attach`, `GET /exec/{id}/start`, `GET /containers/{id}/logs`
   `GET /services/{id}/logs` and `GET /tasks/{id}/logs` now set Content-Type header
-  to `application/vnd.docker.multiplexed-stream` when a multiplexed stdout/stderr
-  stream is sent to client, `application/vnd.docker.raw-stream` otherwise.
+  to `application/vnd.iechor.multiplexed-stream` when a multiplexed stdout/stderr
+  stream is sent to client, `application/vnd.iechor.raw-stream` otherwise.
 * `POST /volumes/create` now accepts a new `ClusterVolumeSpec` to create a cluster
   volume (CNI). This option can only be used if the daemon is a Swarm manager.
   The Volume response on creation now also can contain a `ClusterVolume` field
@@ -227,7 +227,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.41 API changes
 
-[Docker Engine API v1.41](https://docs.docker.com/engine/api/v1.41/) documentation
+[iEchor Engine API v1.41](https://docs.iechor.com/engine/api/v1.41/) documentation
 
 * `GET /events` now returns `prune` events after pruning resources have completed.
   Prune events are returned for `container`, `network`, `volume`, `image`, and
@@ -236,13 +236,13 @@ keywords: "API, Docker, rcli, REST, documentation"
 * `GET /info` now returns a `CgroupVersion` field, containing the cgroup version.
 * `GET /info` now returns a `DefaultAddressPools` field, containing a list of
   custom default address pools for local networks, which can be specified in the
-  `daemon.json` file or `--default-address-pool` dockerd option.
+  `daemon.json` file or `--default-address-pool` iechord option.
 * `POST /services/create` and `POST /services/{id}/update` now supports `BindOptions.NonRecursive`.
 * The `ClusterStore` and `ClusterAdvertise` fields in `GET /info` are deprecated
   and are now omitted if they contain an empty value. This change is not versioned,
   and affects all API versions if the daemon has this patch.
 * The `filter` (singular) query parameter, which was deprecated in favor of the
-  `filters` option in Docker 1.13, has now been removed from the `GET /images/json`
+  `filters` option in iEchor 1.13, has now been removed from the `GET /images/json`
   endpoint. The parameter remains available when using API version 1.40 or below.
 * `GET /services` now returns `CapAdd` and `CapDrop` as part of the `ContainerSpec`.
 * `GET /services/{id}` now returns `CapAdd` and `CapDrop` as part of the `ContainerSpec`.
@@ -315,7 +315,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.40 API changes
 
-[Docker Engine API v1.40](https://docs.docker.com/engine/api/v1.40/) documentation
+[iEchor Engine API v1.40](https://docs.iechor.com/engine/api/v1.40/) documentation
 
 * The `/_ping` endpoint can now be accessed both using `GET` or `HEAD` requests.
   when accessed using a `HEAD` request, all headers are returned, but the body
@@ -382,7 +382,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## V1.39 API changes
 
-[Docker Engine API v1.39](https://docs.docker.com/engine/api/v1.39/) documentation
+[iEchor Engine API v1.39](https://docs.iechor.com/engine/api/v1.39/) documentation
 
 * `GET /info` now returns an empty string, instead of `<unknown>` for `KernelVersion`
   and `OperatingSystem` if the daemon was unable to obtain this information.
@@ -399,7 +399,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## V1.38 API changes
 
-[Docker Engine API v1.38](https://docs.docker.com/engine/api/v1.38/) documentation
+[iEchor Engine API v1.38](https://docs.iechor.com/engine/api/v1.38/) documentation
 
 
 * `GET /tasks` and `GET /tasks/{id}` now return a `NetworkAttachmentSpec` field,
@@ -408,7 +408,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.37 API changes
 
-[Docker Engine API v1.37](https://docs.docker.com/engine/api/v1.37/) documentation
+[iEchor Engine API v1.37](https://docs.iechor.com/engine/api/v1.37/) documentation
 
 * `POST /containers/create` and `POST /services/create` now supports exposing SCTP ports.
 * `POST /configs/create` and `POST /configs/{id}/create` now accept a `Templating` driver.
@@ -418,14 +418,14 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.36 API changes
 
-[Docker Engine API v1.36](https://docs.docker.com/engine/api/v1.36/) documentation
+[iEchor Engine API v1.36](https://docs.iechor.com/engine/api/v1.36/) documentation
 
 * `Get /events` now return `exec_die` event when an exec process terminates.
 
 
 ## v1.35 API changes
 
-[Docker Engine API v1.35](https://docs.docker.com/engine/api/v1.35/) documentation
+[iEchor Engine API v1.35](https://docs.iechor.com/engine/api/v1.35/) documentation
 
 * `POST /services/create` and `POST /services/(id)/update` now accepts an
   `Isolation` field on container spec to set the Isolation technology of the
@@ -448,7 +448,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.34 API changes
 
-[Docker Engine API v1.34](https://docs.docker.com/engine/api/v1.34/) documentation
+[iEchor Engine API v1.34](https://docs.iechor.com/engine/api/v1.34/) documentation
 
 * `POST /containers/(name)/wait?condition=removed` now also also returns
   in case of container removal failure. A pointer to a structure named
@@ -459,14 +459,14 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.33 API changes
 
-[Docker Engine API v1.33](https://docs.docker.com/engine/api/v1.33/) documentation
+[iEchor Engine API v1.33](https://docs.iechor.com/engine/api/v1.33/) documentation
 
 * `GET /events` now supports filtering 4 more kinds of events: `config`, `node`,
 `secret` and `service`.
 
 ## v1.32 API changes
 
-[Docker Engine API v1.32](https://docs.docker.com/engine/api/v1.32/) documentation
+[iEchor Engine API v1.32](https://docs.iechor.com/engine/api/v1.32/) documentation
 
 * `POST /images/create` now accepts a `platform` parameter in the form of `os[/arch[/variant]]`.
 * `POST /containers/create` now accepts additional values for the
@@ -480,7 +480,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.31 API changes
 
-[Docker Engine API v1.31](https://docs.docker.com/engine/api/v1.31/) documentation
+[iEchor Engine API v1.31](https://docs.iechor.com/engine/api/v1.31/) documentation
 
 * `DELETE /secrets/(name)` now returns status code 404 instead of 500 when the secret does not exist.
 * `POST /secrets/create` now returns status code 409 instead of 500 when creating an already existing secret.
@@ -511,7 +511,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.30 API changes
 
-[Docker Engine API v1.30](https://docs.docker.com/engine/api/v1.30/) documentation
+[iEchor Engine API v1.30](https://docs.iechor.com/engine/api/v1.30/) documentation
 
 * `GET /info` now returns the list of supported logging drivers, including plugins.
 * `GET /info` and `GET /swarm` now returns the cluster-wide swarm CA info if the node is in a swarm: the cluster root CA certificate, and the cluster TLS
@@ -534,7 +534,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.29 API changes
 
-[Docker Engine API v1.29](https://docs.docker.com/engine/api/v1.29/) documentation
+[iEchor Engine API v1.29](https://docs.iechor.com/engine/api/v1.29/) documentation
 
 * `DELETE /networks/(name)` now allows to remove the ingress network, the one used to provide the routing-mesh.
 * `POST /networks/create` now supports creating the ingress network, by specifying an `Ingress` boolean field. As of now this is supported only when using the overlay network driver.
@@ -548,7 +548,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.28 API changes
 
-[Docker Engine API v1.28](https://docs.docker.com/engine/api/v1.28/) documentation
+[iEchor Engine API v1.28](https://docs.iechor.com/engine/api/v1.28/) documentation
 
 * `POST /containers/create` now includes a `Consistency` field to specify the consistency level for each `Mount`, with possible values `default`, `consistent`, `cached`, or `delegated`.
 * `GET /containers/create` now takes a `DeviceCgroupRules` field in `HostConfig` allowing to set custom device cgroup rules for the created container.
@@ -566,19 +566,19 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.27 API changes
 
-[Docker Engine API v1.27](https://docs.docker.com/engine/api/v1.27/) documentation
+[iEchor Engine API v1.27](https://docs.iechor.com/engine/api/v1.27/) documentation
 
 * `GET /containers/(id or name)/stats` now includes an `online_cpus` field in both `precpu_stats` and `cpu_stats`. If this field is `nil` then for compatibility with older daemons the length of the corresponding `cpu_usage.percpu_usage` array should be used.
 
 ## v1.26 API changes
 
-[Docker Engine API v1.26](https://docs.docker.com/engine/api/v1.26/) documentation
+[iEchor Engine API v1.26](https://docs.iechor.com/engine/api/v1.26/) documentation
 
 * `POST /plugins/(plugin name)/upgrade` upgrade a plugin.
 
 ## v1.25 API changes
 
-[Docker Engine API v1.25](https://docs.docker.com/engine/api/v1.25/) documentation
+[iEchor Engine API v1.25](https://docs.iechor.com/engine/api/v1.25/) documentation
 
 * The API version is now required in all API calls. Instead of just requesting, for example, the URL `/containers/json`, you must now request `/v1.25/containers/json`.
 * `GET /version` now returns `MinAPIVersion`.
@@ -595,9 +595,9 @@ keywords: "API, Docker, rcli, REST, documentation"
 * `GET /containers/json` now supports filtering containers by `health` status.
 * `DELETE /volumes/(name)` now accepts a `force` query parameter to force removal of volumes that were already removed out of band by the volume driver plugin.
 * `POST /containers/create/` and `POST /containers/(name)/update` now validates restart policies.
-* `POST /containers/create` now validates IPAMConfig in NetworkingConfig, and returns error for invalid IPv4 and IPv6 addresses (`--ip` and `--ip6` in `docker create/run`).
+* `POST /containers/create` now validates IPAMConfig in NetworkingConfig, and returns error for invalid IPv4 and IPv6 addresses (`--ip` and `--ip6` in `iechor create/run`).
 * `POST /containers/create` now takes a `Mounts` field in `HostConfig` which replaces `Binds`, `Volumes`, and `Tmpfs`. *note*: `Binds`, `Volumes`, and `Tmpfs` are still available and can be combined with `Mounts`.
-* `POST /build` now performs a preliminary validation of the `Dockerfile` before starting the build, and returns an error if the syntax is incorrect. Note that this change is _unversioned_ and applied to all API versions.
+* `POST /build` now performs a preliminary validation of the `iEchorfile` before starting the build, and returns an error if the syntax is incorrect. Note that this change is _unversioned_ and applied to all API versions.
 * `POST /build` accepts `cachefrom` parameter to specify images used for build cache.
 * `GET /networks/` endpoint now correctly returns a list of *all* networks,
   instead of the default network if a trailing slash is provided, but no `name`
@@ -617,7 +617,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 * `POST /images/prune` prunes unused images.
 * `POST /volumes/prune` prunes unused volumes.
 * `POST /networks/prune` prunes unused networks.
-* Every API response now includes a `Docker-Experimental` header specifying if experimental features are enabled (value can be `true` or `false`).
+* Every API response now includes a `iEchor-Experimental` header specifying if experimental features are enabled (value can be `true` or `false`).
 * Every API response now includes a `API-Version` header specifying the default API version of the server.
 * The `hostConfig` option now accepts the fields `CpuRealtimePeriod` and `CpuRtRuntime` to allocate cpu runtime to rt tasks when `CONFIG_RT_GROUP_SCHED` is enabled in the kernel.
 * The `SecurityOptions` field within the `GET /info` response now includes `userns` if user namespaces are enabled in the daemon.
@@ -655,12 +655,12 @@ keywords: "API, Docker, rcli, REST, documentation"
 
 ## v1.24 API changes
 
-[Docker Engine API v1.24](v1.24.md) documentation
+[iEchor Engine API v1.24](v1.24.md) documentation
 
 * `POST /containers/create` now takes `StorageOpt` field.
 * `GET /info` now returns `SecurityOptions` field, showing if `apparmor`, `seccomp`, or `selinux` is supported.
 * `GET /info` no longer returns the `ExecutionDriver` property. This property was no longer used after integration
-  with ContainerD in Docker 1.11.
+  with ContainerD in iEchor 1.11.
 * `GET /networks` now supports filtering by `label` and `driver`.
 * `GET /containers/json` now supports filtering containers by `network` name or id.
 * `POST /containers/create` now takes `IOMaximumBandwidth` and `IOMaximumIOps` fields. Windows daemon only.
@@ -680,7 +680,7 @@ keywords: "API, Docker, rcli, REST, documentation"
 * `POST /containers/create` and `POST /containers/(id)/start` allow you to configure kernel parameters (sysctls) for use in the container.
 * `POST /containers/<container ID>/exec` and `POST /exec/<exec ID>/start`
   no longer expects a "Container" field to be present. This property was not used
-  and is no longer sent by the docker client.
+  and is no longer sent by the iechor client.
 * `POST /containers/create/` now validates the hostname (should be a valid RFC 1123 hostname).
 * `POST /containers/create/` `HostConfig.PidMode` field now accepts `container:<name|id>`,
   to have the container join the PID namespace of an existing container.

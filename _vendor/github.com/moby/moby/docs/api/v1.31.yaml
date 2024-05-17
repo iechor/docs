@@ -21,14 +21,14 @@ consumes:
   - "text/plain"
 basePath: "/v1.31"
 info:
-  title: "Docker Engine API"
+  title: "iEchor Engine API"
   version: "1.31"
   x-logo:
-    url: "https://docs.docker.com/assets/images/logo-docker-main.png"
+    url: "https://docs.iechor.com/assets/images/logo-iechor-main.png"
   description: |
-    The Engine API is an HTTP API served by Docker Engine. It is the API the Docker client uses to communicate with the Engine, so everything the Docker client can do can be done with the API.
+    The Engine API is an HTTP API served by iEchor Engine. It is the API the iEchor client uses to communicate with the Engine, so everything the iEchor client can do can be done with the API.
 
-    Most of the client's commands map directly to API endpoints (e.g. `docker ps` is `GET /containers/json`). The notable exception is running containers, which consists of several API calls.
+    Most of the client's commands map directly to API endpoints (e.g. `iechor ps` is `GET /containers/json`). The notable exception is running containers, which consists of several API calls.
 
     # Errors
 
@@ -42,15 +42,15 @@ info:
 
     # Versioning
 
-    The API is usually changed in each release of Docker, so API calls are versioned to ensure that clients don't break.
+    The API is usually changed in each release of iEchor, so API calls are versioned to ensure that clients don't break.
 
-    For Docker Engine 17.06, the API version is 1.30. To lock to this version, you prefix the URL with `/v1.30`. For example, calling `/info` is the same as calling `/v1.30/info`.
+    For iEchor Engine 17.06, the API version is 1.30. To lock to this version, you prefix the URL with `/v1.30`. For example, calling `/info` is the same as calling `/v1.30/info`.
 
     Engine releases in the near future should support this version of the API, so your client will continue to work even if it is talking to a newer Engine.
 
-    In previous versions of Docker, it was possible to access the API without providing a version. This behaviour is now deprecated will be removed in a future version of Docker.
+    In previous versions of iEchor, it was possible to access the API without providing a version. This behaviour is now deprecated will be removed in a future version of iEchor.
 
-    The API uses an open schema model, which means server may add extra properties to responses. Likewise, the server will ignore any extra query parameters and request body properties. When you write clients, you need to ignore additional properties in responses to ensure they do not break when talking to newer Docker daemons.
+    The API uses an open schema model, which means server may add extra properties to responses. Likewise, the server will ignore any extra query parameters and request body properties. When you write clients, you need to ignore additional properties in responses to ensure they do not break when talking to newer iEchor daemons.
 
     # Authentication
 
@@ -93,7 +93,7 @@ tags:
   - name: "Network"
     x-displayName: "Networks"
     description: |
-      Networks are user-defined networks that containers can be attached to. See the [networking documentation](https://docs.docker.com/network/) for more information.
+      Networks are user-defined networks that containers can be attached to. See the [networking documentation](https://docs.iechor.com/network/) for more information.
   - name: "Volume"
     x-displayName: "Volumes"
     description: |
@@ -101,14 +101,14 @@ tags:
   - name: "Exec"
     x-displayName: "Exec"
     description: |
-      Run new commands inside running containers. See the [command-line reference](https://docs.docker.com/engine/reference/commandline/exec/) for more information.
+      Run new commands inside running containers. See the [command-line reference](https://docs.iechor.com/engine/reference/commandline/exec/) for more information.
 
-      To exec a command in a container, you first need to create an exec instance, then start it. These two API endpoints are wrapped up in a single command-line command, `docker exec`.
+      To exec a command in a container, you first need to create an exec instance, then start it. These two API endpoints are wrapped up in a single command-line command, `iechor exec`.
   # Swarm things
   - name: "Swarm"
     x-displayName: "Swarm"
     description: |
-      Engines can be clustered together in a swarm. See [the swarm mode documentation](https://docs.docker.com/engine/swarm/) for more information.
+      Engines can be clustered together in a swarm. See [the swarm mode documentation](https://docs.iechor.com/engine/swarm/) for more information.
   - name: "Node"
     x-displayName: "Nodes"
     description: |
@@ -169,7 +169,7 @@ definitions:
           The mount type:
 
           - `bind` a mount of a file or directory from the host into the container.
-          - `volume` a docker volume with the given `Name`.
+          - `volume` a iechor volume with the given `Name`.
           - `tmpfs` a `tmpfs`.
         type: "string"
         enum:
@@ -188,11 +188,11 @@ definitions:
           Source location of the mount.
 
           For volumes, this contains the storage location of the volume (within
-          `/var/lib/docker/volumes/`). For bind-mounts, and `npipe`, this contains
+          `/var/lib/iechor/volumes/`). For bind-mounts, and `npipe`, this contains
           the source (host) part of the bind-mount. For `tmpfs` mount points, this
           field is empty.
         type: "string"
-        example: "/var/lib/docker/volumes/myvolume/_data"
+        example: "/var/lib/iechor/volumes/myvolume/_data"
       Destination:
         description: |
           Destination is the path relative to the container root (`/`) where
@@ -747,7 +747,7 @@ definitions:
       optional field containing the configuration of the container that was last
       committed when creating the image.
 
-      Previous versions of Docker builder used this field to store build cache,
+      Previous versions of iEchor builder used this field to store build cache,
       and it is not in active use anymore.
     type: "object"
     properties:
@@ -832,7 +832,7 @@ definitions:
         description: |
           The entry point for the container as a string or an array of strings.
 
-          If the array consists of exactly one empty string (`[""]`) then the entry point is reset to system default (i.e., the entry point used by docker when there is no `ENTRYPOINT` instruction in the `Dockerfile`).
+          If the array consists of exactly one empty string (`[""]`) then the entry point is reset to system default (i.e., the entry point used by iechor when there is no `ENTRYPOINT` instruction in the `iEchorfile`).
         type:
           - "array"
           - "string"
@@ -845,7 +845,7 @@ definitions:
         description: "MAC address of the container."
         type: "string"
       OnBuild:
-        description: "`ONBUILD` metadata that were defined in the image's `Dockerfile`."
+        description: "`ONBUILD` metadata that were defined in the image's `iEchorfile`."
         type: "array"
         items:
           type: "string"
@@ -911,7 +911,7 @@ definitions:
       - Comment
       - Created
       - Container
-      - DockerVersion
+      - iEchorVersion
       - Author
       - Architecture
       - Os
@@ -945,7 +945,7 @@ definitions:
         x-nullable: false
       ContainerConfig:
         $ref: "#/definitions/ContainerConfig"
-      DockerVersion:
+      iEchorVersion:
         type: "string"
         x-nullable: false
       Author:
@@ -1054,7 +1054,7 @@ definitions:
     example:
       username: "hannibal"
       password: "xxxx"
-      serveraddress: "https://index.docker.io/v1/"
+      serveraddress: "https://index.iechor.io/v1/"
 
   ProcessConfig:
     type: "object"
@@ -1138,7 +1138,7 @@ definitions:
     example:
       Name: "tardis"
       Driver: "custom"
-      Mountpoint: "/var/lib/docker/volumes/tardis"
+      Mountpoint: "/var/lib/iechor/volumes/tardis"
       Status:
         hello: "world"
       Labels:
@@ -1208,12 +1208,12 @@ definitions:
           IPv4Address: "172.19.0.2/16"
           IPv6Address: ""
       Options:
-        com.docker.network.bridge.default_bridge: "true"
-        com.docker.network.bridge.enable_icc: "true"
-        com.docker.network.bridge.enable_ip_masquerade: "true"
-        com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
-        com.docker.network.bridge.name: "docker0"
-        com.docker.network.driver.mtu: "1500"
+        com.iechor.network.bridge.default_bridge: "true"
+        com.iechor.network.bridge.enable_icc: "true"
+        com.iechor.network.bridge.enable_ip_masquerade: "true"
+        com.iechor.network.bridge.host_binding_ipv4: "0.0.0.0"
+        com.iechor.network.bridge.name: "iechor0"
+        com.iechor.network.driver.mtu: "1500"
       Labels:
         com.example.some-label: "some-value"
         com.example.some-other-label: "some-other-value"
@@ -1393,7 +1393,7 @@ definitions:
           type: "string"
       Source:
         type: "string"
-        example: "/var/lib/docker/plugins/"
+        example: "/var/lib/iechor/plugins/"
       Destination:
         type: "string"
         x-nullable: false
@@ -1526,21 +1526,21 @@ definitions:
           - Env
           - Args
         properties:
-          DockerVersion:
-            description: "Docker Version used to create the plugin"
+          iEchorVersion:
+            description: "iEchor Version used to create the plugin"
             type: "string"
             x-nullable: false
             example: "17.06.0-ce"
           Description:
             type: "string"
             x-nullable: false
-            example: "A sample volume plugin for Docker"
+            example: "A sample volume plugin for iEchor"
           Documentation:
             type: "string"
             x-nullable: false
-            example: "https://docs.docker.com/engine/extend/plugins/"
+            example: "https://docs.iechor.com/engine/extend/plugins/"
           Interface:
-            description: "The interface between Docker and the plugin"
+            description: "The interface between iEchor and the plugin"
             x-nullable: false
             type: "object"
             required: [Types, Socket]
@@ -1550,7 +1550,7 @@ definitions:
                 items:
                   $ref: "#/definitions/PluginInterfaceType"
                 example:
-                  - "docker.volumedriver/1.0"
+                  - "iechor.volumedriver/1.0"
               Socket:
                 type: "string"
                 x-nullable: false
@@ -2093,10 +2093,10 @@ definitions:
                     type: "string"
                     description: |
                       Load credential spec from this file. The file is read by the daemon, and must be present in the
-                      `CredentialSpecs` subdirectory in the docker data directory, which defaults to
-                      `C:\ProgramData\Docker\` on Windows.
+                      `CredentialSpecs` subdirectory in the iechor data directory, which defaults to
+                      `C:\ProgramData\iEchor\` on Windows.
 
-                      For example, specifying `spec.json` loads `C:\ProgramData\Docker\CredentialSpecs\spec.json`.
+                      For example, specifying `spec.json` loads `C:\ProgramData\iEchor\CredentialSpecs\spec.json`.
 
                       <p><br /></p>
 
@@ -2463,7 +2463,7 @@ definitions:
             Spec:
               Name: "ingress"
               Labels:
-                com.docker.swarm.internal: "true"
+                com.iechor.swarm.internal: "true"
               DriverConfiguration: {}
               IPAMOptions:
                 Driver: {}
@@ -2473,7 +2473,7 @@ definitions:
             DriverState:
               Name: "overlay"
               Options:
-                com.docker.network.driver.overlay.vxlanid_list: "256"
+                com.iechor.network.driver.overlay.vxlanid_list: "256"
             IPAMOptions:
               Driver:
                 Name: "default"
@@ -3510,9 +3510,9 @@ paths:
                   - {}
                 VolumeDriver: ""
                 ShmSize: 67108864
-              HostnamePath: "/var/lib/docker/containers/ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39/hostname"
-              HostsPath: "/var/lib/docker/containers/ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39/hosts"
-              LogPath: "/var/lib/docker/containers/1eb5fabf5a03807136561b3c00adcd2992b535d624d5e18b6cdc6a6844d9767b/1eb5fabf5a03807136561b3c00adcd2992b535d624d5e18b6cdc6a6844d9767b-json.log"
+              HostnamePath: "/var/lib/iechor/containers/ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39/hostname"
+              HostsPath: "/var/lib/iechor/containers/ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39/hosts"
+              LogPath: "/var/lib/iechor/containers/1eb5fabf5a03807136561b3c00adcd2992b535d624d5e18b6cdc6a6844d9767b/1eb5fabf5a03807136561b3c00adcd2992b535d624d5e18b6cdc6a6844d9767b-json.log"
               Id: "ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39"
               Image: "04c5d3b7b0656168630d3ba35d8889bd0e9caafcaeb3004d2bfbc47e7c5d35d2"
               MountLabel: ""
@@ -3547,7 +3547,7 @@ paths:
                     MacAddress: "02:42:ac:12:00:02"
               Path: "/bin/sh"
               ProcessLabel: ""
-              ResolvConfPath: "/var/lib/docker/containers/ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39/resolv.conf"
+              ResolvConfPath: "/var/lib/iechor/containers/ba033ac4401106a3b513bc9d639eee123ad78ca3616b921167cd74b20e25ed39/resolv.conf"
               RestartCount: 1
               State:
                 Error: ""
@@ -4281,7 +4281,7 @@ paths:
 
         Either the `stream` or `logs` parameter must be `true` for this endpoint to do anything.
 
-        See [the documentation for the `docker attach` command](https://docs.docker.com/engine/reference/commandline/attach/) for more details.
+        See [the documentation for the `iechor attach` command](https://docs.iechor.com/engine/reference/commandline/attach/) for more details.
 
         ### Hijacking
 
@@ -4291,14 +4291,14 @@ paths:
 
         ```
         HTTP/1.1 200 OK
-        Content-Type: application/vnd.docker.raw-stream
+        Content-Type: application/vnd.iechor.raw-stream
 
         [STREAM]
         ```
 
         After the headers and two new lines, the TCP connection can now be used for raw, bidirectional communication between the client and server.
 
-        To hint potential proxies about connection hijacking, the Docker client can also optionally send connection upgrade headers.
+        To hint potential proxies about connection hijacking, the iEchor client can also optionally send connection upgrade headers.
 
         For example, the client sends this request to upgrade the connection:
 
@@ -4308,11 +4308,11 @@ paths:
         Connection: Upgrade
         ```
 
-        The Docker daemon will respond with a `101 UPGRADED` response, and will similarly follow with the raw stream:
+        The iEchor daemon will respond with a `101 UPGRADED` response, and will similarly follow with the raw stream:
 
         ```
         HTTP/1.1 101 UPGRADED
-        Content-Type: application/vnd.docker.raw-stream
+        Content-Type: application/vnd.iechor.raw-stream
         Connection: Upgrade
         Upgrade: tcp
 
@@ -4355,7 +4355,7 @@ paths:
 
       operationId: "ContainerAttach"
       produces:
-        - "application/vnd.docker.raw-stream"
+        - "application/vnd.iechor.raw-stream"
       responses:
         101:
           description: "no error, hints proxy about hijacking"
@@ -4567,13 +4567,13 @@ paths:
   /containers/{id}/archive:
     head:
       summary: "Get information about files in a container"
-      description: "A response header `X-Docker-Container-Path-Stat` is return containing a base64 - encoded JSON object with some filesystem header information about the path."
+      description: "A response header `X-iEchor-Container-Path-Stat` is return containing a base64 - encoded JSON object with some filesystem header information about the path."
       operationId: "ContainerArchiveInfo"
       responses:
         200:
           description: "no error"
           headers:
-            X-Docker-Container-Path-Stat:
+            X-iEchor-Container-Path-Stat:
               type: "string"
               description: "TODO"
         400:
@@ -4803,11 +4803,11 @@ paths:
     post:
       summary: "Build an image"
       description: |
-        Build an image from a tar archive with a `Dockerfile` in it.
+        Build an image from a tar archive with a `iEchorfile` in it.
 
-        The `Dockerfile` specifies how the image is built from the tar archive. It is typically in the archive's root, but can be at a different path or have a different name by specifying the `dockerfile` parameter. [See the `Dockerfile` reference for more information](https://docs.docker.com/engine/reference/builder/).
+        The `iEchorfile` specifies how the image is built from the tar archive. It is typically in the archive's root, but can be at a different path or have a different name by specifying the `iechorfile` parameter. [See the `iEchorfile` reference for more information](https://docs.iechor.com/engine/reference/builder/).
 
-        The Docker daemon performs a preliminary validation of the `Dockerfile` before starting the build, and returns an error if the syntax is incorrect. After that, each instruction is run one-by-one until the ID of the new image is output.
+        The iEchor daemon performs a preliminary validation of the `iEchorfile` before starting the build, and returns an error if the syntax is incorrect. After that, each instruction is run one-by-one until the ID of the new image is output.
 
         The build is canceled if the client drops the connection by quitting or being killed.
       operationId: "ImageBuild"
@@ -4822,11 +4822,11 @@ paths:
           schema:
             type: "string"
             format: "binary"
-        - name: "dockerfile"
+        - name: "iechorfile"
           in: "query"
-          description: "Path within the build context to the `Dockerfile`. This is ignored if `remote` is specified and points to an external `Dockerfile`."
+          description: "Path within the build context to the `iEchorfile`. This is ignored if `remote` is specified and points to an external `iEchorfile`."
           type: "string"
-          default: "Dockerfile"
+          default: "iEchorfile"
         - name: "t"
           in: "query"
           description: "A name and optional tag to apply to the image in the `name:tag` format. If you omit the tag the default `latest` value is assumed. You can provide several `t` parameters."
@@ -4837,7 +4837,7 @@ paths:
           type: "string"
         - name: "remote"
           in: "query"
-          description: "A Git repository URI or HTTP/HTTPS context URI. If the URI points to a single text file, the file’s contents are placed into a file called `Dockerfile` and the image is built from that file. If the URI points to a tarball, the file is downloaded by the daemon and the contents therein used as the context for the build. If the URI points to a tarball and the `dockerfile` parameter is also specified, there must be a file with the corresponding path inside the tarball."
+          description: "A Git repository URI or HTTP/HTTPS context URI. If the URI points to a single text file, the file’s contents are placed into a file called `iEchorfile` and the image is built from that file. If the URI points to a tarball, the file is downloaded by the daemon and the contents therein used as the context for the build. If the URI points to a tarball and the `iechorfile` parameter is also specified, there must be a file with the corresponding path inside the tarball."
           type: "string"
         - name: "q"
           in: "query"
@@ -4893,7 +4893,7 @@ paths:
           type: "integer"
         - name: "buildargs"
           in: "query"
-          description: "JSON map of string pairs for build-time variables. Users pass these values at build-time. Docker uses the buildargs as the environment context for commands run via the `Dockerfile` RUN instruction, or for variable expansion in other `Dockerfile` instructions. This is not meant for passing secret values. [Read more about the buildargs instruction.](https://docs.docker.com/engine/reference/builder/#arg)"
+          description: "JSON map of string pairs for build-time variables. Users pass these values at build-time. iEchor uses the buildargs as the environment context for commands run via the `iEchorfile` RUN instruction, or for variable expansion in other `iEchorfile` instructions. This is not meant for passing secret values. [Read more about the buildargs instruction.](https://docs.iechor.com/engine/reference/builder/#arg)"
           type: "integer"
         - name: "shmsize"
           in: "query"
@@ -4929,18 +4929,18 @@ paths:
 
             ```
             {
-              "docker.example.com": {
+              "iechor.example.com": {
                 "username": "janedoe",
                 "password": "hunter2"
               },
-              "https://index.docker.io/v1/": {
+              "https://index.iechor.io/v1/": {
                 "username": "mobydock",
                 "password": "conta1n3rize14"
               }
             }
             ```
 
-            Only the registry domain name (and port if not the default 443) are required. However, for legacy reasons, the Docker Hub registry must be specified with both a `https://` prefix and a `/v1/` suffix even though Docker will prefer to use the v2 registry API.
+            Only the registry domain name (and port if not the default 443) are required. However, for legacy reasons, the iEchor Hub registry must be specified with both a `https://` prefix and a `/v1/` suffix even though iEchor will prefer to use the v2 registry API.
           type: "string"
       responses:
         200:
@@ -5070,7 +5070,7 @@ paths:
                   - "/bin/sh"
                   - "-c"
                   - "#(nop) LABEL com.example.vendor=Acme com.example.license=GPL com.example.version=1.0"
-              DockerVersion: "1.9.0-dev"
+              iEchorVersion: "1.9.0-dev"
               VirtualSize: 188359297
               Size: 0
               Author: ""
@@ -5340,7 +5340,7 @@ paths:
   /images/search:
     get:
       summary: "Search images"
-      description: "Search for an image on Docker Hub."
+      description: "Search for an image on iEchor Hub."
       operationId: "ImageSearch"
       produces:
         - "application/json"
@@ -5510,7 +5510,7 @@ paths:
                 type: "boolean"
               DiscoveryBackend:
                 type: "string"
-              DockerRootDir:
+              iEchorRootDir:
                 type: "string"
               Driver:
                 type: "string"
@@ -5629,7 +5629,7 @@ paths:
               CpuCfsPeriod: true
               CpuCfsQuota: true
               Debug: false
-              DockerRootDir: "/var/lib/docker"
+              iEchorRootDir: "/var/lib/iechor"
               Driver: "btrfs"
               DriverStatus:
                 -
@@ -5640,8 +5640,8 @@ paths:
               ID: "7TRN:IPZB:QYBB:VPBQ:UMPP:KARE:6ZNR:XE6T:7EWV:PKF4:ZOJD:TPYS"
               IPv4Forwarding: true
               Images: 16
-              IndexServerAddress: "https://index.docker.io/v1/"
-              InitPath: "/usr/bin/docker"
+              IndexServerAddress: "https://index.iechor.io/v1/"
+              InitPath: "/usr/bin/iechor"
               InitSha1: ""
               KernelMemory: true
               KernelVersion: "3.12.0-1-amd64"
@@ -5657,7 +5657,7 @@ paths:
               NoProxy: "9.81.1.160"
               OomKillDisable: true
               OSType: "linux"
-              OperatingSystem: "Boot2Docker"
+              OperatingSystem: "Boot2iEchor"
               Plugins:
                 Volume:
                   - "local"
@@ -5667,8 +5667,8 @@ paths:
                   - "bridge"
               RegistryConfig:
                 IndexConfigs:
-                  docker.io:
-                    Name: "docker.io"
+                  iechor.io:
+                    Name: "iechor.io"
                     Official: true
                     Secure: true
                 InsecureRegistryCIDRs:
@@ -5699,7 +5699,7 @@ paths:
   /version:
     get:
       summary: "Get version"
-      description: "Returns the version of Docker that is running and various information about the system that Docker is running on."
+      description: "Returns the version of iEchor that is running and various information about the system that iEchor is running on."
       operationId: "SystemVersion"
       produces: ["application/json"]
       responses:
@@ -5761,7 +5761,7 @@ paths:
             API-Version:
               type: "string"
               description: "Max API Version the server supports"
-            Docker-Experimental:
+            iEchor-Experimental:
               type: "boolean"
               description: "If the server is running with experimental mode enabled"
         500:
@@ -5826,7 +5826,7 @@ paths:
           default: true
         - name: "changes"
           in: "query"
-          description: "`Dockerfile` instructions to apply while committing"
+          description: "`iEchorfile` instructions to apply while committing"
           type: "string"
       tags: ["Image"]
   /events:
@@ -5835,7 +5835,7 @@ paths:
       description: |
         Stream real-time events from the server.
 
-        Various objects within Docker report events when something happens to them.
+        Various objects within iEchor report events when something happens to them.
 
         Containers report these events: `attach`, `commit`, `copy`, `create`, `destroy`, `detach`, `die`, `exec_create`, `exec_detach`, `exec_start`, `export`, `health_status`, `kill`, `oom`, `pause`, `rename`, `resize`, `restart`, `start`, `stop`, `top`, `unpause`, and `update`
 
@@ -5845,7 +5845,7 @@ paths:
 
         Networks report these events: `create`, `connect`, `disconnect`, `destroy`, `update`, and `remove`
 
-        The Docker daemon reports these events: `reload`
+        The iEchor daemon reports these events: `reload`
 
         Services report these events: `create`, `update`, and `remove`
 
@@ -6035,7 +6035,7 @@ paths:
         An image tarball contains one directory per image layer (named using its long ID), each containing these files:
 
         - `VERSION`: currently `1.0` - the file format version
-        - `json`: detailed layer information, similar to `docker inspect layer_id`
+        - `json`: detailed layer information, similar to `iechor inspect layer_id`
         - `layer.tar`: A tarfile containing the filesystem changes in this layer
 
         The `layer.tar` file contains `aufs` style `.wh..wh.aufs` files and directories for storing attribute changes and deletions.
@@ -6225,7 +6225,7 @@ paths:
       consumes:
         - "application/json"
       produces:
-        - "application/vnd.docker.raw-stream"
+        - "application/vnd.iechor.raw-stream"
       responses:
         200:
           description: "No error"
@@ -6392,7 +6392,7 @@ paths:
                 - CreatedAt: "2017-07-19T12:00:26Z"
                   Name: "tardis"
                   Driver: "local"
-                  Mountpoint: "/var/lib/docker/volumes/tardis"
+                  Mountpoint: "/var/lib/iechor/volumes/tardis"
                   Labels:
                     com.example.some-label: "some-value"
                     com.example.some-other-label: "some-other-value"
@@ -6449,7 +6449,7 @@ paths:
             type: "object"
             properties:
               Name:
-                description: "The new volume's name. If not specified, Docker generates a name."
+                description: "The new volume's name. If not specified, iEchor generates a name."
                 type: "string"
                 x-nullable: false
               Driver:
@@ -6602,12 +6602,12 @@ paths:
                     -
                       Subnet: "172.17.0.0/16"
                 Options:
-                  com.docker.network.bridge.default_bridge: "true"
-                  com.docker.network.bridge.enable_icc: "true"
-                  com.docker.network.bridge.enable_ip_masquerade: "true"
-                  com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
-                  com.docker.network.bridge.name: "docker0"
-                  com.docker.network.driver.mtu: "1500"
+                  com.iechor.network.bridge.default_bridge: "true"
+                  com.iechor.network.bridge.enable_icc: "true"
+                  com.iechor.network.bridge.enable_ip_masquerade: "true"
+                  com.iechor.network.bridge.host_binding_ipv4: "0.0.0.0"
+                  com.iechor.network.bridge.name: "iechor0"
+                  com.iechor.network.driver.mtu: "1500"
               - Name: "none"
                 Id: "e086a3893b05ab69242d3c44e49483a3bbbd3a26b46baa8f61ab797c1088d794"
                 Created: "0001-01-01T00:00:00Z"
@@ -6818,12 +6818,12 @@ paths:
               Attachable: false
               Ingress: false
               Options:
-                com.docker.network.bridge.default_bridge: "true"
-                com.docker.network.bridge.enable_icc: "true"
-                com.docker.network.bridge.enable_ip_masquerade: "true"
-                com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
-                com.docker.network.bridge.name: "docker0"
-                com.docker.network.driver.mtu: "1500"
+                com.iechor.network.bridge.default_bridge: "true"
+                com.iechor.network.bridge.enable_icc: "true"
+                com.iechor.network.bridge.enable_ip_masquerade: "true"
+                com.iechor.network.bridge.host_binding_ipv4: "0.0.0.0"
+                com.iechor.network.bridge.name: "iechor0"
+                com.iechor.network.driver.mtu: "1500"
               Labels:
                 com.example.some-label: "some-value"
                 com.example.some-other-label: "some-other-value"
@@ -8113,7 +8113,7 @@ paths:
         **Note**: This endpoint works only for services with the `json-file` or `journald` logging drivers.
       operationId: "ServiceLogs"
       produces:
-        - "application/vnd.docker.raw-stream"
+        - "application/vnd.iechor.raw-stream"
         - "application/json"
       responses:
         101:
@@ -8235,7 +8235,7 @@ paths:
                       Spec:
                         Name: "ingress"
                         Labels:
-                          com.docker.swarm.internal: "true"
+                          com.iechor.swarm.internal: "true"
                         DriverConfiguration: {}
                         IPAMOptions:
                           Driver: {}
@@ -8245,7 +8245,7 @@ paths:
                       DriverState:
                         Name: "overlay"
                         Options:
-                          com.docker.network.driver.overlay.vxlanid_list: "256"
+                          com.iechor.network.driver.overlay.vxlanid_list: "256"
                       IPAMOptions:
                         Driver:
                           Name: "default"
@@ -8290,7 +8290,7 @@ paths:
                       Spec:
                         Name: "ingress"
                         Labels:
-                          com.docker.swarm.internal: "true"
+                          com.iechor.swarm.internal: "true"
                         DriverConfiguration: {}
                         IPAMOptions:
                           Driver: {}
@@ -8300,7 +8300,7 @@ paths:
                       DriverState:
                         Name: "overlay"
                         Options:
-                          com.docker.network.driver.overlay.vxlanid_list: "256"
+                          com.iechor.network.driver.overlay.vxlanid_list: "256"
                       IPAMOptions:
                         Driver:
                           Name: "default"
@@ -8370,7 +8370,7 @@ paths:
         **Note**: This endpoint works only for services with the `json-file` or `journald` logging drivers.
       operationId: "TaskLogs"
       produces:
-        - "application/vnd.docker.raw-stream"
+        - "application/vnd.iechor.raw-stream"
         - "application/json"
       responses:
         101:
@@ -8909,7 +8909,7 @@ paths:
           examples:
             application/json:
               Descriptor:
-                MediaType: "application/vnd.docker.distribution.manifest.v2+json"
+                MediaType: "application/vnd.iechor.distribution.manifest.v2+json"
                 Digest: "sha256:c0537ff6a5218ef531ece93d4984efc99bbf3f7497c0a7726c88e2bb7584dc96"
                 Size: 3987495
                 URLs:
@@ -8962,7 +8962,7 @@ paths:
         Connection: Upgrade
         ```
 
-        The Docker daemon will respond with a `101 UPGRADED` response follow with the raw stream:
+        The iEchor daemon will respond with a `101 UPGRADED` response follow with the raw stream:
 
         ```
         HTTP/1.1 101 UPGRADED
@@ -8971,7 +8971,7 @@ paths:
         ```
       operationId: "Session"
       produces:
-        - "application/vnd.docker.raw-stream"
+        - "application/vnd.iechor.raw-stream"
       responses:
         101:
           description: "no error, hijacking successful"

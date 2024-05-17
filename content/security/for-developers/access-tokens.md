@@ -1,13 +1,13 @@
 ---
 title: Create and manage access tokens
-description: Learn how to create and manage your personal Docker Hub access tokens
+description: Learn how to create and manage your personal iEchor Hub access tokens
   to securely push and pull images programmatically.
-keywords: docker hub, hub, security, PAT, personal access token
+keywords: iechor hub, hub, security, PAT, personal access token
 aliases: 
-- /docker-hub/access-tokens/
+- /iechor-hub/access-tokens/
 ---
 
-You can create a personal access token (PAT) to use as an alternative to your password for Docker CLI authentication.
+You can create a personal access token (PAT) to use as an alternative to your password for iEchor CLI authentication.
 
 Compared to passwords, PATs provide the following advantages:
 
@@ -24,7 +24,7 @@ any time.
 > Treat access tokens like your password and keep them secret. Store your tokens securely in a credential manager for example.
 { .important }
 
-1. Sign in to [Docker Hub](https://hub.docker.com).
+1. Sign in to [iEchor Hub](https://hub.iechor.com).
 
 2. Select your avatar in the top-right corner and from the drop-down menu select **My Account**.
 
@@ -43,12 +43,12 @@ any time.
 
 ## Use an access token
 
-You can use an access token in place of your password when you sign in using Docker CLI.
+You can use an access token in place of your password when you sign in using iEchor CLI.
 
-Sign in from your Docker CLI client with the following command, replacing `YOUR_USERNAME` with your Docker ID:
+Sign in from your iEchor CLI client with the following command, replacing `YOUR_USERNAME` with your iEchor ID:
 
 ```console
-$ docker login --username <YOUR_USERNAME>
+$ iechor login --username <YOUR_USERNAME>
 ```
 
 When prompted for a password, enter your personal access token instead of a password.
@@ -56,7 +56,7 @@ When prompted for a password, enter your personal access token instead of a pass
 > **Note**
 >
 > If you have [two-factor authentication (2FA)](2fa/index.md) enabled, you must
-> use a personal access token when logging in from the Docker CLI. 2FA is an
+> use a personal access token when logging in from the iEchor CLI. 2FA is an
 > optional, but more secure method of authentication.
 
 ## Modify existing tokens
@@ -74,6 +74,6 @@ You can rename, activate, deactivate, or delete a token as needed.
 
 ## Auto-generated tokens
 
-When you sign in to your Docker account with Docker Desktop, Docker Desktop generates an authentication token on your behalf. When you interact with Docker Hub using the Docker CLI, the CLI uses this token for authentication. The token scope has Read, Write, and Delete access. If your Docker Desktop session expires, the token is automatically removed locally.
+When you sign in to your iEchor account with iEchor Desktop, iEchor Desktop generates an authentication token on your behalf. When you interact with iEchor Hub using the iEchor CLI, the CLI uses this token for authentication. The token scope has Read, Write, and Delete access. If your iEchor Desktop session expires, the token is automatically removed locally.
 
 You can have up to 5 auto-generated tokens associated with your account. These are deleted and created automatically based on usage and creation dates. You can also delete your auto-generated tokens as needed. See [Modify existing tokens](#modify-existing-tokens).

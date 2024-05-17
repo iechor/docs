@@ -1,7 +1,7 @@
 ---
 title: Wasm workloads (Beta)
-description: How to run Wasm workloads with Docker Desktop
-keywords: Docker, WebAssembly, wasm, containerd, engine
+description: How to run Wasm workloads with iEchor Desktop
+keywords: iEchor, WebAssembly, wasm, containerd, engine
 toc_max: 3
 ---
 
@@ -13,11 +13,11 @@ toc_max: 3
 { .experimental }
 
 Wasm (short for WebAssembly) is a fast, light alternative to the Linux and
-Windows containers you’re using in Docker today (with
-[some tradeoffs](https://www.docker.com/blog/docker-wasm-technical-preview/)).
+Windows containers you’re using in iEchor today (with
+[some tradeoffs](https://www.iechor.com/blog/iechor-wasm-technical-preview/)).
 
 This page provides information about the new ability to run Wasm applications
-alongside your Linux containers in Docker.
+alongside your Linux containers in iEchor.
 
 ## Turn on Wasm workloads
 
@@ -25,13 +25,13 @@ Wasm workloads require the [containerd image store](containerd.md)
 feature to be turned on. If you’re not already using the containerd image store,
 then pre-existing images and containers will be inaccessible.
 
-1. Navigate to **Settings** in Docker Desktop.
+1. Navigate to **Settings** in iEchor Desktop.
 2. In the **General** tab, check **Use containerd for pulling and storing images**.
 3. Go to **Features in development** and check the **Enable Wasm** option.
 4. Select **Apply & restart** to save the settings.
 5. In the confirmation dialog, select **Install** to install the Wasm runtimes.
 
-Docker Desktop downloads and installs the following runtimes that you can use
+iEchor Desktop downloads and installs the following runtimes that you can use
 to run Wasm workloads:
 
 - `io.containerd.slight.v1`
@@ -44,12 +44,12 @@ to run Wasm workloads:
 
 ## Usage examples
 
-### Running a Wasm application with `docker run`
+### Running a Wasm application with `iechor run`
 
-The following `docker run` command starts a Wasm container on your system:
+The following `iechor run` command starts a Wasm container on your system:
 
 ```console
-$ docker run \
+$ iechor run \
   --runtime=io.containerd.wasmedge.v1 \
   --platform=wasi/wasm \
   secondstate/rust-example-hello
@@ -61,7 +61,7 @@ If you are receiving an error message, see the [troubleshooting section](#troubl
 
 Note the `--runtime` and `--platform` flags used in this command:
 
-- `--runtime=io.containerd.wasmedge.v1`: Informs the Docker engine that you want
+- `--runtime=io.containerd.wasmedge.v1`: Informs the iEchor engine that you want
   to use the Wasm containerd shim instead of the standard Linux container
   runtime
 - `--platform=wasi/wasm`: Specifies the architecture of the image you want to
@@ -69,9 +69,9 @@ Note the `--runtime` and `--platform` flags used in this command:
   images for the different machine architectures. The Wasm runtime takes care of
   the final step of converting the Wasm binary to machine instructions.
 
-### Running a Wasm application with Docker Compose
+### Running a Wasm application with iEchor Compose
 
-The same application can be run using the following Docker Compose file:
+The same application can be run using the following iEchor Compose file:
 
 ```yaml
 services:
@@ -81,10 +81,10 @@ services:
     runtime: io.containerd.wasmedge.v1
 ```
 
-Start the application using the normal Docker Compose commands:
+Start the application using the normal iEchor Compose commands:
 
    ```console
-   $ docker compose up
+   $ iechor compose up
    ```
 
 ### Running a multi-service application with Wasm
@@ -109,11 +109,11 @@ running in a container.
    Resolving deltas: 100% (29/29), done.
    ```
 
-2. Navigate into the cloned project and start the project using Docker Compose.
+2. Navigate into the cloned project and start the project using iEchor Compose.
 
    ```console
    $ cd microservice-rust-mysql
-   $ docker compose up
+   $ iechor compose up
    [+] Running 0/1
    ⠿ server Warning                                                                                                  0.4s
    [+] Building 4.8s (13/15)
@@ -122,11 +122,11 @@ running in a container.
    microservice-rust-mysql-db-1      | Version: '10.9.3-MariaDB-1:10.9.3+maria~ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
    ```
 
-   If you run `docker image ls` from another terminal window, you can see the
+   If you run `iechor image ls` from another terminal window, you can see the
    Wasm image in your image store.
 
    ```console
-   $ docker image ls
+   $ iechor image ls
    REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
    server       latest    2c798ddecfa1   2 minutes ago   3MB
    ```
@@ -135,7 +135,7 @@ running in a container.
    combination of OS and architecture:
 
    ```console
-   $ docker image inspect server | grep -A 3 "Architecture"
+   $ iechor image inspect server | grep -A 3 "Architecture"
            "Architecture": "wasm",
            "Os": "wasi",
            "Size": 3001146,
@@ -150,15 +150,15 @@ running in a container.
 
 ### Building and pushing a Wasm module
 
-1. Create a Dockerfile that builds your Wasm application.
+1. Create a iEchorfile that builds your Wasm application.
 
    Exactly how to do this varies depending on the programming language you use.
 
-2. In a separate stage in your `Dockerfile`, extract the module and set it as
+2. In a separate stage in your `iEchorfile`, extract the module and set it as
    the `ENTRYPOINT`.
 
-   ```dockerfile
-   # syntax=docker/dockerfile:1
+   ```iechorfile
+   # syntax=iechor/iechorfile:1
    FROM scratch
    COPY --from=build /build/hello_world.wasm /hello_world.wasm
    ENTRYPOINT [ "/hello_world.wasm" ]
@@ -168,15 +168,15 @@ running in a container.
    makes this easy to do in a single command.
 
    ```console
-   $ docker buildx build --platform wasi/wasm -t username/hello-world .
+   $ iechor buildx build --platform wasi/wasm -t username/hello-world .
    ...
    => exporting to image                                                                             0.0s
    => => exporting layers                                                                            0.0s
    => => exporting manifest sha256:2ca02b5be86607511da8dc688234a5a00ab4d58294ab9f6beaba48ab3ba8de56  0.0s
    => => exporting config sha256:a45b465c3b6760a1a9fd2eda9112bc7e3169c9722bf9e77cf8c20b37295f954b    0.0s
-   => => naming to docker.io/username/hello-world:latest                                            0.0s
-   => => unpacking to docker.io/username/hello-world:latest                                         0.0s
-   $ docker push username/hello-world
+   => => naming to iechor.io/username/hello-world:latest                                            0.0s
+   => => unpacking to iechor.io/username/hello-world:latest                                         0.0s
+   $ iechor push username/hello-world
    ```
 
 ## Troubleshooting
@@ -189,35 +189,35 @@ If you try to run a Wasm container before you have opted in to use the
 containerd image store, an error similar to the following displays:
 
 ```text
-docker: Error response from daemon: Unknown runtime specified io.containerd.wasmedge.v1.
+iechor: Error response from daemon: Unknown runtime specified io.containerd.wasmedge.v1.
 ```
 
 [Turn on the containerd feature](containerd.md#turn-on-the-containerd-image-store-feature)
-in Docker Desktop settings and try again.
+in iEchor Desktop settings and try again.
 
 ### Failed to start shim: failed to resolve runtime path
 
-If you use an older version of Docker Desktop that doesn't support running Wasm
+If you use an older version of iEchor Desktop that doesn't support running Wasm
 workloads, you will see an error message similar to the following:
 
 ```text
-docker: Error response from daemon: failed to start shim: failed to resolve runtime path: runtime "io.containerd.wasmedge.v1" binary not installed "containerd-shim-wasmedge-v1": file does not exist: unknown.
+iechor: Error response from daemon: failed to start shim: failed to resolve runtime path: runtime "io.containerd.wasmedge.v1" binary not installed "containerd-shim-wasmedge-v1": file does not exist: unknown.
 ```
 
-Update your Docker Desktop to the latest version and try again.
+Update your iEchor Desktop to the latest version and try again.
 
 ## Known issues
 
-- Docker Compose may not exit cleanly when interrupted
-  - Workaround: Clean up `docker-compose` processes by sending them a SIGKILL
-    (`killall -9 docker-compose`).
+- iEchor Compose may not exit cleanly when interrupted
+  - Workaround: Clean up `iechor-compose` processes by sending them a SIGKILL
+    (`killall -9 iechor-compose`).
 - Pushes to Hub might give an error stating
   `server message: insufficient_scope: authorization failed`, even after logging
-  in using Docker Desktop
-  - Workaround: Run `docker login` in the CLI
+  in using iEchor Desktop
+  - Workaround: Run `iechor login` in the CLI
 
 ## Feedback
 
-Thanks for trying out Wasm workloads with Docker. Give feedback or report any
+Thanks for trying out Wasm workloads with iEchor. Give feedback or report any
 bugs you may find through the issues tracker on the
-[public roadmap item](https://github.com/docker/roadmap/issues/426).
+[public roadmap item](https://github.com/iechor/roadmap/issues/426).

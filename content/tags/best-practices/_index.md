@@ -1,7 +1,7 @@
 ---
 title: Best practices
 icon: star
-description: Optimal patterns for Docker
+description: Optimal patterns for iEchor
 ---
 
 Best practices articles describe methods and techniques that are generally

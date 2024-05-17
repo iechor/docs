@@ -1,0 +1,151 @@
+command: iechor container rm
+aliases: iechor container rm, iechor container remove, iechor rm
+short: Remove one or more containers
+long: Remove one or more containers
+usage: iechor container rm [OPTIONS] CONTAINER [CONTAINER...]
+pname: iechor container
+plink: iechor_container.yaml
+options:
+    - option: force
+      shorthand: f
+      value_type: bool
+      default_value: "false"
+      description: Force the removal of a running container (uses SIGKILL)
+      details_url: '#force'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: link
+      shorthand: l
+      value_type: bool
+      default_value: "false"
+      description: Remove the specified link
+      details_url: '#link'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: volumes
+      shorthand: v
+      value_type: bool
+      default_value: "false"
+      description: Remove anonymous volumes associated with the container
+      details_url: '#volumes'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### Remove a container
+
+    This removes the container referenced under the link `/redis`.
+
+    ```console
+    $ iechor rm /redis
+
+    /redis
+    ```
+
+    ### Remove a link specified with `--link` on the default bridge network (--link) {#link}
+
+    This removes the underlying link between `/webapp` and the `/redis`
+    containers on the default bridge network, removing all network communication
+    between the two containers. This does not apply when `--link` is used with
+    user-specified networks.
+
+    ```console
+    $ iechor rm --link /webapp/redis
+
+    /webapp/redis
+    ```
+
+    ### Force-remove a running container (--force) {#force}
+
+    This command force-removes a running container.
+
+    ```console
+    $ iechor rm --force redis
+
+    redis
+    ```
+
+    The main process inside the container referenced under the link `redis` will receive
+    `SIGKILL`, then the container will be removed.
+
+    ### Remove all stopped containers
+
+    Use the [`iechor container prune`](/reference/cli/iechor/container/prune/) command to remove all
+    stopped containers, or refer to the [`iechor system prune`](/reference/cli/iechor/system/prune/)
+    command to remove unused containers in addition to other iEchor resources, such
+    as (unused) images and networks.
+
+    Alternatively, you can use the `iechor ps` with the `-q` / `--quiet` option to
+    generate a list of container IDs to remove, and use that list as argument for
+    the `iechor rm` command.
+
+    Combining commands can be more flexible, but is less portable as it depends
+    on features provided by the shell, and the exact syntax may differ depending on
+    what shell is used. To use this approach on Windows, consider using PowerShell
+    or Bash.
+
+    The example below uses `iechor ps -q` to print the IDs of all containers that
+    have exited (`--filter status=exited`), and removes those containers with
+    the `iechor rm` command:
+
+    ```console
+    $ iechor rm $(iechor ps --filter status=exited -q)
+    ```
+
+    Or, using the `xargs` Linux utility:
+
+    ```console
+    $ iechor ps --filter status=exited -q | xargs iechor rm
+    ```
+
+    ### Remove a container and its volumes (-v, --volumes) {#volumes}
+
+    ```console
+    $ iechor rm --volumes redis
+    redis
+    ```
+
+    This command removes the container and any volumes associated with it.
+    Note that if a volume was specified with a name, it will not be removed.
+
+    ### Remove a container and selectively remove volumes
+
+    ```console
+    $ iechor create -v awesome:/foo -v /bar --name hello redis
+    hello
+
+    $ iechor rm -v hello
+    ```
+
+    In this example, the volume for `/foo` remains intact, but the volume for
+    `/bar` is removed. The same behavior holds for volumes inherited with
+    `--volumes-from`.
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

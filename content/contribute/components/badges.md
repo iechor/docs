@@ -1,5 +1,5 @@
 ---
-description: components and formatting examples used in Docker's docs
+description: components and formatting examples used in iEchor's docs
 title: Badges
 toc_max: 3
 ---

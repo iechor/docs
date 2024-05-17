@@ -1,6 +1,6 @@
 ---
 title: WordPress samples
-description: Docker samples for WordPress.
+description: iEchor samples for WordPress.
 service: wordpress
 aliases:
 - /compose/wordpress/

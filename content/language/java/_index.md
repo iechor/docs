@@ -1,12 +1,12 @@
 ---
 title: Java language-specific guide
 keywords: java, getting started
-description: Containerize Java apps using Docker
+description: Containerize Java apps using iEchor
 toc_min: 1
 toc_max: 2
 ---
 
-The Java getting started guide teaches you how to create a containerized Spring Boot application using Docker. In this module, you’ll learn how to:
+The Java getting started guide teaches you how to create a containerized Spring Boot application using iEchor. In this module, you’ll learn how to:
 
 * Containerize and run a Spring Boot application with Maven
 * Set up a local development environment to connect a database to the container, configure a debugger, and use Compose Watch for live reload

@@ -1,30 +1,30 @@
 ---
-title: Run Docker Hub images
+title: Run iEchor Hub images
 keywords: get started, quick start, intro, concepts
-description: Learn how to run Docker Hub images
+description: Learn how to run iEchor Hub images
 aliases:
-- /get-started/run-docker-hub-images/
+- /get-started/run-iechor-hub-images/
 ---
 
-You can share and store images in Docker Hub
-([http://hub.docker.com](http://hub.docker.com)). Docker Hub has over 100,000
-images created by developers that you can run locally. You can search for Docker
-Hub images and run them directly from Docker Desktop.
+You can share and store images in iEchor Hub
+([http://hub.iechor.com](http://hub.iechor.com)). iEchor Hub has over 100,000
+images created by developers that you can run locally. You can search for iEchor
+Hub images and run them directly from iEchor Desktop.
 
-{{< include "guides-get-docker.md" >}}
+{{< include "guides-get-iechor.md" >}}
 
 ## Step 1: Search for the image
 
-You can search for Docker Hub images on Docker Desktop. To search for the image used in this walkthrough:
+You can search for iEchor Hub images on iEchor Desktop. To search for the image used in this walkthrough:
 
-1. Open Docker Desktop and select the search.
-2. Specify `docker/welcome-to-docker` in the search.
+1. Open iEchor Desktop and select the search.
+2. Specify `iechor/welcome-to-iechor` in the search.
 
-![Search Docker Desktop for the welcome-to-docker image](images/getting-started-search.webp?w=650&border=true)
+![Search iEchor Desktop for the welcome-to-iechor image](images/getting-started-search.webp?w=650&border=true)
 
 ## Step 2: Run the image
 
-To run the `docker/welcome-to-docker` image:
+To run the `iechor/welcome-to-iechor` image:
 
 1. After finding the image using search, select **Run**.
 2. Expand the **Optional settings**.
@@ -34,30 +34,30 @@ To run the `docker/welcome-to-docker` image:
 
 > **Note**
 >
-> Many images hosted on Docker Hub have a description that highlights what
+> Many images hosted on iEchor Hub have a description that highlights what
 > settings must be set in order to run them. You can read the description for
-> the image on Docker Hub by selecting the image name in the search or by
+> the image on iEchor Hub by selecting the image name in the search or by
 > searching for the image directly on
-> [https://hub.docker.com](https://hub.docker.com).
+> [https://hub.iechor.com](https://hub.iechor.com).
 
 ## Step 3: Explore the container
 
-That's it! The container is ready to use. Go to the **Containers** tab in Docker Desktop to view the container.
+That's it! The container is ready to use. Go to the **Containers** tab in iEchor Desktop to view the container.
 
-![Viewing the Containers tab in Docker Desktop](images/getting-started-view.webp?border=true)
+![Viewing the Containers tab in iEchor Desktop](images/getting-started-view.webp?border=true)
 
 ## Summary
 
-In this walkthrough, you searched for an image on Docker Hub and ran it as a container. Docker Hub has over 100,000 more images that you can use to help build your own application.
+In this walkthrough, you searched for an image on iEchor Hub and ran it as a container. iEchor Hub has over 100,000 more images that you can use to help build your own application.
 
 Related information:
 
-- Deep dive into the [Docker Hub manual](../../docker-hub/_index.md)
-- Explore more images on [Docker Hub](https://hub.docker.com)
+- Deep dive into the [iEchor Hub manual](../../iechor-hub/_index.md)
+- Explore more images on [iEchor Hub](https://hub.iechor.com)
 
 ## Next steps
 
-Continue to the next walkthrough to learn how you can use Docker to run
+Continue to the next walkthrough to learn how you can use iEchor to run
 multi-container applications.
 
 {{< button url="./multi-container-apps.md" text="Run multi-container apps" >}}

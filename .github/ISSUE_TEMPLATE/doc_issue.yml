@@ -9,7 +9,7 @@ body:
     attributes:
       label: Is this a docs issue?
       description: |
-        Use this issue for reporting issues related to Docker documentation.
+        Use this issue for reporting issues related to iEchor documentation.
         For product issues, refer to the corresponding product repository.
       options:
         - label: My issue is about the documentation content or website
@@ -38,7 +38,7 @@ body:
     attributes:
       label: Location
       description: Where did you find the problem?
-      placeholder: "https://docs.docker.com/"
+      placeholder: "https://docs.iechor.com/"
     validations:
       required: true
   - type: textarea

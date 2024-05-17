@@ -19,7 +19,7 @@ use the built-in `env` property on the build step.
 The following example sets the `SOURCE_DATE_EPOCH` variable to 0, Unix epoch.
 
 {{< tabs group="action" >}}
-{{< tab name="`docker/build-push-action`" >}}
+{{< tab name="`iechor/build-push-action`" >}}
 
 ```yaml
 name: ci
@@ -28,17 +28,17 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
       - name: Build
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           tags: user/app:latest
@@ -47,7 +47,7 @@ jobs:
 ```
 
 {{< /tab >}}
-{{< tab name="`docker/bake-action`" >}}
+{{< tab name="`iechor/bake-action`" >}}
 
 ```yaml
 name: ci
@@ -56,17 +56,17 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
       - name: Build
-        uses: docker/bake-action@v4
+        uses: iechor/bake-action@v4
         env:
           SOURCE_DATE_EPOCH: 0
 ```
@@ -79,7 +79,7 @@ jobs:
 The following example sets `SOURCE_DATE_EPOCH` to the Git commit timestamp.
 
 {{< tabs group="action" >}}
-{{< tab name="`docker/build-push-action`" >}}
+{{< tab name="`iechor/build-push-action`" >}}
 
 ```yaml
 name: ci
@@ -88,20 +88,20 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
       - name: Get Git commit timestamps
         run: echo "TIMESTAMP=$(git log -1 --pretty=%ct)" >> $GITHUB_ENV
       
       - name: Build
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           tags: user/app:latest
@@ -110,7 +110,7 @@ jobs:
 ```
 
 {{< /tab >}}
-{{< tab name="`docker/bake-action`" >}}
+{{< tab name="`iechor/bake-action`" >}}
 
 ```yaml
 name: ci
@@ -119,20 +119,20 @@ on:
   push:
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
       
       - name: Get Git commit timestamps
         run: echo "TIMESTAMP=$(git log -1 --pretty=%ct)" >> $GITHUB_ENV
       
       - name: Build
-        uses: docker/bake-action@v4
+        uses: iechor/bake-action@v4
         env:
           SOURCE_DATE_EPOCH: ${{ env.TIMESTAMP }}
 ```

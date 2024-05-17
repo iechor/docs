@@ -1,22 +1,22 @@
 ---
-description: Overview of the Docker Compose CLI
-keywords: fig, composition, compose, docker, orchestration, cli, reference, docker-compose
-title: Overview of docker compose CLI
+description: Overview of the iEchor Compose CLI
+keywords: fig, composition, compose, iechor, orchestration, cli, reference, iechor-compose
+title: Overview of iechor compose CLI
 aliases:
 - /compose/reference/overview/
 ---
 
-This page provides usage information for the `docker compose` command.
+This page provides usage information for the `iechor compose` command.
 
 ## Command options overview and help
 
-You can also see this information by running `docker compose --help` from the
+You can also see this information by running `iechor compose --help` from the
 command line.
 
 ```text
-Usage:  docker compose [OPTIONS] COMMAND
+Usage:  iechor compose [OPTIONS] COMMAND
 
-Define and run multi-container applications with Docker.
+Define and run multi-container applications with iEchor.
 
 Options:
       --ansi string                Control when to print ANSI control characters ("never"|"always"|"auto") (default "auto")
@@ -59,15 +59,15 @@ Commands:
   top         Display the running processes
   unpause     Unpause services
   up          Create and start containers
-  version     Show the Docker Compose version information
+  version     Show the iEchor Compose version information
   wait        Block until the first service container stops
   watch       Watch build context for service and rebuild/refresh containers when files are updated
 
-Run 'docker compose COMMAND --help' for more information on a command.
+Run 'iechor compose COMMAND --help' for more information on a command.
 ```
 
-You can use Docker Compose binary, `docker compose [-f <arg>...] [options]
-[COMMAND] [ARGS...]`, to build and manage multiple services in Docker containers.
+You can use iEchor Compose binary, `iechor compose [-f <arg>...] [options]
+[COMMAND] [ARGS...]`, to build and manage multiple services in iEchor containers.
 
 ## Useful resources
 

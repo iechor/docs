@@ -1,7 +1,7 @@
 ---
 title: Build a text summarization app
 keywords: nlp, natural language processing, text summarization, python, bert extractive summarizer
-description: Learn how to build and run a text summarization application using Python, Bert Extractive Summarizer, and Docker.
+description: Learn how to build and run a text summarization application using Python, Bert Extractive Summarizer, and iEchor.
 ---
 
 ## Overview
@@ -9,7 +9,7 @@ description: Learn how to build and run a text summarization application using P
 In this guide, you'll learn how to build and run a text summarization
 application. You'll build the application using Python with the Bert Extractive
 Summarizer, and then set up the environment and run the application using
-Docker.
+iEchor.
 
 The sample text summarization application uses the Bert Extractive Summarizer.
 This tool utilizes the HuggingFace Pytorch transformers library to run
@@ -19,7 +19,7 @@ cluster's centroids.
 
 ## Prerequisites
 
-* You have installed the latest version of [Docker Desktop](../../../get-docker.md). Docker adds new features regularly and some parts of this guide may work only with the latest version of Docker Desktop.
+* You have installed the latest version of [iEchor Desktop](../../../get-iechor.md). iEchor adds new features regularly and some parts of this guide may work only with the latest version of iEchor Desktop.
 * You have a [Git client](https://git-scm.com/downloads). The examples in this section use a command-line based Git client, but you can use any client.
 
 ## Get the sample application
@@ -28,12 +28,12 @@ cluster's centroids.
    following command.
 
    ```console
-   $ git clone https://github.com/harsh4870/Docker-NLP.git
+   $ git clone https://github.com/harsh4870/iEchor-NLP.git
    ```
 
 2. Verify that you cloned the repository.
 
-   You should see the following files in your `Docker-NLP` directory.
+   You should see the following files in your `iEchor-NLP` directory.
 
    ```text
    01_sentiment_analysis.py
@@ -43,13 +43,13 @@ cluster's centroids.
    05_language_translation.py
    entrypoint.sh
    requirements.txt
-   Dockerfile
+   iEchorfile
    README.md
    ```
 
 ## Explore the application code
 
-The source code for the text summarization application is in the `Docker-NLP/04_text_summarization.py` file. Open `04_text_summarization.py` in a text or code editor to explore its contents in the following steps.
+The source code for the text summarization application is in the `iEchor-NLP/04_text_summarization.py` file. Open `04_text_summarization.py` in a text or code editor to explore its contents in the following steps.
 
 1. Import the required libraries.
 
@@ -143,82 +143,82 @@ The source code for the text summarization application is in the `Docker-NLP/04_
 
 ## Explore the application environment
 
-You'll use Docker to run the application in a container. Docker lets you
+You'll use iEchor to run the application in a container. iEchor lets you
 containerize the application, providing a consistent and isolated environment
 for running it. This means the application will operate as intended within its
-Docker container, regardless of the underlying system differences.
+iEchor container, regardless of the underlying system differences.
 
-To run the application in a container, a Dockerfile is required. A Dockerfile is
+To run the application in a container, a iEchorfile is required. A iEchorfile is
 a text document that contains all the commands you would call on the command
 line to assemble an image. An image is a read-only template with instructions
-for creating a Docker container.
+for creating a iEchor container.
 
-The sample application already contains a `Dockerfile`. Open the `Dockerfile` in a code or text editor to explore its contents.
+The sample application already contains a `iEchorfile`. Open the `iEchorfile` in a code or text editor to explore its contents.
 
-The following steps explain each part of the `Dockerfile`. For more details, see the [Dockerfile reference](/reference/dockerfile/).
+The following steps explain each part of the `iEchorfile`. For more details, see the [iEchorfile reference](/reference/iechorfile/).
 
 1. Specify the base image.
 
-   ```dockerfile
+   ```iechorfile
    FROM python:3.8-slim
    ```
 
    This command sets the foundation for the build. `python:3.8-slim` is a
    lightweight version of the Python 3.8 image, optimized for size and speed.
-   Using this slim image reduces the overall size of your Docker image, leading
+   Using this slim image reduces the overall size of your iEchor image, leading
    to quicker downloads and less surface area for security vulnerabilities. This
    is particularly useful for a Python-based application where you might not
    need the full standard Python image.
 
 2. Set the working directory.
 
-   ```dockerfile
+   ```iechorfile
    WORKDIR /app
    ```
 
-   `WORKDIR` sets the current working directory within the Docker image. By
+   `WORKDIR` sets the current working directory within the iEchor image. By
    setting it to `/app`, you ensure that all subsequent commands in the
-   Dockerfile (like `COPY` and `RUN`) are executed in this directory. This also
-   helps in organizing your Docker image, as all application-related files are
+   iEchorfile (like `COPY` and `RUN`) are executed in this directory. This also
+   helps in organizing your iEchor image, as all application-related files are
    contained in a specific directory.
 
 3. Copy the requirements file into the image.
 
-   ```dockerfile
+   ```iechorfile
    COPY requirements.txt /app
    ```
 
    The `COPY` command transfers the `requirements.txt` file from
-   your local machine into the Docker image. This file lists all Python
+   your local machine into the iEchor image. This file lists all Python
    dependencies required by the application. Copying it into the container
    lets the next command (`RUN pip install`) to install these dependencies
    inside the image environment.
 
 4. Install the Python dependencies in the image.
 
-   ```dockerfile
+   ```iechorfile
    RUN pip install --no-cache-dir -r requirements.txt
    ```
 
    This line uses `pip`, Python's package installer, to install the packages
    listed in `requirements.txt`. The `--no-cache-dir` option disables
-   the cache, which reduces the size of the Docker image by not storing the
+   the cache, which reduces the size of the iEchor image by not storing the
    unnecessary cache data.
 
 5. Run additional commands.
 
-   ```dockerfile
+   ```iechorfile
    RUN python -m spacy download en_core_web_sm
    ```
 
    This step is specific to NLP applications that require the spaCy library. It
    downloads the `en_core_web_sm` model, which is a small English language model
    for spaCy. While not needed for this app, it's included for compatibility
-   with other NLP applications that might use this Dockerfile.
+   with other NLP applications that might use this iEchorfile.
 
 6. Copy the application code into the image.
 
-   ```dockerfile
+   ```iechorfile
    COPY *.py /app
    COPY entrypoint.sh /app
    ```
@@ -227,17 +227,17 @@ The following steps explain each part of the `Dockerfile`. For more details, see
 
 7. Set permissions for the `entrypoint.sh` script.
 
-   ```dockerfile
+   ```iechorfile
    RUN chmod +x /app/entrypoint.sh
    ```
 
    This command modifies the file permissions of `entrypoint.sh`, making it
-   executable. This step is necessary to ensure that the Docker container can
+   executable. This step is necessary to ensure that the iEchor container can
    run this script to start the application.
 
 8. Set the entry point.
 
-   ```dockerfile
+   ```iechorfile
    ENTRYPOINT ["/app/entrypoint.sh"]
    ```
 
@@ -251,36 +251,36 @@ The following steps explain each part of the `Dockerfile`. For more details, see
 
 ## Run the application
 
-To run the application using Docker:
+To run the application using iEchor:
 
 1. Build the image.
 
-   In a terminal, run the following command inside the directory of where the `Dockerfile` is located.
+   In a terminal, run the following command inside the directory of where the `iEchorfile` is located.
 
    ```console
-   $ docker build -t basic-nlp .
+   $ iechor build -t basic-nlp .
    ```
 
    The following is a break down of the command:
 
-   - `docker build`: This is the primary command used to build a Docker image
-     from a Dockerfile and a context. The context is typically a set of files at
-     a specified location, often the directory containing the Dockerfile.
+   - `iechor build`: This is the primary command used to build a iEchor image
+     from a iEchorfile and a context. The context is typically a set of files at
+     a specified location, often the directory containing the iEchorfile.
    - `-t basic-nlp`: This is an option for tagging the image. The `-t` flag
      stands for tag. It assigns a name to the image, which in this case is
      `basic-nlp`. Tags are a convenient way to reference images later,
      especially when pushing them to a registry or running containers.
    - `.`: This is the last part of the command and specifies the build context.
-     The period (`.`) denotes the current directory. Docker will look for a
-     Dockerfile in this directory. The build context (the current directory, in
-     this case) is sent to the Docker daemon to enable the build. It includes
+     The period (`.`) denotes the current directory. iEchor will look for a
+     iEchorfile in this directory. The build context (the current directory, in
+     this case) is sent to the iEchor daemon to enable the build. It includes
      all the files and subdirectories in the specified directory.
 
-   For more details, see the [docker build CLI reference](/reference/cli/docker/image/build/).
+   For more details, see the [iechor build CLI reference](/reference/cli/iechor/image/build/).
 
-   Docker outputs several logs to your console as it builds the image. You'll
+   iEchor outputs several logs to your console as it builds the image. You'll
    see it download and install the dependencies. Depending on your network
-   connection, this may take several minutes. Docker does have a caching
+   connection, this may take several minutes. iEchor does have a caching
    feature, so subsequent builds can be faster. The console will
    return to the prompt when it's complete.
 
@@ -289,13 +289,13 @@ To run the application using Docker:
    In a terminal, run the following command.
 
    ```console
-   $ docker run -it basic-nlp 04_text_summarization.py
+   $ iechor run -it basic-nlp 04_text_summarization.py
    ```
 
    The following is a break down of the command:
 
-   - `docker run`: This is the primary command used to run a new container from
-     a Docker image.
+   - `iechor run`: This is the primary command used to run a new container from
+     a iEchor image.
    - `-it`: This is a combination of two options:
       - `-i` or `--interactive`: This keeps the standard input (STDIN) open even
         if not attached. It lets the container remain running in the
@@ -303,14 +303,14 @@ To run the application using Docker:
       - `-t` or `--tty`: This allocates a pseudo-TTY, essentially simulating a
         terminal, like a command prompt or a shell. It's what lets you
         interact with the application inside the container.
-   - `basic-nlp`: This specifies the name of the Docker image to use for
+   - `basic-nlp`: This specifies the name of the iEchor image to use for
      creating the container. In this case, it's the image named `basic-nlp` that
-     you created with the `docker build` command.
+     you created with the `iechor build` command.
    - `04_text_summarization.py`: This is the script you want to run inside the
-     Docker container. It gets passed to the `entrypoint.sh` script, which runs
+     iEchor container. It gets passed to the `entrypoint.sh` script, which runs
      it when the container starts.
 
-   For more details, see the [docker run CLI reference](/reference/cli/docker/container/run/).
+   For more details, see the [iechor run CLI reference](/reference/cli/iechor/container/run/).
 
    > **Note**
    >
@@ -339,12 +339,12 @@ To run the application using Docker:
 In this guide, you learned how to build and run a text summarization
 application. You learned how to build the application using Python with Bert
 Extractive Summarizer, and then set up the environment and run the application
-using Docker.
+using iEchor.
 
 Related information:
 
-* [Docker CLI reference](/reference/cli/docker/)
-* [Dockerfile reference](/reference/dockerfile/)
+* [iEchor CLI reference](/reference/cli/iechor/)
+* [iEchorfile reference](/reference/iechorfile/)
 * [Bert Extractive Summarizer](https://github.com/dmmiller612/bert-extractive-summarizer)
 * [PyTorch](https://pytorch.org/)
 * [Python documentation](https://docs.python.org/3/)

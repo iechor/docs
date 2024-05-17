@@ -1,6 +1,6 @@
 ---
 description: Learn how to manage Single Sign-On for your organization or company.
-keywords: manage, single sign-on, SSO, sign-on, docker hub, admin console, admin, security
+keywords: manage, single sign-on, SSO, sign-on, iechor hub, admin console, admin, security
 title: Manage Single Sign-On
 aliases:
 - /admin/company/settings/sso-management/
@@ -21,7 +21,7 @@ aliases:
 {{% admin-sso-management-orgs product="admin" %}}
 
 {{< /tab >}}
-{{< tab name="Docker Hub" >}}
+{{< tab name="iEchor Hub" >}}
 
 {{% admin-sso-management-orgs product="hub" %}}
 
@@ -38,7 +38,7 @@ aliases:
 {{% admin-sso-management product="admin" %}}
 
 {{< /tab >}}
-{{< tab name="Docker Hub" >}}
+{{< tab name="iEchor Hub" >}}
 
 {{% admin-sso-management product="hub" %}}
 
@@ -55,7 +55,7 @@ aliases:
 {{% admin-sso-management-connections product="admin" %}}
 
 {{< /tab >}}
-{{< tab name="Docker Hub" >}}
+{{< tab name="iEchor Hub" >}}
 
 {{% admin-sso-management-connections product="hub" %}}
 
@@ -72,7 +72,7 @@ aliases:
 {{% admin-sso-management-users product="admin" %}}
 
 {{< /tab >}}
-{{< tab name="Docker Hub" >}}
+{{< tab name="iEchor Hub" >}}
 
 {{% admin-sso-management-users product="hub" %}}
 

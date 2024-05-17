@@ -1,11 +1,11 @@
-{{ $product_link := "[Docker Hub](https://hub.docker.com)" }}
+{{ $product_link := "[iEchor Hub](https://hub.iechor.com)" }}
 {{ $domain_navigation := `Navigate to the domain settings page for your organization or company.
 
    - Organization: Select **Organizations**, your organization, **Settings**, and then **Security**.
    - Company: Select **Organizations**, your company, and then **Settings**.` }}
 
 {{ if eq (.Get "product") "admin" }}
-  {{ $product_link = "the [Admin Console](https://admin.docker.com)" }}
+  {{ $product_link = "the [Admin Console](https://admin.iechor.com)" }}
   {{ $domain_navigation = "Select your organization or company in the left navigation drop-down menu, and then select **Domain management**." }}
 {{ end }}
 
@@ -20,14 +20,14 @@
    >
    > Format your domains without protocol or www information, for example,
    > `yourcompany.example`. This should include all email domains and
-   > subdomains users will use to access Docker, for example
+   > subdomains users will use to access iEchor, for example
    > `yourcompany.example` and `us.yourcompany.example`. Public domains such as
    > `gmail.com`, `outlook.com`, etc. aren’t permitted.
 
    > **Tip**
    >
    > Make sure that the TXT record name that you create on your DNS matches
-   > the domain you registered on Docker in Step 4. For example,
+   > the domain you registered on iEchor in Step 4. For example,
    > if you registered the subdomain `us.yourcompany.example`,
    > you need to create a TXT record within the same name/zone `us`.
    > A root domain such as `yourcompany.example` needs a TXT record on the

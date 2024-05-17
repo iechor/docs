@@ -1,8 +1,8 @@
 ---
-title: Docker Scout
+title: iEchor Scout
 keywords: scout, supply chain, vulnerabilities, packages, cves, scan, analysis, analyze
 description:
-  Get an overview on Docker Scout to proactively enhance your software supply chain security
+  Get an overview on iEchor Scout to proactively enhance your software supply chain security
 aliases:
   - /atomist/
   - /atomist/try-atomist/
@@ -14,7 +14,7 @@ aliases:
 grid:
   - title: Quickstart
     link: /scout/quickstart/
-    description: Learn what Docker Scout can do, and how to get started.
+    description: Learn what iEchor Scout can do, and how to get started.
     icon: explore
   - title: Image analysis
     link: /scout/image-analysis/
@@ -22,17 +22,17 @@ grid:
     icon: radar
   - title: Advisory database
     link: /scout/advisory-db-sources/
-    description: Learn about the information sources that Docker Scout uses.
+    description: Learn about the information sources that iEchor Scout uses.
     icon: database
   - title: Integrations
     description: |
-      Connect Docker Scout with your CI, registries, and other third-party services.
+      Connect iEchor Scout with your CI, registries, and other third-party services.
     link: /scout/integrations/
     icon: multiple_stop
   - title: Dashboard
     link: /scout/dashboard/
     description: |
-      The web interface for Docker Scout.
+      The web interface for iEchor Scout.
     icon: dashboard
   - title: Policy {{< badge color=violet text="Early Access" >}}
     link: /scout/policy/
@@ -49,12 +49,12 @@ grid:
 Container images consist of layers and software packages, which are susceptible to vulnerabilities.
 These vulnerabilities can compromise the security of containers and applications.
 
-Docker Scout is a solution for proactively enhancing your software supply chain security.
-By analyzing your images, Docker Scout compiles an inventory of components, also known as a Software Bill of Materials (SBOM).
+iEchor Scout is a solution for proactively enhancing your software supply chain security.
+By analyzing your images, iEchor Scout compiles an inventory of components, also known as a Software Bill of Materials (SBOM).
 The SBOM is matched against a continuously updated vulnerability database to pinpoint security weaknesses.
 
-Docker Scout is a standalone service and platform that you can interact with
-using Docker Desktop, Docker Hub, the Docker CLI, and the Docker Scout Dashboard.
-Docker Scout also facilitates integrations with third-party systems, such as container registries and CI platforms.
+iEchor Scout is a standalone service and platform that you can interact with
+using iEchor Desktop, iEchor Hub, the iEchor CLI, and the iEchor Scout Dashboard.
+iEchor Scout also facilitates integrations with third-party systems, such as container registries and CI platforms.
 
 {{< grid >}}

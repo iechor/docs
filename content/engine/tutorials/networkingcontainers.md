@@ -1,6 +1,6 @@
 ---
-description: How to network Docker containers.
-keywords: Examples, Usage, volume, docker, documentation, user guide, data, volumes
+description: How to network iEchor containers.
+keywords: Examples, Usage, volume, iechor, documentation, user guide, data, volumes
 title: Network containers
 aliases:
 - /engine/userguide/containers/networkigncontainers/
@@ -13,23 +13,23 @@ you how to network your containers.
 
 ## Launch a container on the default network
 
-Docker includes support for networking containers through the use of **network
-drivers**. By default, Docker provides two network drivers for you, the
+iEchor includes support for networking containers through the use of **network
+drivers**. By default, iEchor provides two network drivers for you, the
 `bridge` and the `overlay` drivers. You can also write a network driver plugin so
 that you can create your own drivers but that is an advanced task.
 
-Every installation of the Docker Engine automatically includes three default networks. You can list them:
+Every installation of the iEchor Engine automatically includes three default networks. You can list them:
 
-    $ docker network ls
+    $ iechor network ls
 
     NETWORK ID          NAME                DRIVER
     18a2866682b8        none                null
     c288470c46f6        host                host
     7b369448dccb        bridge              bridge
 
-The network named `bridge` is a special network. Unless you tell it otherwise, Docker always launches your containers in this network. Try this now:
+The network named `bridge` is a special network. Unless you tell it otherwise, iEchor always launches your containers in this network. Try this now:
 
-    $ docker run -itd --name=networktest ubuntu
+    $ iechor run -itd --name=networktest ubuntu
 
     74695c9cea6d9810718fddadc01a727a5dd3ce6a69d09752239736c030599741
 
@@ -38,7 +38,7 @@ The network named `bridge` is a special network. Unless you tell it otherwise, D
 Inspecting the network is an easy way to find out the container's IP address.
 
 ```console
-$ docker network inspect bridge
+$ iechor network inspect bridge
 
 [
     {
@@ -68,12 +68,12 @@ $ docker network inspect bridge
             }
         },
         "Options": {
-            "com.docker.network.bridge.default_bridge": "true",
-            "com.docker.network.bridge.enable_icc": "true",
-            "com.docker.network.bridge.enable_ip_masquerade": "true",
-            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
-            "com.docker.network.bridge.name": "docker0",
-            "com.docker.network.driver.mtu": "9001"
+            "com.iechor.network.bridge.default_bridge": "true",
+            "com.iechor.network.bridge.enable_icc": "true",
+            "com.iechor.network.bridge.enable_ip_masquerade": "true",
+            "com.iechor.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.iechor.network.bridge.name": "iechor0",
+            "com.iechor.network.driver.mtu": "9001"
         },
         "Labels": {}
     }
@@ -82,22 +82,22 @@ $ docker network inspect bridge
 
 You can remove a container from a network by disconnecting the container. To do this, you supply both the network name and the container name. You can also use the container ID. In this example, though, the name is faster.
 
-    $ docker network disconnect bridge networktest
+    $ iechor network disconnect bridge networktest
 
 While you can disconnect a container from a network, you cannot remove the
 builtin `bridge` network named `bridge`. Networks are natural ways to isolate
 containers from other containers or other networks. So, as you get more
-experienced with Docker, create your own networks.
+experienced with iEchor, create your own networks.
 
 ## Create your own bridge network
 
-Docker Engine natively supports both bridge networks and overlay networks. A bridge network is limited to a single host running Docker Engine. An overlay network can include multiple hosts and is a more advanced topic. For this example, create a bridge network:
+iEchor Engine natively supports both bridge networks and overlay networks. A bridge network is limited to a single host running iEchor Engine. An overlay network can include multiple hosts and is a more advanced topic. For this example, create a bridge network:
 
-    $ docker network create -d bridge my_bridge
+    $ iechor network create -d bridge my_bridge
 
-The `-d` flag tells Docker to use the `bridge` driver for the new network. You could have left this flag off as `bridge` is the default value for this flag. Go ahead and list the networks on your machine:
+The `-d` flag tells iEchor to use the `bridge` driver for the new network. You could have left this flag off as `bridge` is the default value for this flag. Go ahead and list the networks on your machine:
 
-    $ docker network ls
+    $ iechor network ls
 
     NETWORK ID          NAME                DRIVER
     7b369448dccb        bridge              bridge
@@ -107,7 +107,7 @@ The `-d` flag tells Docker to use the `bridge` driver for the new network. You c
 
 If you inspect the network, it has nothing in it.
 
-    $ docker network inspect my_bridge
+    $ iechor network inspect my_bridge
 
     [
         {
@@ -138,13 +138,13 @@ can add containers to a network when you first run a container.
 
 Launch a container running a PostgreSQL database and pass it the `--net=my_bridge` flag to connect it to your new network:
 
-    $ docker run -d --net=my_bridge --name db training/postgres
+    $ iechor run -d --net=my_bridge --name db training/postgres
 
 If you inspect your `my_bridge` you can see it has a container attached.
 You can also inspect your container to see where it is connected:
 
     
-    $ docker inspect --format='{{json .NetworkSettings.Networks}}'  db
+    $ iechor inspect --format='{{json .NetworkSettings.Networks}}'  db
     
 
     {"my_bridge":{"NetworkID":"7d86d31b1478e7cca9ebed7e73aa0fdeec46c5ca29497431d3007d2d9e15ed99",
@@ -152,14 +152,14 @@ You can also inspect your container to see where it is connected:
 
 Now, go ahead and start your by now familiar web application. This time don't specify a network.
 
-    $ docker run -d --name web training/webapp python app.py
+    $ iechor run -d --name web training/webapp python app.py
 
 ![bridge2](bridge2.png)
 
 Which network is your `web` application running under? Inspect the application to verify that it is running in the default `bridge` network.
 
     
-    $ docker inspect --format='{{json .NetworkSettings.Networks}}'  web
+    $ iechor inspect --format='{{json .NetworkSettings.Networks}}'  web
     
 
     {"bridge":{"NetworkID":"7ea29fc1412292a2d7bba362f9253545fecdfa8ce9a6e37dd10ba8bee7129812",
@@ -168,14 +168,14 @@ Which network is your `web` application running under? Inspect the application t
 Then, get the IP address of your `web`
 
     
-    $ docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' web
+    $ iechor inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' web
     
 
     172.17.0.2
 
 Now, open a shell to your running `db` container:
 
-    $ docker container exec -it db bash
+    $ iechor container exec -it db bash
 
     root@a205f0dd33b2:/# ping 172.17.0.2
     ping 172.17.0.2
@@ -186,16 +186,16 @@ Now, open a shell to your running `db` container:
 
 After a bit, use `CTRL-C` to end the `ping` and notice that the ping failed. That is because the two containers are running on different networks. You can fix that. Then, use the `exit` command to close the container.
 
-Docker networking allows you to attach a container to as many networks as you like. You can also attach an already running container. Go ahead and attach your running `web` app to the `my_bridge`.
+iEchor networking allows you to attach a container to as many networks as you like. You can also attach an already running container. Go ahead and attach your running `web` app to the `my_bridge`.
 
-    $ docker network connect my_bridge web
+    $ iechor network connect my_bridge web
 
 
 ![bridge3](bridge3.png)
 
 Open a shell into the `db` application again and try the ping command. This time just use the container name `web` rather than the IP address.
 
-    $ docker container exec -it db bash
+    $ iechor container exec -it db bash
 
     root@a205f0dd33b2:/# ping web
     PING web (10.0.0.2) 56(84) bytes of data.

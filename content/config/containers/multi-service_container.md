@@ -1,6 +1,6 @@
 ---
 description: Learn how to run more than one process in a single container
-keywords: docker, supervisor, process management
+keywords: iechor, supervisor, process management
 title: Run multiple processes in a container
 aliases:
   - /articles/using_supervisord/
@@ -10,10 +10,10 @@ aliases:
 ---
 
 A container's main running process is the `ENTRYPOINT` and/or `CMD` at the
-end of the `Dockerfile`. It's best practice to separate areas of concern by
+end of the `iEchorfile`. It's best practice to separate areas of concern by
 using one service per container. That service may fork into multiple
 processes (for example, Apache web server starts multiple worker processes).
-It's ok to have multiple processes, but to get the most benefit out of Docker,
+It's ok to have multiple processes, but to get the most benefit out of iEchor,
 avoid one container being responsible for multiple aspects of your overall
 application. You can connect multiple containers using user-defined networks and
 shared volumes.
@@ -53,10 +53,10 @@ wait -n
 exit $?
 ```
 
-Next, the Dockerfile:
+Next, the iEchorfile:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM ubuntu:latest
 COPY my_first_process my_first_process
 COPY my_second_process my_second_process
@@ -91,8 +91,8 @@ set -m
 fg %1
 ```
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM ubuntu:latest
 COPY my_main_process my_main_process
 COPY my_helper_process my_helper_process
@@ -108,15 +108,15 @@ your image (or base your image on one that includes `supervisord`), along with
 the different applications it manages. Then you start `supervisord`, which
 manages your processes for you.
 
-The following Dockerfile example shows this approach. The example assumes that
+The following iEchorfile example shows this approach. The example assumes that
 these files exist at the root of the build context:
 
 - `supervisord.conf`
 - `my_first_process`
 - `my_second_process`
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM ubuntu:latest
 RUN apt-get update && apt-get install -y supervisor
 RUN mkdir -p /var/log/supervisor

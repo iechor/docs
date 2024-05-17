@@ -1,32 +1,32 @@
 ---
-title: Docker contexts
+title: iEchor contexts
 description: Learn about managing multiple daemons from a single client with contexts
 keywords: engine, context, cli, daemons, remote
 ---
 
 ## Introduction
 
-This guide shows how you can use contexts to manage Docker daemons from a single client.
+This guide shows how you can use contexts to manage iEchor daemons from a single client.
 
 Each context contains all information required to manage resources on the daemon.
-The `docker context` command makes it easy to configure these contexts and switch between them.
+The `iechor context` command makes it easy to configure these contexts and switch between them.
 
-As an example, a single Docker client might be configured with two contexts:
+As an example, a single iEchor client might be configured with two contexts:
 
 - A default context running locally
 - A remote, shared context
 
 Once these contexts are configured,
-you can use the `docker context use <context-name>` command
+you can use the `iechor context use <context-name>` command
 to switch between them.
 
 ## Prerequisites
 
 To follow the examples in this guide, you'll need:
 
-- A Docker client that supports the top-level `context` command
+- A iEchor client that supports the top-level `context` command
 
-Run `docker context` to verify that your Docker client supports contexts.
+Run `iechor context` to verify that your iEchor client supports contexts.
 
 ## The anatomy of a context
 
@@ -36,34 +36,34 @@ A context is a combination of several properties. These include:
 - Endpoint configuration
 - TLS info
 
-To list available contexts, use the `docker context ls` command.
+To list available contexts, use the `iechor context ls` command.
 
 ```console
-$ docker context ls
-NAME        DESCRIPTION                               DOCKER ENDPOINT               ERROR
-default *                                             unix:///var/run/docker.sock
+$ iechor context ls
+NAME        DESCRIPTION                               IECHOR ENDPOINT               ERROR
+default *                                             unix:///var/run/iechor.sock
 ```
 
 This shows a single context called "default".
-It's configured to talk to a daemon through the local `/var/run/docker.sock` Unix socket.
+It's configured to talk to a daemon through the local `/var/run/iechor.sock` Unix socket.
 
 The asterisk in the `NAME` column indicates that this is the active context.
-This means all `docker` commands run against this context,
-unless overridden with environment variables such as `DOCKER_HOST` and `DOCKER_CONTEXT`,
+This means all `iechor` commands run against this context,
+unless overridden with environment variables such as `IECHOR_HOST` and `IECHOR_CONTEXT`,
 or on the command-line with the `--context` and `--host` flags.
 
-Dig a bit deeper with `docker context inspect`.
+Dig a bit deeper with `iechor context inspect`.
 The following example shows how to inspect the context called `default`.
 
 ```console
-$ docker context inspect default
+$ iechor context inspect default
 [
     {
         "Name": "default",
         "Metadata": {},
         "Endpoints": {
-            "docker": {
-                "Host": "unix:///var/run/docker.sock",
+            "iechor": {
+                "Host": "unix:///var/run/iechor.sock",
                 "SkipTLSVerify": false
             }
         },
@@ -78,131 +78,131 @@ $ docker context inspect default
 
 ### Create a new context
 
-You can create new contexts with the `docker context create` command.
+You can create new contexts with the `iechor context create` command.
 
-The following example creates a new context called `docker-test` and specifies
-the host endpoint of the context to TCP socket `tcp://docker:2375`.
+The following example creates a new context called `iechor-test` and specifies
+the host endpoint of the context to TCP socket `tcp://iechor:2375`.
 
 ```console
-$ docker context create docker-test --docker host=tcp://docker:2375
-docker-test
-Successfully created context "docker-test"
+$ iechor context create iechor-test --iechor host=tcp://iechor:2375
+iechor-test
+Successfully created context "iechor-test"
 ```
 
-The new context is stored in a `meta.json` file below `~/.docker/contexts/`.
-Each new context you create gets its own `meta.json` stored in a dedicated sub-directory of `~/.docker/contexts/`.
+The new context is stored in a `meta.json` file below `~/.iechor/contexts/`.
+Each new context you create gets its own `meta.json` stored in a dedicated sub-directory of `~/.iechor/contexts/`.
 
-You can view the new context with `docker context ls` and `docker context inspect <context-name>`.
+You can view the new context with `iechor context ls` and `iechor context inspect <context-name>`.
 
 ```console
-$ docker context ls
-NAME          DESCRIPTION                             DOCKER ENDPOINT               ERROR
-default *                                             unix:///var/run/docker.sock
-docker-test                                           tcp://docker:2375
+$ iechor context ls
+NAME          DESCRIPTION                             IECHOR ENDPOINT               ERROR
+default *                                             unix:///var/run/iechor.sock
+iechor-test                                           tcp://iechor:2375
 ```
 
 The current context is indicated with an asterisk ("\*").
 
 ## Use a different context
 
-You can use `docker context use` to switch between contexts.
+You can use `iechor context use` to switch between contexts.
 
-The following command will switch the `docker` CLI to use the `docker-test` context.
-
-```console
-$ docker context use docker-test
-docker-test
-Current context is now "docker-test"
-```
-
-Verify the operation by listing all contexts and ensuring the asterisk ("\*") is against the `docker-test` context.
+The following command will switch the `iechor` CLI to use the `iechor-test` context.
 
 ```console
-$ docker context ls
-NAME            DESCRIPTION                           DOCKER ENDPOINT               ERROR
-default                                               unix:///var/run/docker.sock
-docker-test *                                         tcp://docker:2375
+$ iechor context use iechor-test
+iechor-test
+Current context is now "iechor-test"
 ```
 
-`docker` commands will now target endpoints defined in the `docker-test` context.
+Verify the operation by listing all contexts and ensuring the asterisk ("\*") is against the `iechor-test` context.
 
-You can also set the current context using the `DOCKER_CONTEXT` environment variable.
-The environment variable overrides the context set with `docker context use`.
+```console
+$ iechor context ls
+NAME            DESCRIPTION                           IECHOR ENDPOINT               ERROR
+default                                               unix:///var/run/iechor.sock
+iechor-test *                                         tcp://iechor:2375
+```
 
-Use the appropriate command below to set the context to `docker-test` using an environment variable.
+`iechor` commands will now target endpoints defined in the `iechor-test` context.
+
+You can also set the current context using the `IECHOR_CONTEXT` environment variable.
+The environment variable overrides the context set with `iechor context use`.
+
+Use the appropriate command below to set the context to `iechor-test` using an environment variable.
 
 {{< tabs >}}
 {{< tab name="PowerShell" >}}
 
 ```ps
-> $env:DOCKER_CONTEXT='docker-test'
+> $env:IECHOR_CONTEXT='iechor-test'
 ```
 
 {{< /tab >}}
 {{< tab name="Bash" >}}
 
 ```console
-$ export DOCKER_CONTEXT=docker-test
+$ export IECHOR_CONTEXT=iechor-test
 ```
 
 {{< /tab >}}
 {{< /tabs >}}
 
-Run `docker context ls` to verify that the `docker-test` context is now the
+Run `iechor context ls` to verify that the `iechor-test` context is now the
 active context.
 
 You can also use the global `--context` flag to override the context.
 The following command uses a context called `production`.
 
 ```console
-$ docker --context production container ls
+$ iechor --context production container ls
 ```
 
-## Exporting and importing Docker contexts
+## Exporting and importing iEchor contexts
 
-You can use the `docker context export` and `docker context import` commands
+You can use the `iechor context export` and `iechor context import` commands
 to export and import contexts on different hosts.
 
-The `docker context export` command exports an existing context to a file.
-The file can be imported on any host that has the `docker` client installed.
+The `iechor context export` command exports an existing context to a file.
+The file can be imported on any host that has the `iechor` client installed.
 
 ### Exporting and importing a context
 
-The following example exports an existing context called `docker-test`.
-It will be written to a file called `docker-test.dockercontext`.
+The following example exports an existing context called `iechor-test`.
+It will be written to a file called `iechor-test.iechorcontext`.
 
 ```console
-$ docker context export docker-test
-Written file "docker-test.dockercontext"
+$ iechor context export iechor-test
+Written file "iechor-test.iechorcontext"
 ```
 
 Check the contents of the export file.
 
 ```console
-$ cat docker-test.dockercontext
+$ cat iechor-test.iechorcontext
 ```
 
-Import this file on another host using `docker context import`
+Import this file on another host using `iechor context import`
 to create context with the same configuration.
 
 ```console
-$ docker context import docker-test docker-test.dockercontext
-docker-test
-Successfully imported context "docker-test"
+$ iechor context import iechor-test iechor-test.iechorcontext
+iechor-test
+Successfully imported context "iechor-test"
 ```
 
-You can verify that the context was imported with `docker context ls`.
+You can verify that the context was imported with `iechor context ls`.
 
-The format of the import command is `docker context import <context-name> <context-file>`.
+The format of the import command is `iechor context import <context-name> <context-file>`.
 
 ## Updating a context
 
-You can use `docker context update` to update fields in an existing context.
+You can use `iechor context update` to update fields in an existing context.
 
-The following example updates the description field in the existing `docker-test` context.
+The following example updates the description field in the existing `iechor-test` context.
 
 ```console
-$ docker context update docker-test --description "Test context"
-docker-test
-Successfully updated context "docker-test"
+$ iechor context update iechor-test --description "Test context"
+iechor-test
+Successfully updated context "iechor-test"
 ```

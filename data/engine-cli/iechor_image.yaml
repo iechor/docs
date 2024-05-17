@@ -1,0 +1,50 @@
+command: iechor image
+short: Manage images
+long: Manage images.
+usage: iechor image
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor image build
+    - iechor image history
+    - iechor image import
+    - iechor image inspect
+    - iechor image load
+    - iechor image ls
+    - iechor image prune
+    - iechor image pull
+    - iechor image push
+    - iechor image rm
+    - iechor image save
+    - iechor image tag
+clink:
+    - iechor_image_build.yaml
+    - iechor_image_history.yaml
+    - iechor_image_import.yaml
+    - iechor_image_inspect.yaml
+    - iechor_image_load.yaml
+    - iechor_image_ls.yaml
+    - iechor_image_prune.yaml
+    - iechor_image_pull.yaml
+    - iechor_image_push.yaml
+    - iechor_image_rm.yaml
+    - iechor_image_save.yaml
+    - iechor_image_tag.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

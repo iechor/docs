@@ -10,23 +10,23 @@ aliases:
 - /engine/userguide/networking/default_network/binding/
 - /engine/userguide/networking/default_network/configure-dns/
 - /engine/userguide/networking/default_network/container-communication/
-- /engine/userguide/networking/dockernetworks/
+- /engine/userguide/networking/iechornetworks/
 ---
 
 Container networking refers to the ability for containers to connect to and
-communicate with each other, or to non-Docker workloads.
+communicate with each other, or to non-iEchor workloads.
 
 Containers have networking enabled by default, and they can make outgoing
 connections. A container has no information about what kind of network it's
-attached to, or whether their peers are also Docker workloads or not. A
+attached to, or whether their peers are also iEchor workloads or not. A
 container only sees a network interface with an IP address, a gateway, a
 routing table, DNS services, and other networking details. That is, unless the
 container uses the `none` network driver.
 
 This page describes networking from the point of view of the container,
 and the concepts around container networking.
-This page doesn't describe OS-specific details about how Docker networks work.
-For information about how Docker manipulates `iptables` rules on Linux,
+This page doesn't describe OS-specific details about how iEchor networks work.
+For information about how iEchor manipulates `iptables` rules on Linux,
 see [Packet filtering and firewalls](packet-filtering-firewalls.md).
 
 ## User-defined networks
@@ -39,8 +39,8 @@ The following example creates a network using the `bridge` network driver and
 running a container in the created network:
 
 ```console
-$ docker network create -d bridge my-net
-$ docker run --network=my-net -itd --name=container3 busybox
+$ iechor network create -d bridge my-net
+$ iechor run --network=my-net -itd --name=container3 busybox
 ```
 
 ### Drivers
@@ -51,9 +51,9 @@ networking functionality:
 | Driver    | Description                                                              |
 | :-------- | :----------------------------------------------------------------------- |
 | `bridge`  | The default network driver.                                              |
-| `host`    | Remove network isolation between the container and the Docker host.      |
+| `host`    | Remove network isolation between the container and the iEchor host.      |
 | `none`    | Completely isolate a container from the host and other containers.       |
-| `overlay` | Overlay networks connect multiple Docker daemons together.               |
+| `overlay` | Overlay networks connect multiple iEchor daemons together.               |
 | `ipvlan`  | IPvlan networks provide full control over both IPv4 and IPv6 addressing. |
 | `macvlan` | Assign a MAC address to a container.                                     |
 
@@ -84,38 +84,38 @@ The following example runs a Redis container, with Redis binding to
 server over the `localhost` interface.
 
 ```console
-$ docker run -d --name redis example/redis --bind 127.0.0.1
-$ docker run --rm -it --network container:redis example/redis-cli -h 127.0.0.1
+$ iechor run -d --name redis example/redis --bind 127.0.0.1
+$ iechor run --rm -it --network container:redis example/redis-cli -h 127.0.0.1
 ```
 
 ## Published ports
 
-By default, when you create or run a container using `docker create` or `docker run`,
+By default, when you create or run a container using `iechor create` or `iechor run`,
 the container doesn't expose any of its ports to the outside world.
 Use the `--publish` or `-p` flag to make a port available to services
-outside of Docker.
+outside of iEchor.
 This creates a firewall rule in the host,
-mapping a container port to a port on the Docker host to the outside world.
+mapping a container port to a port on the iEchor host to the outside world.
 Here are some examples:
 
 | Flag value                      | Description                                                                                                                                             |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-p 8080:80`                    | Map port `8080` on the Docker host to TCP port `80` in the container.                                                                                   |
-| `-p 192.168.1.100:8080:80`      | Map port `8080` on the Docker host IP `192.168.1.100` to TCP port `80` in the container.                                                                |
-| `-p 8080:80/udp`                | Map port `8080` on the Docker host to UDP port `80` in the container.                                                                                   |
-| `-p 8080:80/tcp -p 8080:80/udp` | Map TCP port `8080` on the Docker host to TCP port `80` in the container, and map UDP port `8080` on the Docker host to UDP port `80` in the container. |
+| `-p 8080:80`                    | Map port `8080` on the iEchor host to TCP port `80` in the container.                                                                                   |
+| `-p 192.168.1.100:8080:80`      | Map port `8080` on the iEchor host IP `192.168.1.100` to TCP port `80` in the container.                                                                |
+| `-p 8080:80/udp`                | Map port `8080` on the iEchor host to UDP port `80` in the container.                                                                                   |
+| `-p 8080:80/tcp -p 8080:80/udp` | Map TCP port `8080` on the iEchor host to TCP port `80` in the container, and map UDP port `8080` on the iEchor host to UDP port `80` in the container. |
 
 > **Important**
 >
 > Publishing container ports is insecure by default. Meaning, when you publish
-> a container's ports it becomes available not only to the Docker host, but to
+> a container's ports it becomes available not only to the iEchor host, but to
 > the outside world as well.
 >
 > If you include the localhost IP address (`127.0.0.1`) with the publish flag,
-> only the Docker host can access the published container port.
+> only the iEchor host can access the published container port.
 >
 > ```console
-> $ docker run -p 127.0.0.1:8080:80 nginx
+> $ iechor run -p 127.0.0.1:8080:80 nginx
 > ```
 >
 > > **Warning**
@@ -134,19 +134,19 @@ same network, usually a [bridge network](./drivers/bridge.md).
 
 ## IP address and hostname
 
-By default, the container gets an IP address for every Docker network it attaches to.
+By default, the container gets an IP address for every iEchor network it attaches to.
 A container receives an IP address out of the IP subnet of the network.
-The Docker daemon performs dynamic subnetting and IP address allocation for containers.
+The iEchor daemon performs dynamic subnetting and IP address allocation for containers.
 Each network also has a default subnet mask and gateway.
 
 You can connect a running container to multiple networks,
 either by passing the `--network` flag multiple times when creating the container,
-or using the `docker network connect` command for already running containers.
+or using the `iechor network connect` command for already running containers.
 In both cases, you can use the `--ip` or `--ip6` flags to specify the container's IP address on that particular network.
 
-In the same way, a container's hostname defaults to be the container's ID in Docker.
+In the same way, a container's hostname defaults to be the container's ID in iEchor.
 You can override the hostname using `--hostname`.
-When connecting to an existing network using `docker network connect`,
+When connecting to an existing network using `iechor network connect`,
 you can use the `--alias` flag to specify an additional network alias for the container on that network.
 
 ## DNS services
@@ -159,12 +159,12 @@ By default, containers inherit the DNS settings as defined in the
 Containers that attach to the default `bridge` network receive a copy of this file.
 Containers that attach to a
 [custom network](network-tutorial-standalone.md#use-user-defined-bridge-networks)
-use Docker's embedded DNS server.
+use iEchor's embedded DNS server.
 The embedded DNS server forwards external DNS lookups to the DNS servers configured on the host.
 
 You can configure DNS resolution on a per-container basis, using flags for the
-`docker run` or `docker create` command used to start the container.
-The following table describes the available `docker run` flags related to DNS
+`iechor run` or `iechor create` command used to start the container.
+The following table describes the available `iechor run` flags related to DNS
 configuration.
 
 | Flag           | Description                                                                                                                                                                                                                                           |
@@ -180,8 +180,8 @@ Your container will have lines in `/etc/hosts` which define the hostname of the
 container itself, as well as `localhost` and a few other common things. Custom
 hosts, defined in `/etc/hosts` on the host machine, aren't inherited by
 containers. To pass additional hosts into a container, refer to [add entries to
-container hosts file](../reference/cli/docker/container/run.md#add-host) in the
-`docker run` reference documentation.
+container hosts file](../reference/cli/iechor/container/run.md#add-host) in the
+`iechor run` reference documentation.
 
 ## Proxy server
 

@@ -1,12 +1,12 @@
 ---
-description: Containerize and develop PHP apps using Docker
+description: Containerize and develop PHP apps using iEchor
 keywords: getting started, php, composer
 title: PHP language-specific guide
 toc_min: 1
 toc_max: 2
 ---
 
-The PHP language-specific guide teaches you how to create a containerized PHP application using Docker. In this guide, you'll learn how to:
+The PHP language-specific guide teaches you how to create a containerized PHP application using iEchor. In this guide, you'll learn how to:
 
 * Containerize and run a PHP application
 * Set up a local environment to develop a PHP application using containers

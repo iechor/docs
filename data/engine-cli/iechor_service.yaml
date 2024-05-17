@@ -1,0 +1,53 @@
+command: iechor service
+short: Manage Swarm services
+long: |-
+    Manage Swarm services.
+
+    > **Note**
+    >
+    > This is a cluster management command, and must be executed on a swarm
+    > manager node. To learn about managers and workers, refer to the
+    > [Swarm mode section](/engine/swarm/) in the
+    > documentation.
+usage: iechor service
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor service create
+    - iechor service inspect
+    - iechor service logs
+    - iechor service ls
+    - iechor service ps
+    - iechor service rm
+    - iechor service rollback
+    - iechor service scale
+    - iechor service update
+clink:
+    - iechor_service_create.yaml
+    - iechor_service_inspect.yaml
+    - iechor_service_logs.yaml
+    - iechor_service_ls.yaml
+    - iechor_service_ps.yaml
+    - iechor_service_rm.yaml
+    - iechor_service_rollback.yaml
+    - iechor_service_scale.yaml
+    - iechor_service_update.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

@@ -22,35 +22,35 @@ The sample application uses the popular [Shiny](https://shiny.posit.co/) framewo
 Clone the sample application to use with this guide. Open a terminal, change directory to a directory that you want to work in, and run the following command to clone the repository:
 
 ```console
-$ git clone https://github.com/mfranzon/r-docker-dev.git
+$ git clone https://github.com/mfranzon/r-iechor-dev.git
 ```
 
-You should now have the following contents in your `r-docker-dev`
+You should now have the following contents in your `r-iechor-dev`
 directory.
 
 ```text
-├── r-docker-dev/
+├── r-iechor-dev/
 │ ├── src/
 │ │ └── app.R
 │ ├── src_db/
 │ │ └── app_db.R
 │ ├── compose.yaml
-│ ├── Dockerfile
+│ ├── iEchorfile
 │ └── README.md
 ```
 
 To learn more about the files in the repository, see the following:
- - [Dockerfile](../../reference/dockerfile.md)
- - [.dockerignore](../../reference/dockerfile.md#dockerignore-file)
+ - [iEchorfile](../../reference/iechorfile.md)
+ - [.iechorignore](../../reference/iechorfile.md#iechorignore-file)
  - [compose.yaml](../../compose/compose-file/_index.md)
 
 ## Run the application
 
-Inside the `r-docker-dev` directory, run the following command in a
+Inside the `r-iechor-dev` directory, run the following command in a
 terminal.
 
 ```console
-$ docker compose up --build
+$ iechor compose up --build
 ```
 
 Open a browser and view the application at [http://localhost:3838](http://localhost:3838). You should see a simple Shiny application.
@@ -60,11 +60,11 @@ In the terminal, press `ctrl`+`c` to stop the application.
 ### Run the application in the background
 
 You can run the application detached from the terminal by adding the `-d`
-option. Inside the `r-docker-dev` directory, run the following command
+option. Inside the `r-iechor-dev` directory, run the following command
 in a terminal.
 
 ```console
-$ docker compose up --build -d
+$ iechor compose up --build -d
 ```
 
 Open a browser and view the application at [http://localhost:3838](http://localhost:3838).
@@ -74,7 +74,7 @@ You should see a simple Shiny application.
 In the terminal, run the following command to stop the application.
 
 ```console
-$ docker compose down
+$ iechor compose down
 ```
 
 For more information about Compose commands, see the [Compose CLI
@@ -83,11 +83,11 @@ reference](../../compose/reference/_index.md).
 ## Summary
 
 In this section, you learned how you can containerize and run your R
-application using Docker.
+application using iEchor.
 
 Related information:
- - [Build with Docker guide](../../build/guide/index.md)
- - [Docker Compose overview](../../compose/_index.md)
+ - [Build with iEchor guide](../../build/guide/index.md)
+ - [iEchor Compose overview](../../compose/_index.md)
 
 ## Next steps
 

@@ -1,6 +1,6 @@
 ---
-description: Docker extension API reference
-keywords: Docker, extensions, sdk, API, reference
+description: iEchor extension API reference
+keywords: iEchor, extensions, sdk, API, reference
 ---
 
 # Extensions API Reference
@@ -18,8 +18,8 @@ keywords: Docker, extensions, sdk, API, reference
 - [BackendV0](interfaces/BackendV0.md)
 - [OpenDialogResult](interfaces/OpenDialogResult.md)
 - [Dialog](interfaces/Dialog.md)
-- [Docker](interfaces/Docker.md)
-- [DockerCommand](interfaces/DockerCommand.md)
+- [iEchor](interfaces/iEchor.md)
+- [iEchorCommand](interfaces/iEchorCommand.md)
 - [ExecOptions](interfaces/ExecOptions.md)
 - [SpawnOptions](interfaces/SpawnOptions.md)
 - [Exec](interfaces/Exec.md)
@@ -35,4 +35,4 @@ keywords: Docker, extensions, sdk, API, reference
 - [HttpService](interfaces/HttpService.md)
 - [RequestConfig](interfaces/RequestConfig.md)
 - [ServiceError](interfaces/ServiceError.md)
-- [DockerDesktopClient](interfaces/DockerDesktopClient.md)
+- [iEchorDesktopClient](interfaces/iEchorDesktopClient.md)

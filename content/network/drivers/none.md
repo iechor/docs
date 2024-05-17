@@ -14,7 +14,7 @@ The following example shows the output of `ip link show` in an `alpine`
 container using the `none` network driver.
 
 ```console
-$ docker run --rm --network none alpine:latest ip link show
+$ iechor run --rm --network none alpine:latest ip link show
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
 ```
@@ -22,7 +22,7 @@ $ docker run --rm --network none alpine:latest ip link show
 No IPv6 loopback address is configured for containers using the `none` driver.
 
 ```console
-$ docker run --rm --network none --name no-net-alpine alpine:latest ip addr show
+$ iechor run --rm --network none --name no-net-alpine alpine:latest ip addr show
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo

@@ -1,0 +1,36 @@
+command: iechor buildx imagetools
+short: Commands to work on images in registry
+long: |-
+    The `imagetools` commands contains subcommands for working with manifest lists
+    in container registries. These commands are useful for inspecting manifests
+    to check multi-platform configuration and attestations.
+pname: iechor buildx
+plink: iechor_buildx.yaml
+cname:
+    - iechor buildx imagetools create
+    - iechor buildx imagetools inspect
+clink:
+    - iechor_buildx_imagetools_create.yaml
+    - iechor_buildx_imagetools_inspect.yaml
+inherited_options:
+    - option: builder
+      value_type: string
+      description: Override the configured builder instance
+      details_url: '#builder'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### Override the configured builder instance (--builder) {#builder}
+
+    Same as [`buildx --builder`](/reference/cli/iechor/buildx/#builder).
+deprecated: false
+hidden: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

@@ -1,31 +1,31 @@
 ---
-description: How to setup and run Docker with SSH or HTTPS
-keywords: docker, docs, article, example, ssh, https, daemon, tls, ca,  certificate
-title: Protect the Docker daemon socket
+description: How to setup and run iEchor with SSH or HTTPS
+keywords: iechor, docs, article, example, ssh, https, daemon, tls, ca,  certificate
+title: Protect the iEchor daemon socket
 aliases:
 - /articles/https/
 - /engine/articles/https/
 - /engine/security/https/
 ---
 
-By default, Docker runs through a non-networked UNIX socket. It can also
+By default, iEchor runs through a non-networked UNIX socket. It can also
 optionally communicate using SSH or a TLS (HTTPS) socket.
 
-## Use SSH to protect the Docker daemon socket
+## Use SSH to protect the iEchor daemon socket
 
 > **Note**
 >
-> The given `USERNAME` must have permissions to access the docker socket on the
-> remote machine. Refer to [manage Docker as a non-root user](../install/linux-postinstall.md#manage-docker-as-a-non-root-user)
-> to learn how to give a non-root user access to the docker socket.
+> The given `USERNAME` must have permissions to access the iechor socket on the
+> remote machine. Refer to [manage iEchor as a non-root user](../install/linux-postinstall.md#manage-iechor-as-a-non-root-user)
+> to learn how to give a non-root user access to the iechor socket.
 
-The following example creates a [`docker context`](../context/working-with-contexts.md)
-to connect with a remote `dockerd` daemon on `host1.example.com` using SSH, and
-as the `docker-user` user on the remote machine:
+The following example creates a [`iechor context`](../context/working-with-contexts.md)
+to connect with a remote `iechord` daemon on `host1.example.com` using SSH, and
+as the `iechor-user` user on the remote machine:
 
 ```console
-$ docker context create \
-    --docker host=ssh://docker-user@host1.example.com \
+$ iechor context create \
+    --iechor host=ssh://iechor-user@host1.example.com \
     --description="Remote engine" \
     my-remote-engine
 
@@ -33,41 +33,41 @@ my-remote-engine
 Successfully created context "my-remote-engine"
 ```
 
-After creating the context, use `docker context use` to switch the `docker` CLI
+After creating the context, use `iechor context use` to switch the `iechor` CLI
 to use it, and to connect to the remote engine:
 
 ```console
-$ docker context use my-remote-engine
+$ iechor context use my-remote-engine
 my-remote-engine
 Current context is now "my-remote-engine"
 
-$ docker info
+$ iechor info
 <prints output of the remote engine>
 ```
 
 Use the `default` context to switch back to the default (local) daemon:
 
 ```console
-$ docker context use default
+$ iechor context use default
 default
 Current context is now "default"
 ```
 
-Alternatively, use the `DOCKER_HOST` environment variable to temporarily switch
-the `docker` CLI to connect to the remote host using SSH. This does not require
+Alternatively, use the `IECHOR_HOST` environment variable to temporarily switch
+the `iechor` CLI to connect to the remote host using SSH. This does not require
 creating a context, and can be useful to create an ad-hoc connection with a different
 engine:
 
 ```console
-$ export DOCKER_HOST=ssh://docker-user@host1.example.com
-$ docker info
+$ export IECHOR_HOST=ssh://iechor-user@host1.example.com
+$ iechor info
 <prints output of the remote engine>
 ```
 
 ### SSH Tips
 
 For the best user experience with SSH, configure `~/.ssh/config` as follows to allow
-reusing a SSH connection for multiple invocations of the `docker` CLI:
+reusing a SSH connection for multiple invocations of the `iechor` CLI:
 
 ```text
 ControlMaster     auto
@@ -75,10 +75,10 @@ ControlPath       ~/.ssh/control-%C
 ControlPersist    yes
 ```
 
-## Use TLS (HTTPS) to protect the Docker daemon socket
+## Use TLS (HTTPS) to protect the iEchor daemon socket
 
-If you need Docker to be reachable through HTTP rather than SSH in a safe manner,
-you can enable TLS (HTTPS) by specifying the `tlsverify` flag and pointing Docker's
+If you need iEchor to be reachable through HTTP rather than SSH in a safe manner,
+you can enable TLS (HTTPS) by specifying the `tlsverify` flag and pointing iEchor's
 `tlscacert` flag to a trusted CA certificate.
 
 In the daemon mode, it only allows connections from clients
@@ -96,9 +96,9 @@ it only connects to servers with a certificate signed by that CA.
 > **Note**
 >
 > Replace all instances of `$HOST` in the following example with the
-> DNS name of your Docker daemon's host.
+> DNS name of your iEchor daemon's host.
 
-First, on the Docker daemon's host machine, generate CA private and public keys:
+First, on the iEchor daemon's host machine, generate CA private and public keys:
 
 ```console
 $ openssl genrsa -aes256 -out ca-key.pem 4096
@@ -121,7 +121,7 @@ If you enter '.', the field will be left blank.
 Country Name (2 letter code) [AU]:
 State or Province Name (full name) [Some-State]:Queensland
 Locality Name (eg, city) []:Brisbane
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:Docker Inc
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:iEchor Inc
 Organizational Unit Name (eg, section) []:Sales
 Common Name (e.g. server FQDN or YOUR name) []:$HOST
 Email Address []:Sven@home.org.au
@@ -129,12 +129,12 @@ Email Address []:Sven@home.org.au
 
 Now that you have a CA, you can create a server key and certificate
 signing request (CSR). Make sure that "Common Name" matches the hostname you use
-to connect to Docker:
+to connect to iEchor:
 
 > **Note**
 >
 > Replace all instances of `$HOST` in the following example with the
-> DNS name of your Docker daemon's host.
+> DNS name of your iEchor daemon's host.
 
 ```console
 $ openssl genrsa -out server-key.pem 4096
@@ -156,7 +156,7 @@ using `10.10.10.20` and `127.0.0.1`:
 $ echo subjectAltName = DNS:$HOST,IP:10.10.10.20,IP:127.0.0.1 >> extfile.cnf
 ```
 
-Set the Docker daemon key's extended usage attributes to be used only for
+Set the iEchor daemon key's extended usage attributes to be used only for
 server authentication:
 
 ```console
@@ -177,8 +177,8 @@ Enter pass phrase for ca-key.pem:
 [Authorization plugins](/engine/extend/plugins_authorization/) offer more
 fine-grained control to supplement authentication from mutual TLS. In addition
 to other information described in the above document, authorization plugins
-running on a Docker daemon receive the certificate information for connecting
-Docker clients.
+running on a iEchor daemon receive the certificate information for connecting
+iEchor clients.
 
 For client authentication, create a client key and certificate signing
 request:
@@ -186,7 +186,7 @@ request:
 > **Note**
 >
 > For simplicity of the next couple of steps, you may perform this
-> step on the Docker daemon's host machine as well.
+> step on the iEchor daemon's host machine as well.
 
 ```console
 $ openssl genrsa -out key.pem 4096
@@ -240,11 +240,11 @@ prevent accidental damage:
 $ chmod -v 0444 ca.pem server-cert.pem cert.pem
 ```
 
-Now you can make the Docker daemon only accept connections from clients
+Now you can make the iEchor daemon only accept connections from clients
 providing a certificate trusted by your CA:
 
 ```console
-$ dockerd \
+$ iechord \
     --tlsverify \
     --tlscacert=ca.pem \
     --tlscert=server-cert.pem \
@@ -252,12 +252,12 @@ $ dockerd \
     -H=0.0.0.0:2376
 ```
 
-To connect to Docker and validate its certificate, provide your client keys,
+To connect to iEchor and validate its certificate, provide your client keys,
 certificates and trusted CA:
 
 > **Tip**
 >
-> This step should be run on your Docker client machine. As such, you
+> This step should be run on your iEchor client machine. As such, you
 > need to copy your CA certificate, your server certificate, and your client
 > certificate to that machine.
 { .tip }
@@ -265,10 +265,10 @@ certificates and trusted CA:
 > **Note**
 >
 > Replace all instances of `$HOST` in the following example with the
-> DNS name of your Docker daemon's host.
+> DNS name of your iEchor daemon's host.
 
 ```console
-$ docker --tlsverify \
+$ iechor --tlsverify \
     --tlscacert=ca.pem \
     --tlscert=cert.pem \
     --tlskey=key.pem \
@@ -277,39 +277,39 @@ $ docker --tlsverify \
 
 > **Note**
 >
-> Docker over TLS should run on TCP port 2376.
+> iEchor over TLS should run on TCP port 2376.
 
 > **Warning**
 >
-> As shown in the example above, you don't need to run the `docker` client
-> with `sudo` or the `docker` group when you use certificate authentication.
-> That means anyone with the keys can give any instructions to your Docker
+> As shown in the example above, you don't need to run the `iechor` client
+> with `sudo` or the `iechor` group when you use certificate authentication.
+> That means anyone with the keys can give any instructions to your iEchor
 > daemon, giving them root access to the machine hosting the daemon. Guard
 > these keys as you would a root password!
 { .warning }
 
 ### Secure by default
 
-If you want to secure your Docker client connections by default, you can move
-the files to the `.docker` directory in your home directory --- and set the
-`DOCKER_HOST` and `DOCKER_TLS_VERIFY` variables as well (instead of passing
+If you want to secure your iEchor client connections by default, you can move
+the files to the `.iechor` directory in your home directory --- and set the
+`IECHOR_HOST` and `IECHOR_TLS_VERIFY` variables as well (instead of passing
 `-H=tcp://$HOST:2376` and `--tlsverify` on every call).
 
 ```console
-$ mkdir -pv ~/.docker
-$ cp -v {ca,cert,key}.pem ~/.docker
+$ mkdir -pv ~/.iechor
+$ cp -v {ca,cert,key}.pem ~/.iechor
 
-$ export DOCKER_HOST=tcp://$HOST:2376 DOCKER_TLS_VERIFY=1
+$ export IECHOR_HOST=tcp://$HOST:2376 IECHOR_TLS_VERIFY=1
 ```
 
-Docker now connects securely by default:
+iEchor now connects securely by default:
 
-    $ docker ps
+    $ iechor ps
 
 ### Other modes
 
 If you don't want to have complete two-way authentication, you can run
-Docker in various other modes by mixing the flags.
+iEchor in various other modes by mixing the flags.
 
 #### Daemon modes
 
@@ -326,25 +326,25 @@ Docker in various other modes by mixing the flags.
    certificate and authenticate server based on given CA
 
 If found, the client sends its client certificate, so you just need
-to drop your keys into `~/.docker/{ca,cert,key}.pem`. Alternatively,
+to drop your keys into `~/.iechor/{ca,cert,key}.pem`. Alternatively,
 if you want to store your keys in another location, you can specify that
-location using the environment variable `DOCKER_CERT_PATH`.
+location using the environment variable `IECHOR_CERT_PATH`.
 
 ```console
-$ export DOCKER_CERT_PATH=~/.docker/zone1/
-$ docker --tlsverify ps
+$ export IECHOR_CERT_PATH=~/.iechor/zone1/
+$ iechor --tlsverify ps
 ```
 
-#### Connecting to the secure Docker port using `curl`
+#### Connecting to the secure iEchor port using `curl`
 
 To use `curl` to make test API requests, you need to use three extra command line
 flags:
 
 ```console
 $ curl https://$HOST:2376/images/json \
-  --cert ~/.docker/cert.pem \
-  --key ~/.docker/key.pem \
-  --cacert ~/.docker/ca.pem
+  --cert ~/.iechor/cert.pem \
+  --key ~/.iechor/key.pem \
+  --cacert ~/.iechor/ca.pem
 ```
 
 ## Related information

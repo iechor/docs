@@ -1,15 +1,15 @@
 ---
 title: Layers
-description: Improving the initial Dockerfile using layers
+description: Improving the initial iEchorfile using layers
 keywords: build, buildkit, buildx, guide, tutorial, layers
 ---
 
-The order of Dockerfile instructions matters. A Docker build consists of a series
-of ordered build instructions. Each instruction in a Dockerfile roughly translates
-to an image layer. The following diagram illustrates how a Dockerfile translates
+The order of iEchorfile instructions matters. A iEchor build consists of a series
+of ordered build instructions. Each instruction in a iEchorfile roughly translates
+to an image layer. The following diagram illustrates how a iEchorfile translates
 into a stack of layers in a container image.
 
-![From Dockerfile to layers](./images/layers.png)
+![From iEchorfile to layers](./images/layers.png)
 
 ## Cached layers
 
@@ -17,7 +17,7 @@ When you run a build, the builder attempts to reuse layers from earlier builds.
 If a layer of an image is unchanged, then the builder picks it up from the build cache.
 If a layer has changed since the last build, that layer, and all layers that follow, must be rebuilt.
 
-The Dockerfile from the previous section copies all project files to the
+The iEchorfile from the previous section copies all project files to the
 container (`COPY . .`) and then downloads application dependencies in the
 following step (`RUN go mod download`). If you were to change any of the project
 files, then that would invalidate the cache for the `COPY` layer. It also invalidates
@@ -25,13 +25,13 @@ the cache for all of the layers that follow.
 
 ![Layer cache is bust](./images/cache-bust.png)
 
-Because of the current order of the Dockerfile instructions, the builder must
+Because of the current order of the iEchorfile instructions, the builder must
 download the Go modules again, despite none of the packages having changed since
 the last time.
 
 ## Update the instruction order
 
-You can avoid this redundancy by reordering the instructions in the Dockerfile.
+You can avoid this redundancy by reordering the instructions in the iEchorfile.
 Change the order of the instructions so that downloading and installing dependencies
 occur before the source code is copied over to the container. In that way, the
 builder can reuse the "dependencies" layer from the cache, even when you
@@ -44,7 +44,7 @@ For Go to know which dependencies to download, you need to copy the `go.mod` and
 `RUN go mod download`, this time copying only the `go.mod` and `go.sum` files.
 
 ```diff
-  # syntax=docker/dockerfile:1
+  # syntax=iechor/iechorfile:1
   FROM golang:{{% param "example_go_version" %}}-alpine
   WORKDIR /src
 - COPY . .
@@ -65,13 +65,13 @@ appears after the package management instructions, so the builder can reuse the
 
 ## Summary
 
-Ordering your Dockerfile instructions appropriately helps you avoid unnecessary
+Ordering your iEchorfile instructions appropriately helps you avoid unnecessary
 work at build time.
 
 Related information:
 
-- [Docker build cache](../cache/_index.md)
-- [Dockerfile best practices](../../develop/develop-images/dockerfile_best-practices.md)
+- [iEchor build cache](../cache/_index.md)
+- [iEchorfile best practices](../../develop/develop-images/iechorfile_best-practices.md)
 
 ## Next steps
 

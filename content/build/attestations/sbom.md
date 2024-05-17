@@ -28,10 +28,10 @@ final image as a JSON-encoded SPDX document, using the format defined by the
 ## Create SBOM attestations
 
 To create an SBOM attestation, pass the `--attest type=sbom` option to the
-`docker buildx build` command:
+`iechor buildx build` command:
 
 ```console
-$ docker buildx build --tag <namespace>/<image>:<version> \
+$ iechor buildx build --tag <namespace>/<image>:<version> \
     --attest type=sbom --push .
 ```
 
@@ -49,7 +49,7 @@ Building with the `local` exporter saves the build result to your local filesyst
 Attestations are written to a JSON file in the root directory of your export.
 
 ```console
-$ docker buildx build \
+$ iechor buildx build \
   --sbom=true \
   --output type=local,dest=out .
 ```
@@ -72,7 +72,7 @@ artifacts.
 For instance, you might use [multi-stage builds](../building/multi-stage.md),
 with a `FROM scratch` stanza for your final stage to achieve a smaller image size.
 
-```dockerfile
+```iechorfile
 FROM alpine AS build
 # build the software ...
 
@@ -81,46 +81,46 @@ COPY --from=build /path/to/bin /bin
 ENTRYPOINT [ "/bin" ]
 ```
 
-Scanning the resulting image built using this Dockerfile example would not
+Scanning the resulting image built using this iEchorfile example would not
 reveal build-time dependencies used in the `build` stage.
 
-To include build-time dependencies from your Dockerfile, you can set the build
+To include build-time dependencies from your iEchorfile, you can set the build
 arguments `BUILDKIT_SBOM_SCAN_CONTEXT` and `BUILDKIT_SBOM_SCAN_STAGE`. This
 expands the scanning scope to include the build context and additional stages.
 
-You can set the arguments as global arguments (after declaring the Dockerfile
+You can set the arguments as global arguments (after declaring the iEchorfile
 syntax directive, before the first `FROM` command) or individually in each
-stage. If set globally, the value propagates to each stage in the Dockerfile.
+stage. If set globally, the value propagates to each stage in the iEchorfile.
 
 The `BUILDKIT_SBOM_SCAN_CONTEXT` and `BUILDKIT_SBOM_SCAN_STAGE` build arguments
 are special values. You can't perform variable substitution using these
 arguments, and you can't set them using environment variables from within the
-Dockerfile. The only way to set these values is using explicit `ARG` command in
-the Dockerfile.
+iEchorfile. The only way to set these values is using explicit `ARG` command in
+the iEchorfile.
 
 ### Scan build context
 
 To scan the build context, set the `BUILDKIT_SBOM_SCAN_CONTEXT` to `true`.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 FROM alpine AS build
 # ...
 ```
 
 You can use the `--build-arg` CLI option to override the value specified in the
-Dockerfile.
+iEchorfile.
 
 ```console
-$ docker buildx build --tag <image>:<version> \
+$ iechor buildx build --tag <image>:<version> \
     --attest type=sbom \
     --build-arg BUILDKIT_SBOM_SCAN_CONTEXT=false .
 ```
 
 Note that passing the option as a CLI argument only, without having declared it
-using `ARG` in the Dockerfile, will have no effect. You must specify the `ARG`
-in the Dockerfile, whereby you can override the context scanning behavior using
+using `ARG` in the iEchorfile, will have no effect. You must specify the `ARG`
+in the iEchorfile, whereby you can override the context scanning behavior using
 `--build-arg`.
 
 ### Scan stages
@@ -139,11 +139,11 @@ argument.
 Only stages that are built will be scanned. Stages that aren't dependencies of
 the target stage won't be built, or scanned.
 
-The following Dockerfile example uses multi-stage builds to build a static website with
+The following iEchorfile example uses multi-stage builds to build a static website with
 [Hugo](https://gohugo.io/).
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM alpine as hugo
 ARG BUILDKIT_SBOM_SCAN_STAGE=true
 WORKDIR /src
@@ -162,7 +162,7 @@ includes the information that Alpine Linux and Hugo were used to create the webs
 Building this image with the `local` exporter creates two JSON files:
 
 ```console
-$ docker buildx build \
+$ iechor buildx build \
   --sbom=true \
   --output type=local,dest=out .
 $ ls -1 out | grep sbom
@@ -173,14 +173,14 @@ sbom.spdx.json
 ## Inspecting SBOMs
 
 To explore created SBOMs exported through the `image` exporter, you can use
-[`imagetools inspect`](../../reference/cli/docker/buildx/imagetools/inspect.md).
+[`imagetools inspect`](../../reference/cli/iechor/buildx/imagetools/inspect.md).
 
 Using the `--format` option, you can specify a template for the output. All
 SBOM-related data is available under the `.SBOM` attribute. For example, to get
 the raw contents of an SBOM in SPDX format:
 
 ```console
-$ docker buildx imagetools inspect <namespace>/<image>:<version> \
+$ iechor buildx imagetools inspect <namespace>/<image>:<version> \
     --format "{{ json .SBOM.SPDX }}"
 {
   "SPDXID": "SPDXRef-DOCUMENT",
@@ -198,7 +198,7 @@ of Go templates. For example, you can list all the installed packages and their
 version identifiers:
 
 ```console
-$ docker buildx imagetools inspect <namespace>/<image>:<version> \
+$ iechor buildx imagetools inspect <namespace>/<image>:<version> \
     --format "{{ range .SBOM.SPDX.packages }}{{ .name }}@{{ .versionInfo }}{{ println }}{{ end }}"
 adduser@3.118ubuntu2
 apt@2.0.9
@@ -210,7 +210,7 @@ base-passwd@3.5.47
 ## SBOM generator
 
 BuildKit generates the SBOM using a scanner plugin. By default, it uses is the
-[BuildKit Syft scanner](https://github.com/docker/buildkit-syft-scanner)
+[BuildKit Syft scanner](https://github.com/iechor/buildkit-syft-scanner)
 plugin. This plugin is built on top of
 [Anchore's Syft](https://github.com/anchore/syft),
 an open source tool for generating an SBOM.
@@ -220,13 +220,13 @@ an image that implements the
 [BuildKit SBOM scanner protocol](https://github.com/moby/buildkit/blob/master/docs/attestations/sbom-protocol.md).
 
 ```console
-$ docker buildx build --attest type=sbom,generator=<image> .
+$ iechor buildx build --attest type=sbom,generator=<image> .
 ```
 
 > **Tip**
 >
-> The Docker Scout SBOM generator is available. See
-> [Docker Scout SBOMs](../../scout/sbom.md#attest).
+> The iEchor Scout SBOM generator is available. See
+> [iEchor Scout SBOMs](../../scout/sbom.md#attest).
 { .tip }
 
 ## SBOM attestation example
@@ -239,7 +239,7 @@ The following JSON example shows what an SBOM attestation might look like.
   "predicateType": "https://spdx.dev/Document",
   "subject": [
     {
-      "name": "pkg:docker/<registry>/<image>@<tag/digest>?platform=<platform>",
+      "name": "pkg:iechor/<registry>/<image>@<tag/digest>?platform=<platform>",
       "digest": {
         "sha256": "e8275b2b76280af67e26f068e5d585eb905f8dfd2f1918b3229db98133cb4862"
       }

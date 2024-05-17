@@ -18,7 +18,7 @@ Redis 3.0.7 container image using rolling updates.
     update delay. Note that the following example shows an older Redis tag:
 
     ```console
-    $ docker service create \
+    $ iechor service create \
       --replicas 3 \
       --name redis \
       --update-delay 10s \
@@ -42,13 +42,13 @@ Redis 3.0.7 container image using rolling updates.
     `RUNNING`, the scheduler schedules another task to update until all tasks
     are updated. If at any time during an update a task returns `FAILED`, the
     scheduler pauses the update. You can control the behavior using the
-    `--update-failure-action` flag for `docker service create` or
-    `docker service update`.
+    `--update-failure-action` flag for `iechor service create` or
+    `iechor service update`.
 
 3.  Inspect the `redis` service:
 
     ```console
-    $ docker service inspect --pretty redis
+    $ iechor service inspect --pretty redis
 
     ID:             0u6a4s31ybk7yw2wyvtikmu50
     Name:           redis
@@ -69,7 +69,7 @@ Redis 3.0.7 container image using rolling updates.
     applies the update to nodes according to the `UpdateConfig` policy:
 
     ```console
-    $ docker service update --image redis:3.0.7 redis
+    $ iechor service update --image redis:3.0.7 redis
     redis
     ```
 
@@ -83,11 +83,11 @@ Redis 3.0.7 container image using rolling updates.
     * If, at any time during the update, a task returns `FAILED`, pause the
       update.
 
-5.  Run `docker service inspect --pretty redis` to see the new image in the
+5.  Run `iechor service inspect --pretty redis` to see the new image in the
     desired state:
 
     ```console
-    $ docker service inspect --pretty redis
+    $ iechor service inspect --pretty redis
 
     ID:             0u6a4s31ybk7yw2wyvtikmu50
     Name:           redis
@@ -107,7 +107,7 @@ Redis 3.0.7 container image using rolling updates.
     The output of `service inspect` shows if your update paused due to failure:
 
     ```console
-    $ docker service inspect --pretty redis
+    $ iechor service inspect --pretty redis
 
     ID:             0u6a4s31ybk7yw2wyvtikmu50
     Name:           redis
@@ -119,19 +119,19 @@ Redis 3.0.7 container image using rolling updates.
     ...snip...
     ```
 
-    To restart a paused update run `docker service update <SERVICE-ID>`. For example:
+    To restart a paused update run `iechor service update <SERVICE-ID>`. For example:
 
     ```console
-    $ docker service update redis
+    $ iechor service update redis
     ```
 
     To avoid repeating certain update failures, you may need to reconfigure the
-    service by passing flags to `docker service update`.
+    service by passing flags to `iechor service update`.
 
-6.  Run `docker service ps <SERVICE-ID>` to watch the rolling update:
+6.  Run `iechor service ps <SERVICE-ID>` to watch the rolling update:
 
     ```console
-    $ docker service ps redis
+    $ iechor service ps redis
 
     NAME                                   IMAGE        NODE       DESIRED STATE  CURRENT STATE            ERROR
     redis.1.dos1zffgeofhagnve8w864fco      redis:3.0.7  worker1    Running        Running 37 seconds

@@ -1,10 +1,10 @@
 ---
 description: How swarm mode services work
-keywords: docker, container, cluster, swarm mode, node
+keywords: iechor, container, cluster, swarm mode, node
 title: How services work
 ---
 
-To deploy an application image when Docker Engine is in Swarm mode, you create a
+To deploy an application image when iEchor Engine is in Swarm mode, you create a
 service. Frequently a service is the image for a microservice within the
 context of some larger application. Examples of services might include an HTTP
 server, a database, or any other type of executable program that you wish to run
@@ -56,12 +56,12 @@ series of states: assigned, prepared, running, etc. If the task fails, the
 orchestrator removes the task and its container and then creates a new task to
 replace it according to the desired state specified by the service.
 
-The underlying logic of Docker's Swarm mode is a general purpose scheduler and
+The underlying logic of iEchor's Swarm mode is a general purpose scheduler and
 orchestrator. The service and task abstractions themselves are unaware of the
 containers they implement. Hypothetically, you could implement other types of
 tasks such as virtual machine tasks or non-containerized process tasks. The
 scheduler and orchestrator are agnostic about the type of the task. However, the
-current version of Docker only supports container tasks.
+current version of iEchor only supports container tasks.
 
 The diagram below shows how Swarm mode accepts service create requests and
 schedules tasks to worker nodes.

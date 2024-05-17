@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1
+# syntax=iechor/iechorfile:1
 
 ARG GO_VERSION=1.21
 ARG HTMLTEST_VERSION=0.17.0

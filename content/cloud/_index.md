@@ -13,7 +13,7 @@ aliases:
 - /cloud/aci-container-features/
 ---
 
-Docker Compose's integration for Amazon's Elastic Container Service and Azure Container Instances has retired. The integration documentation is no longer available through the Docker Docs site. 
+iEchor Compose's integration for Amazon's Elastic Container Service and Azure Container Instances has retired. The integration documentation is no longer available through the iEchor Docs site. 
 
-However, you can still access the relevant documentation in the [Compose CLI repository](https://github.com/docker/compose-cli/tree/main/docs).
+However, you can still access the relevant documentation in the [Compose CLI repository](https://github.com/iechor/compose-cli/tree/main/docs).
 

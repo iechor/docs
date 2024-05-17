@@ -1,5 +1,5 @@
 ---
 title: Flask samples
-description: Docker samples for Flask.
+description: iEchor samples for Flask.
 service: flask
 ---

@@ -1,0 +1,105 @@
+command: iechor plugin set
+short: Change settings for a plugin
+long: |-
+    Change settings for a plugin. The plugin must be disabled.
+
+    The settings currently supported are:
+     * env variables
+     * source of mounts
+     * path of devices
+     * args
+usage: iechor plugin set PLUGIN KEY=VALUE [KEY=VALUE...]
+pname: iechor plugin
+plink: iechor_plugin.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+examples: |-
+    ### Change an environment variable
+
+    The following example change the env variable `DEBUG` on the
+    `sample-volume-plugin` plugin.
+
+    ```console
+    $ iechor plugin inspect -f {{.Settings.Env}} tiborvass/sample-volume-plugin
+    [DEBUG=0]
+
+    $ iechor plugin set tiborvass/sample-volume-plugin DEBUG=1
+
+    $ iechor plugin inspect -f {{.Settings.Env}} tiborvass/sample-volume-plugin
+    [DEBUG=1]
+    ```
+
+    ### Change the source of a mount
+
+    The following example change the source of the `mymount` mount on
+    the `myplugin` plugin.
+
+    ```console
+    $ iechor plugin inspect -f '{{with $mount := index .Settings.Mounts 0}}{{$mount.Source}}{{end}}' myplugin
+    /foo
+
+    $ iechor plugins set myplugin mymount.source=/bar
+
+    $ iechor plugin inspect -f '{{with $mount := index .Settings.Mounts 0}}{{$mount.Source}}{{end}}' myplugin
+    /bar
+    ```
+
+    > **Note**
+    >
+    > Since only `source` is settable in `mymount`,
+    > `iechor plugins set mymount=/bar myplugin` would work too.
+
+    ### Change a device path
+
+    The following example change the path of the `mydevice` device on
+    the `myplugin` plugin.
+
+    ```console
+    $ iechor plugin inspect -f '{{with $device := index .Settings.Devices 0}}{{$device.Path}}{{end}}' myplugin
+
+    /dev/foo
+
+    $ iechor plugins set myplugin mydevice.path=/dev/bar
+
+    $ iechor plugin inspect -f '{{with $device := index .Settings.Devices 0}}{{$device.Path}}{{end}}' myplugin
+
+    /dev/bar
+    ```
+
+    > **Note**
+    >
+    > Since only `path` is settable in `mydevice`,
+    > `iechor plugins set mydevice=/dev/bar myplugin` would work too.
+
+    ### Change the source of the arguments
+
+    The following example change the value of the args on the `myplugin` plugin.
+
+    ```console
+    $ iechor plugin inspect -f '{{.Settings.Args}}' myplugin
+
+    ["foo", "bar"]
+
+    $ iechor plugins set myplugin myargs="foo bar baz"
+
+    $ iechor plugin inspect -f '{{.Settings.Args}}' myplugin
+
+    ["foo", "bar", "baz"]
+    ```
+deprecated: false
+hidden: false
+min_api_version: "1.25"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

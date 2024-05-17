@@ -1,6 +1,6 @@
 ---
 description: Dev Environments
-keywords: Dev Environments, share, Docker Desktop, Compose, launch
+keywords: Dev Environments, share, iEchor Desktop, Compose, launch
 title: Launch a dev environment
 aliases:
 - /desktop/dev-environments/create-compose-dev-env/
@@ -18,7 +18,7 @@ This does not conflict with any of the local files or local tooling set up on yo
 
 >Tip
 >
->Install the [Dev Environments browser extension](https://github.com/docker/dev-envs-extension) for [Chrome](https://chrome.google.com/webstore/detail/docker-dev-environments/gnagpachnalcofcblcgdbofnfakdbeka) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/docker-dev-environments/), to launch a dev environment faster.
+>Install the [Dev Environments browser extension](https://github.com/iechor/dev-envs-extension) for [Chrome](https://chrome.google.com/webstore/detail/iechor-dev-environments/gnagpachnalcofcblcgdbofnfakdbeka) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/iechor-dev-environments/), to launch a dev environment faster.
 { .tip }
 
 ## Prerequisites
@@ -29,7 +29,7 @@ To get started with Dev Environments, you must also install the following tools 
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Visual Studio Code Remote Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
- After Git is installed, restart Docker Desktop. Select **Quit Docker Desktop**, and then start it again.
+ After Git is installed, restart iEchor Desktop. Select **Quit iEchor Desktop**, and then start it again.
 
 ## Launch a dev environment from a Git repository
 
@@ -39,7 +39,7 @@ To get started with Dev Environments, you must also install the following tools 
 
 > **Important**
 >
-> If you have enabled the WSL 2 integration in Docker Desktop for Windows, make sure you have an SSH agent running in your WSL 2 distribution.
+> If you have enabled the WSL 2 integration in iEchor Desktop for Windows, make sure you have an SSH agent running in your WSL 2 distribution.
 { .important }
 
 {{< accordion title="How to start an SSH agent in WSL 2" >}}
@@ -70,7 +70,7 @@ fi
 
 To launch a dev environment:
 
-1. From the **Dev Environments** tab in Docker Dashboard, select **Create**. The **Create a Dev Environment** dialog displays.
+1. From the **Dev Environments** tab in iEchor Dashboard, select **Create**. The **Create a Dev Environment** dialog displays.
 2. Select **Get Started**. 
 3. Optional: Provide a name for you dev environment.
 4. Select **Existing Git repo** as the source and then paste your Git repository link into the field provided.
@@ -86,21 +86,21 @@ To launch the application, run the command `make run` in your terminal. This ope
 
 You can launch a dev environment from a specific branch, for example a branch corresponding to a Pull Request, or a tag by adding `@mybranch` or `@tag` as a suffix to your Git URL:
 
- `https://github.com/dockersamples/single-dev-env@mybranch`
+ `https://github.com/iechorsamples/single-dev-env@mybranch`
 
  or
 
- `git@github.com:dockersamples/single-dev-env.git@mybranch`
+ `git@github.com:iechorsamples/single-dev-env.git@mybranch`
 
-Docker then clones the repository with your specified branch or tag.
+iEchor then clones the repository with your specified branch or tag.
 
 ## Launch from a subfolder of a Git repository
 
 >Note
 >
->Currently, Dev Environments is not able to detect the main language of the subdirectory. You need to define your own base image or services in a `compose-dev.yaml`file located in your subdirectory. For more information on how to configure, see the [React application with a Spring backend and a MySQL database sample](https://github.com/docker/awesome-compose/tree/master/react-java-mysql) or the [Go server with an Nginx proxy and a Postgres database sample](https://github.com/docker/awesome-compose/tree/master/nginx-golang-postgres). 
+>Currently, Dev Environments is not able to detect the main language of the subdirectory. You need to define your own base image or services in a `compose-dev.yaml`file located in your subdirectory. For more information on how to configure, see the [React application with a Spring backend and a MySQL database sample](https://github.com/iechor/awesome-compose/tree/master/react-java-mysql) or the [Go server with an Nginx proxy and a Postgres database sample](https://github.com/iechor/awesome-compose/tree/master/nginx-golang-postgres). 
 
-1. From **Dev Environments** in Docker Dashboard, select **Create**. The **Create a Dev Environment** dialog displays.
+1. From **Dev Environments** in iEchor Dashboard, select **Create**. The **Create a Dev Environment** dialog displays.
 2. Select **Get Started**.
 3. Optional: Provide a name for you dev environment.
 4. Select **Existing Git repo** as the source and then paste the link of your Git repo subfolder into the field provided.
@@ -113,7 +113,7 @@ To launch the application, run the command `make run` in your terminal. This ope
 
 ## Launch from a local folder
 
-1. From **Dev Environments** in Docker Dashboard, select **Create**. The **Create a Dev Environment** dialog displays.
+1. From **Dev Environments** in iEchor Dashboard, select **Create**. The **Create a Dev Environment** dialog displays.
 2. Select **Get Started**.
 3. Optional: Provide a name for your dev environment.
 4. Choose **Local directory** as the source.

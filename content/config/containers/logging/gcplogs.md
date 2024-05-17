@@ -1,6 +1,6 @@
 ---
-description: Learn how to use the Google Cloud Logging driver with Docker Engine
-keywords: gcplogs, google, docker, logging, driver
+description: Learn how to use the Google Cloud Logging driver with iEchor Engine
+keywords: gcplogs, google, iechor, logging, driver
 title: Google Cloud Logging driver
 aliases:
   - /engine/admin/logging/gcplogs/
@@ -14,10 +14,10 @@ Logging.
 
 To use the `gcplogs` driver as the default logging driver, set the `log-driver`
 and `log-opt` keys to appropriate values in the `daemon.json` file, which is
-located in `/etc/docker/` on Linux hosts or
-`C:\ProgramData\docker\config\daemon.json` on Windows Server. For more about
-configuring Docker using `daemon.json`, see
-[daemon.json](../../../reference/cli/dockerd.md#daemon-configuration-file).
+located in `/etc/iechor/` on Linux hosts or
+`C:\ProgramData\iechor\config\daemon.json` on Windows Server. For more about
+configuring iEchor using `daemon.json`, see
+[daemon.json](../../../reference/cli/iechord.md#daemon-configuration-file).
 
 The following example sets the log driver to `gcplogs` and sets the
 `gcp-meta-name` option.
@@ -31,27 +31,27 @@ The following example sets the log driver to `gcplogs` and sets the
 }
 ```
 
-Restart Docker for the changes to take effect.
+Restart iEchor for the changes to take effect.
 
 You can set the logging driver for a specific container by using the
-`--log-driver` option to `docker run`:
+`--log-driver` option to `iechor run`:
 
 ```console
-$ docker run --log-driver=gcplogs ...
+$ iechor run --log-driver=gcplogs ...
 ```
 
-If Docker detects that it's running in a Google Cloud Project, it discovers
+If iEchor detects that it's running in a Google Cloud Project, it discovers
 configuration from the
 [instance metadata service](https://cloud.google.com/compute/docs/metadata).
 Otherwise, the user must specify
-which project to log to using the `--gcp-project` log option and Docker
+which project to log to using the `--gcp-project` log option and iEchor
 attempts to obtain credentials from the
 [Google Application Default Credential](https://developers.google.com/identity/protocols/application-default-credentials).
 The `--gcp-project` flag takes precedence over information discovered from the
-metadata server, so a Docker daemon running in a Google Cloud project can be
+metadata server, so a iEchor daemon running in a Google Cloud project can be
 overridden to log to a different project using `--gcp-project`.
 
-Docker fetches the values for zone, instance name and instance ID from Google
+iEchor fetches the values for zone, instance name and instance ID from Google
 Cloud metadata server. Those values can be provided via options if metadata
 server isn't available. They don't override the values from metadata server.
 
@@ -80,7 +80,7 @@ The following is an example of the logging options required to log to the defaul
 logging destination which is discovered by querying the Google Cloud metadata server.
 
 ```console
-$ docker run \
+$ iechor run \
     --log-driver=gcplogs \
     --log-opt labels=location \
     --log-opt env=TEST \
@@ -104,7 +104,7 @@ Environment="GOOGLE_APPLICATION_CREDENTIALS=uQWVCPkMTI34bpssr1HI"
 ```
 
 ```console
-$ docker run \
+$ iechor run \
     --log-driver=gcplogs \
     --log-opt gcp-project=test-project \
     --log-opt gcp-meta-zone=west1 \

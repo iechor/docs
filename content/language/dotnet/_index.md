@@ -1,12 +1,12 @@
 ---
-description: Containerize and develop .NET apps using Docker
+description: Containerize and develop .NET apps using iEchor
 keywords: getting started, .net
 title: .NET language-specific guide
 toc_min: 1
 toc_max: 2
 ---
 
-The .NET getting started guide teaches you how to create a containerized .NET application using Docker. In this guide, you'll learn how to:
+The .NET getting started guide teaches you how to create a containerized .NET application using iEchor. In this guide, you'll learn how to:
 
 * Containerize and run a .NET application
 * Set up a local environment to develop a .NET application using containers

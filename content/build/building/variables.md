@@ -7,7 +7,7 @@ aliases:
 - /build/building/env-vars/
 ---
 
-In Docker Build, build arguments (`ARG`) and environment variables (`ENV`)
+In iEchor Build, build arguments (`ARG`) and environment variables (`ENV`)
 both serve as a means to pass information into the build process.
 You can use them to parameterize the build, allowing for more flexible and configurable builds.
 
@@ -23,23 +23,23 @@ You can use them to parameterize the build, allowing for more flexible and confi
 ## Similarities and differences
 
 Build arguments and environment variables are similar.
-They're both declared in the Dockerfile and can be set using flags for the `docker build` command.
+They're both declared in the iEchorfile and can be set using flags for the `iechor build` command.
 Both can be used to parametrize the build.
 But they each serve a distinct purpose.
 
 ### Build arguments
 
-Build arguments are variables for the Dockerfile itself.
-Use them to parametrize values of Dockerfile instructions.
+Build arguments are variables for the iEchorfile itself.
+Use them to parametrize values of iEchorfile instructions.
 For example, you might use a build argument to specify the version of a dependency to install.
 
 Build arguments have no effect on the build unless it's used in an instruction.
 They're not accessible or present in containers instantiated from the image
-unless explicitly passed through from the Dockerfile into the image filesystem or configuration.
+unless explicitly passed through from the iEchorfile into the image filesystem or configuration.
 They may persist in the image metadata, as provenance attestations and in the image history,
 which is why they're not suitable for holding secrets.
 
-They make Dockerfiles more flexible, and easier to maintain.
+They make iEchorfiles more flexible, and easier to maintain.
 
 For an example on how you can use build arguments,
 see [`ARG` usage example](#arg-usage-example).
@@ -58,7 +58,7 @@ Environment variables, if set, can directly influence the execution of your buil
 and the behavior or configuration of the application.
 
 You can't override or set an environment variable at build-time.
-Values for environment variables must be declared in the Dockerfile.
+Values for environment variables must be declared in the iEchorfile.
 You can combine environment variables and build arguments to allow
 environment variables to be configured at build-time.
 
@@ -71,8 +71,8 @@ Build arguments are commonly used to specify versions of components,
 such as image variants or package versions, used in a build.
 
 Specifying versions as build arguments lets build with different versions
-without having to manually update the Dockerfile.
-It also makes it easier to maintain the Dockerfile,
+without having to manually update the iEchorfile.
+It also makes it easier to maintain the iEchorfile,
 since it lets you declare versions at the top of the file.
 
 Build arguments can also be a way to reuse a value in multiple places.
@@ -85,8 +85,8 @@ you can ensure you're using the same version of `alpine` everywhere:
 
 The following example defines the version of `node` and `alpine` using build arguments.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 ARG NODE_VERSION="{{% param example_node_version %}}"
 ARG ALPINE_VERSION="{{% param example_alpine_version %}}"
@@ -111,13 +111,13 @@ Specifying their values when you invoke a build is optional.
 To override the defaults, you would use the `--build-arg` CLI flag:
 
 ```console
-$ docker build --build-arg NODE_VERSION=current .
+$ iechor build --build-arg NODE_VERSION=current .
 ```
 
 For more information on how to use build arguments, refer to:
 
-- [`ARG` Dockerfile reference](../../reference/dockerfile.md#arg)
-- [`docker build --build-arg` reference](../../reference/cli/docker/image/build.md#build-arg)
+- [`ARG` iEchorfile reference](../../reference/iechorfile.md#arg)
+- [`iechor build --build-arg` reference](../../reference/cli/iechor/image/build.md#build-arg)
 
 ## `ENV` usage example
 
@@ -127,8 +127,8 @@ The following example shows an example setting `NODE_ENV` to `production`
 before installing JavaScript dependencies with `npm`.
 Setting the variable makes `npm` omits packages needed only for local development.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 FROM node:20
 WORKDIR /app
@@ -143,8 +143,8 @@ Environment variables aren't configurable at build-time by default.
 If you want to change the value of an `ENV` at build-time,
 you can combine environment variables and build arguments:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 FROM node:20
 ARG NODE_ENV=production
@@ -156,10 +156,10 @@ COPY . .
 CMD ["node", "app.js"]
 ```
 
-With this Dockerfile, you can use `--build-arg` to override the default value of `ENV`:
+With this iEchorfile, you can use `--build-arg` to override the default value of `ENV`:
 
 ```console
-$ docker build --build-arg NODE_ENV=development .
+$ iechor build --build-arg NODE_ENV=development .
 ```
 
 Note that, because the environment variables you set persist in containers,
@@ -167,16 +167,16 @@ using them can lead to unintended side-effects for the application's runtime.
 
 For more information on how to use environment variables in builds, refer to:
 
-- [`ENV` Dockerfile reference](../../reference/dockerfile.md#env)
+- [`ENV` iEchorfile reference](../../reference/iechorfile.md#env)
 
 ## Scoping
 
-Build arguments declared in the global scope of a Dockerfile
+Build arguments declared in the global scope of a iEchorfile
 aren't automatically inherited into the build stages.
 They're only accessible in the global scope.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 # The following build argument is declared in the global scope:
 ARG NAME="joe"
@@ -191,8 +191,8 @@ The `echo` command in this example evaluates to `hello !`
 because the value of the `NAME` build argument is out of scope.
 To inherit global build arguments into a stage, you must consume them:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 # Declare the build argument in the global scope
 ARG NAME="joe"
@@ -206,8 +206,8 @@ RUN echo $NAME
 Once a build argument is declared or consumed in a stage,
 it's automatically inherited by child stages.
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 FROM alpine AS base
 # Declare the build argument in the build stage
 ARG NAME="joe"
@@ -241,7 +241,7 @@ of the host system where the builder (the BuildKit daemon) is running.
 - `BUILDVARIANT`
 
 The target platform arguments hold the same values for the target platforms for the build,
-specified using the `--platform` flag for the `docker build` command.
+specified using the `--platform` flag for the `iechor build` command.
 
 - `TARGETPLATFORM`
 - `TARGETOS`
@@ -249,12 +249,12 @@ specified using the `--platform` flag for the `docker build` command.
 - `TARGETVARIANT`
 
 These arguments are useful for doing cross-compilation in multi-platform builds.
-They're available in the global scope of the Dockerfile,
+They're available in the global scope of the iEchorfile,
 but they aren't automatically inherited by build stages.
 To use them inside stage, you must declare them:
 
-```dockerfile
-# syntax=docker/dockerfile:1
+```iechorfile
+# syntax=iechor/iechorfile:1
 
 # Pre-defined build arguments are available in the global scope
 FROM --platform=$BUILDPLATFORM golang
@@ -264,17 +264,17 @@ RUN GOOS=$TARGETOS go build -o ./exe .
 ```
 
 For more information about multi-platform build arguments, refer to
-[Multi-platform arguments](../../reference/dockerfile.md#automatic-platform-args-in-the-global-scope)
+[Multi-platform arguments](../../reference/iechorfile.md#automatic-platform-args-in-the-global-scope)
 
 ### Proxy arguments
 
 Proxy build arguments let you specify proxies to use for your build.
-You don't need to declare or reference these arguments in the Dockerfile.
+You don't need to declare or reference these arguments in the iEchorfile.
 Specifying a proxy with `--build-arg` is enough to make your build use the proxy.
 
 Proxy arguments are automatically excluded from the build cache
-and the output of `docker history` by default.
-If you do reference the arguments in your Dockerfile,
+and the output of `iechor history` by default.
+If you do reference the arguments in your iEchorfile,
 the proxy configuration ends up in the build cache.
 
 The builder respects the following proxy build arguments.
@@ -289,11 +289,11 @@ The variables are case insensitive.
 To configure a proxy for your build:
 
 ```console
-$ docker build --build-arg HTTP_PROXY=https://my-proxy.example.com .
+$ iechor build --build-arg HTTP_PROXY=https://my-proxy.example.com .
 ```
 
 For more information about proxy build arguments, refer to
-[Proxy arguments](../../reference/dockerfile.md#predefined-args).
+[Proxy arguments](../../reference/iechorfile.md#predefined-args).
 
 ## Build tool configuration variables
 
@@ -322,14 +322,14 @@ They're used to configure the Buildx client, or the BuildKit daemon.
 | [EXPERIMENTAL_BUILDKIT_SOURCE_POLICY](#experimental_buildkit_source_policy) | String            | Specify a BuildKit source policy file.               |
 
 BuildKit also supports a few additional configuration parameters. Refer to
-[BuildKit built-in build args](../../reference/dockerfile.md#buildkit-built-in-build-args).
+[BuildKit built-in build args](../../reference/iechorfile.md#buildkit-built-in-build-args).
 
 You can express Boolean values for environment variables in different ways.
 For example, `true`, `1`, and `T` all evaluate to true.
 Evaluation is done using the `strconv.ParseBool` function in the Go standard library.
 See the [reference documentation](https://pkg.go.dev/strconv#ParseBool) for details.
 
-<!-- vale Docker.HeadingSentenceCase = NO -->
+<!-- vale iEchor.HeadingSentenceCase = NO -->
 
 ### BUILDKIT_COLORS
 
@@ -352,13 +352,13 @@ Setting `NO_COLOR` to anything turns off colorized output, as recommended by
 
 You use the `BUILDKIT_HOST` to specify the address of a BuildKit daemon to use
 as a remote builder. This is the same as specifying the address as a positional
-argument to `docker buildx create`.
+argument to `iechor buildx create`.
 
 Usage:
 
 ```console
 $ export BUILDKIT_HOST=tcp://localhost:1234
-$ docker buildx create --name=remote --driver=remote
+$ iechor buildx create --name=remote --driver=remote
 ```
 
 If you specify both the `BUILDKIT_HOST` environment variable and a positional
@@ -406,10 +406,10 @@ Example:
     {
       "action": "CONVERT",
       "selector": {
-        "identifier": "docker-image://docker.io/library/alpine:latest"
+        "identifier": "iechor-image://iechor.io/library/alpine:latest"
       },
       "updates": {
-        "identifier": "docker-image://docker.io/library/alpine:latest@sha256:4edbd2beb5f78b1014028f4fbb99f3237d9561100b6881aabbf5acce2c4f9454"
+        "identifier": "iechor-image://iechor.io/library/alpine:latest@sha256:4edbd2beb5f78b1014028f4fbb99f3237d9561100b6881aabbf5acce2c4f9454"
       }
     },
     {
@@ -424,7 +424,7 @@ Example:
     {
       "action": "DENY",
       "selector": {
-        "identifier": "docker-image://docker.io/library/golang*"
+        "identifier": "iechor-image://iechor.io/library/golang*"
       }
     }
   ]
@@ -480,7 +480,7 @@ $ export BUILDX_BAKE_GIT_SSH=/run/foo/listener.sock,~/.creds/ssh.sock
 
 ### BUILDX_BUILDER
 
-Overrides the configured builder instance. Same as the `docker buildx --builder`
+Overrides the configured builder instance. Same as the `iechor buildx --builder`
 CLI flag.
 
 Usage:
@@ -496,8 +496,8 @@ configuration, state, and logs. The lookup order for this directory is as
 follows:
 
 - `$BUILDX_CONFIG`
-- `$DOCKER_CONFIG/buildx`
-- `~/.docker/buildx` (default)
+- `$IECHOR_CONFIG/buildx`
+- `~/.iechor/buildx` (default)
 
 Usage:
 
@@ -548,7 +548,7 @@ $ export BUILDX_GIT_INFO=0
 Adds provenance labels, based on Git information, to images that you build. The
 labels are:
 
-- `com.docker.image.source.entrypoint`: Location of the Dockerfile relative to
+- `com.iechor.image.source.entrypoint`: Location of the iEchorfile relative to
   the project root
 - `org.opencontainers.image.revision`: Git commit revision
 - `org.opencontainers.image.source`: SSH or HTTPS address of the repository
@@ -557,7 +557,7 @@ Example:
 
 ```json
   "Labels": {
-    "com.docker.image.source.entrypoint": "Dockerfile",
+    "com.iechor.image.source.entrypoint": "iEchorfile",
     "org.opencontainers.image.revision": "5734329c6af43c2ae295010778cd308866b95d9b",
     "org.opencontainers.image.source": "git@github.com:foo/bar.git"
   }
@@ -587,7 +587,7 @@ $ export BUILDX_NO_DEFAULT_ATTESTATIONS=1
 
 ### BUILDX_NO_DEFAULT_LOAD
 
-When you build an image using the `docker` driver, the image is automatically
+When you build an image using the `iechor` driver, the image is automatically
 loaded to the image store when the build finishes. Set `BUILDX_NO_DEFAULT_LOAD`
 to disable automatic loading of images to the local container store.
 
@@ -597,4 +597,4 @@ Usage:
 $ export BUILDX_NO_DEFAULT_LOAD=1
 ```
 
-<!-- vale Docker.HeadingSentenceCase = YES -->
+<!-- vale iEchor.HeadingSentenceCase = YES -->

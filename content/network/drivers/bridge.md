@@ -5,8 +5,8 @@ keywords: network, bridge, user-defined, standalone
 aliases:
 - /config/containers/bridges/
 - /engine/userguide/networking/default_network/build-bridges/
-- /engine/userguide/networking/default_network/custom-docker0/
-- /engine/userguide/networking/default_network/dockerlinks/
+- /engine/userguide/networking/default_network/custom-iechor0/
+- /engine/userguide/networking/default_network/iechorlinks/
 - /engine/userguide/networking/work-with-networks/
 - /network/bridge/
 ---
@@ -15,19 +15,19 @@ In terms of networking, a bridge network is a Link Layer device
 which forwards traffic between network segments. A bridge can be a hardware
 device or a software device running within a host machine's kernel.
 
-In terms of Docker, a bridge network uses a software bridge which lets
+In terms of iEchor, a bridge network uses a software bridge which lets
 containers connected to the same bridge network communicate, while providing
 isolation from containers that aren't connected to that bridge network. The
-Docker bridge driver automatically installs rules in the host machine so that
+iEchor bridge driver automatically installs rules in the host machine so that
 containers on different bridge networks can't communicate directly with each
 other.
 
-Bridge networks apply to containers running on the same Docker daemon host.
-For communication among containers running on different Docker daemon hosts, you
+Bridge networks apply to containers running on the same iEchor daemon host.
+For communication among containers running on different iEchor daemon hosts, you
 can either manage routing at the OS level, or you can use an
 [overlay network](overlay.md).
 
-When you start Docker, a [default bridge network](#use-the-default-bridge-network) (also
+When you start iEchor, a [default bridge network](#use-the-default-bridge-network) (also
 called `bridge`) is created automatically, and newly-started containers connect
 to it unless otherwise specified. You can also create user-defined custom bridge
 networks. **User-defined bridge networks are superior to the default `bridge`
@@ -44,7 +44,7 @@ network.**
 
   Imagine an application with a web front-end and a database back-end. If you call
   your containers `web` and `db`, the web container can connect to the db container
-  at `db`, no matter which Docker host the application stack is running on.
+  at `db`, no matter which iEchor host the application stack is running on.
 
   If you run the same application stack on the default bridge network, you need
   to manually create links between the containers (using the legacy `--link`
@@ -70,11 +70,11 @@ network.**
 
   If your containers use the default bridge network, you can configure it, but
   all the containers use the same settings, such as MTU and `iptables` rules.
-  In addition, configuring the default bridge network happens outside of Docker
-  itself, and requires a restart of Docker.
+  In addition, configuring the default bridge network happens outside of iEchor
+  itself, and requires a restart of iEchor.
 
   User-defined bridge networks are created and configured using
-  `docker network create`. If different groups of applications have different
+  `iechor network create`. If different groups of applications have different
   network requirements, you can configure each user-defined bridge separately,
   as you create it.
 
@@ -86,9 +86,9 @@ network.**
   are superior ways to share environment variables. A few ideas:
 
   - Multiple containers can mount a file or directory containing the shared
-    information, using a Docker volume.
+    information, using a iEchor volume.
 
-  - Multiple containers can be started together using `docker-compose` and the
+  - Multiple containers can be started together using `iechor-compose` and the
     compose file can define the shared variables.
 
   - You can use swarm services instead of standalone containers, and take
@@ -96,7 +96,7 @@ network.**
     [configs](../../engine/swarm/configs.md).
 
 Containers connected to the same user-defined bridge network effectively expose all ports
-to each other. For a port to be accessible to containers or non-Docker hosts on
+to each other. For a port to be accessible to containers or non-iEchor hosts on
 different networks, that port must be _published_ using the `-p` or `--publish`
 flag.
 
@@ -107,102 +107,102 @@ The following table describes the driver-specific options that you can pass to
 
 | Option                                           | Default        | Description                                                                                   |
 | ------------------------------------------------ | -------------- | --------------------------------------------------------------------------------------------- |
-| `com.docker.network.bridge.name`                 |                | Interface name to use when creating the Linux bridge.                                         |
-| `com.docker.network.bridge.enable_ip_masquerade` | `true`         | Enable IP masquerading.                                                                       |
-| `com.docker.network.bridge.enable_icc`           | `true`         | Enable or Disable inter-container connectivity.                                               |
-| `com.docker.network.bridge.host_binding_ipv4`    |                | Default IP when binding container ports.                                                      |
-| `com.docker.network.driver.mtu`                  | `0` (no limit) | Set the containers network Maximum Transmission Unit (MTU).                                   |
-| `com.docker.network.container_iface_prefix`      | `eth`          | Set a custom prefix for container interfaces.                                                 |
-| `com.docker.network.bridge.inhibit_ipv4`         | `false`        | Prevent Docker from [assigning an IP address](#skip-ip-address-configuration) to the network. |
+| `com.iechor.network.bridge.name`                 |                | Interface name to use when creating the Linux bridge.                                         |
+| `com.iechor.network.bridge.enable_ip_masquerade` | `true`         | Enable IP masquerading.                                                                       |
+| `com.iechor.network.bridge.enable_icc`           | `true`         | Enable or Disable inter-container connectivity.                                               |
+| `com.iechor.network.bridge.host_binding_ipv4`    |                | Default IP when binding container ports.                                                      |
+| `com.iechor.network.driver.mtu`                  | `0` (no limit) | Set the containers network Maximum Transmission Unit (MTU).                                   |
+| `com.iechor.network.container_iface_prefix`      | `eth`          | Set a custom prefix for container interfaces.                                                 |
+| `com.iechor.network.bridge.inhibit_ipv4`         | `false`        | Prevent iEchor from [assigning an IP address](#skip-ip-address-configuration) to the network. |
 
-Some of these options are also available as flags to the `dockerd` CLI, and you
-can use them to configure the default `docker0` bridge when starting the Docker
+Some of these options are also available as flags to the `iechord` CLI, and you
+can use them to configure the default `iechor0` bridge when starting the iEchor
 daemon. The following table shows which options have equivalent flags in the
-`dockerd` CLI.
+`iechord` CLI.
 
 | Option                                           | Flag        |
 | ------------------------------------------------ | ----------- |
-| `com.docker.network.bridge.name`                 | -           |
-| `com.docker.network.bridge.enable_ip_masquerade` | `--ip-masq` |
-| `com.docker.network.bridge.enable_icc`           | `--icc`     |
-| `com.docker.network.bridge.host_binding_ipv4`    | `--ip`      |
-| `com.docker.network.driver.mtu`                  | `--mtu`     |
-| `com.docker.network.container_iface_prefix`      | -           |
+| `com.iechor.network.bridge.name`                 | -           |
+| `com.iechor.network.bridge.enable_ip_masquerade` | `--ip-masq` |
+| `com.iechor.network.bridge.enable_icc`           | `--icc`     |
+| `com.iechor.network.bridge.host_binding_ipv4`    | `--ip`      |
+| `com.iechor.network.driver.mtu`                  | `--mtu`     |
+| `com.iechor.network.container_iface_prefix`      | -           |
 
-The Docker daemon supports a `--bridge` flag, which you can use to define
-your own `docker0` bridge. Use this option if you want to run multiple daemon
+The iEchor daemon supports a `--bridge` flag, which you can use to define
+your own `iechor0` bridge. Use this option if you want to run multiple daemon
 instances on the same host. For details, see
-[Run multiple daemons](../../reference/cli/dockerd.md#run-multiple-daemons).
+[Run multiple daemons](../../reference/cli/iechord.md#run-multiple-daemons).
 
 ## Manage a user-defined bridge
 
-Use the `docker network create` command to create a user-defined bridge
+Use the `iechor network create` command to create a user-defined bridge
 network.
 
 ```console
-$ docker network create my-net
+$ iechor network create my-net
 ```
 
 You can specify the subnet, the IP address range, the gateway, and other
 options. See the
-[docker network create](../../reference/cli/docker/network/create.md#specify-advanced-options)
-reference or the output of `docker network create --help` for details.
+[iechor network create](../../reference/cli/iechor/network/create.md#specify-advanced-options)
+reference or the output of `iechor network create --help` for details.
 
-Use the `docker network rm` command to remove a user-defined bridge
+Use the `iechor network rm` command to remove a user-defined bridge
 network. If containers are currently connected to the network,
 [disconnect them](#disconnect-a-container-from-a-user-defined-bridge)
 first.
 
 ```console
-$ docker network rm my-net
+$ iechor network rm my-net
 ```
 
 > **What's really happening?**
 >
 > When you create or remove a user-defined bridge or connect or disconnect a
-> container from a user-defined bridge, Docker uses tools specific to the
+> container from a user-defined bridge, iEchor uses tools specific to the
 > operating system to manage the underlying network infrastructure (such as adding
 > or removing bridge devices or configuring `iptables` rules on Linux). These
-> details should be considered implementation details. Let Docker manage your
+> details should be considered implementation details. Let iEchor manage your
 > user-defined networks for you.
 
 ## Connect a container to a user-defined bridge
 
 When you create a new container, you can specify one or more `--network` flags.
 This example connects an Nginx container to the `my-net` network. It also
-publishes port 80 in the container to port 8080 on the Docker host, so external
+publishes port 80 in the container to port 8080 on the iEchor host, so external
 clients can access that port. Any other container connected to the `my-net`
 network has access to all ports on the `my-nginx` container, and vice versa.
 
 ```console
-$ docker create --name my-nginx \
+$ iechor create --name my-nginx \
   --network my-net \
   --publish 8080:80 \
   nginx:latest
 ```
 
 To connect a **running** container to an existing user-defined bridge, use the
-`docker network connect` command. The following command connects an already-running
+`iechor network connect` command. The following command connects an already-running
 `my-nginx` container to an already-existing `my-net` network:
 
 ```console
-$ docker network connect my-net my-nginx
+$ iechor network connect my-net my-nginx
 ```
 
 ## Disconnect a container from a user-defined bridge
 
 To disconnect a running container from a user-defined bridge, use the
-`docker network disconnect` command. The following command disconnects
+`iechor network disconnect` command. The following command disconnects
 the `my-nginx` container from the `my-net` network.
 
 ```console
-$ docker network disconnect my-net my-nginx
+$ iechor network disconnect my-net my-nginx
 ```
 
 ## Use IPv6
 
-If you need IPv6 support for Docker containers, you need to
-[enable the option](../../config/daemon/ipv6.md) on the Docker daemon and reload its
+If you need IPv6 support for iEchor containers, you need to
+[enable the option](../../config/daemon/ipv6.md) on the iEchor daemon and reload its
 configuration, before creating any IPv6 networks or assigning containers IPv6
 addresses.
 
@@ -211,7 +211,7 @@ IPv6. You can't selectively disable IPv6 support on the default `bridge` network
 
 ## Use the default bridge network
 
-The default `bridge` network is considered a legacy detail of Docker and is not
+The default `bridge` network is considered a legacy detail of iEchor and is not
 recommended for production use. Configuring it is a manual operation, and it has
 [technical shortcomings](#differences-between-user-defined-bridges-and-the-default-bridge).
 
@@ -241,11 +241,11 @@ the settings you need to customize.
 }
 ```
 
-Restart Docker for the changes to take effect.
+Restart iEchor for the changes to take effect.
 
 ### Use IPv6 with the default bridge network
 
-If you configure Docker for IPv6 support (see [Use IPv6](#use-ipv6)), the
+If you configure iEchor for IPv6 support (see [Use IPv6](#use-ipv6)), the
 default bridge network is also configured for IPv6 automatically. Unlike
 user-defined bridges, you can't selectively disable IPv6 on the default bridge.
 
@@ -260,15 +260,15 @@ For more information about this limitation, see
 
 ## Skip IP address configuration
 
-The `com.docker.network.bridge.inhibit_ipv4` option lets you create a network
-that uses an existing bridge and have Docker skip configuring the IPv4 address
+The `com.iechor.network.bridge.inhibit_ipv4` option lets you create a network
+that uses an existing bridge and have iEchor skip configuring the IPv4 address
 on the bridge. This is useful if you want to configure the IP address for the
 bridge manually. For instance if you add a physical interface to your bridge,
 and need to move its IP address to the bridge interface.
 
-To use this option, you should first configure the Docker daemon to use a
+To use this option, you should first configure the iEchor daemon to use a
 self-managed bridge, using the `bridge` option in the `daemon.json` or the
-`dockerd --bridge` flag.
+`iechord --bridge` flag.
 
 With this configuration, north-south traffic won't work unless you've manually
 configured the IP address for the bridge.

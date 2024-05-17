@@ -1,5 +1,5 @@
 ---
 title: Portainer samples
-description: Docker samples for Portainer.
+description: iEchor samples for Portainer.
 service: portainer
 ---

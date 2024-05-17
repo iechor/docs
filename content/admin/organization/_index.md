@@ -1,5 +1,5 @@
 ---
-description: Learn about managing organizations in Docker including how they relate to teams, how to onboard, and more
+description: Learn about managing organizations in iEchor including how they relate to teams, how to onboard, and more
 keywords: organizations, admin, overview
 title: Organization administration overview
 grid:

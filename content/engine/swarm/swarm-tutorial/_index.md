@@ -1,37 +1,37 @@
 ---
-description: Getting Started tutorial for Docker Engine Swarm mode
-keywords: tutorial, cluster management, swarm mode, docker engine, get started
+description: Getting Started tutorial for iEchor Engine Swarm mode
+keywords: tutorial, cluster management, swarm mode, iechor engine, get started
 title: Getting started with Swarm mode
 toc_max: 4
 ---
 
-This tutorial introduces you to the features of Docker Engine Swarm mode. You
+This tutorial introduces you to the features of iEchor Engine Swarm mode. You
 may want to familiarize yourself with the [key concepts](../key-concepts.md)
 before you begin.
 
 The tutorial guides you through:
 
-* Initializing a cluster of Docker Engines in swarm mode
+* Initializing a cluster of iEchor Engines in swarm mode
 * Adding nodes to the swarm
 * Deploying application services to the swarm
 * Managing the swarm once you have everything running
 
-This tutorial uses Docker Engine CLI commands entered on the command line of a
+This tutorial uses iEchor Engine CLI commands entered on the command line of a
 terminal window.
 
-If you are brand new to Docker, see [About Docker Engine](../../index.md).
+If you are brand new to iEchor, see [About iEchor Engine](../../index.md).
 
 ## Set up
 
 To run this tutorial, you need:
 
-* [Three Linux hosts which can communicate over a network, with Docker installed](#three-networked-host-machines)
+* [Three Linux hosts which can communicate over a network, with iEchor installed](#three-networked-host-machines)
 * [The IP address of the manager machine](#the-ip-address-of-the-manager-machine)
 * [Open ports between the hosts](#open-protocols-and-ports-between-the-hosts)
 
 ### Three networked host machines
 
-This tutorial requires three Linux hosts which have Docker installed and can
+This tutorial requires three Linux hosts which have iEchor installed and can
 communicate over a network. These can be physical machines, virtual machines,
 Amazon EC2 instances, or hosted in some other way. Check out
 [Getting started - Swarms](../../../get-started/swarm-deploy.md#prerequisites)
@@ -46,7 +46,7 @@ workers (`worker1` and `worker2`).
 > as well, in which case you need only one host. Multi-node commands do not
 > work, but you can initialize a swarm, create services, and scale them.
 
-#### Install Docker Engine on Linux machines
+#### Install iEchor Engine on Linux machines
 
 If you are using Linux based physical computers or cloud-provided computers as
 hosts, simply follow the [Linux install instructions](../../install/index.md)

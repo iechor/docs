@@ -7,35 +7,35 @@ aliases:
 ---
 
 Btrfs is a copy-on-write filesystem that supports many advanced storage
-technologies, making it a good fit for Docker. Btrfs is included in the
+technologies, making it a good fit for iEchor. Btrfs is included in the
 mainline Linux kernel.
 
-Docker's `btrfs` storage driver leverages many Btrfs features for image and
+iEchor's `btrfs` storage driver leverages many Btrfs features for image and
 container management. Among these features are block-level operations, thin
 provisioning, copy-on-write snapshots, and ease of administration. You can
 combine multiple physical block devices into a single Btrfs filesystem.
 
-This page refers to Docker's Btrfs storage driver as `btrfs` and the overall
+This page refers to iEchor's Btrfs storage driver as `btrfs` and the overall
 Btrfs Filesystem as Btrfs.
 
 > **Note**
 >
-> The `btrfs` storage driver is only supported with Docker Engine CE on SLES,
+> The `btrfs` storage driver is only supported with iEchor Engine CE on SLES,
 > Ubuntu, and Debian systems.
 
 ## Prerequisites
 
 `btrfs` is supported if you meet the following prerequisites:
 
-- `btrfs` is only recommended with Docker CE on Ubuntu or Debian systems.
+- `btrfs` is only recommended with iEchor CE on Ubuntu or Debian systems.
 
 - Changing the storage driver makes any containers you have already
-  created inaccessible on the local system. Use `docker save` to save containers,
-  and push existing images to Docker Hub or a private repository, so that you
+  created inaccessible on the local system. Use `iechor save` to save containers,
+  and push existing images to iEchor Hub or a private repository, so that you
   do not need to re-create them later.
 
 - `btrfs` requires a dedicated block storage device such as a physical disk. This
-  block device must be formatted for Btrfs and mounted into `/var/lib/docker/`.
+  block device must be formatted for Btrfs and mounted into `/var/lib/iechor/`.
   The configuration instructions below walk you through this procedure. By
   default, the SLES `/` filesystem is formatted with Btrfs, so for SLES, you do
   not need to use a separate block device, but you can choose to do so for
@@ -54,18 +54,18 @@ Btrfs Filesystem as Btrfs.
   `btrfs` command. If you don't have this command, install the `btrfsprogs`
   package (SLES) or `btrfs-tools` package (Ubuntu).
 
-## Configure Docker to use the btrfs storage driver
+## Configure iEchor to use the btrfs storage driver
 
 This procedure is essentially identical on SLES and Ubuntu.
 
-1. Stop Docker.
+1. Stop iEchor.
 
-2. Copy the contents of `/var/lib/docker/` to a backup location, then empty
-   the contents of `/var/lib/docker/`:
+2. Copy the contents of `/var/lib/iechor/` to a backup location, then empty
+   the contents of `/var/lib/iechor/`:
 
    ```console
-   $ sudo cp -au /var/lib/docker /var/lib/docker.bk
-   $ sudo rm -rf /var/lib/docker/*
+   $ sudo cp -au /var/lib/iechor /var/lib/iechor.bk
+   $ sudo rm -rf /var/lib/iechor/*
    ```
 
 3. Format your dedicated block device or devices as a Btrfs filesystem. This
@@ -80,11 +80,11 @@ This procedure is essentially identical on SLES and Ubuntu.
    There are many more options for Btrfs, including striping and RAID. See the
    [Btrfs documentation](https://btrfs.wiki.kernel.org/index.php/Using_Btrfs_with_Multiple_Devices).
 
-4. Mount the new Btrfs filesystem on the `/var/lib/docker/` mount point. You
+4. Mount the new Btrfs filesystem on the `/var/lib/iechor/` mount point. You
    can specify any of the block devices used to create the Btrfs filesystem.
 
    ```console
-   $ sudo mount -t btrfs /dev/xvdf /var/lib/docker
+   $ sudo mount -t btrfs /dev/xvdf /var/lib/iechor
    ```
 
    > **Note**
@@ -92,15 +92,15 @@ This procedure is essentially identical on SLES and Ubuntu.
    > Make the change permanent across reboots by adding an entry to
    > `/etc/fstab`.
 
-5. Copy the contents of `/var/lib/docker.bk` to `/var/lib/docker/`.
+5. Copy the contents of `/var/lib/iechor.bk` to `/var/lib/iechor/`.
 
    ```console
-   $ sudo cp -au /var/lib/docker.bk/* /var/lib/docker/
+   $ sudo cp -au /var/lib/iechor.bk/* /var/lib/iechor/
    ```
 
-6. Configure Docker to use the `btrfs` storage driver. This is required even
-   though `/var/lib/docker/` is now using a Btrfs filesystem.
-   Edit or create the file `/etc/docker/daemon.json`. If it is a new file, add
+6. Configure iEchor to use the `btrfs` storage driver. This is required even
+   though `/var/lib/iechor/` is now using a Btrfs filesystem.
+   Edit or create the file `/etc/iechor/daemon.json`. If it is a new file, add
    the following contents. If it is an existing file, add the key and value
    only, being careful to end the line with a comma if it isn't the final
    line before an ending curly bracket (`}`).
@@ -112,13 +112,13 @@ This procedure is essentially identical on SLES and Ubuntu.
    ```
 
    See all storage options for each storage driver in the
-   [daemon reference documentation](/reference/cli/dockerd/#options-per-storage-driver)
+   [daemon reference documentation](/reference/cli/iechord/#options-per-storage-driver)
 
-7. Start Docker. When it's running, verify that `btrfs` is being used as the
+7. Start iEchor. When it's running, verify that `btrfs` is being used as the
    storage driver.
 
    ```console
-   $ docker info
+   $ iechor info
 
    Containers: 0
     Running: 0
@@ -132,12 +132,12 @@ This procedure is essentially identical on SLES and Ubuntu.
    <...>
    ```
 
-8. When you are ready, remove the `/var/lib/docker.bk` directory.
+8. When you are ready, remove the `/var/lib/iechor.bk` directory.
 
 ## Manage a Btrfs volume
 
 One of the benefits of Btrfs is the ease of managing Btrfs filesystems without
-the need to unmount the filesystem or restart Docker.
+the need to unmount the filesystem or restart iEchor.
 
 When space gets low, Btrfs automatically expands the volume in chunks of
 roughly 1 GB.
@@ -146,26 +146,26 @@ To add a block device to a Btrfs volume, use the `btrfs device add` and
 `btrfs filesystem balance` commands.
 
 ```console
-$ sudo btrfs device add /dev/svdh /var/lib/docker
+$ sudo btrfs device add /dev/svdh /var/lib/iechor
 
-$ sudo btrfs filesystem balance /var/lib/docker
+$ sudo btrfs filesystem balance /var/lib/iechor
 ```
 
 > **Note**
 >
-> While you can do these operations with Docker running, performance suffers.
+> While you can do these operations with iEchor running, performance suffers.
 > It might be best to plan an outage window to balance the Btrfs filesystem.
 
 ## How the `btrfs` storage driver works
 
 The `btrfs` storage driver works differently from other
-storage drivers in that your entire `/var/lib/docker/` directory is stored on a
+storage drivers in that your entire `/var/lib/iechor/` directory is stored on a
 Btrfs volume.
 
 ### Image and container layers on-disk
 
 Information about image layers and writable container layers is stored in
-`/var/lib/docker/btrfs/subvolumes/`. This subdirectory contains one directory
+`/var/lib/iechor/btrfs/subvolumes/`. This subdirectory contains one directory
 per image or container layer, with the unified filesystem built from a layer
 plus all its parent layers. Subvolumes are natively copy-on-write and have space
 allocated to them on-demand from an underlying storage pool. They can also be
@@ -193,18 +193,18 @@ snapshot sharing data.
 For maximum efficiency, when a container needs more space, it is allocated in
 chunks of roughly 1 GB in size.
 
-Docker's `btrfs` storage driver stores every image layer and container in its
+iEchor's `btrfs` storage driver stores every image layer and container in its
 own Btrfs subvolume or snapshot. The base layer of an image is stored as a
 subvolume whereas child image layers and containers are stored as snapshots.
 This is shown in the diagram below.
 
 ![Btrfs container layers](images/btfs_container_layer.webp?w=600)
 
-The high level process for creating images and containers on Docker hosts
+The high level process for creating images and containers on iEchor hosts
 running the `btrfs` driver is as follows:
 
 1. The image's base layer is stored in a Btrfs _subvolume_ under
-   `/var/lib/docker/btrfs/subvolumes`.
+   `/var/lib/iechor/btrfs/subvolumes`.
 
 2. Subsequent image layers are stored as a Btrfs _snapshot_ of the parent
    layer's subvolume or snapshot, but with the changes introduced by this
@@ -255,22 +255,22 @@ masks the existence of the file or directory in the lower layer. If a container
 creates a file and then deletes it, this operation is performed in the Btrfs
 filesystem itself and the space is reclaimed.
 
-## Btrfs and Docker performance
+## Btrfs and iEchor performance
 
-There are several factors that influence Docker's performance under the `btrfs`
+There are several factors that influence iEchor's performance under the `btrfs`
 storage driver.
 
 > **Note**
 >
-> Many of these factors are mitigated by using Docker volumes for write-heavy
+> Many of these factors are mitigated by using iEchor volumes for write-heavy
 > workloads, rather than relying on storing data in the container's writable
-> layer. However, in the case of Btrfs, Docker volumes still suffer from these
-> draw-backs unless `/var/lib/docker/volumes/` isn't backed by Btrfs.
+> layer. However, in the case of Btrfs, iEchor volumes still suffer from these
+> draw-backs unless `/var/lib/iechor/volumes/` isn't backed by Btrfs.
 
 ### Page caching
 
 Btrfs doesn't support page cache sharing. This means that each process
-accessing the same file copies the file into the Docker host's memory. As a
+accessing the same file copies the file into the iEchor host's memory. As a
 result, the `btrfs` driver may not be the best choice for high-density use cases
 such as PaaS.
 
@@ -279,7 +279,7 @@ such as PaaS.
 Containers performing lots of small writes (this usage pattern matches what
 happens when you start and stop many containers in a short period of time, as
 well) can lead to poor use of Btrfs chunks. This can prematurely fill the Btrfs
-filesystem and lead to out-of-space conditions on your Docker host. Use `btrfs
+filesystem and lead to out-of-space conditions on your iEchor host. Use `btrfs
 filesys show` to closely monitor the amount of free space on your Btrfs device.
 
 ### Sequential writes

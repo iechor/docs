@@ -9,31 +9,31 @@ Software Bill of Material (SBOM) and provenance
 your image, and how it was built.
 
 Attestations are supported with version 4 and later of the
-`docker/build-push-action`.
+`iechor/build-push-action`.
 
 ## Default provenance
 
-The `docker/build-push-action` GitHub Action automatically adds provenance
+The `iechor/build-push-action` GitHub Action automatically adds provenance
 attestations to your image, with the following conditions:
 
 - If the GitHub repository is public, provenance attestations with `mode=max`
   are automatically added to the image.
 - If the GitHub repository is private, provenance attestations with `mode=min`
   are automatically added to the image.
-- If you're using the [`docker` exporter](../../exporters/oci-docker.md), or
+- If you're using the [`iechor` exporter](../../exporters/oci-iechor.md), or
   you're loading the build results to the runner with `load: true`, no
   attestations are added to the image. These output formats don't support
   attestations.
 
 > **Warning**
 >
-> If you're using `docker/build-push-action` to build images for code in a
+> If you're using `iechor/build-push-action` to build images for code in a
 > public GitHub repository, the provenance attestations attached to your image
 > by default contains the values of build arguments. If you're misusing build
 > arguments to pass secrets to your build, such as user credentials or
 > authentication tokens, those secrets are exposed in the provenance
 > attestation. Refactor your build to pass those secrets using
-> [secret mounts](../../../reference/cli/docker/buildx/build.md#secret)
+> [secret mounts](../../../reference/cli/iechor/buildx/build.md#secret)
 > instead. Also remember to rotate any secrets you may have exposed.
 { .warning }
 
@@ -42,7 +42,7 @@ attestations to your image, with the following conditions:
 It's recommended that you build your images with max-level provenance
 attestations. Private repositories only add min-level provenance by default,
 but you can manually override the provenance level by setting the `provenance`
-input on the `docker/build-push-action` GitHub Action to `mode=max`.
+input on the `iechor/build-push-action` GitHub Action to `mode=max`.
 
 Note that adding attestations to an image means you must push the image to a
 registry directly, as opposed to loading the image to the local image store of
@@ -59,29 +59,29 @@ env:
   IMAGE_NAME: user/app
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: ${{ env.IMAGE_NAME }}
 
       - name: Build and push image
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           push: true
@@ -92,7 +92,7 @@ jobs:
 ## SBOM
 
 SBOM attestations aren't automatically added to the image. To add SBOM
-attestations, set the `sbom` input of the `docker/build-push-action` to true.
+attestations, set the `sbom` input of the `iechor/build-push-action` to true.
 
 Note that adding attestations to an image means you must push the image to a
 registry directly, as opposed to loading the image to the local image store of
@@ -109,29 +109,29 @@ env:
   IMAGE_NAME: user/app
 
 jobs:
-  docker:
+  iechor:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Set up iEchor Buildx
+        uses: iechor/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to iEchor Hub
+        uses: iechor/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.IECHORHUB_USERNAME }}
+          password: ${{ secrets.IECHORHUB_TOKEN }}
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: iechor/metadata-action@v5
         with:
           images: ${{ env.IMAGE_NAME }}
 
       - name: Build and push image
-        uses: docker/build-push-action@v5
+        uses: iechor/build-push-action@v5
         with:
           context: .
           sbom: true

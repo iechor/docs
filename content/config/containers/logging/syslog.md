@@ -1,6 +1,6 @@
 ---
-description: Learn how to use the syslog logging driver with Docker Engine
-keywords: syslog, docker, logging, driver
+description: Learn how to use the syslog logging driver with iEchor Engine
+keywords: syslog, iechor, logging, driver
 title: Syslog logging driver
 aliases:
   - /engine/reference/logging/syslog/
@@ -18,7 +18,7 @@ receiver can extract the following information:
 - Facility: which subsystem logged the message, such as `mail` or `kernel`.
 - Process name and process ID (PID): The name and ID of the process that generated the log.
 
-The format is defined in [RFC 5424](https://tools.ietf.org/html/rfc5424) and Docker's syslog driver implements the
+The format is defined in [RFC 5424](https://tools.ietf.org/html/rfc5424) and iEchor's syslog driver implements the
 [ABNF reference](https://tools.ietf.org/html/rfc5424#section-6) in the following way:
 
 ```none
@@ -35,10 +35,10 @@ The format is defined in [RFC 5424](https://tools.ietf.org/html/rfc5424) and Doc
 
 To use the `syslog` driver as the default logging driver, set the `log-driver`
 and `log-opt` keys to appropriate values in the `daemon.json` file, which is
-located in `/etc/docker/` on Linux hosts or
-`C:\ProgramData\docker\config\daemon.json` on Windows Server. For more about
-configuring Docker using `daemon.json`, see
-[daemon.json](../../../reference/cli/dockerd.md#daemon-configuration-file).
+located in `/etc/iechor/` on Linux hosts or
+`C:\ProgramData\iechor\config\daemon.json` on Windows Server. For more about
+configuring iEchor using `daemon.json`, see
+[daemon.json](../../../reference/cli/iechord.md#daemon-configuration-file).
 
 The following example sets the log driver to `syslog` and sets the
 `syslog-address` option. The `syslog-address` options supports both UDP and TCP;
@@ -53,7 +53,7 @@ this example uses UDP.
 }
 ```
 
-Restart Docker for the changes to take effect.
+Restart iEchor for the changes to take effect.
 
 > **Note**
 >
@@ -62,10 +62,10 @@ Restart Docker for the changes to take effect.
 > `syslog-tls-skip-verify`) must therefore be enclosed in quotes (`"`).
 
 You can set the logging driver for a specific container by using the
-`--log-driver` flag to `docker container create` or `docker run`:
+`--log-driver` flag to `iechor container create` or `iechor run`:
 
 ```console
-$ docker run \
+$ iechor run \
       --log-driver syslog --log-opt syslog-address=udp://1.2.3.4:1111 \
       alpine echo hello world
 ```
@@ -86,9 +86,9 @@ starting the container.
 | `syslog-tls-cert`        | The absolute path to the TLS certificate file. Ignored if the address protocol isn't `tcp+tls`.                                                                                                                                                                                                                  | `--log-opt syslog-tls-cert=/etc/ca-certificates/custom/cert.pem`                                         |
 | `syslog-tls-key`         | The absolute path to the TLS key file. Ignored if the address protocol isn't `tcp+tls`.                                                                                                                                                                                                                          | `--log-opt syslog-tls-key=/etc/ca-certificates/custom/key.pem`                                           |
 | `syslog-tls-skip-verify` | If set to `true`, TLS verification is skipped when connecting to the `syslog` daemon. Defaults to `false`. Ignored if the address protocol isn't `tcp+tls`.                                                                                                                                                      | `--log-opt syslog-tls-skip-verify=true`                                                                  |
-| `tag`                    | A string that's appended to the `APP-NAME` in the `syslog` message. By default, Docker uses the first 12 characters of the container ID to tag log messages. Refer to the [log tag option documentation](log_tags.md) for customizing the log tag format.                                                        | `--log-opt tag=mailer`                                                                                   |
+| `tag`                    | A string that's appended to the `APP-NAME` in the `syslog` message. By default, iEchor uses the first 12 characters of the container ID to tag log messages. Refer to the [log tag option documentation](log_tags.md) for customizing the log tag format.                                                        | `--log-opt tag=mailer`                                                                                   |
 | `syslog-format`          | The `syslog` message format to use. If not specified the local Unix syslog format is used, without a specified hostname. Specify `rfc3164` for the RFC-3164 compatible format, `rfc5424` for RFC-5424 compatible format, or `rfc5424micro` for RFC-5424 compatible format with microsecond timestamp resolution. | `--log-opt syslog-format=rfc5424micro`                                                                   |
-| `labels`                 | Applies when starting the Docker daemon. A comma-separated list of logging-related labels this daemon accepts. Used for advanced [log tag options](log_tags.md).                                                                                                                                                 | `--log-opt labels=production_status,geo`                                                                 |
-| `labels-regex`           | Applies when starting the Docker daemon. Similar to and compatible with `labels`. A regular expression to match logging-related labels. Used for advanced [log tag options](log_tags.md).                                                                                                                        | `--log-opt labels-regex=^(production_status\|geo)`                                                       |
-| `env`                    | Applies when starting the Docker daemon. A comma-separated list of logging-related environment variables this daemon accepts. Used for advanced [log tag options](log_tags.md).                                                                                                                                  | `--log-opt env=os,customer`                                                                              |
-| `env-regex`              | Applies when starting the Docker daemon. Similar to and compatible with `env`. A regular expression to match logging-related environment variables. Used for advanced [log tag options](log_tags.md).                                                                                                            | `--log-opt env-regex=^(os\|customer)`                                                                    |
+| `labels`                 | Applies when starting the iEchor daemon. A comma-separated list of logging-related labels this daemon accepts. Used for advanced [log tag options](log_tags.md).                                                                                                                                                 | `--log-opt labels=production_status,geo`                                                                 |
+| `labels-regex`           | Applies when starting the iEchor daemon. Similar to and compatible with `labels`. A regular expression to match logging-related labels. Used for advanced [log tag options](log_tags.md).                                                                                                                        | `--log-opt labels-regex=^(production_status\|geo)`                                                       |
+| `env`                    | Applies when starting the iEchor daemon. A comma-separated list of logging-related environment variables this daemon accepts. Used for advanced [log tag options](log_tags.md).                                                                                                                                  | `--log-opt env=os,customer`                                                                              |
+| `env-regex`              | Applies when starting the iEchor daemon. Similar to and compatible with `env`. A regular expression to match logging-related environment variables. Used for advanced [log tag options](log_tags.md).                                                                                                            | `--log-opt env-regex=^(os\|customer)`                                                                    |

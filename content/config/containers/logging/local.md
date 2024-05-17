@@ -1,6 +1,6 @@
 ---
-description: Learn how to use the local logging driver with Docker Engine
-keywords: local, docker, logging, driver, file
+description: Learn how to use the local logging driver with iEchor Engine
+keywords: local, iechor, logging, driver, file
 title: Local file logging driver
 aliases:
   - /engine/reference/logging/local/
@@ -18,8 +18,8 @@ for each file and a default count of 5 for the number of such files (to account 
 > **Warning**
 >
 > The `local` logging driver uses file-based storage. These files are designed
-> to be exclusively accessed by the Docker daemon. Interacting with these files
-> with external tools may interfere with Docker's logging system and result in
+> to be exclusively accessed by the iEchor daemon. Interacting with these files
+> with external tools may interfere with iEchor's logging system and result in
 > unexpected behavior, and should be avoided.
 { .warning }
 
@@ -27,10 +27,10 @@ for each file and a default count of 5 for the number of such files (to account 
 
 To use the `local` driver as the default logging driver, set the `log-driver`
 and `log-opt` keys to appropriate values in the `daemon.json` file, which is
-located in `/etc/docker/` on Linux hosts or
-`C:\ProgramData\docker\config\daemon.json` on Windows Server. For more about
-configuring Docker using `daemon.json`, see
-[daemon.json](../../../reference/cli/dockerd.md#daemon-configuration-file).
+located in `/etc/iechor/` on Linux hosts or
+`C:\ProgramData\iechor\config\daemon.json` on Windows Server. For more about
+configuring iEchor using `daemon.json`, see
+[daemon.json](../../../reference/cli/iechord.md#daemon-configuration-file).
 
 The following example sets the log driver to `local` and sets the `max-size`
 option.
@@ -44,14 +44,14 @@ option.
 }
 ```
 
-Restart Docker for the changes to take effect for newly created containers.
+Restart iEchor for the changes to take effect for newly created containers.
 Existing containers don't use the new logging configuration automatically.
 
 You can set the logging driver for a specific container by using the
-`--log-driver` flag to `docker container create` or `docker run`:
+`--log-driver` flag to `iechor container create` or `iechor run`:
 
 ```console
-$ docker run \
+$ iechor run \
       --log-driver local --log-opt max-size=10m \
       alpine echo hello world
 ```
@@ -74,5 +74,5 @@ This example starts an `alpine` container which can have a maximum of 3 log
 files no larger than 10 megabytes each.
 
 ```console
-$ docker run -it --log-driver local --log-opt max-size=10m --log-opt max-file=3 alpine ash
+$ iechor run -it --log-driver local --log-opt max-size=10m --log-opt max-file=3 alpine ash
 ```

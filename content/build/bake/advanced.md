@@ -32,7 +32,7 @@ variable to populate a variable in the Bake configuration.
 {{< tab name="HCL" >}}
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 variable "TAG" {
   default = "latest"
 }
@@ -42,7 +42,7 @@ group "default" {
 }
 
 target "webapp" {
-  tags = ["docker.io/username/webapp:${TAG}"]
+  tags = ["iechor.io/username/webapp:${TAG}"]
 }
 ```
 
@@ -63,7 +63,7 @@ target "webapp" {
   },
   "target": {
     "webapp": {
-      "tags": ["docker.io/username/webapp:${TAG}"]
+      "tags": ["iechor.io/username/webapp:${TAG}"]
     }
   }
 }
@@ -73,7 +73,7 @@ target "webapp" {
 {{< /tabs >}}
 
 ```console
-$ docker buildx bake --print webapp
+$ iechor buildx bake --print webapp
 ```
 
 ```json
@@ -86,15 +86,15 @@ $ docker buildx bake --print webapp
   "target": {
     "webapp": {
       "context": ".",
-      "dockerfile": "Dockerfile",
-      "tags": ["docker.io/username/webapp:latest"]
+      "iechorfile": "iEchorfile",
+      "tags": ["iechor.io/username/webapp:latest"]
     }
   }
 }
 ```
 
 ```console
-$ TAG=$(git rev-parse --short HEAD) docker buildx bake --print webapp
+$ TAG=$(git rev-parse --short HEAD) iechor buildx bake --print webapp
 ```
 
 ```json
@@ -107,8 +107,8 @@ $ TAG=$(git rev-parse --short HEAD) docker buildx bake --print webapp
   "target": {
     "webapp": {
       "context": ".",
-      "dockerfile": "Dockerfile",
-      "tags": ["docker.io/username/webapp:985e9e9"]
+      "iechorfile": "iEchorfile",
+      "tags": ["iechor.io/username/webapp:985e9e9"]
     }
   }
 }
@@ -120,7 +120,7 @@ You can use [`go-cty` standard library functions](https://github.com/zclconf/go-
 The following example shows the `add` function.
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 variable "TAG" {
   default = "latest"
 }
@@ -137,7 +137,7 @@ target "webapp" {
 ```
 
 ```console
-$ docker buildx bake --print webapp
+$ iechor buildx bake --print webapp
 ```
 
 ```json
@@ -150,7 +150,7 @@ $ docker buildx bake --print webapp
   "target": {
     "webapp": {
       "context": ".",
-      "dockerfile": "Dockerfile",
+      "iechorfile": "iEchorfile",
       "args": {
         "buildno": "124"
       }
@@ -168,7 +168,7 @@ meet your needs.
 The following example defines an `increment` function.
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 function "increment" {
   params = [number]
   result = number + 1
@@ -186,7 +186,7 @@ target "webapp" {
 ```
 
 ```console
-$ docker buildx bake --print webapp
+$ iechor buildx bake --print webapp
 ```
 
 ```json
@@ -199,7 +199,7 @@ $ docker buildx bake --print webapp
   "target": {
     "webapp": {
       "context": ".",
-      "dockerfile": "Dockerfile",
+      "iechorfile": "iEchorfile",
       "args": {
         "buildno": "124"
       }
@@ -216,7 +216,7 @@ The following example adds a tag only when a variable is not empty, using the
 `notequal` function.
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 variable "TAG" {default="" }
 
 group "default" {
@@ -227,7 +227,7 @@ group "default" {
 
 target "webapp" {
   context="."
-  dockerfile="Dockerfile"
+  iechorfile="iEchorfile"
   tags = [
     "my-image:latest",
     notequal("",TAG) ? "my-image:${TAG}": "",
@@ -236,7 +236,7 @@ target "webapp" {
 ```
 
 ```console
-$ docker buildx bake --print webapp
+$ iechor buildx bake --print webapp
 ```
 
 ```json
@@ -249,7 +249,7 @@ $ docker buildx bake --print webapp
   "target": {
     "webapp": {
       "context": ".",
-      "dockerfile": "Dockerfile",
+      "iechorfile": "iEchorfile",
       "tags": ["my-image:latest"]
     }
   }
@@ -264,7 +264,7 @@ functions.
 You can't reference user-defined functions from other functions.
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 variable "REPO" {
   default = "user/repo"
 }
@@ -280,7 +280,7 @@ target "webapp" {
 ```
 
 ```console
-$ docker buildx bake --print webapp
+$ iechor buildx bake --print webapp
 ```
 
 ```json
@@ -293,7 +293,7 @@ $ docker buildx bake --print webapp
   "target": {
     "webapp": {
       "context": ".",
-      "dockerfile": "Dockerfile",
+      "iechorfile": "iEchorfile",
       "tags": ["user/repo:v1"]
     }
   }
@@ -306,7 +306,7 @@ Non-string variables are supported. Values passed as environment variables are
 coerced into suitable types first.
 
 ```hcl
-# docker-bake.hcl
+# iechor-bake.hcl
 variable "FOO" {
   default = 3
 }
@@ -324,7 +324,7 @@ target "app" {
 ```
 
 ```console
-$ docker buildx bake --print app
+$ iechor buildx bake --print app
 ```
 
 ```json
@@ -337,7 +337,7 @@ $ docker buildx bake --print app
   "target": {
     "app": {
       "context": ".",
-      "dockerfile": "Dockerfile",
+      "iechorfile": "iEchorfile",
       "args": {
         "v1": "lower",
         "v2": "yes"

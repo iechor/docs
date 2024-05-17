@@ -1,0 +1,47 @@
+command: iechor plugin
+short: Manage plugins
+long: Manage plugins.
+usage: iechor plugin
+pname: iechor
+plink: iechor.yaml
+cname:
+    - iechor plugin create
+    - iechor plugin disable
+    - iechor plugin enable
+    - iechor plugin inspect
+    - iechor plugin install
+    - iechor plugin ls
+    - iechor plugin push
+    - iechor plugin rm
+    - iechor plugin set
+    - iechor plugin upgrade
+clink:
+    - iechor_plugin_create.yaml
+    - iechor_plugin_disable.yaml
+    - iechor_plugin_enable.yaml
+    - iechor_plugin_inspect.yaml
+    - iechor_plugin_install.yaml
+    - iechor_plugin_ls.yaml
+    - iechor_plugin_push.yaml
+    - iechor_plugin_rm.yaml
+    - iechor_plugin_set.yaml
+    - iechor_plugin_upgrade.yaml
+inherited_options:
+    - option: help
+      value_type: bool
+      default_value: "false"
+      description: Print usage
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+hidden: false
+min_api_version: "1.25"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

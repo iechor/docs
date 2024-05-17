@@ -1,5 +1,5 @@
 ---
 title: Go samples
-description: Docker samples for Go.
+description: iEchor samples for Go.
 service: go
 ---

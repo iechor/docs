@@ -1,6 +1,6 @@
 ---
 title: Change your billing cycle
-description: Learn to change your billing cycle for your Docker subscription
+description: Learn to change your billing cycle for your iEchor subscription
 keywords: billing, cycle, payments, subscription
 aliases:
 - /billing/cycle/
@@ -17,7 +17,7 @@ When you change the billing cycle's duration:
 
 ## Personal account
 
-1. Select your avatar in the top-right corner of Docker Hub.
+1. Select your avatar in the top-right corner of iEchor Hub.
 2. From the drop-down menu select **Billing**.
 3. In the bottom-right of the **Plan** tab, select **Switch to annual billing**.
 4. Review the information displayed on the **Change to an Annual subscription** page and select **Accept Terms and Purchase** to confirm.
@@ -28,7 +28,7 @@ When you change the billing cycle's duration:
 >
 > You must be an organization owner to make changes to the payment information.
 
-1. In Docker Hub, select **Organizations**.
+1. In iEchor Hub, select **Organizations**.
 2. Select the organization that you want to change the payment method for.
 3. In the bottom-right of the **Plan** tab, select **Switch to annual billing**.
 4. Review the information displayed on the **Change to an Annual subscription** page and select **Accept Terms and Purchase** to confirm.

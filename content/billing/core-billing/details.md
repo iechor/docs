@@ -1,6 +1,6 @@
 ---
 title: Update the billing information
-description: Learn how to update your billing information in Docker Hub
+description: Learn how to update your billing information in iEchor Hub
 keywords: payments, billing, subscription, invoices
 aliases:
 - /billing/details/
@@ -13,13 +13,13 @@ You can update the billing information for your personal account or for an organ
 > You can't update an existing invoice, including paid and unpaid invoices.
 { .important }
 
-The billing information provided appears on all your billing invoices. The email address provided is where Docker sends all invoices and other [billing-related communication](#update-your-email-address-that-receives-billing-invoices).
+The billing information provided appears on all your billing invoices. The email address provided is where iEchor sends all invoices and other [billing-related communication](#update-your-email-address-that-receives-billing-invoices).
 
 ## Manage billing information
 
 ### Personal account
 
-1. Select your avatar in the top-right corner of Docker Hub.
+1. Select your avatar in the top-right corner of iEchor Hub.
 2. From the drop-down menu select **Billing**.
 3. Select the **Payment methods and billing history** link.
 4. In the **Billing Information** section, select **Update information**.
@@ -32,7 +32,7 @@ The billing information provided appears on all your billing invoices. The email
 >
 > You must be an organization owner to make changes to the billing information.
 
-1. Select your avatar in the top-right corner of Docker Hub.
+1. Select your avatar in the top-right corner of iEchor Hub.
 2. From the drop-down menu select **Billing**.
 3. Select the organization that you want to change the payment method for.
 4. Select the **Payment methods and billing history** link.
@@ -42,7 +42,7 @@ The billing information provided appears on all your billing invoices. The email
 
 ## Update your email address that receives billing invoices
 
-Docker sends the following billing-related emails:
+iEchor sends the following billing-related emails:
 
 - Confirmation of a new subscription.
 - Confirmation of paid invoices.
@@ -55,7 +55,7 @@ You can update the email address that receives billing invoices at any time.
 
 ### Personal account
 
-1. Select your avatar in the top-right corner of Docker Hub.
+1. Select your avatar in the top-right corner of iEchor Hub.
 2. From the drop-down menu select **Billing**.
 3. Select the **Payment methods and billing history** link.
 4. Select **Update information**, then enter your new email address.
@@ -63,7 +63,7 @@ You can update the email address that receives billing invoices at any time.
 
 ### Organizations
 
-1. Select your avatar in the top-right corner of Docker Hub.
+1. Select your avatar in the top-right corner of iEchor Hub.
 2. From the drop-down menu select **Billing**.
 3. Select the name of the organization.
 4. Select the **Payment methods and billing history** link.

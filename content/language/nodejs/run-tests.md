@@ -13,7 +13,7 @@ Complete all the previous sections of this guide, starting with [Containerize a 
 Testing is an essential part of modern software development. Testing can mean a
 lot of things to different development teams. There are unit tests, integration
 tests and end-to-end testing. In this guide you take a look at running your unit
-tests in Docker when developing and when building.
+tests in iEchor when developing and when building.
 
 ## Run tests when developing locally
 
@@ -22,15 +22,15 @@ The sample application already has the Jest package for running tests and has te
 Run the following command to run the test script from the `package.json` file inside a container.
 
 ```console
-$ docker compose run server npm run test
+$ iechor compose run server npm run test
 ```
 
-To learn more about the command, see [docker compose run](/reference/cli/docker/compose/run/).
+To learn more about the command, see [iechor compose run](/reference/cli/iechor/compose/run/).
 
 You should see output like the following.
 
 ```console
-> docker-nodejs@1.0.0 test
+> iechor-nodejs@1.0.0 test
 > jest
 
  PASS  spec/routes/deleteItem.spec.js
@@ -75,12 +75,12 @@ Ran all test suites.
 
 ## Run tests when building
 
-To run your tests when building, you need to update your Dockerfile to add a new test stage.
+To run your tests when building, you need to update your iEchorfile to add a new test stage.
 
-The following is the updated Dockerfile.
+The following is the updated iEchorfile.
 
-```dockerfile {hl_lines="27-35"}
-# syntax=docker/dockerfile:1
+```iechorfile {hl_lines="27-35"}
+# syntax=iechor/iechorfile:1
 
 ARG NODE_VERSION=18.0.0
 
@@ -122,10 +122,10 @@ Instead of using `CMD` in the test stage, use `RUN` to run the tests. The reason
 Run the following command to build a new image using the test stage as the target and view the test results. Include `--progress=plain` to view the build output, `--no-cache` to ensure the tests always run, and `--target test` to target the test stage.
 
 ```console
-$ docker build -t node-docker-image-test --progress=plain --no-cache --target test .
+$ iechor build -t node-iechor-image-test --progress=plain --no-cache --target test .
 ```
 
-To learn more about building and running tests, see the [Build with Docker guide](../../build/guide/_index.md).
+To learn more about building and running tests, see the [Build with iEchor guide](../../build/guide/_index.md).
 
 You should see output containing the following.
 
@@ -134,7 +134,7 @@ You should see output containing the following.
 
 #11 [test 3/3] RUN npm run test
 #11 1.058
-#11 1.058 > docker-nodejs@1.0.0 test
+#11 1.058 > iechor-nodejs@1.0.0 test
 #11 1.058 > jest
 #11 1.058
 #11 3.765 PASS spec/routes/getItems.spec.js
@@ -163,8 +163,8 @@ You should see output containing the following.
 In this section, you learned how to run tests when developing locally using Compose and how to run tests when building your image.
 
 Related information:
- - [docker compose run](/reference/cli/docker/compose/run/)
- - [Build with Docker guide](../../build/guide/index.md)
+ - [iechor compose run](/reference/cli/iechor/compose/run/)
+ - [Build with iEchor guide](../../build/guide/index.md)
 
 ## Next steps
 

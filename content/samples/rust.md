@@ -1,5 +1,5 @@
 ---
 title: Rust samples
-description: Docker samples for Rust.
+description: iEchor samples for Rust.
 service: rust
 ---

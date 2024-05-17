@@ -1,7 +1,7 @@
 ---
 title: Extension Backend
-description: Docker extension API
-keywords: Docker, extensions, sdk, API
+description: iEchor extension API
+keywords: iEchor, extensions, sdk, API
 ---
 
 The `ddClient.extension.vm` object can be used to communicate with the backend defined in the [vm section](../../architecture/metadata.md#vm-section) of the extension metadata.

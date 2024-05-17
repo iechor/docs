@@ -1,7 +1,7 @@
 Guides:
 - title: Overview
   path: /guides/
-- title: Docker overview
+- title: iEchor overview
   path: /get-started/overview/
 - sectiontitle: Get started
   section:
@@ -13,7 +13,7 @@ Guides:
         path: /guides/walkthroughs/what-is-a-container/
       - title: "Run a container"
         path: /guides/walkthroughs/run-a-container/
-      - title: "Run Docker Hub images"
+      - title: "Run iEchor Hub images"
         path: /guides/walkthroughs/run-hub-images/
       - title: "Run multi-container applications"
         path: /guides/walkthroughs/multi-container-apps/
@@ -41,47 +41,47 @@ Guides:
         path: /get-started/06_bind_mounts/
       - title: "Part 7: Multi-container apps"
         path: /get-started/07_multi_container/
-      - title: "Part 8: Use Docker Compose"
+      - title: "Part 8: Use iEchor Compose"
         path: /get-started/08_using_compose/
       - title: "Part 9: Image-building best practices"
         path: /get-started/09_image_best/
       - title: "Part 10: What next?"
         path: /get-started/11_what_next/
 
-- sectiontitle: "Docker concepts"
+- sectiontitle: "iEchor concepts"
   section:
   - sectiontitle: "The basics"
     section:
     - title: "What is a container?"
-      path: /guides/docker-concepts/the-basics/what-is-a-container/
+      path: /guides/iechor-concepts/the-basics/what-is-a-container/
     - title: "What is an image?"
-      path: /guides/docker-concepts/the-basics/what-is-an-image/
+      path: /guides/iechor-concepts/the-basics/what-is-an-image/
     - title: "What is a registry?"
-      path: /guides/docker-concepts/the-basics/what-is-a-registry/
-    - title: "What is Docker Compose?"
-      path: /guides/docker-concepts/the-basics/what-is-docker-compose/
+      path: /guides/iechor-concepts/the-basics/what-is-a-registry/
+    - title: "What is iEchor Compose?"
+      path: /guides/iechor-concepts/the-basics/what-is-iechor-compose/
   - sectiontitle: "Building images"
     section:
     - title: "Understanding image layers"
-      path: /guides/docker-concepts/building-images/understanding-image-layers/
-    - title: "Writing a Dockerfile"
-      path: /guides/docker-concepts/building-images/writing-a-dockerfile/
+      path: /guides/iechor-concepts/building-images/understanding-image-layers/
+    - title: "Writing a iEchorfile"
+      path: /guides/iechor-concepts/building-images/writing-a-iechorfile/
     - title: "Build, tag and publish an image"
-      path: /guides/docker-concepts/building-images/build-tag-and-publish-an-image/
+      path: /guides/iechor-concepts/building-images/build-tag-and-publish-an-image/
     - title: "Using the build cache"
-      path: /guides/docker-concepts/building-images/using-the-build-cache/
+      path: /guides/iechor-concepts/building-images/using-the-build-cache/
     - title: "Multi-stage builds"
-      path: /guides/docker-concepts/building-images/multi-stage-builds/
+      path: /guides/iechor-concepts/building-images/multi-stage-builds/
   - sectiontitle: "Running containers"
     section:
     - title: "Publishing ports"
-      path: /guides/docker-concepts/running-containers/publishing-ports/
+      path: /guides/iechor-concepts/running-containers/publishing-ports/
     - title: "Overriding container defaults"
-      path: /guides/docker-concepts/running-containers/overriding-container-defaults/
+      path: /guides/iechor-concepts/running-containers/overriding-container-defaults/
     - title: "Persisting container data"
-      path: /guides/docker-concepts/running-containers/persisting-container-data/
+      path: /guides/iechor-concepts/running-containers/persisting-container-data/
     - title: "Multi-container applications"
-      path: /guides/docker-concepts/running-containers/multi-container-applications/
+      path: /guides/iechor-concepts/running-containers/multi-container-applications/
 - sectiontitle: Language-specific guides
   section:
   - path: /language/
@@ -237,24 +237,24 @@ Guides:
       title: Use containerized databases
 
 
-- sectiontitle: Develop with Docker
+- sectiontitle: Develop with iEchor
   section:
   - path: /develop/
     title: Overview
   - path: /develop/dev-best-practices/
     title: Development best practices
-  - sectiontitle: Dockerfile best practices
+  - sectiontitle: iEchorfile best practices
     section:
-    - path: /develop/develop-images/dockerfile_best-practices/
+    - path: /develop/develop-images/iechorfile_best-practices/
       title: Overview
     - path: /develop/develop-images/guidelines/
       title: General guidelines
     - path: /develop/develop-images/instructions/
-      title: Best practices for Dockerfile instructions
+      title: Best practices for iEchorfile instructions
   - path: /develop/security-best-practices/
     title: Security best practices
 
-- sectiontitle: Build with Docker
+- sectiontitle: Build with iEchor
   section:
   - path: /build/guide/
     title: Overview
@@ -293,7 +293,7 @@ Guides:
 - sectiontitle: Contribute
   section:
   - path: /contribute/
-    title: Contribute to Docker's docs
+    title: Contribute to iEchor's docs
   - sectiontitle: Style guide
     section:
     - path: /contribute/style/grammar/
@@ -303,7 +303,7 @@ Guides:
     - path: /contribute/style/recommended-words/
       title: Recommended word list
     - path: /contribute/style/terminology/
-      title: Docker terminology
+      title: iEchor terminology
     - path: /contribute/style/voice-tone/
       title: Voice and tone
   - path: /contribute/file-conventions/
@@ -346,531 +346,531 @@ Reference:
   title: Reference documentation
 - sectiontitle: CLI reference
   section:
-  - path: /reference/cli/docker/
-    title: docker (base command)
-  - path: /reference/cli/docker/build/
-    title: docker build
-  - sectiontitle: docker builder
+  - path: /reference/cli/iechor/
+    title: iechor (base command)
+  - path: /reference/cli/iechor/build/
+    title: iechor build
+  - sectiontitle: iechor builder
     section:
-      - path: /reference/cli/docker/builder/
-        title: docker builder
-      - path: /reference/cli/docker/builder/build/
-        title: docker builder build
-      - path: /reference/cli/docker/builder/prune/
-        title: docker builder prune
-  - sectiontitle: docker buildx
+      - path: /reference/cli/iechor/builder/
+        title: iechor builder
+      - path: /reference/cli/iechor/builder/build/
+        title: iechor builder build
+      - path: /reference/cli/iechor/builder/prune/
+        title: iechor builder prune
+  - sectiontitle: iechor buildx
     section:
-      - path: /reference/cli/docker/buildx/
-        title: docker buildx
-      - path: /reference/cli/docker/buildx/bake/
-        title: docker buildx bake
-      - path: /reference/cli/docker/buildx/build/
-        title: docker buildx build
-      - path: /reference/cli/docker/buildx/create/
-        title: docker buildx create
-      - path: /reference/cli/docker/buildx/debug/
-        title: docker buildx debug
-      - path: /reference/cli/docker/buildx/debug/build/
-        title: docker buildx debug build
-      - path: /reference/cli/docker/buildx/du/
-        title: docker buildx du
-      - path: /reference/cli/docker/buildx/imagetools/
-        title: docker buildx imagetools
-      - path: /reference/cli/docker/buildx/imagetools/create/
-        title: docker buildx imagetools create
-      - path: /reference/cli/docker/buildx/imagetools/inspect/
-        title: docker buildx imagetools inspect
-      - path: /reference/cli/docker/buildx/inspect/
-        title: docker buildx inspect
-      - path: /reference/cli/docker/buildx/ls/
-        title: docker buildx ls
-      - path: /reference/cli/docker/buildx/prune/
-        title: docker buildx prune
-      - path: /reference/cli/docker/buildx/rm/
-        title: docker buildx rm
-      - path: /reference/cli/docker/buildx/stop/
-        title: docker buildx stop
-      - path: /reference/cli/docker/buildx/use/
-        title: docker buildx use
-      - path: /reference/cli/docker/buildx/version/
-        title: docker buildx version
-  - sectiontitle: docker checkpoint
+      - path: /reference/cli/iechor/buildx/
+        title: iechor buildx
+      - path: /reference/cli/iechor/buildx/bake/
+        title: iechor buildx bake
+      - path: /reference/cli/iechor/buildx/build/
+        title: iechor buildx build
+      - path: /reference/cli/iechor/buildx/create/
+        title: iechor buildx create
+      - path: /reference/cli/iechor/buildx/debug/
+        title: iechor buildx debug
+      - path: /reference/cli/iechor/buildx/debug/build/
+        title: iechor buildx debug build
+      - path: /reference/cli/iechor/buildx/du/
+        title: iechor buildx du
+      - path: /reference/cli/iechor/buildx/imagetools/
+        title: iechor buildx imagetools
+      - path: /reference/cli/iechor/buildx/imagetools/create/
+        title: iechor buildx imagetools create
+      - path: /reference/cli/iechor/buildx/imagetools/inspect/
+        title: iechor buildx imagetools inspect
+      - path: /reference/cli/iechor/buildx/inspect/
+        title: iechor buildx inspect
+      - path: /reference/cli/iechor/buildx/ls/
+        title: iechor buildx ls
+      - path: /reference/cli/iechor/buildx/prune/
+        title: iechor buildx prune
+      - path: /reference/cli/iechor/buildx/rm/
+        title: iechor buildx rm
+      - path: /reference/cli/iechor/buildx/stop/
+        title: iechor buildx stop
+      - path: /reference/cli/iechor/buildx/use/
+        title: iechor buildx use
+      - path: /reference/cli/iechor/buildx/version/
+        title: iechor buildx version
+  - sectiontitle: iechor checkpoint
     section:
-    - path: /reference/cli/docker/checkpoint/
-      title: docker checkpoint
-    - path: /reference/cli/docker/checkpoint/create/
-      title: docker checkpoint create
-    - path: /reference/cli/docker/checkpoint/ls/
-      title: docker checkpoint ls
-    - path: /reference/cli/docker/checkpoint/rm/
-      title: docker checkpoint rm
-  - sectiontitle: docker compose
+    - path: /reference/cli/iechor/checkpoint/
+      title: iechor checkpoint
+    - path: /reference/cli/iechor/checkpoint/create/
+      title: iechor checkpoint create
+    - path: /reference/cli/iechor/checkpoint/ls/
+      title: iechor checkpoint ls
+    - path: /reference/cli/iechor/checkpoint/rm/
+      title: iechor checkpoint rm
+  - sectiontitle: iechor compose
     section:
       - path: /compose/reference/
         title: overview
-      - path: /reference/cli/docker/compose/alpha/
-        title: docker compose alpha
-      - path: /reference/cli/docker/compose/alpha/dry-run/
-        title: docker compose alpha dry-run
-      - path: /reference/cli/docker/compose/alpha/publish/
-        title: docker compose alpha publish
-      - path: /reference/cli/docker/compose/alpha/scale/
-        title: docker compose alpha scale
-      - path: /reference/cli/docker/compose/alpha/viz/
-        title: docker compose alpha viz
-      - path: /reference/cli/docker/compose/
-        title: docker compose
-      - path: /reference/cli/docker/compose/build/
-        title: docker compose build
-      - path: /reference/cli/docker/compose/config/
-        title: docker compose config
-      - path: /reference/cli/docker/compose/cp/
-        title: docker compose cp
-      - path: /reference/cli/docker/compose/create/
-        title: docker compose create
-      - path: /reference/cli/docker/compose/down/
-        title: docker compose down
-      - path: /reference/cli/docker/compose/events/
-        title: docker compose events
-      - path: /reference/cli/docker/compose/exec/
-        title: docker compose exec
-      - path: /reference/cli/docker/compose/images/
-        title: docker compose images
-      - path: /reference/cli/docker/compose/kill/
-        title: docker compose kill
-      - path: /reference/cli/docker/compose/logs/
-        title: docker compose logs
-      - path: /reference/cli/docker/compose/ls/
-        title: docker compose ls
-      - path: /reference/cli/docker/compose/pause/
-        title: docker compose pause
-      - path: /reference/cli/docker/compose/port/
-        title: docker compose port
-      - path: /reference/cli/docker/compose/ps/
-        title: docker compose ps
-      - path: /reference/cli/docker/compose/pull/
-        title: docker compose pull
-      - path: /reference/cli/docker/compose/push/
-        title: docker compose push
-      - path: /reference/cli/docker/compose/restart/
-        title: docker compose restart
-      - path: /reference/cli/docker/compose/rm/
-        title: docker compose rm
-      - path: /reference/cli/docker/compose/run/
-        title: docker compose run
-      - path: /reference/cli/docker/compose/start/
-        title: docker compose start
-      - path: /reference/cli/docker/compose/stop/
-        title: docker compose stop
-      - path: /reference/cli/docker/compose/top/
-        title: docker compose top
-      - path: /reference/cli/docker/compose/unpause/
-        title: docker compose unpause
-      - path: /reference/cli/docker/compose/up/
-        title: docker compose up
-      - path: /reference/cli/docker/compose/version/
-        title: docker compose version
-      - path: /reference/cli/docker/compose/wait/
-        title: docker compose wait
-      - path: /reference/cli/docker/compose/watch/
-        title: docker compose watch
-  - sectiontitle: docker config
+      - path: /reference/cli/iechor/compose/alpha/
+        title: iechor compose alpha
+      - path: /reference/cli/iechor/compose/alpha/dry-run/
+        title: iechor compose alpha dry-run
+      - path: /reference/cli/iechor/compose/alpha/publish/
+        title: iechor compose alpha publish
+      - path: /reference/cli/iechor/compose/alpha/scale/
+        title: iechor compose alpha scale
+      - path: /reference/cli/iechor/compose/alpha/viz/
+        title: iechor compose alpha viz
+      - path: /reference/cli/iechor/compose/
+        title: iechor compose
+      - path: /reference/cli/iechor/compose/build/
+        title: iechor compose build
+      - path: /reference/cli/iechor/compose/config/
+        title: iechor compose config
+      - path: /reference/cli/iechor/compose/cp/
+        title: iechor compose cp
+      - path: /reference/cli/iechor/compose/create/
+        title: iechor compose create
+      - path: /reference/cli/iechor/compose/down/
+        title: iechor compose down
+      - path: /reference/cli/iechor/compose/events/
+        title: iechor compose events
+      - path: /reference/cli/iechor/compose/exec/
+        title: iechor compose exec
+      - path: /reference/cli/iechor/compose/images/
+        title: iechor compose images
+      - path: /reference/cli/iechor/compose/kill/
+        title: iechor compose kill
+      - path: /reference/cli/iechor/compose/logs/
+        title: iechor compose logs
+      - path: /reference/cli/iechor/compose/ls/
+        title: iechor compose ls
+      - path: /reference/cli/iechor/compose/pause/
+        title: iechor compose pause
+      - path: /reference/cli/iechor/compose/port/
+        title: iechor compose port
+      - path: /reference/cli/iechor/compose/ps/
+        title: iechor compose ps
+      - path: /reference/cli/iechor/compose/pull/
+        title: iechor compose pull
+      - path: /reference/cli/iechor/compose/push/
+        title: iechor compose push
+      - path: /reference/cli/iechor/compose/restart/
+        title: iechor compose restart
+      - path: /reference/cli/iechor/compose/rm/
+        title: iechor compose rm
+      - path: /reference/cli/iechor/compose/run/
+        title: iechor compose run
+      - path: /reference/cli/iechor/compose/start/
+        title: iechor compose start
+      - path: /reference/cli/iechor/compose/stop/
+        title: iechor compose stop
+      - path: /reference/cli/iechor/compose/top/
+        title: iechor compose top
+      - path: /reference/cli/iechor/compose/unpause/
+        title: iechor compose unpause
+      - path: /reference/cli/iechor/compose/up/
+        title: iechor compose up
+      - path: /reference/cli/iechor/compose/version/
+        title: iechor compose version
+      - path: /reference/cli/iechor/compose/wait/
+        title: iechor compose wait
+      - path: /reference/cli/iechor/compose/watch/
+        title: iechor compose watch
+  - sectiontitle: iechor config
     section:
-    - path: /reference/cli/docker/config/
-      title: docker config
-    - path: /reference/cli/docker/config/create/
-      title: docker config create
-    - path: /reference/cli/docker/config/inspect/
-      title: docker config inspect
-    - path: /reference/cli/docker/config/ls/
-      title: docker config ls
-    - path: /reference/cli/docker/config/rm/
-      title: docker config rm
-  - sectiontitle: docker container
+    - path: /reference/cli/iechor/config/
+      title: iechor config
+    - path: /reference/cli/iechor/config/create/
+      title: iechor config create
+    - path: /reference/cli/iechor/config/inspect/
+      title: iechor config inspect
+    - path: /reference/cli/iechor/config/ls/
+      title: iechor config ls
+    - path: /reference/cli/iechor/config/rm/
+      title: iechor config rm
+  - sectiontitle: iechor container
     section:
-    - path: /reference/cli/docker/container/
-      title: docker container
-    - path: /reference/cli/docker/container/attach/
-      title: docker container attach
-    - path: /reference/cli/docker/container/commit/
-      title: docker container commit
-    - path: /reference/cli/docker/container/cp/
-      title: docker container cp
-    - path: /reference/cli/docker/container/create/
-      title: docker container create
-    - path: /reference/cli/docker/container/diff/
-      title: docker container diff
-    - path: /reference/cli/docker/container/exec/
-      title: docker container exec
-    - path: /reference/cli/docker/container/export/
-      title: docker container export
-    - path: /reference/cli/docker/container/inspect/
-      title: docker container inspect
-    - path: /reference/cli/docker/container/kill/
-      title: docker container kill
-    - path: /reference/cli/docker/container/logs/
-      title: docker container logs
-    - path: /reference/cli/docker/container/ls/
-      title: docker container ls
-    - path: /reference/cli/docker/container/pause/
-      title: docker container pause
-    - path: /reference/cli/docker/container/port/
-      title: docker container port
-    - path: /reference/cli/docker/container/prune/
-      title: docker container prune
-    - path: /reference/cli/docker/container/rename/
-      title: docker container rename
-    - path: /reference/cli/docker/container/restart/
-      title: docker container restart
-    - path: /reference/cli/docker/container/rm/
-      title: docker container rm
-    - path: /reference/cli/docker/container/run/
-      title: docker container run
-    - path: /reference/cli/docker/container/start/
-      title: docker container start
-    - path: /reference/cli/docker/container/stats/
-      title: docker container stats
-    - path: /reference/cli/docker/container/stop/
-      title: docker container stop
-    - path: /reference/cli/docker/container/top/
-      title: docker container top
-    - path: /reference/cli/docker/container/unpause/
-      title: docker container unpause
-    - path: /reference/cli/docker/container/update/
-      title: docker container update
-    - path: /reference/cli/docker/container/wait/
-      title: docker container wait
-  - sectiontitle: docker context
+    - path: /reference/cli/iechor/container/
+      title: iechor container
+    - path: /reference/cli/iechor/container/attach/
+      title: iechor container attach
+    - path: /reference/cli/iechor/container/commit/
+      title: iechor container commit
+    - path: /reference/cli/iechor/container/cp/
+      title: iechor container cp
+    - path: /reference/cli/iechor/container/create/
+      title: iechor container create
+    - path: /reference/cli/iechor/container/diff/
+      title: iechor container diff
+    - path: /reference/cli/iechor/container/exec/
+      title: iechor container exec
+    - path: /reference/cli/iechor/container/export/
+      title: iechor container export
+    - path: /reference/cli/iechor/container/inspect/
+      title: iechor container inspect
+    - path: /reference/cli/iechor/container/kill/
+      title: iechor container kill
+    - path: /reference/cli/iechor/container/logs/
+      title: iechor container logs
+    - path: /reference/cli/iechor/container/ls/
+      title: iechor container ls
+    - path: /reference/cli/iechor/container/pause/
+      title: iechor container pause
+    - path: /reference/cli/iechor/container/port/
+      title: iechor container port
+    - path: /reference/cli/iechor/container/prune/
+      title: iechor container prune
+    - path: /reference/cli/iechor/container/rename/
+      title: iechor container rename
+    - path: /reference/cli/iechor/container/restart/
+      title: iechor container restart
+    - path: /reference/cli/iechor/container/rm/
+      title: iechor container rm
+    - path: /reference/cli/iechor/container/run/
+      title: iechor container run
+    - path: /reference/cli/iechor/container/start/
+      title: iechor container start
+    - path: /reference/cli/iechor/container/stats/
+      title: iechor container stats
+    - path: /reference/cli/iechor/container/stop/
+      title: iechor container stop
+    - path: /reference/cli/iechor/container/top/
+      title: iechor container top
+    - path: /reference/cli/iechor/container/unpause/
+      title: iechor container unpause
+    - path: /reference/cli/iechor/container/update/
+      title: iechor container update
+    - path: /reference/cli/iechor/container/wait/
+      title: iechor container wait
+  - sectiontitle: iechor context
     section:
-      - path: /reference/cli/docker/context/
-        title: docker context
-      - path: /reference/cli/docker/context/create/
-        title: docker context create
-      - path: /reference/cli/docker/context/export/
-        title: docker context export
-      - path: /reference/cli/docker/context/import/
-        title: docker context import
-      - path: /reference/cli/docker/context/inspect/
-        title: docker context inspect
-      - path: /reference/cli/docker/context/ls/
-        title: docker context ls
-      - path: /reference/cli/docker/context/rm/
-        title: docker context rm
-      - path: /reference/cli/docker/context/show/
-        title: docker context show
-      - path: /reference/cli/docker/context/update/
-        title: docker context update
-      - path: /reference/cli/docker/context/use/
-        title: docker context use
-  - path: /reference/cli/docker/debug/
-    title: docker debug (Beta)
-  - path: /reference/cli/docker/exec/
-    title: docker exec
-  - sectiontitle: docker image
+      - path: /reference/cli/iechor/context/
+        title: iechor context
+      - path: /reference/cli/iechor/context/create/
+        title: iechor context create
+      - path: /reference/cli/iechor/context/export/
+        title: iechor context export
+      - path: /reference/cli/iechor/context/import/
+        title: iechor context import
+      - path: /reference/cli/iechor/context/inspect/
+        title: iechor context inspect
+      - path: /reference/cli/iechor/context/ls/
+        title: iechor context ls
+      - path: /reference/cli/iechor/context/rm/
+        title: iechor context rm
+      - path: /reference/cli/iechor/context/show/
+        title: iechor context show
+      - path: /reference/cli/iechor/context/update/
+        title: iechor context update
+      - path: /reference/cli/iechor/context/use/
+        title: iechor context use
+  - path: /reference/cli/iechor/debug/
+    title: iechor debug (Beta)
+  - path: /reference/cli/iechor/exec/
+    title: iechor exec
+  - sectiontitle: iechor image
     section:
-    - path: /reference/cli/docker/image/
-      title: docker image
-    - path: /reference/cli/docker/image/build/
-      title: docker image build
-    - path: /reference/cli/docker/image/history/
-      title: docker image history
-    - path: /reference/cli/docker/image/import/
-      title: docker image import
-    - path: /reference/cli/docker/image/inspect/
-      title: docker image inspect
-    - path: /reference/cli/docker/image/load/
-      title: docker image load
-    - path: /reference/cli/docker/image/ls/
-      title: docker image ls
-    - path: /reference/cli/docker/image/prune/
-      title: docker image prune
-    - path: /reference/cli/docker/image/pull/
-      title: docker image pull
-    - path: /reference/cli/docker/image/push/
-      title: docker image push
-    - path: /reference/cli/docker/image/rm/
-      title: docker image rm
-    - path: /reference/cli/docker/image/save/
-      title: docker image save
-    - path: /reference/cli/docker/image/tag/
-      title: docker image tag
-  - path: /reference/cli/docker/images/
-    title: docker images
-  - path: /reference/cli/docker/info/
-    title: docker info
-  - path: /reference/cli/docker/init/
-    title: docker init
-  - path: /reference/cli/docker/inspect/
-    title: docker inspect
-  - path: /reference/cli/docker/login/
-    title: docker login
-  - path: /reference/cli/docker/logout/
-    title: docker logout
-  - sectiontitle: docker manifest
+    - path: /reference/cli/iechor/image/
+      title: iechor image
+    - path: /reference/cli/iechor/image/build/
+      title: iechor image build
+    - path: /reference/cli/iechor/image/history/
+      title: iechor image history
+    - path: /reference/cli/iechor/image/import/
+      title: iechor image import
+    - path: /reference/cli/iechor/image/inspect/
+      title: iechor image inspect
+    - path: /reference/cli/iechor/image/load/
+      title: iechor image load
+    - path: /reference/cli/iechor/image/ls/
+      title: iechor image ls
+    - path: /reference/cli/iechor/image/prune/
+      title: iechor image prune
+    - path: /reference/cli/iechor/image/pull/
+      title: iechor image pull
+    - path: /reference/cli/iechor/image/push/
+      title: iechor image push
+    - path: /reference/cli/iechor/image/rm/
+      title: iechor image rm
+    - path: /reference/cli/iechor/image/save/
+      title: iechor image save
+    - path: /reference/cli/iechor/image/tag/
+      title: iechor image tag
+  - path: /reference/cli/iechor/images/
+    title: iechor images
+  - path: /reference/cli/iechor/info/
+    title: iechor info
+  - path: /reference/cli/iechor/init/
+    title: iechor init
+  - path: /reference/cli/iechor/inspect/
+    title: iechor inspect
+  - path: /reference/cli/iechor/login/
+    title: iechor login
+  - path: /reference/cli/iechor/logout/
+    title: iechor logout
+  - sectiontitle: iechor manifest
     section:
-    - path: /reference/cli/docker/manifest/
-      title: docker manifest
-    - path: /reference/cli/docker/manifest/annotate/
-      title: docker manifest annotate
-    - path: /reference/cli/docker/manifest/create/
-      title: docker manifest create
-    - path: /reference/cli/docker/manifest/inspect/
-      title: docker manifest inspect
-    - path: /reference/cli/docker/manifest/push/
-      title: docker manifest push
-    - path: /reference/cli/docker/manifest/rm/
-      title: docker manifest rm
-  - sectiontitle: docker network
+    - path: /reference/cli/iechor/manifest/
+      title: iechor manifest
+    - path: /reference/cli/iechor/manifest/annotate/
+      title: iechor manifest annotate
+    - path: /reference/cli/iechor/manifest/create/
+      title: iechor manifest create
+    - path: /reference/cli/iechor/manifest/inspect/
+      title: iechor manifest inspect
+    - path: /reference/cli/iechor/manifest/push/
+      title: iechor manifest push
+    - path: /reference/cli/iechor/manifest/rm/
+      title: iechor manifest rm
+  - sectiontitle: iechor network
     section:
-    - path: /reference/cli/docker/network/
-      title: docker network
-    - path: /reference/cli/docker/network/connect/
-      title: docker network connect
-    - path: /reference/cli/docker/network/create/
-      title: docker network create
-    - path: /reference/cli/docker/network/disconnect/
-      title: docker network disconnect
-    - path: /reference/cli/docker/network/inspect/
-      title: docker network inspect
-    - path: /reference/cli/docker/network/ls/
-      title: docker network ls
-    - path: /reference/cli/docker/network/prune/
-      title: docker network prune
-    - path: /reference/cli/docker/network/rm/
-      title: docker network rm
-  - sectiontitle: docker node
+    - path: /reference/cli/iechor/network/
+      title: iechor network
+    - path: /reference/cli/iechor/network/connect/
+      title: iechor network connect
+    - path: /reference/cli/iechor/network/create/
+      title: iechor network create
+    - path: /reference/cli/iechor/network/disconnect/
+      title: iechor network disconnect
+    - path: /reference/cli/iechor/network/inspect/
+      title: iechor network inspect
+    - path: /reference/cli/iechor/network/ls/
+      title: iechor network ls
+    - path: /reference/cli/iechor/network/prune/
+      title: iechor network prune
+    - path: /reference/cli/iechor/network/rm/
+      title: iechor network rm
+  - sectiontitle: iechor node
     section:
-    - path: /reference/cli/docker/node/
-      title: docker node
-    - path: /reference/cli/docker/node/demote/
-      title: docker node demote
-    - path: /reference/cli/docker/node/inspect/
-      title: docker node inspect
-    - path: /reference/cli/docker/node/ls/
-      title: docker node ls
-    - path: /reference/cli/docker/node/promote/
-      title: docker node promote
-    - path: /reference/cli/docker/node/ps/
-      title: docker node ps
-    - path: /reference/cli/docker/node/rm/
-      title: docker node rm
-    - path: /reference/cli/docker/node/update/
-      title: docker node update
-  - sectiontitle: docker plugin
+    - path: /reference/cli/iechor/node/
+      title: iechor node
+    - path: /reference/cli/iechor/node/demote/
+      title: iechor node demote
+    - path: /reference/cli/iechor/node/inspect/
+      title: iechor node inspect
+    - path: /reference/cli/iechor/node/ls/
+      title: iechor node ls
+    - path: /reference/cli/iechor/node/promote/
+      title: iechor node promote
+    - path: /reference/cli/iechor/node/ps/
+      title: iechor node ps
+    - path: /reference/cli/iechor/node/rm/
+      title: iechor node rm
+    - path: /reference/cli/iechor/node/update/
+      title: iechor node update
+  - sectiontitle: iechor plugin
     section:
-    - path: /reference/cli/docker/plugin/
-      title: docker plugin
-    - path: /reference/cli/docker/plugin/create/
-      title: docker plugin create
-    - path: /reference/cli/docker/plugin/disable/
-      title: docker plugin disable
-    - path: /reference/cli/docker/plugin/enable/
-      title: docker plugin enable
-    - path: /reference/cli/docker/plugin/inspect/
-      title: docker plugin inspect
-    - path: /reference/cli/docker/plugin/install/
-      title: docker plugin install
-    - path: /reference/cli/docker/plugin/ls/
-      title: docker plugin ls
-    - path: /reference/cli/docker/plugin/rm/
-      title: docker plugin rm
-    - path: /reference/cli/docker/plugin/set/
-      title: docker plugin set
-    - path: /reference/cli/docker/plugin/upgrade/
-      title: docker plugin upgrade
-  - path: /reference/cli/docker/ps/
-    title: docker ps
-  - path: /reference/cli/docker/pull/
-    title: docker pull
-  - path: /reference/cli/docker/push/
-    title: docker push
-  - path: /reference/cli/docker/run/
-    title: docker run
-  - sectiontitle: docker scout
+    - path: /reference/cli/iechor/plugin/
+      title: iechor plugin
+    - path: /reference/cli/iechor/plugin/create/
+      title: iechor plugin create
+    - path: /reference/cli/iechor/plugin/disable/
+      title: iechor plugin disable
+    - path: /reference/cli/iechor/plugin/enable/
+      title: iechor plugin enable
+    - path: /reference/cli/iechor/plugin/inspect/
+      title: iechor plugin inspect
+    - path: /reference/cli/iechor/plugin/install/
+      title: iechor plugin install
+    - path: /reference/cli/iechor/plugin/ls/
+      title: iechor plugin ls
+    - path: /reference/cli/iechor/plugin/rm/
+      title: iechor plugin rm
+    - path: /reference/cli/iechor/plugin/set/
+      title: iechor plugin set
+    - path: /reference/cli/iechor/plugin/upgrade/
+      title: iechor plugin upgrade
+  - path: /reference/cli/iechor/ps/
+    title: iechor ps
+  - path: /reference/cli/iechor/pull/
+    title: iechor pull
+  - path: /reference/cli/iechor/push/
+    title: iechor push
+  - path: /reference/cli/iechor/run/
+    title: iechor run
+  - sectiontitle: iechor scout
     section:
-    - path: /reference/cli/docker/scout/
-      title: docker scout
-    - path: /reference/cli/docker/scout/attestation/
-      title: docker scout attestation
-    - path: /reference/cli/docker/scout/attestation/add/
-      title: docker scout attestation add
-    - path: /reference/cli/docker/scout/cache/
-      title: docker scout cache
-    - path: /reference/cli/docker/scout/cache/df/
-      title: docker scout cache df
-    - path: /reference/cli/docker/scout/cache/prune/
-      title: docker scout cache prune
-    - path: /reference/cli/docker/scout/compare/
-      title: docker scout compare
-    - path: /reference/cli/docker/scout/config/
-      title: docker scout config
-    - path: /reference/cli/docker/scout/cves/
-      title: docker scout cves
-    - path: /reference/cli/docker/scout/enroll/
-      title: docker scout enroll
-    - path: /reference/cli/docker/scout/environment/
-      title: docker scout environment
-    - path: /reference/cli/docker/scout/integration/
-      title: docker scout integration
-    - path: /reference/cli/docker/scout/integration/configure/
-      title: docker scout integration configure
-    - path: /reference/cli/docker/scout/integration/delete/
-      title: docker scout integration delete
-    - path: /reference/cli/docker/scout/integration/list/
-      title: docker scout integration list
-    - path: /reference/cli/docker/scout/policy/
-      title: docker scout policy
-    - path: /reference/cli/docker/scout/push/
-      title: docker scout push
-    - path: /reference/cli/docker/scout/quickview/
-      title: docker scout quickview
-    - path: /reference/cli/docker/scout/recommendations/
-      title: docker scout recommendations
-    - path: /reference/cli/docker/scout/repo/
-      title: docker scout repo
-    - path: /reference/cli/docker/scout/repo/disable/
-      title: docker scout repo disable
-    - path: /reference/cli/docker/scout/repo/enable/
-      title: docker scout repo enable
-    - path: /reference/cli/docker/scout/repo/list/
-      title: docker scout repo list
-    - path: /reference/cli/docker/scout/sbom/
-      title: docker scout sbom
-    - path: /reference/cli/docker/scout/stream/
-      title: docker scout stream
-    - path: /reference/cli/docker/scout/version/
-      title: docker scout version
-    - path: /reference/cli/docker/scout/watch/
-      title: docker scout watch
-  - path: /reference/cli/docker/search/
-    title: docker search
-  - sectiontitle: docker secret
+    - path: /reference/cli/iechor/scout/
+      title: iechor scout
+    - path: /reference/cli/iechor/scout/attestation/
+      title: iechor scout attestation
+    - path: /reference/cli/iechor/scout/attestation/add/
+      title: iechor scout attestation add
+    - path: /reference/cli/iechor/scout/cache/
+      title: iechor scout cache
+    - path: /reference/cli/iechor/scout/cache/df/
+      title: iechor scout cache df
+    - path: /reference/cli/iechor/scout/cache/prune/
+      title: iechor scout cache prune
+    - path: /reference/cli/iechor/scout/compare/
+      title: iechor scout compare
+    - path: /reference/cli/iechor/scout/config/
+      title: iechor scout config
+    - path: /reference/cli/iechor/scout/cves/
+      title: iechor scout cves
+    - path: /reference/cli/iechor/scout/enroll/
+      title: iechor scout enroll
+    - path: /reference/cli/iechor/scout/environment/
+      title: iechor scout environment
+    - path: /reference/cli/iechor/scout/integration/
+      title: iechor scout integration
+    - path: /reference/cli/iechor/scout/integration/configure/
+      title: iechor scout integration configure
+    - path: /reference/cli/iechor/scout/integration/delete/
+      title: iechor scout integration delete
+    - path: /reference/cli/iechor/scout/integration/list/
+      title: iechor scout integration list
+    - path: /reference/cli/iechor/scout/policy/
+      title: iechor scout policy
+    - path: /reference/cli/iechor/scout/push/
+      title: iechor scout push
+    - path: /reference/cli/iechor/scout/quickview/
+      title: iechor scout quickview
+    - path: /reference/cli/iechor/scout/recommendations/
+      title: iechor scout recommendations
+    - path: /reference/cli/iechor/scout/repo/
+      title: iechor scout repo
+    - path: /reference/cli/iechor/scout/repo/disable/
+      title: iechor scout repo disable
+    - path: /reference/cli/iechor/scout/repo/enable/
+      title: iechor scout repo enable
+    - path: /reference/cli/iechor/scout/repo/list/
+      title: iechor scout repo list
+    - path: /reference/cli/iechor/scout/sbom/
+      title: iechor scout sbom
+    - path: /reference/cli/iechor/scout/stream/
+      title: iechor scout stream
+    - path: /reference/cli/iechor/scout/version/
+      title: iechor scout version
+    - path: /reference/cli/iechor/scout/watch/
+      title: iechor scout watch
+  - path: /reference/cli/iechor/search/
+    title: iechor search
+  - sectiontitle: iechor secret
     section:
-    - path: /reference/cli/docker/secret/
-      title: docker secret
-    - path: /reference/cli/docker/secret/create/
-      title: docker secret create
-    - path: /reference/cli/docker/secret/inspect/
-      title: docker secret inspect
-    - path: /reference/cli/docker/secret/ls/
-      title: docker secret ls
-    - path: /reference/cli/docker/secret/rm/
-      title: docker secret rm
-  - sectiontitle: docker service
+    - path: /reference/cli/iechor/secret/
+      title: iechor secret
+    - path: /reference/cli/iechor/secret/create/
+      title: iechor secret create
+    - path: /reference/cli/iechor/secret/inspect/
+      title: iechor secret inspect
+    - path: /reference/cli/iechor/secret/ls/
+      title: iechor secret ls
+    - path: /reference/cli/iechor/secret/rm/
+      title: iechor secret rm
+  - sectiontitle: iechor service
     section:
-    - path: /reference/cli/docker/service/
-      title: docker service
-    - path: /reference/cli/docker/service/create/
-      title: docker service create
-    - path: /reference/cli/docker/service/inspect/
-      title: docker service inspect
-    - path: /reference/cli/docker/service/logs/
-      title: docker service logs
-    - path: /reference/cli/docker/service/ls/
-      title: docker service ls
-    - path: /reference/cli/docker/service/ps/
-      title: docker service ps
-    - path: /reference/cli/docker/service/rollback/
-      title: docker service rollback
-    - path: /reference/cli/docker/service/rm/
-      title: docker service rm
-    - path: /reference/cli/docker/service/scale/
-      title: docker service scale
-    - path: /reference/cli/docker/service/update/
-      title: docker service update
-  - sectiontitle: docker stack
+    - path: /reference/cli/iechor/service/
+      title: iechor service
+    - path: /reference/cli/iechor/service/create/
+      title: iechor service create
+    - path: /reference/cli/iechor/service/inspect/
+      title: iechor service inspect
+    - path: /reference/cli/iechor/service/logs/
+      title: iechor service logs
+    - path: /reference/cli/iechor/service/ls/
+      title: iechor service ls
+    - path: /reference/cli/iechor/service/ps/
+      title: iechor service ps
+    - path: /reference/cli/iechor/service/rollback/
+      title: iechor service rollback
+    - path: /reference/cli/iechor/service/rm/
+      title: iechor service rm
+    - path: /reference/cli/iechor/service/scale/
+      title: iechor service scale
+    - path: /reference/cli/iechor/service/update/
+      title: iechor service update
+  - sectiontitle: iechor stack
     section:
-    - path: /reference/cli/docker/stack/
-      title: docker stack
-    - path: /reference/cli/docker/stack/config/
-      title: docker stack config
-    - path: /reference/cli/docker/stack/deploy/
-      title: docker stack deploy
-    - path: /reference/cli/docker/stack/ls/
-      title: docker stack ls
-    - path: /reference/cli/docker/stack/ps/
-      title: docker stack ps
-    - path: /reference/cli/docker/stack/rm/
-      title: docker stack rm
-    - path: /reference/cli/docker/stack/services/
-      title: docker stack services
-  - sectiontitle: docker swarm
+    - path: /reference/cli/iechor/stack/
+      title: iechor stack
+    - path: /reference/cli/iechor/stack/config/
+      title: iechor stack config
+    - path: /reference/cli/iechor/stack/deploy/
+      title: iechor stack deploy
+    - path: /reference/cli/iechor/stack/ls/
+      title: iechor stack ls
+    - path: /reference/cli/iechor/stack/ps/
+      title: iechor stack ps
+    - path: /reference/cli/iechor/stack/rm/
+      title: iechor stack rm
+    - path: /reference/cli/iechor/stack/services/
+      title: iechor stack services
+  - sectiontitle: iechor swarm
     section:
-    - path: /reference/cli/docker/swarm/
-      title: docker swarm
-    - path: /reference/cli/docker/swarm/ca/
-      title: docker swarm ca
-    - path: /reference/cli/docker/swarm/init/
-      title: docker swarm init
-    - path: /reference/cli/docker/swarm/join-token/
-      title: docker swarm join-token
-    - path: /reference/cli/docker/swarm/join/
-      title: docker swarm join
-    - path: /reference/cli/docker/swarm/leave/
-      title: docker swarm leave
-    - path: /reference/cli/docker/swarm/unlock-key/
-      title: docker swarm unlock-key
-    - path: /reference/cli/docker/swarm/unlock/
-      title: docker swarm unlock
-    - path: /reference/cli/docker/swarm/update/
-      title: docker swarm update
-  - sectiontitle: docker system
+    - path: /reference/cli/iechor/swarm/
+      title: iechor swarm
+    - path: /reference/cli/iechor/swarm/ca/
+      title: iechor swarm ca
+    - path: /reference/cli/iechor/swarm/init/
+      title: iechor swarm init
+    - path: /reference/cli/iechor/swarm/join-token/
+      title: iechor swarm join-token
+    - path: /reference/cli/iechor/swarm/join/
+      title: iechor swarm join
+    - path: /reference/cli/iechor/swarm/leave/
+      title: iechor swarm leave
+    - path: /reference/cli/iechor/swarm/unlock-key/
+      title: iechor swarm unlock-key
+    - path: /reference/cli/iechor/swarm/unlock/
+      title: iechor swarm unlock
+    - path: /reference/cli/iechor/swarm/update/
+      title: iechor swarm update
+  - sectiontitle: iechor system
     section:
-    - path: /reference/cli/docker/system/
-      title: docker system
-    - path: /reference/cli/docker/system/df/
-      title: docker system df
-    - path: /reference/cli/docker/system/events/
-      title: docker system events
-    - path: /reference/cli/docker/system/info/
-      title: docker system info
-    - path: /reference/cli/docker/system/prune/
-      title: docker system prune
-  - sectiontitle: docker trust
+    - path: /reference/cli/iechor/system/
+      title: iechor system
+    - path: /reference/cli/iechor/system/df/
+      title: iechor system df
+    - path: /reference/cli/iechor/system/events/
+      title: iechor system events
+    - path: /reference/cli/iechor/system/info/
+      title: iechor system info
+    - path: /reference/cli/iechor/system/prune/
+      title: iechor system prune
+  - sectiontitle: iechor trust
     section:
-    - path: /reference/cli/docker/trust/
-      title: docker trust
-    - path: /reference/cli/docker/trust/inspect/
-      title: docker trust inspect
-    - path: /reference/cli/docker/trust/key/
-      title: docker trust key
-    - path: /reference/cli/docker/trust/key/generate/
-      title: docker trust key generate
-    - path: /reference/cli/docker/trust/key/load/
-      title: docker trust key load
-    - path: /reference/cli/docker/trust/revoke/
-      title: docker trust revoke
-    - path: /reference/cli/docker/trust/sign/
-      title: docker trust sign
-    - path: /reference/cli/docker/trust/signer/
-      title: docker trust signer
-    - path: /reference/cli/docker/trust/signer/add/
-      title: docker trust signer add
-    - path: /reference/cli/docker/trust/signer/remove/
-      title: docker trust signer remove
-  - path: /reference/cli/docker/version/
-    title: docker version
-  - sectiontitle: docker volume
+    - path: /reference/cli/iechor/trust/
+      title: iechor trust
+    - path: /reference/cli/iechor/trust/inspect/
+      title: iechor trust inspect
+    - path: /reference/cli/iechor/trust/key/
+      title: iechor trust key
+    - path: /reference/cli/iechor/trust/key/generate/
+      title: iechor trust key generate
+    - path: /reference/cli/iechor/trust/key/load/
+      title: iechor trust key load
+    - path: /reference/cli/iechor/trust/revoke/
+      title: iechor trust revoke
+    - path: /reference/cli/iechor/trust/sign/
+      title: iechor trust sign
+    - path: /reference/cli/iechor/trust/signer/
+      title: iechor trust signer
+    - path: /reference/cli/iechor/trust/signer/add/
+      title: iechor trust signer add
+    - path: /reference/cli/iechor/trust/signer/remove/
+      title: iechor trust signer remove
+  - path: /reference/cli/iechor/version/
+    title: iechor version
+  - sectiontitle: iechor volume
     section:
-    - path: /reference/cli/docker/volume/create/
-      title: docker volume create
-    - path: /reference/cli/docker/volume/inspect/
-      title: docker volume inspect
-    - path: /reference/cli/docker/volume/ls/
-      title: docker volume ls
-    - path: /reference/cli/docker/volume/prune/
-      title: docker volume prune
-    - path: /reference/cli/docker/volume/rm/
-      title: docker volume rm
-    - path: /reference/cli/docker/volume/update/
-      title: docker volume update
-- title: Dockerfile reference
-  path: /reference/dockerfile/
-- title: Daemon CLI (dockerd)
-  path: /reference/cli/dockerd/
+    - path: /reference/cli/iechor/volume/create/
+      title: iechor volume create
+    - path: /reference/cli/iechor/volume/inspect/
+      title: iechor volume inspect
+    - path: /reference/cli/iechor/volume/ls/
+      title: iechor volume ls
+    - path: /reference/cli/iechor/volume/prune/
+      title: iechor volume prune
+    - path: /reference/cli/iechor/volume/rm/
+      title: iechor volume rm
+    - path: /reference/cli/iechor/volume/update/
+      title: iechor volume update
+- title: iEchorfile reference
+  path: /reference/iechorfile/
+- title: Daemon CLI (iechord)
+  path: /reference/cli/iechord/
 - sectiontitle: API reference
   section:
-  - sectiontitle: Docker Engine API
+  - sectiontitle: iEchor Engine API
     section:
     - path: /engine/api/
       title: Overview
@@ -928,26 +928,26 @@ Reference:
         title: v1.25 reference
       - path: /engine/api/v1.24/
         title: v1.24 reference
-  - sectiontitle: Docker Hub API
+  - sectiontitle: iEchor Hub API
     section:
-      - title: Docker Hub API
-        path: /docker-hub/api/latest/
+      - title: iEchor Hub API
+        path: /iechor-hub/api/latest/
       - title: DVP Data API
-        path: /docker-hub/api/dvp/
+        path: /iechor-hub/api/dvp/
       - title: Deprecated API
-        path: /docker-hub/api/deprecated/
-  - sectiontitle: Docker Extension SDK API
+        path: /iechor-hub/api/deprecated/
+  - sectiontitle: iEchor Extension SDK API
     section:
       - path: /desktop/extensions-sdk/dev/api/reference/interfaces/DesktopUI/
         title: DesktopUI
       - path: /desktop/extensions-sdk/dev/api/reference/interfaces/Dialog/
         title: Dialog
-      - path: /desktop/extensions-sdk/dev/api/reference/interfaces/Docker/
-        title: Docker
-      - path: /desktop/extensions-sdk/dev/api/reference/interfaces/DockerCommand/
-        title: DockerCommand
-      - path: /desktop/extensions-sdk/dev/api/reference/interfaces/DockerDesktopClient/
-        title: DockerDesktopClient
+      - path: /desktop/extensions-sdk/dev/api/reference/interfaces/iEchor/
+        title: iEchor
+      - path: /desktop/extensions-sdk/dev/api/reference/interfaces/iEchorCommand/
+        title: iEchorCommand
+      - path: /desktop/extensions-sdk/dev/api/reference/interfaces/iEchorDesktopClient/
+        title: iEchorDesktopClient
       - path: /desktop/extensions-sdk/dev/api/reference/interfaces/Exec/
         title: Exec
       - path: /desktop/extensions-sdk/dev/api/reference/interfaces/ExecProcess/
@@ -1122,9 +1122,9 @@ Reference:
 Manuals:
 - path: /manuals/
   title: Overview
-- title: Get Docker
-  path: /get-docker/
-- sectiontitle: Docker Desktop
+- title: Get iEchor
+  path: /get-iechor/
+- sectiontitle: iEchor Desktop
   section:
     - path: /desktop/
       title: Overview
@@ -1152,7 +1152,7 @@ Manuals:
               title: Arch
     - path: /desktop/get-started/
       title: Sign in
-    - sectiontitle: Explore Docker Desktop
+    - sectiontitle: Explore iEchor Desktop
       section:
         - path: /desktop/use-desktop/
           title: Overview
@@ -1167,8 +1167,8 @@ Manuals:
         - path: /desktop/use-desktop/resource-saver/
           title: Resource Saver mode
         - path: /desktop/use-desktop/pause/
-          title: Pause Docker Desktop
-    - sectiontitle: Hardened Docker Desktop
+          title: Pause iEchor Desktop
+    - sectiontitle: Hardened iEchor Desktop
       section:
         - path: /desktop/hardened-desktop/
           title: Overview
@@ -1205,7 +1205,7 @@ Manuals:
         - path: /desktop/dev-environments/share/
           title: Distribute your dev environment
         - path: /desktop/dev-environments/dev-cli/
-          title: Use the docker dev CLI plugin
+          title: Use the iechor dev CLI plugin
     - path: /desktop/containerd/
       title: containerd image store
     - path: /desktop/wasm/
@@ -1215,7 +1215,7 @@ Manuals:
     - sectiontitle: WSL
       section:
         - path: /desktop/wsl/
-          title: Set up WSL 2 on Docker Desktop for Windows
+          title: Set up WSL 2 on iEchor Desktop for Windows
         - path: /desktop/wsl/use-wsl/
           title: Use WSL
         - path: /desktop/wsl/best-practices/
@@ -1231,9 +1231,9 @@ Manuals:
         - path: /desktop/networking/
           title: Explore networking features
         - path: /desktop/vm-vdi/
-          title: Run Docker Desktop for Windows in a VM or VDI environment
+          title: Run iEchor Desktop for Windows in a VM or VDI environment
         - path: /desktop/allow-list/
-          title: Allowlist for Docker Desktop
+          title: Allowlist for iEchor Desktop
     - sectiontitle: Change settings
       section:
         - path: /desktop/settings/mac/
@@ -1253,7 +1253,7 @@ Manuals:
         - path: /desktop/troubleshoot/known-issues/
           title: Known issues
     - path: /desktop/uninstall/
-      title: Uninstall Docker Desktop
+      title: Uninstall iEchor Desktop
     - path: /desktop/feedback/
       title: Give feedback
     - sectiontitle: Desktop FAQs
@@ -1289,11 +1289,11 @@ Manuals:
       - path: /desktop/previous-versions/archive-mac/
         title: Older versions for Mac
 
-- sectiontitle: Docker Extensions
+- sectiontitle: iEchor Extensions
   section:
     - path: /desktop/extensions/
       title: Overview
-    - sectiontitle: Extensions on Docker Desktop
+    - sectiontitle: Extensions on iEchor Desktop
       section:
         - path: /desktop/extensions/marketplace/
           title: Manage Marketplace extensions
@@ -1349,7 +1349,7 @@ Manuals:
                path: /desktop/extensions-sdk/design/
              - title: Guidelines
                path: /desktop/extensions-sdk/design/design-guidelines/
-             - title: Docker design principles
+             - title: iEchor design principles
                path: /desktop/extensions-sdk/design/design-principles/
              - title: MUI best practices
                path: /desktop/extensions-sdk/design/mui-best-practices/
@@ -1357,8 +1357,8 @@ Manuals:
           section:
             - title: Invoke host binaries
               path: /desktop/extensions-sdk/guides/invoke-host-binaries/
-            - title: Use the Docker socket from the extension backend
-              path: /desktop/extensions-sdk/guides/use-docker-socket-from-backend/
+            - title: Use the iEchor socket from the extension backend
+              path: /desktop/extensions-sdk/guides/use-iechor-socket-from-backend/
             - title: Interacting with Kubernetes
               path: /desktop/extensions-sdk/guides/kubernetes/
             - title: Authentication
@@ -1377,8 +1377,8 @@ Manuals:
                   path: /desktop/extensions-sdk/dev/api/overview/
                 - title: Extension Backend
                   path: /desktop/extensions-sdk/dev/api/backend/
-                - title: Docker
-                  path: /desktop/extensions-sdk/dev/api/docker/
+                - title: iEchor
+                  path: /desktop/extensions-sdk/dev/api/iechor/
                 - title: Dashboard
                   path: /desktop/extensions-sdk/dev/api/dashboard/
                 - title: Navigation
@@ -1386,7 +1386,7 @@ Manuals:
                 - title: API Reference
                   path: /desktop/extensions-sdk/dev/api/reference/README/
 
-- sectiontitle: Docker Scout
+- sectiontitle: iEchor Scout
   section:
     - path: /scout/
       title: Overview
@@ -1394,7 +1394,7 @@ Manuals:
       title: Quickstart
     - path: /scout/install/
       title: Install
-    - sectiontitle: Explore Docker Scout
+    - sectiontitle: Explore iEchor Scout
       section:
       - path: /scout/dashboard/
         title: Dashboard
@@ -1404,7 +1404,7 @@ Manuals:
         title: Advisory database
       - path: /scout/data-handling/
         title: Data handling
-    - sectiontitle: Use Docker Scout
+    - sectiontitle: Use iEchor Scout
       section:
       - path: /scout/image-analysis/
         title: Image analysis
@@ -1475,7 +1475,7 @@ Manuals:
       - path: /scout/release-notes/platform/
         title: Platform
 
-- sectiontitle: Docker Engine
+- sectiontitle: iEchor Engine
   section:
   - path: /engine/
     title: Overview
@@ -1556,7 +1556,7 @@ Manuals:
       - path: /network/drivers/none/
         title: None (no networking)
     - path: /network/proxy/
-      title: Configure Docker to use a proxy server
+      title: Configure iEchor to use a proxy server
     - path: /network/packet-filtering-firewalls/
       title: Packet filtering and firewalls
     - path: /config/daemon/ipv6/
@@ -1588,7 +1588,7 @@ Manuals:
   - sectiontitle: CLI
     section:
     - path: /engine/reference/commandline/cli/
-      title: Use the Docker CLI
+      title: Use the iEchor CLI
     - path: /config/completion/
       title: Completion
     - path: /config/filter/
@@ -1628,7 +1628,7 @@ Manuals:
       - path: /engine/extend/plugins_authorization/
         title: Access authorization plugin
       - path: /engine/extend/legacy_plugins/
-        title: Extending Docker with plugins
+        title: Extending iEchor with plugins
       - path: /engine/extend/plugins_network/
         title: Network plugins
       - path: /engine/extend/plugins_logging/
@@ -1688,9 +1688,9 @@ Manuals:
       - path: /engine/security/rootless/
         title: Rootless mode
       - path: /engine/security/non-events/
-        title: Docker security non-events
+        title: iEchor security non-events
       - path: /engine/security/protect-access/
-        title: Protect the Docker daemon socket
+        title: Protect the iEchor daemon socket
       - path: /engine/security/certificates/
         title: Using certificates for repository client verification
       - sectiontitle: Use trusted images
@@ -1754,7 +1754,7 @@ Manuals:
       - path: /engine/swarm/how-swarm-mode-works/swarm-task-states/
         title: Swarm task states
     - path: /engine/swarm/swarm-mode/
-      title: Run Docker in Swarm mode
+      title: Run iEchor in Swarm mode
     - path: /engine/swarm/join-nodes/
       title: Join nodes to a swarm
     - path: /engine/swarm/manage-nodes/
@@ -1766,7 +1766,7 @@ Manuals:
     - path: /engine/swarm/configs/
       title: Store service configuration data
     - path: /engine/swarm/secrets/
-      title: Manage sensitive data with Docker secrets
+      title: Manage sensitive data with iEchor secrets
     - path: /engine/swarm/swarm_manager_locking/
       title: Lock your swarm
     - path: /engine/swarm/networking/
@@ -1829,7 +1829,7 @@ Manuals:
         title: Engine 17.03
       - path: /engine/release-notes/prior-releases/
         title: Engine 1.13 and earlier
-- sectiontitle: Docker Build
+- sectiontitle: iEchor Build
   section:
     - path: /build/
       title: Overview
@@ -1865,10 +1865,10 @@ Manuals:
       section:
         - path: /build/drivers/
           title: Drivers overview
-        - path: /build/drivers/docker/
-          title: Docker driver
-        - path: /build/drivers/docker-container/
-          title: Docker container driver
+        - path: /build/drivers/iechor/
+          title: iEchor driver
+        - path: /build/drivers/iechor-container/
+          title: iEchor container driver
         - path: /build/drivers/kubernetes/
           title: Kubernetes driver
         - path: /build/drivers/remote/
@@ -1893,8 +1893,8 @@ Manuals:
           title: Image and registry exporters
         - path: /build/exporters/local-tar/
           title: Local and tar exporters
-        - path: /build/exporters/oci-docker/
-          title: OCI and Docker exporters
+        - path: /build/exporters/oci-iechor/
+          title: OCI and iEchor exporters
     - sectiontitle: Cache
       section:
         - path: /build/cache/
@@ -1947,11 +1947,11 @@ Manuals:
           title: SLSA definitions
         - path: /build/attestations/attestation-storage/
           title: Attestation storage
-    - sectiontitle: Dockerfile
+    - sectiontitle: iEchorfile
       section:
-        - path: /build/dockerfile/frontend/
-          title: Custom Dockerfile syntax
-        - path: /build/dockerfile/release-notes/
+        - path: /build/iechorfile/frontend/
+          title: Custom iEchorfile syntax
+        - path: /build/iechorfile/release-notes/
           title: Release notes
     - sectiontitle: BuildKit
       section:
@@ -1964,7 +1964,7 @@ Manuals:
     - sectiontitle: Continuous integration
       section:
         - path: /build/ci/
-          title: CI with Docker
+          title: CI with iEchor
         - sectiontitle: GitHub Actions
           section:
           - path: /build/ci/github-actions/
@@ -1981,8 +1981,8 @@ Manuals:
             title: Manage tags and labels
           - path: /build/ci/github-actions/cache/
             title: Cache management
-          - path: /build/ci/github-actions/export-docker/
-            title: Export to Docker
+          - path: /build/ci/github-actions/export-iechor/
+            title: Export to iEchor
           - path: /build/ci/github-actions/test-before-push/
             title: Test before push
           - path: /build/ci/github-actions/local-registry/
@@ -1993,8 +1993,8 @@ Manuals:
             title: Named contexts
           - path: /build/ci/github-actions/copy-image-registries/
             title: Copy image between registries
-          - path: /build/ci/github-actions/update-dockerhub-desc/
-            title: Update Docker Hub repo description
+          - path: /build/ci/github-actions/update-iechorhub-desc/
+            title: Update iEchor Hub repo description
           - path: /build/ci/github-actions/attestations/
             title: SBOM and provenance attestations
           - path: /build/ci/github-actions/annotations/
@@ -2003,7 +2003,7 @@ Manuals:
             title: Reproducible builds
     - path: /build/release-notes/
       title: Release notes
-- sectiontitle: Docker Compose
+- sectiontitle: iEchor Compose
   section:
   - path: /compose/
     title: Overview
@@ -2080,55 +2080,55 @@ Manuals:
   - path: /compose/release-notes/
     title: Release notes
 
-- sectiontitle: Docker Hub
+- sectiontitle: iEchor Hub
   section:
-  - path: /docker-hub/
+  - path: /iechor-hub/
     title: Overview
-  - path: /docker-id/
+  - path: /iechor-id/
     title: Create an account
-  - path: /docker-hub/quickstart/
+  - path: /iechor-hub/quickstart/
     title: Quickstart
   - sectiontitle: Repositories
     section:
-      - path: /docker-hub/repos/create/
+      - path: /iechor-hub/repos/create/
         title: Create
-      - path: /docker-hub/repos/access/
+      - path: /iechor-hub/repos/access/
         title: Access
-      - path: /docker-hub/repos/
+      - path: /iechor-hub/repos/
         title: Manage
-      - path: /docker-hub/repos/categories/
+      - path: /iechor-hub/repos/categories/
         title: Categories
-  - path: /docker-hub/download-rate-limit/
+  - path: /iechor-hub/download-rate-limit/
     title: Download rate limit
-  - path: /docker-hub/webhooks/
+  - path: /iechor-hub/webhooks/
     title: Webhooks
-  - path: /docker-hub/service-accounts/
+  - path: /iechor-hub/service-accounts/
     title: Service accounts
   - sectiontitle: Automated builds
     section:
-      - path: /docker-hub/builds/how-builds-work/
+      - path: /iechor-hub/builds/how-builds-work/
         title: How Automated builds work
-      - path: /docker-hub/builds/
+      - path: /iechor-hub/builds/
         title: Set up Automated builds
-      - path: /docker-hub/builds/manage-builds/
+      - path: /iechor-hub/builds/manage-builds/
         title: Manage your builds
-      - path: /docker-hub/builds/troubleshoot/
+      - path: /iechor-hub/builds/troubleshoot/
         title: Troubleshoot your builds
-      - path: /docker-hub/builds/automated-testing/
+      - path: /iechor-hub/builds/automated-testing/
         title: Testing in Automated builds
-      - path: /docker-hub/builds/advanced/
+      - path: /iechor-hub/builds/advanced/
         title: Advanced options for builds
-      - path: /docker-hub/builds/link-source/
+      - path: /iechor-hub/builds/link-source/
         title: Link to GitHub and BitBucket
-  - path: /docker-hub/vulnerability-scanning/
+  - path: /iechor-hub/vulnerability-scanning/
     title: Vulnerability scanning
-  - path: /docker-hub/mirror/
+  - path: /iechor-hub/mirror/
     title: Mirroring
   - path: /registry/
     title: Registry
-  - path: /docker-hub/oci-artifacts/
+  - path: /iechor-hub/oci-artifacts/
     title: OCI artifacts
-  - path: /docker-hub/release-notes/
+  - path: /iechor-hub/release-notes/
     title: Release notes
 
 - sectiontitle: Administration
@@ -2187,7 +2187,7 @@ Manuals:
       -  path: /security/for-admins/single-sign-on/
          title: Overview
       -  path: /security/for-admins/single-sign-on/configure/
-         title: Configure Docker
+         title: Configure iEchor
       -  path: /security/for-admins/single-sign-on/configure/configure-idp/
          title: Configure your IdP
       -  path: /security/for-admins/single-sign-on/connect/
@@ -2219,7 +2219,7 @@ Manuals:
       - path: /security/for-developers/2fa/disable-2fa/
         title: Disable two-factor authentication
       - path: /security/for-developers/2fa/recover-hub-account/
-        title: Recover your Docker Hub account
+        title: Recover your iEchor Hub account
       - path: /security/for-developers/2fa/new-recovery-code/
         title: Generate a new recovery code
   - path: /security/security-announcements/
@@ -2251,7 +2251,7 @@ Manuals:
   section:
   - path: /billing/
     title: Overview
-  - sectiontitle: Docker Core billing
+  - sectiontitle: iEchor Core billing
     section:
     - path: /billing/core-billing/payment-method/
       title: Add or update a payment method
@@ -2262,9 +2262,9 @@ Manuals:
     - path: /billing/core-billing/cycle/
       title: Change your billing cycle
   - path: /billing/build-billing/
-    title: Docker Build Cloud billing
+    title: iEchor Build Cloud billing
   - path: /billing/scout-billing/
-    title: Docker Scout billing
+    title: iEchor Scout billing
   - path: /billing/faqs/
     title: Billing FAQs
 
@@ -2272,7 +2272,7 @@ Manuals:
   section:
   - path: /subscription/
     title: Overview
-  - sectiontitle: Docker Core
+  - sectiontitle: iEchor Core
     section:
     - path: /subscription/core-subscription/details/
       title: Subscriptions and features
@@ -2284,16 +2284,16 @@ Manuals:
       title: Remove seats
     - path: /subscription/core-subscription/downgrade/
       title: Downgrade
-  - sectiontitle: Docker Build Cloud
+  - sectiontitle: iEchor Build Cloud
     section:
     - path: /subscription/build-cloud/build-details/
       title: Subscriptions and features
     - path: /subscription/build-cloud/manage-seats/
       title: Manage seats and invites
   - path: /subscription/scout-details/
-    title: Docker Scout subscriptions and features
+    title: iEchor Scout subscriptions and features
   - path: /subscription/desktop-license/
-    title: Docker Desktop license agreement
+    title: iEchor Desktop license agreement
   - path: /subscription/faq/
     title: Subscription FAQ
 
@@ -2301,7 +2301,7 @@ Manuals:
   section:
   - path: /trusted-content/
     title: Overview
-  - sectiontitle: Docker Official Images
+  - sectiontitle: iEchor Official Images
     section:
     - path: /trusted-content/official-images/
       title: Overview
@@ -2310,9 +2310,9 @@ Manuals:
     - path: /trusted-content/official-images/contributing/
       title: Contributing
   - path: /trusted-content/dvp-program/
-    title: Docker Verified Publisher Program
+    title: iEchor Verified Publisher Program
   - path: /trusted-content/dsos-program/
-    title: Docker-Sponsored Open Source Program
+    title: iEchor-Sponsored Open Source Program
   - path: /trusted-content/insights-analytics/
     title: Insights and analytics
 

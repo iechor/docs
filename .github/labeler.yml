@@ -10,14 +10,14 @@ area/build:
       - any-glob-to-any-file:
           - content/build/**
           - _vendor/github.com/moby/buildkit/**
-          - _vendor/github.com/docker/buildx/**
+          - _vendor/github.com/iechor/buildx/**
           - content/engine/commandline/build*
 
 area/compose:
   - changed-files:
       - any-glob-to-any-file:
           - content/compose/**
-          - _vendor/github.com/docker/compose/**
+          - _vendor/github.com/iechor/compose/**
           - _vendor/github.com/compose-spec/compose-spec/**
 
 area/desktop:
@@ -62,26 +62,26 @@ area/networking:
 area/hub:
   - changed-files:
       - any-glob-to-any-file:
-          - content/docker-hub/**
+          - content/iechor-hub/**
 
 area/cli:
   - changed-files:
       - any-glob-to-any-file:
           - content/engine/reference/commandline/**
-          - _vendor/github.com/docker/cli/**
+          - _vendor/github.com/iechor/cli/**
 
 area/api:
   - changed-files:
       - any-glob-to-any-file:
           - content/engine/api/**
-          - content/docker-hub/api/**
+          - content/iechor-hub/api/**
           - _vendor/github.com/moby/moby/docs/api/*
 
 area/scout:
   - changed-files:
       - any-glob-to-any-file:
           - content/scout/**
-          - _vendor/github.com/docker/scout-cli/**
+          - _vendor/github.com/iechor/scout-cli/**
 
 area/billing:
   - changed-files:
