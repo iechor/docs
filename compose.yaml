@@ -1,14 +1,14 @@
 services:
   server:
-    build:
-      context: .
-      target: build
-      args:
-          - HUGO_ENV=production
-          - DOCS_URL=https://docs.iechor.com
+    image: xingqiangchen/iechor-docs:build
     ports:
       - "1313:1313"
-    entrypoint: ["hugo", "server", "--bind", "0.0.0.0","--environment", "production"]
+    entrypoint:
+      ["hugo", "server", "--bind", "0.0.0.0", "--environment", "production"]
+    volumes:
+      - .:/src
+    working_dir: /src
+
     develop:
       watch:
         - action: sync
