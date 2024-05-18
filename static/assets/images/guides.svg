@@ -5,7 +5,7 @@
 </g>
 </mask>
 <g mask="url(#mask0_805_32016)">
-<rect y="15" width="25" height="25" fill="#086DD7"/>
+<rect y="15" width="25" height="25" fill="#c84349"/>
 </g>
 <path d="M16 37H33.6234C33.6234 37 39 36.6251 39 32.1271C39 27.629 33.6234 27.629 33.6234 27.629H26.7532C26.7532 27.629 22.5714 27.629 22.5714 23.1309C22.5714 18.6328 26.7532 19.0077 26.7532 19.0077H33.6234" stroke="#8BC7F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 3"/>
 <mask id="mask1_805_32016" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="30" y="7" width="14" height="14">
@@ -14,7 +14,7 @@
 </g>
 </mask>
 <g mask="url(#mask1_805_32016)">
-<rect x="30" y="7" width="14" height="14" fill="#086DD7"/>
+<rect x="30" y="7" width="14" height="14" fill="#c84349"/>
 </g>
 <defs>
 <clipPath id="clip0_805_32016">
