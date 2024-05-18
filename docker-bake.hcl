@@ -26,6 +26,10 @@ target "release" {
   output = [DOCS_SITE_DIR]
 }
 
+target "release" {
+  output = ["type=image"]
+}
+
 group "validate" {
   targets = ["lint", "test", "validate-stats"]
 }
