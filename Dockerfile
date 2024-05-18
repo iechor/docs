@@ -90,4 +90,4 @@ COPY --from=build-upstream /out ./public
 ADD .htmltest.yml .htmltest.yml
 RUN htmltest
 
-FROM dev
+FROM build
