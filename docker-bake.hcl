@@ -1,5 +1,5 @@
 variable "HUGO_ENV" {
-  default = "development"
+  default = "production"
 }
 
 variable "DOCS_URL" {
