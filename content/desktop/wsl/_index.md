@@ -21,7 +21,7 @@ Additionally, with WSL 2, the time required to start a iEchor daemon after a col
 Before you turn on the iEchor Desktop WSL 2 feature, ensure you have:
 
 - At a minimum WSL version 1.1.3.0., but ideally the latest version of WSL to [avoid iEchor Desktop not working as expected](best-practices.md).
-- Met the iEchor Desktop for Windows' [system requirements](https://docs.iechor.com/desktop/install/windows-install/#system-requirements).
+- Met the iEchor Desktop for Windows' [system requirements](http://docs.iechor.com/desktop/install/windows-install/#system-requirements).
 - Installed the WSL 2 feature on Windows. For detailed instructions, refer to the [Microsoft documentation](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 >**Tip**

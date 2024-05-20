@@ -307,7 +307,7 @@ target "default" {
 ```
 
 Read about the supported levels in
-[Specifying annotation levels](https://docs.iechor.com/build/building/annotations/#specifying-annotation-levels).
+[Specifying annotation levels](http://docs.iechor.com/build/building/annotations/#specifying-annotation-levels).
 
 ### `target.attest`
 
@@ -1118,22 +1118,22 @@ target "webapp-dev" {
 
 <!-- external links -->
 
-[attestations]: https://docs.iechor.com/build/attestations/
+[attestations]: http://docs.iechor.com/build/attestations/
 [bake_stdlib]: https://github.com/iechor/buildx/blob/master/bake/hclparser/stdlib.go
-[build-arg]: https://docs.iechor.com/reference/cli/iechor/image/build/#build-arg
-[build-context]: https://docs.iechor.com/reference/cli/iechor/buildx/build/#build-context
-[cache-backends]: https://docs.iechor.com/build/cache/backends/
-[cache-from]: https://docs.iechor.com/reference/cli/iechor/buildx/build/#cache-from
-[cache-to]: https://docs.iechor.com/reference/cli/iechor/buildx/build/#cache-to
-[context]: https://docs.iechor.com/reference/cli/iechor/buildx/build/#build-context
-[file]: https://docs.iechor.com/reference/cli/iechor/image/build/#file
+[build-arg]: http://docs.iechor.com/reference/cli/iechor/image/build/#build-arg
+[build-context]: http://docs.iechor.com/reference/cli/iechor/buildx/build/#build-context
+[cache-backends]: http://docs.iechor.com/build/cache/backends/
+[cache-from]: http://docs.iechor.com/reference/cli/iechor/buildx/build/#cache-from
+[cache-to]: http://docs.iechor.com/reference/cli/iechor/buildx/build/#cache-to
+[context]: http://docs.iechor.com/reference/cli/iechor/buildx/build/#build-context
+[file]: http://docs.iechor.com/reference/cli/iechor/image/build/#file
 [go-cty]: https://github.com/zclconf/go-cty/tree/main/cty/function/stdlib
-[hcl-funcs]: https://docs.iechor.com/build/bake/hcl-funcs/
-[output]: https://docs.iechor.com/reference/cli/iechor/buildx/build/#output
-[platform]: https://docs.iechor.com/reference/cli/iechor/buildx/build/#platform
-[run_mount_secret]: https://docs.iechor.com/reference/iechorfile/#run---mounttypesecret
-[secret]: https://docs.iechor.com/reference/cli/iechor/buildx/build/#secret
-[ssh]: https://docs.iechor.com/reference/cli/iechor/buildx/build/#ssh
-[tag]: https://docs.iechor.com/reference/cli/iechor/image/build/#tag
-[target]: https://docs.iechor.com/reference/cli/iechor/image/build/#target
+[hcl-funcs]: http://docs.iechor.com/build/bake/hcl-funcs/
+[output]: http://docs.iechor.com/reference/cli/iechor/buildx/build/#output
+[platform]: http://docs.iechor.com/reference/cli/iechor/buildx/build/#platform
+[run_mount_secret]: http://docs.iechor.com/reference/iechorfile/#run---mounttypesecret
+[secret]: http://docs.iechor.com/reference/cli/iechor/buildx/build/#secret
+[ssh]: http://docs.iechor.com/reference/cli/iechor/buildx/build/#ssh
+[tag]: http://docs.iechor.com/reference/cli/iechor/image/build/#tag
+[target]: http://docs.iechor.com/reference/cli/iechor/image/build/#target
 [userfunc]: https://github.com/hashicorp/hcl/tree/main/ext/userfunc

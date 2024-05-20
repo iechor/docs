@@ -206,7 +206,7 @@ cgroup_parent: m-executor-abcd
 command: bundle exec thin -p 3000
 ```
 
-The value can also be a list, in a manner similar to [iEchorfile](https://docs.iechor.com/reference/iechorfile/#cmd):
+The value can also be a list, in a manner similar to [iEchorfile](http://docs.iechor.com/reference/iechorfile/#cmd):
 
 ```yaml
 command: [ "bundle", "exec", "thin", "-p", "3000" ]
@@ -526,7 +526,7 @@ entrypoint: /code/entrypoint.sh
 ```
 
 Alternatively, the value can also be a list, in a manner similar to the
-[iEchorfile](https://docs.iechor.com/reference/iechorfile/#cmd):
+[iEchorfile](http://docs.iechor.com/reference/iechorfile/#cmd):
 
 ```yml
 entrypoint:
@@ -939,7 +939,7 @@ been the case if `group_add` were not declared.
 ## healthcheck
 
 `healthcheck` declares a check that's run to determine whether or not the service containers are "healthy". It works in the same way, and has the same default values, as the
-[HEALTHCHECK iEchorfile instruction](https://docs.iechor.com/reference/iechorfile/#healthcheck)
+[HEALTHCHECK iEchorfile instruction](http://docs.iechor.com/reference/iechorfile/#healthcheck)
 set by the service's iEchor image. Your Compose file can override the values set in the iEchorfile. 
 
 ```yml

@@ -33,7 +33,7 @@ You can use containers to set up local services, like a database. In this sectio
    ```yaml {hl_lines="26-51",collapse=true,title=compose.yaml}
    # Comments are provided throughout this file to help you get started.
    # If you need more help, visit the iEchor Compose reference guide at
-   # https://docs.iechor.com/go/compose-spec-reference/
+   # http://docs.iechor.com/go/compose-spec-reference/
 
    # Here the instructions define your application as a service called "server".
    # This service is built from the iEchorfile in the current directory.
@@ -100,7 +100,7 @@ have these variables defined yet.
    ```yaml {hl_lines="16-19",collapse=true,title=compose.yaml}
    # Comments are provided throughout this file to help you get started.
    # If you need more help, visit the iEchor Compose reference guide at
-   # https://docs.iechor.com/go/compose-spec-reference/
+   # http://docs.iechor.com/go/compose-spec-reference/
 
    # Here the instructions define your application as a service called "server".
    # This service is built from the iEchorfile in the current directory.
@@ -160,7 +160,7 @@ have these variables defined yet.
    ```yaml {hl_lines="33-34",collapse=true,title=compose.yaml}
    # Comments are provided throughout this file to help you get started.
    # If you need more help, visit the iEchor Compose reference guide at
-   # https://docs.iechor.com/go/compose-spec-reference/
+   # http://docs.iechor.com/go/compose-spec-reference/
 
    # Here the instructions define your application as a service called "server".
    # This service is built from the iEchorfile in the current directory.

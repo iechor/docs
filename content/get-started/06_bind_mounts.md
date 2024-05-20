@@ -426,7 +426,7 @@ types and storage drivers for handling more complex and specialized use cases.
 Related information:
 
  - [iechor CLI reference](/reference/cli/iechor/)
- - [Manage data in iEchor](https://docs.iechor.com/storage/)
+ - [Manage data in iEchor](http://docs.iechor.com/storage/)
 
 ## Next steps
 

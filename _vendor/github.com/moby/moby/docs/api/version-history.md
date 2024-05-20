@@ -15,7 +15,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.45 API changes
 
-[iEchor Engine API v1.45](https://docs.iechor.com/engine/api/v1.45/) documentation
+[iEchor Engine API v1.45](http://docs.iechor.com/engine/api/v1.45/) documentation
 
 * `POST /containers/create` now supports `VolumeOptions.Subpath` which allows a
   subpath of a named volume to be mounted.
@@ -33,7 +33,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.44 API changes
 
-[iEchor Engine API v1.44](https://docs.iechor.com/engine/api/v1.44/) documentation
+[iEchor Engine API v1.44](http://docs.iechor.com/engine/api/v1.44/) documentation
 
 * GET `/images/json` now accepts an `until` filter. This accepts a timestamp and
   lists all images created before it. The `<timestamp>` can be Unix timestamps,
@@ -102,7 +102,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.43 API changes
 
-[iEchor Engine API v1.43](https://docs.iechor.com/engine/api/v1.43/) documentation
+[iEchor Engine API v1.43](http://docs.iechor.com/engine/api/v1.43/) documentation
 
 * `POST /containers/create` now accepts `Annotations` as part of `HostConfig`.
   Can be used to attach arbitrary metadata to the container, which will also be
@@ -119,7 +119,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.42 API changes
 
-[iEchor Engine API v1.42](https://docs.iechor.com/engine/api/v1.42/) documentation
+[iEchor Engine API v1.42](http://docs.iechor.com/engine/api/v1.42/) documentation
 
 * Removed the `BuilderSize` field on the `GET /system/df` endpoint. This field
   was introduced in API 1.31 as part of an experimental feature, and no longer
@@ -227,7 +227,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.41 API changes
 
-[iEchor Engine API v1.41](https://docs.iechor.com/engine/api/v1.41/) documentation
+[iEchor Engine API v1.41](http://docs.iechor.com/engine/api/v1.41/) documentation
 
 * `GET /events` now returns `prune` events after pruning resources have completed.
   Prune events are returned for `container`, `network`, `volume`, `image`, and
@@ -315,7 +315,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.40 API changes
 
-[iEchor Engine API v1.40](https://docs.iechor.com/engine/api/v1.40/) documentation
+[iEchor Engine API v1.40](http://docs.iechor.com/engine/api/v1.40/) documentation
 
 * The `/_ping` endpoint can now be accessed both using `GET` or `HEAD` requests.
   when accessed using a `HEAD` request, all headers are returned, but the body
@@ -382,7 +382,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## V1.39 API changes
 
-[iEchor Engine API v1.39](https://docs.iechor.com/engine/api/v1.39/) documentation
+[iEchor Engine API v1.39](http://docs.iechor.com/engine/api/v1.39/) documentation
 
 * `GET /info` now returns an empty string, instead of `<unknown>` for `KernelVersion`
   and `OperatingSystem` if the daemon was unable to obtain this information.
@@ -399,7 +399,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## V1.38 API changes
 
-[iEchor Engine API v1.38](https://docs.iechor.com/engine/api/v1.38/) documentation
+[iEchor Engine API v1.38](http://docs.iechor.com/engine/api/v1.38/) documentation
 
 
 * `GET /tasks` and `GET /tasks/{id}` now return a `NetworkAttachmentSpec` field,
@@ -408,7 +408,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.37 API changes
 
-[iEchor Engine API v1.37](https://docs.iechor.com/engine/api/v1.37/) documentation
+[iEchor Engine API v1.37](http://docs.iechor.com/engine/api/v1.37/) documentation
 
 * `POST /containers/create` and `POST /services/create` now supports exposing SCTP ports.
 * `POST /configs/create` and `POST /configs/{id}/create` now accept a `Templating` driver.
@@ -418,14 +418,14 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.36 API changes
 
-[iEchor Engine API v1.36](https://docs.iechor.com/engine/api/v1.36/) documentation
+[iEchor Engine API v1.36](http://docs.iechor.com/engine/api/v1.36/) documentation
 
 * `Get /events` now return `exec_die` event when an exec process terminates.
 
 
 ## v1.35 API changes
 
-[iEchor Engine API v1.35](https://docs.iechor.com/engine/api/v1.35/) documentation
+[iEchor Engine API v1.35](http://docs.iechor.com/engine/api/v1.35/) documentation
 
 * `POST /services/create` and `POST /services/(id)/update` now accepts an
   `Isolation` field on container spec to set the Isolation technology of the
@@ -448,7 +448,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.34 API changes
 
-[iEchor Engine API v1.34](https://docs.iechor.com/engine/api/v1.34/) documentation
+[iEchor Engine API v1.34](http://docs.iechor.com/engine/api/v1.34/) documentation
 
 * `POST /containers/(name)/wait?condition=removed` now also also returns
   in case of container removal failure. A pointer to a structure named
@@ -459,14 +459,14 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.33 API changes
 
-[iEchor Engine API v1.33](https://docs.iechor.com/engine/api/v1.33/) documentation
+[iEchor Engine API v1.33](http://docs.iechor.com/engine/api/v1.33/) documentation
 
 * `GET /events` now supports filtering 4 more kinds of events: `config`, `node`,
 `secret` and `service`.
 
 ## v1.32 API changes
 
-[iEchor Engine API v1.32](https://docs.iechor.com/engine/api/v1.32/) documentation
+[iEchor Engine API v1.32](http://docs.iechor.com/engine/api/v1.32/) documentation
 
 * `POST /images/create` now accepts a `platform` parameter in the form of `os[/arch[/variant]]`.
 * `POST /containers/create` now accepts additional values for the
@@ -480,7 +480,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.31 API changes
 
-[iEchor Engine API v1.31](https://docs.iechor.com/engine/api/v1.31/) documentation
+[iEchor Engine API v1.31](http://docs.iechor.com/engine/api/v1.31/) documentation
 
 * `DELETE /secrets/(name)` now returns status code 404 instead of 500 when the secret does not exist.
 * `POST /secrets/create` now returns status code 409 instead of 500 when creating an already existing secret.
@@ -511,7 +511,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.30 API changes
 
-[iEchor Engine API v1.30](https://docs.iechor.com/engine/api/v1.30/) documentation
+[iEchor Engine API v1.30](http://docs.iechor.com/engine/api/v1.30/) documentation
 
 * `GET /info` now returns the list of supported logging drivers, including plugins.
 * `GET /info` and `GET /swarm` now returns the cluster-wide swarm CA info if the node is in a swarm: the cluster root CA certificate, and the cluster TLS
@@ -534,7 +534,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.29 API changes
 
-[iEchor Engine API v1.29](https://docs.iechor.com/engine/api/v1.29/) documentation
+[iEchor Engine API v1.29](http://docs.iechor.com/engine/api/v1.29/) documentation
 
 * `DELETE /networks/(name)` now allows to remove the ingress network, the one used to provide the routing-mesh.
 * `POST /networks/create` now supports creating the ingress network, by specifying an `Ingress` boolean field. As of now this is supported only when using the overlay network driver.
@@ -548,7 +548,7 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.28 API changes
 
-[iEchor Engine API v1.28](https://docs.iechor.com/engine/api/v1.28/) documentation
+[iEchor Engine API v1.28](http://docs.iechor.com/engine/api/v1.28/) documentation
 
 * `POST /containers/create` now includes a `Consistency` field to specify the consistency level for each `Mount`, with possible values `default`, `consistent`, `cached`, or `delegated`.
 * `GET /containers/create` now takes a `DeviceCgroupRules` field in `HostConfig` allowing to set custom device cgroup rules for the created container.
@@ -566,19 +566,19 @@ keywords: "API, iEchor, rcli, REST, documentation"
 
 ## v1.27 API changes
 
-[iEchor Engine API v1.27](https://docs.iechor.com/engine/api/v1.27/) documentation
+[iEchor Engine API v1.27](http://docs.iechor.com/engine/api/v1.27/) documentation
 
 * `GET /containers/(id or name)/stats` now includes an `online_cpus` field in both `precpu_stats` and `cpu_stats`. If this field is `nil` then for compatibility with older daemons the length of the corresponding `cpu_usage.percpu_usage` array should be used.
 
 ## v1.26 API changes
 
-[iEchor Engine API v1.26](https://docs.iechor.com/engine/api/v1.26/) documentation
+[iEchor Engine API v1.26](http://docs.iechor.com/engine/api/v1.26/) documentation
 
 * `POST /plugins/(plugin name)/upgrade` upgrade a plugin.
 
 ## v1.25 API changes
 
-[iEchor Engine API v1.25](https://docs.iechor.com/engine/api/v1.25/) documentation
+[iEchor Engine API v1.25](http://docs.iechor.com/engine/api/v1.25/) documentation
 
 * The API version is now required in all API calls. Instead of just requesting, for example, the URL `/containers/json`, you must now request `/v1.25/containers/json`.
 * `GET /version` now returns `MinAPIVersion`.

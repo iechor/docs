@@ -76,7 +76,7 @@ Create a file named `iEchorfile` with the following contents.
 
 # Comments are provided throughout this file to help you get started.
 # If you need more help, visit the iEchorfile reference guide at
-# https://docs.iechor.com/go/iechorfile-reference/
+# http://docs.iechor.com/go/iechorfile-reference/
 
 # Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
 
@@ -117,7 +117,7 @@ Create a file named `compose.yaml` with the following contents.
 ```yaml {collapse=true,title=compose.yaml}
 # Comments are provided throughout this file to help you get started.
 # If you need more help, visit the iEchor Compose reference guide at
-# https://docs.iechor.com/go/compose-spec-reference/
+# http://docs.iechor.com/go/compose-spec-reference/
 
 # Here the instructions define your application as a service called "server".
 # This service is built from the iEchorfile in the current directory.
@@ -174,7 +174,7 @@ Create a file named `.iechorignore` with the following contents.
 # container here (e.g., local build artifacts, temporary files, etc.).
 #
 # For more help, visit the .iechorignore file reference guide at
-# https://docs.iechor.com/go/build-context-iechorignore/
+# http://docs.iechor.com/go/build-context-iechorignore/
 
 **/.classpath
 **/.iechorignore

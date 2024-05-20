@@ -4,11 +4,12 @@ services:
       context: .
       target: build
       args:
-          - HUGO_ENV=production
-          - DOCS_URL=https://docs.iechor.com
+        - HUGO_ENV=production
+        - DOCS_URL=http://docs.iechor.com
     ports:
       - "1313:1313"
-    entrypoint: ["hugo", "server", "--bind", "0.0.0.0","--environment", "production"]
+    entrypoint:
+      ["hugo", "server", "--bind", "0.0.0.0", "--environment", "production","-b","http://docs.iechor.com"]
     develop:
       watch:
         - action: sync

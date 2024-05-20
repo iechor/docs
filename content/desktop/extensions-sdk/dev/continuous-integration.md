@@ -8,7 +8,7 @@ In order to help validate your extension and ensure it's functional, the Extensi
 
 > **Important**
 >
-> The [iEchor Desktop Action](https://github.com/iechor/desktop-action) and the [extension-test-helper library](https://www.npmjs.com/package/@iechor/extension-test-helper) are both [experimental](https://docs.iechor.com/release-lifecycle/#experimental).
+> The [iEchor Desktop Action](https://github.com/iechor/desktop-action) and the [extension-test-helper library](https://www.npmjs.com/package/@iechor/extension-test-helper) are both [experimental](http://docs.iechor.com/release-lifecycle/#experimental).
 { .important }
 
 ## Setup CI environment with GitHub Actions

@@ -238,9 +238,9 @@ examples: |-
    PASS: no double use of shell form
   
   Docs:
-  - https://docs.iechor.com/reference/iechorfile/#cmd
-  - https://docs.iechor.com/reference/iechorfile/#entrypoint
-  - https://docs.iechor.com/reference/iechorfile/#understand-how-cmd-and-entrypoint-interact
+  - http://docs.iechor.com/reference/iechorfile/#cmd
+  - http://docs.iechor.com/reference/iechorfile/#entrypoint
+  - http://docs.iechor.com/reference/iechorfile/#understand-how-cmd-and-entrypoint-interact
   ```
   
   The output tells you that on startup of the nginx image, a script `/iechor-entrypoint.sh` is executed with the arguments `nginx -g daemon off;`.

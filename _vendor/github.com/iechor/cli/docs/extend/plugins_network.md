@@ -67,5 +67,5 @@ documented as part of libnetwork:
 
 To interact with the iEchor maintainers and other interested users, see the IRC channel `#iechor-network`.
 
-- [iEchor networks feature overview](https://docs.iechor.com/engine/userguide/networking/)
+- [iEchor networks feature overview](http://docs.iechor.com/engine/userguide/networking/)
 - The [LibNetwork](https://github.com/iechor/libnetwork) project

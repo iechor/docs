@@ -24,7 +24,7 @@ info:
   title: "iEchor Engine API"
   version: "1.32"
   x-logo:
-    url: "https://docs.iechor.com/assets/images/logo-iechor-main.png"
+    url: "http://docs.iechor.com/assets/images/logo-iechor-main.png"
   description: |
     The Engine API is an HTTP API served by iEchor Engine. It is the API the iEchor client uses to communicate with the Engine, so everything the iEchor client can do can be done with the API.
 
@@ -93,7 +93,7 @@ tags:
   - name: "Network"
     x-displayName: "Networks"
     description: |
-      Networks are user-defined networks that containers can be attached to. See the [networking documentation](https://docs.iechor.com/network/) for more information.
+      Networks are user-defined networks that containers can be attached to. See the [networking documentation](http://docs.iechor.com/network/) for more information.
   - name: "Volume"
     x-displayName: "Volumes"
     description: |
@@ -101,14 +101,14 @@ tags:
   - name: "Exec"
     x-displayName: "Exec"
     description: |
-      Run new commands inside running containers. See the [command-line reference](https://docs.iechor.com/engine/reference/commandline/exec/) for more information.
+      Run new commands inside running containers. See the [command-line reference](http://docs.iechor.com/engine/reference/commandline/exec/) for more information.
 
       To exec a command in a container, you first need to create an exec instance, then start it. These two API endpoints are wrapped up in a single command-line command, `iechor exec`.
   # Swarm things
   - name: "Swarm"
     x-displayName: "Swarm"
     description: |
-      Engines can be clustered together in a swarm. See [the swarm mode documentation](https://docs.iechor.com/engine/swarm/) for more information.
+      Engines can be clustered together in a swarm. See [the swarm mode documentation](http://docs.iechor.com/engine/swarm/) for more information.
   - name: "Node"
     x-displayName: "Nodes"
     description: |
@@ -1868,7 +1868,7 @@ definitions:
           Documentation:
             type: "string"
             x-nullable: false
-            example: "https://docs.iechor.com/engine/extend/plugins/"
+            example: "http://docs.iechor.com/engine/extend/plugins/"
           Interface:
             description: "The interface between iEchor and the plugin"
             x-nullable: false
@@ -5514,7 +5514,7 @@ paths:
 
         Either the `stream` or `logs` parameter must be `true` for this endpoint to do anything.
 
-        See [the documentation for the `iechor attach` command](https://docs.iechor.com/engine/reference/commandline/attach/) for more details.
+        See [the documentation for the `iechor attach` command](http://docs.iechor.com/engine/reference/commandline/attach/) for more details.
 
         ### Hijacking
 
@@ -6038,7 +6038,7 @@ paths:
       description: |
         Build an image from a tar archive with a `iEchorfile` in it.
 
-        The `iEchorfile` specifies how the image is built from the tar archive. It is typically in the archive's root, but can be at a different path or have a different name by specifying the `iechorfile` parameter. [See the `iEchorfile` reference for more information](https://docs.iechor.com/engine/reference/builder/).
+        The `iEchorfile` specifies how the image is built from the tar archive. It is typically in the archive's root, but can be at a different path or have a different name by specifying the `iechorfile` parameter. [See the `iEchorfile` reference for more information](http://docs.iechor.com/engine/reference/builder/).
 
         The iEchor daemon performs a preliminary validation of the `iEchorfile` before starting the build, and returns an error if the syntax is incorrect. After that, each instruction is run one-by-one until the ID of the new image is output.
 
@@ -6126,7 +6126,7 @@ paths:
           type: "integer"
         - name: "buildargs"
           in: "query"
-          description: "JSON map of string pairs for build-time variables. Users pass these values at build-time. iEchor uses the buildargs as the environment context for commands run via the `iEchorfile` RUN instruction, or for variable expansion in other `iEchorfile` instructions. This is not meant for passing secret values. [Read more about the buildargs instruction.](https://docs.iechor.com/engine/reference/builder/#arg)"
+          description: "JSON map of string pairs for build-time variables. Users pass these values at build-time. iEchor uses the buildargs as the environment context for commands run via the `iEchorfile` RUN instruction, or for variable expansion in other `iEchorfile` instructions. This is not meant for passing secret values. [Read more about the buildargs instruction.](http://docs.iechor.com/engine/reference/builder/#arg)"
           type: "integer"
         - name: "shmsize"
           in: "query"

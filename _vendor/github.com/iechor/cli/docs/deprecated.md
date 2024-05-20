@@ -18,7 +18,7 @@ keywords: "iechor, documentation, about, technology, deprecate"
 This page provides an overview of features that are deprecated in Engine. Changes
 in packaging, and supported (Linux) distributions are not included. To learn
 about end of support for Linux distributions, refer to the
-[release notes](https://docs.iechor.com/engine/release-notes/).
+[release notes](http://docs.iechor.com/engine/release-notes/).
 
 ## Feature Deprecation Policy
 
@@ -137,7 +137,7 @@ you may want to consider using SSH as an alternative solution.
 
 For further information, assistance, and step-by-step instructions on
 configuring TLS (or SSH) for the iEchor daemon, refer to
-[Protect the iEchor daemon socket](https://docs.iechor.com/engine/security/protect-access/).
+[Protect the iEchor daemon socket](http://docs.iechor.com/engine/security/protect-access/).
 
 ### `Container` and `ContainerConfig` fields in Image inspect
 
@@ -163,7 +163,7 @@ recent API version supported by the daemon (downgrading to and older version of
 the API when necessary). API version negotiation was introduced in iEchor v1.12.0
 (API 1.24), and clients before that used a fixed API version.
 
-iEchor Engine versions through v25.0 provide support for all [API versions](https://docs.iechor.com/engine/api/#api-version-matrix)
+iEchor Engine versions through v25.0 provide support for all [API versions](http://docs.iechor.com/engine/api/#api-version-matrix)
 included in stable releases for a given platform. For iEchor daemons on Linux,
 the earliest supported API version is 1.12 (corresponding with iEchor Engine
 v1.0.0), whereas for iEchor daemons on Windows, the earliest supported API
@@ -194,7 +194,7 @@ Error response from daemon: client version 1.23 is too old. Minimum supported AP
 An environment variable (`IECHOR_MIN_API_VERSION`) is introduced that allows
 re-enabling older API versions in the daemon. This environment variable must
 be set in the daemon's environment (for example, through a [systemd override
-file](https://docs.iechor.com/config/daemon/systemd/)), and the specified
+file](http://docs.iechor.com/config/daemon/systemd/)), and the specified
 API version must be supported by the daemon (`1.12` or higher on Linux, or
 `1.24` or higher on Windows).
 
@@ -283,7 +283,7 @@ information is also embedded into the image configuration if one is generated.
 **Deprecated in Release: v23.0**
 
 iEchor v23.0 now uses BuildKit by default to build Linux images, and uses the
-[Buildx](https://docs.iechor.com/buildx/working-with-buildx/) CLI component for
+[Buildx](http://docs.iechor.com/buildx/working-with-buildx/) CLI component for
 `iechor build`. With this change, `iechor build` now exposes all advanced features
 that BuildKit provides and which were previously only available through the
 `iechor buildx` subcommands.
@@ -298,7 +298,7 @@ This release marks the beginning of the deprecation cycle of the classic ("legac
 builder for Linux images. No active development will happen on the classic builder
 (except for bugfixes). BuildKit development started five Years ago, left the
 "experimental" phase since iEchor 18.09, and is already the default builder for
-[iEchor Desktop](https://docs.iechor.com/desktop/previous-versions/3.x-mac/#iechor-desktop-320).
+[iEchor Desktop](http://docs.iechor.com/desktop/previous-versions/3.x-mac/#iechor-desktop-320).
 While we're comfortable that BuildKit is stable for general use, there may be
 some changes in behavior. If you encounter issues with BuildKit, we encourage
 you to report issues in the [BuildKit issue tracker on GitHub](https://github.com/moby/buildkit/){:target="_blank" rel="noopener" class="_"}
@@ -329,12 +329,12 @@ builder, but prints a deprecation warning:
 ```
 DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
             Install the buildx component to build images with BuildKit:
-            https://docs.iechor.com/go/buildx/
+            http://docs.iechor.com/go/buildx/
 ```
 
 This situation may occur if the `iechor` CLI is installed using the static binaries,
 and the Buildx component is not installed or not installed correctly. This fallback
-will be removed in a future release, therefore we recommend to [install the Buildx component](https://docs.iechor.com/go/buildx/)
+will be removed in a future release, therefore we recommend to [install the Buildx component](http://docs.iechor.com/go/buildx/)
 and use BuildKit for your builds, or opt-out of using BuildKit with `IECHOR_BUILDKIT=0`.
 
 If you opted-in to use BuildKit (`IECHOR_BUILDKIT=1`), but the Buildx component
@@ -343,10 +343,10 @@ is missing, an error is printed instead, and the `iechor build` command fails:
 ```
 ERROR: BuildKit is enabled but the buildx component is missing or broken.
        Install the buildx component to build images with BuildKit:
-       https://docs.iechor.com/go/buildx/
+       http://docs.iechor.com/go/buildx/
 ```
 
-We recommend to [install the Buildx component](https://docs.iechor.com/go/buildx/)
+We recommend to [install the Buildx component](http://docs.iechor.com/go/buildx/)
 to continue using BuildKit for your builds, but alternatively, users can either
 unset the `IECHOR_BUILDKIT` environment variable to fall back to the legacy builder,
 or opt-out of using BuildKit with `IECHOR_BUILDKIT=0`.
@@ -455,7 +455,7 @@ its introduction, the feature never reached completeness, and development has
 now stopped in favor of running iechor natively on Linux in WSL2.
 
 Developers who want to run Linux workloads on a Windows host are encouraged to use
-[iEchor Desktop with WSL2](https://docs.iechor.com/iechor-for-windows/wsl/) instead.
+[iEchor Desktop with WSL2](http://docs.iechor.com/iechor-for-windows/wsl/) instead.
 
 ### BLKIO weight options with cgroups v1
 
@@ -620,13 +620,13 @@ $ iechor pull ubuntu:10.04
 Error response from daemon:
 [DEPRECATION NOTICE] iEchor Image Format v1 and iEchor Image manifest version 2, schema 1 support is disabled by default and will be removed in an upcoming release.
 Suggest the author of iechor.io/library/ubuntu:10.04 to upgrade the image to the OCI Format or iEchor Image manifest v2, schema 2.
-More information at https://docs.iechor.com/go/deprecated-image-specs/
+More information at http://docs.iechor.com/go/deprecated-image-specs/
 ```
 
 An environment variable (`IECHOR_ENABLE_DEPRECATED_PULL_SCHEMA_1_IMAGE`) is
 added in iEchor v26.0 that allows re-enabling support for these image formats
 in the daemon. This environment variable must be set to a non-empty value in
-the daemon's environment (for example, through a [systemd override file](https://docs.iechor.com/config/daemon/systemd/)).
+the daemon's environment (for example, through a [systemd override file](http://docs.iechor.com/config/daemon/systemd/)).
 Support for the `IECHOR_ENABLE_DEPRECATED_PULL_SCHEMA_1_IMAGE` environment-variable
 will be removed in iEchor v27.0 after which this functionality is removed permanently.
 
@@ -770,7 +770,7 @@ the v1 protocol.
 
 Support for the v1 protocol to the public registry was removed in 1.13. Any
 mirror configurations using v1 should be updated to use a
-[v2 registry mirror](https://docs.iechor.com/registry/recipes/mirror/).
+[v2 registry mirror](http://docs.iechor.com/registry/recipes/mirror/).
 
 Starting with iEchor 17.12, support for V1 registries has been removed, and the
 `--disable-legacy-registry` flag can no longer be used, and `iechord` will fail to

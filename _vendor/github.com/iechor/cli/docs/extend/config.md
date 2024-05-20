@@ -55,11 +55,11 @@ the registry.
 
 - `entrypoint` string array
 
-   Entrypoint of the plugin, see [`ENTRYPOINT`](https://docs.iechor.com/reference/iechorfile/#entrypoint)
+   Entrypoint of the plugin, see [`ENTRYPOINT`](http://docs.iechor.com/reference/iechorfile/#entrypoint)
 
 - `workdir` string
 
-   Working directory of the plugin, see [`WORKDIR`](https://docs.iechor.com/reference/iechorfile/#workdir)
+   Working directory of the plugin, see [`WORKDIR`](http://docs.iechor.com/reference/iechorfile/#workdir)
 
 - `network` PluginNetwork
 
@@ -190,7 +190,7 @@ The following example shows the 'tiborvass/sample-volume-plugin' plugin config.
     "Value": null
   },
   "Description": "A sample volume plugin for iEchor",
-  "Documentation": "https://docs.iechor.com/engine/extend/plugins/",
+  "Documentation": "http://docs.iechor.com/engine/extend/plugins/",
   "Entrypoint": [
     "/usr/bin/sample-volume-plugin",
     "/data"

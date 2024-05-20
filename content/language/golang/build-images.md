@@ -219,7 +219,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the source code. Note the slash at the end, as explained in
-# https://docs.iechor.com/reference/iechorfile/#copy
+# http://docs.iechor.com/reference/iechorfile/#copy
 COPY *.go ./
 
 # Build
@@ -229,7 +229,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /iechor-gs-ping
 # To bind to a TCP port, runtime parameters must be supplied to the iechor command.
 # But we can document in the iEchorfile what ports
 # the application is going to listen on by default.
-# https://docs.iechor.com/reference/iechorfile/#expose
+# http://docs.iechor.com/reference/iechorfile/#expose
 EXPOSE 8080
 
 # Run

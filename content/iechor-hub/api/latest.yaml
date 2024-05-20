@@ -3,7 +3,7 @@ info:
   title: iEchor HUB API
   version: beta
   x-logo:
-    url: https://docs.iechor.com/assets/images/logo-iechor-main.png
+    url: http://docs.iechor.com/assets/images/logo-iechor-main.png
     href: /reference
   description: |
     iEchor Hub is a service provided by iEchor for finding and sharing container
@@ -11,7 +11,7 @@ info:
 
     It is the world's largest library and community for container images.
 
-    In addition to the [iEchor Hub UI](https://docs.iechor.com/iechor-hub/) and [iEchor Hub CLI tool](https://github.com/iechor/hub-tool#readme) (currently experimental),
+    In addition to the [iEchor Hub UI](http://docs.iechor.com/iechor-hub/) and [iEchor Hub CLI tool](https://github.com/iechor/hub-tool#readme) (currently experimental),
 
     iEchor provides an API that allows you to interact with iEchor Hub.
 
@@ -47,7 +47,7 @@ tags:
 
       download, or pull rate limiting. To learn more about iEchor Hub pull rate
 
-      limiting, see [iEchor Hub download rate limit](https://docs.iechor.com/iechor-hub/download-rate-limit/).
+      limiting, see [iEchor Hub download rate limit](http://docs.iechor.com/iechor-hub/download-rate-limit/).
   - name: authentication
     x-displayName: Authentication
     description: |
@@ -62,9 +62,9 @@ tags:
     x-displayName: Personal Access Tokens
     description: |
       The Personal Access Token endpoints lets you manage personal access tokens. For more 
-      information, see [Access Tokens](https://docs.iechor.com/security/for-developers/access-tokens/).
+      information, see [Access Tokens](http://docs.iechor.com/security/for-developers/access-tokens/).
 
-      You can use a personal access token instead of a password in the [iEchor CLI](https://docs.iechor.com/engine/reference/commandline/cli/) 
+      You can use a personal access token instead of a password in the [iEchor CLI](http://docs.iechor.com/engine/reference/commandline/cli/) 
       or in the [Create an authentication token](#operation/PostUsersLogin) route to obtain a bearer 
       token.
 
@@ -83,7 +83,7 @@ tags:
       The Audit Logs API endpoints allow you to query audit log events across a
       namespace.
 
-      For more information, see [Audit Log](https://docs.iechor.com/admin/organization/activity-logs/).
+      For more information, see [Audit Log](http://docs.iechor.com/admin/organization/activity-logs/).
   - name: org-settings
     x-displayName: Org Settings
     description: |
@@ -98,7 +98,7 @@ tags:
     x-displayName: SCIM
     description: |
       SCIM is a provisioning system that lets you manage users within your identity provider (IdP).
-      For more information, see [System for Cross-domain Identity management](https://docs.iechor.com/security/for-admins/scim/).
+      For more information, see [System for Cross-domain Identity management](http://docs.iechor.com/security/for-admins/scim/).
 x-tagGroups:
   - name: General
     tags:

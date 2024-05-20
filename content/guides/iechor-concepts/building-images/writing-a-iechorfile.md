@@ -45,7 +45,7 @@ Some of the most common instructions in a `iEchorfile` include:
 - `CMD ["<command>", "<arg1>"]` - this instruction sets the default command a container using this image will run.
 
 
-To read through all of the instructions or go into greater detail, check out the [iEchorfile reference](https://docs.iechor.com/engine/reference/builder/).
+To read through all of the instructions or go into greater detail, check out the [iEchorfile reference](http://docs.iechor.com/engine/reference/builder/).
 
 ## Try it out
 

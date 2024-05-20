@@ -22,7 +22,7 @@ Most often, images are built using a iEchorfile. The most basic `iechor build` c
 iechor build .
 ```
 
-The final `.` in the command provides the path or URL to the [build context](https://docs.iechor.com/build/building/context/#what-is-a-build-context). At this location, the builder will find the `iEchorfile` and other referenced files.
+The final `.` in the command provides the path or URL to the [build context](http://docs.iechor.com/build/building/context/#what-is-a-build-context). At this location, the builder will find the `iEchorfile` and other referenced files.
 
 When you run a build, the builder pulls the base image, if needed, and then runs the instructions specified in the iEchorfile.
 
@@ -83,7 +83,7 @@ To tag an image during a build, add the `-t` or `--tag` flag:
 iechor build -t my-username/my-image .
 ```
 
-If you've already built an image, you can add another tag to the image by using the [`iechor image tag`](https://docs.iechor.com/engine/reference/commandline/image_tag/) command:
+If you've already built an image, you can add another tag to the image by using the [`iechor image tag`](http://docs.iechor.com/engine/reference/commandline/image_tag/) command:
 
 ```console
 iechor image tag my-username/my-image another-username/another-image:v1
@@ -91,7 +91,7 @@ iechor image tag my-username/my-image another-username/another-image:v1
 
 ### Publishing images
 
-Once you have an image built and tagged, you're ready to push it to a registry. To do so, use the [`iechor push`](https://docs.iechor.com/engine/reference/commandline/image_push/) command:
+Once you have an image built and tagged, you're ready to push it to a registry. To do so, use the [`iechor push`](http://docs.iechor.com/engine/reference/commandline/image_push/) command:
 
 ```console
 iechor push my-username/my-image
@@ -102,7 +102,7 @@ Within a few seconds, all of the layers for your image will be pushed to the reg
 > **Requiring authentication**
 >
 > Before you're able to push an image to a repository, you will need to be authenticated.
-> To do so, simply use the [iechor login](https://docs.iechor.com/engine/reference/commandline/login/) command.
+> To do so, simply use the [iechor login](http://docs.iechor.com/engine/reference/commandline/login/) command.
 { .information }
 
 ## Try it out

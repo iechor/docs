@@ -48,7 +48,7 @@ iEchor runs instructions in a iEchorfile in order. A iEchorfile **must
 begin with a `FROM` instruction**. This may be after [parser
 directives](#parser-directives), [comments](#format), and globally scoped
 [ARGs](#arg). The `FROM` instruction specifies the [parent
-image](https://docs.iechor.com/glossary/#parent-image) from which you are
+image](http://docs.iechor.com/glossary/#parent-image) from which you are
 building. `FROM` may only be preceded by one or more `ARG` instructions, which
 declare arguments that are used in `FROM` lines in the iEchorfile.
 
@@ -205,7 +205,7 @@ syntax before the build.
 ```
 
 For more information about how the parser directive works, see
-[Custom iEchorfile syntax](https://docs.iechor.com/build/buildkit/iechorfile-frontend/).
+[Custom iEchorfile syntax](http://docs.iechor.com/build/buildkit/iechorfile-frontend/).
 
 ### escape
 
@@ -431,7 +431,7 @@ ENV ghi=$abc
 
 You can use `.iechorignore` file to exclude files and directories from the
 build context. For more information, see
-[.iechorignore file](https://docs.iechor.com/build/building/context/#iechorignore-files).
+[.iechorignore file](http://docs.iechor.com/build/building/context/#iechorignore-files).
 
 ## Shell and exec form
 
@@ -554,7 +554,7 @@ FROM [--platform=<platform>] <image>[@<digest>] [AS <name>]
 ```
 
 The `FROM` instruction initializes a new build stage and sets the
-[base image](https://docs.iechor.com/glossary/#base-image) for subsequent
+[base image](http://docs.iechor.com/glossary/#base-image) for subsequent
 instructions. As such, a valid iEchorfile must start with a `FROM` instruction.
 The image can be any valid image.
 
@@ -650,7 +650,7 @@ cache for `RUN` instructions can be invalidated by using the `--no-cache`
 flag, for example `iechor build --no-cache`.
 
 See the [iEchorfile Best Practices
-guide](https://docs.iechor.com/engine/userguide/eng-image/iechorfile_best-practices/) for more information.
+guide](http://docs.iechor.com/engine/userguide/eng-image/iechorfile_best-practices/) for more information.
 
 The cache for `RUN` instructions can be invalidated by [`ADD`](#add) and [`COPY`](#copy) instructions.
 
@@ -862,7 +862,7 @@ The command is run in the host's network environment (similar to
 > The use of `--network=host` is protected by the `network.host` entitlement,
 > which needs to be enabled when starting the buildkitd daemon with
 > `--allow-insecure-entitlement network.host` flag or in [buildkitd config](https://github.com/moby/buildkit/blob/master/docs/buildkitd.toml.md),
-> and for a build request with [`--allow network.host` flag](https://docs.iechor.com/engine/reference/commandline/buildx_build/#allow).
+> and for a build request with [`--allow network.host` flag](http://docs.iechor.com/engine/reference/commandline/buildx_build/#allow).
 { .warning }
 
 ### RUN --security
@@ -885,7 +885,7 @@ This is equivalent to running `iechor run --privileged`.
 > In order to access this feature, entitlement `security.insecure` should be
 > enabled when starting the buildkitd daemon with
 > `--allow-insecure-entitlement security.insecure` flag or in [buildkitd config](https://github.com/moby/buildkit/blob/master/docs/buildkitd.toml.md),
-> and for a build request with [`--allow security.insecure` flag](https://docs.iechor.com/engine/reference/commandline/buildx_build/#allow).
+> and for a build request with [`--allow security.insecure` flag](http://docs.iechor.com/engine/reference/commandline/buildx_build/#allow).
 { .warning }
 
 Default sandbox mode can be activated via `--security=sandbox`, but that is no-op.
@@ -1058,12 +1058,12 @@ the `-p` flag. For example
 $ iechor run -p 80:80/tcp -p 80:80/udp ...
 ```
 
-To set up port redirection on the host system, see [using the -P flag](https://docs.iechor.com/engine/reference/run/#expose-incoming-ports).
+To set up port redirection on the host system, see [using the -P flag](http://docs.iechor.com/engine/reference/run/#expose-incoming-ports).
 The `iechor network` command supports creating networks for communication among
 containers without the need to expose or publish specific ports, because the
 containers connected to the network can communicate with each other over any
 port. For detailed information, see the
-[overview of this feature](https://docs.iechor.com/engine/userguide/networking/).
+[overview of this feature](http://docs.iechor.com/engine/userguide/networking/).
 
 ## ENV
 
@@ -1100,7 +1100,7 @@ from the resulting image. You can view the values using `iechor inspect`, and
 change them using `iechor run --env <key>=<value>`.
 
 A stage inherits any environment variables that were set using `ENV` by its
-parent stage or any ancestor. Refer [here](https://docs.iechor.com/build/building/multi-stage/)
+parent stage or any ancestor. Refer [here](http://docs.iechor.com/build/building/multi-stage/)
 for more on multi-staged builds.
 
 Environment variable persistence can cause unexpected side effects. For example,
@@ -1232,7 +1232,7 @@ doesn't support authentication.
 > following instructions from the iEchorfile if the contents of `<src>` have
 > changed. This includes invalidating the cache for `RUN` instructions.
 > See the [iEchorfile Best Practices
-> guide – Leverage build cache](https://docs.iechor.com/develop/develop-images/iechorfile_best-practices/#leverage-build-cache)
+> guide – Leverage build cache](http://docs.iechor.com/develop/develop-images/iechorfile_best-practices/#leverage-build-cache)
 > for more information.
 
 `ADD` obeys the following rules:
@@ -1464,7 +1464,7 @@ attempted to be used instead.
 > following instructions from the iEchorfile if the contents of `<src>` have
 > changed. This includes invalidating the cache for `RUN` instructions.
 > See the [iEchorfile Best Practices
-> guide – Leverage build cache](https://docs.iechor.com/develop/develop-images/iechorfile_best-practices/#leverage-build-cache)
+> guide – Leverage build cache](http://docs.iechor.com/develop/develop-images/iechorfile_best-practices/#leverage-build-cache)
 > for more information.
 
 ### COPY --from
@@ -1478,7 +1478,7 @@ COPY [--from=<image|stage|context>] <src> ... <dest>
 ```
 
 To copy from a build stage in a
-[multi-stage build](https://docs.iechor.com/build/building/multi-stage/),
+[multi-stage build](http://docs.iechor.com/build/building/multi-stage/),
 specify the name of the stage you want to copy from. You specify stage names
 using the `AS` keyword with the `FROM` instruction.
 
@@ -1997,7 +1997,7 @@ containers. The value can be a JSON array, `VOLUME ["/var/log/"]`, or a plain
 string with multiple arguments, such as `VOLUME /var/log` or `VOLUME /var/log
 /var/db`. For more information/examples and mounting instructions via the
 iEchor client, refer to
-[_Share Directories via Volumes_](https://docs.iechor.com/storage/volumes/)
+[_Share Directories via Volumes_](http://docs.iechor.com/storage/volumes/)
 documentation.
 
 The `iechor run` command initializes the newly created volume with any data
@@ -2306,7 +2306,7 @@ When building this iEchorfile, the `HTTP_PROXY` is preserved in the
 
 ### Automatic platform ARGs in the global scope
 
-This feature is only available when using the [BuildKit](https://docs.iechor.com/build/buildkit/)
+This feature is only available when using the [BuildKit](http://docs.iechor.com/build/buildkit/)
 backend.
 
 BuildKit supports a predefined set of `ARG` variables with information on the platform of
@@ -2818,10 +2818,10 @@ hello world
 
 For examples of iEchorfiles, refer to:
 
-- The ["build images" section](https://docs.iechor.com/develop/develop-images/iechorfile_best-practices/)
-- The ["get started" tutorial](https://docs.iechor.com/get-started/)
-- The [language-specific getting started guides](https://docs.iechor.com/language/)
-- The [build guide](https://docs.iechor.com/build/guide/)
+- The ["build images" section](http://docs.iechor.com/develop/develop-images/iechorfile_best-practices/)
+- The ["get started" tutorial](http://docs.iechor.com/get-started/)
+- The [language-specific getting started guides](http://docs.iechor.com/language/)
+- The [build guide](http://docs.iechor.com/build/guide/)
 
 [^1]: Value required
-[^2]: For iEchor-integrated [BuildKit](https://docs.iechor.com/build/buildkit/#getting-started) and `iechor buildx build`
+[^2]: For iEchor-integrated [BuildKit](http://docs.iechor.com/build/buildkit/#getting-started) and `iechor buildx build`
