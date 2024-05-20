@@ -16,8 +16,8 @@ FROM base AS hugo
 ARG HUGO_VERSION=0.124.1
 ARG TARGETARCH
 WORKDIR /tmp/hugo
-# RUN wget -O "hugo.tar.gz" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-${TARGETARCH}.tar.gz"
-COPY hugo.tar.gz /tmp/hugo
+RUN wget -O "hugo.tar.gz" "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-${TARGETARCH}.tar.gz"
+# COPY hugo.tar.gz /tmp/hugo
 RUN tar -xf "hugo.tar.gz" hugo
 
 FROM base AS build-base
@@ -31,7 +31,7 @@ FROM build-base AS build
 ARG HUGO_ENV
 ARG DOCS_URL
 RUN hugo --gc --minify -d /out -e $HUGO_ENV -b $DOCS_URL
-COPY  /out /
+
 
 FROM scratch AS release
 COPY --from=build /out /
@@ -92,4 +92,4 @@ COPY --from=build-upstream /out ./public
 ADD .htmltest.yml .htmltest.yml
 RUN htmltest
 
-FROM build
+FROM dev
