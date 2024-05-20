@@ -45,7 +45,7 @@ with fewer packages.
 
 A typical consumption pattern for `slim`
 images is as the base image for the final stage of a
-[multi-staged build](https://docs.iechor.com/build/building/multi-stage/).
+[multi-staged build](http://docs.iechor.com/build/building/multi-stage/).
 For example, you build your application in the first stage of the build
 using the `latest` variant and then copy your application into the final
 stage based upon the `slim` variant. Here is an example `iEchorfile`.

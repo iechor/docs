@@ -355,7 +355,7 @@ mkdir -vp ~/.iechor/cli-plugins/
 curl --silent -L --output ~/.iechor/cli-plugins/iechor-buildx $BUILDX_URL
 chmod a+x ~/.iechor/cli-plugins/iechor-buildx
 
-# Login to iEchor Hub. For security reasons $IECHOR_PAT should be a Personal Access Token. See https://docs.iechor.com/security/for-developers/access-tokens/
+# Login to iEchor Hub. For security reasons $IECHOR_PAT should be a Personal Access Token. See http://docs.iechor.com/security/for-developers/access-tokens/
 echo "$IECHOR_PAT" | iechor login --username $IECHOR_USER --password-stdin
 
 # Connect to your builder and set it as the default builder
@@ -401,7 +401,7 @@ curl --silent -L --output ~/.iechor/cli-plugins/iechor-compose $COMPOSE_URL
 chmod a+x ~/.iechor/cli-plugins/iechor-buildx
 chmod a+x ~/.iechor/cli-plugins/iechor-compose
 
-# Login to iEchor Hub. For security reasons $IECHOR_PAT should be a Personal Access Token. See https://docs.iechor.com/security/for-developers/access-tokens/
+# Login to iEchor Hub. For security reasons $IECHOR_PAT should be a Personal Access Token. See http://docs.iechor.com/security/for-developers/access-tokens/
 echo "$IECHOR_PAT" | iechor login --username $IECHOR_USER --password-stdin
 
 # Connect to your builder and set it as the default builder

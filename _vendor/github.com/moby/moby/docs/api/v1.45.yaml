@@ -24,7 +24,7 @@ info:
   title: "iEchor Engine API"
   version: "1.45"
   x-logo:
-    url: "https://docs.iechor.com/assets/images/logo-iechor-main.png"
+    url: "http://docs.iechor.com/assets/images/logo-iechor-main.png"
   description: |
     The Engine API is an HTTP API served by iEchor Engine. It is the API the
     iEchor client uses to communicate with the Engine, so everything the iEchor
@@ -117,7 +117,7 @@ tags:
     x-displayName: "Networks"
     description: |
       Networks are user-defined networks that containers can be attached to.
-      See the [networking documentation](https://docs.iechor.com/network/)
+      See the [networking documentation](http://docs.iechor.com/network/)
       for more information.
   - name: "Volume"
     x-displayName: "Volumes"
@@ -127,7 +127,7 @@ tags:
     x-displayName: "Exec"
     description: |
       Run new commands inside running containers. Refer to the
-      [command-line reference](https://docs.iechor.com/engine/reference/commandline/exec/)
+      [command-line reference](http://docs.iechor.com/engine/reference/commandline/exec/)
       for more information.
 
       To exec a command in a container, you first need to create an exec instance,
@@ -139,7 +139,7 @@ tags:
     x-displayName: "Swarm"
     description: |
       Engines can be clustered together in a swarm. Refer to the
-      [swarm mode documentation](https://docs.iechor.com/engine/swarm/)
+      [swarm mode documentation](http://docs.iechor.com/engine/swarm/)
       for more information.
   - name: "Node"
     x-displayName: "Nodes"
@@ -2771,7 +2771,7 @@ definitions:
           Documentation:
             type: "string"
             x-nullable: false
-            example: "https://docs.iechor.com/engine/extend/plugins/"
+            example: "http://docs.iechor.com/engine/extend/plugins/"
           Interface:
             description: "The interface between iEchor and the plugin"
             x-nullable: false
@@ -7614,7 +7614,7 @@ paths:
         Either the `stream` or `logs` parameter must be `true` for this endpoint
         to do anything.
 
-        See the [documentation for the `iechor attach` command](https://docs.iechor.com/engine/reference/commandline/attach/)
+        See the [documentation for the `iechor attach` command](http://docs.iechor.com/engine/reference/commandline/attach/)
         for more details.
 
         ### Hijacking
@@ -8175,7 +8175,7 @@ paths:
       description: |
         Build an image from a tar archive with a `iEchorfile` in it.
 
-        The `iEchorfile` specifies how the image is built from the tar archive. It is typically in the archive's root, but can be at a different path or have a different name by specifying the `iechorfile` parameter. [See the `iEchorfile` reference for more information](https://docs.iechor.com/engine/reference/builder/).
+        The `iEchorfile` specifies how the image is built from the tar archive. It is typically in the archive's root, but can be at a different path or have a different name by specifying the `iechorfile` parameter. [See the `iEchorfile` reference for more information](http://docs.iechor.com/engine/reference/builder/).
 
         The iEchor daemon performs a preliminary validation of the `iEchorfile` before starting the build, and returns an error if the syntax is incorrect. After that, each instruction is run one-by-one until the ID of the new image is output.
 
@@ -8274,7 +8274,7 @@ paths:
             query parameter `buildargs={"FOO":"bar"}`. Note that `{"FOO":"bar"}` should be URI component encoded.
 
 
-            [Read more about the buildargs instruction.](https://docs.iechor.com/engine/reference/builder/#arg)
+            [Read more about the buildargs instruction.](http://docs.iechor.com/engine/reference/builder/#arg)
           type: "string"
         - name: "shmsize"
           in: "query"

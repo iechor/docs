@@ -40,7 +40,7 @@ $ iechord --experimental -s cpuguy83/iechor-overlay2-graphdriver-plugin
 
 # Write a graph driver plugin
 
-See the [plugin documentation](https://docs.iechor.com/engine/extend/) for detailed information
+See the [plugin documentation](http://docs.iechor.com/engine/extend/) for detailed information
 on the underlying plugin protocol.
 
 

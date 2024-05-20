@@ -3,7 +3,7 @@ variable "HUGO_ENV" {
 }
 
 variable "DOCS_URL" {
-  default = "https://docs.iechor.com"
+  default = "http://docs.iechor.com"
 }
 
 variable "DOCS_SITE_DIR" {

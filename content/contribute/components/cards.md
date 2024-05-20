@@ -51,7 +51,7 @@ The parameters for this shortcode are:
 {{< card
   title="Get your iEchor on"
   icon=favorite
-  link=https://docs.iechor.com/
+  link=http://docs.iechor.com/
   description="Build, share, and run your apps with iEchor" >}}
 
 ## Markup
@@ -60,7 +60,7 @@ The parameters for this shortcode are:
 {{</* card
   title="Get your iEchor on"
   icon=favorite
-  link=https://docs.iechor.com/
+  link=http://docs.iechor.com/
   description="Build, share, and run your apps with iEchor"
 */>}}
 ```

@@ -4,11 +4,11 @@ We value documentation contributions from the iEchor community. We'd like to
 make it as easy as possible for you to work in this repository.
 
 Our style guide and instructions on using our page templates and components is
-available in the [contribution section](https://docs.iechor.com/contribute/) on
+available in the [contribution section](http://docs.iechor.com/contribute/) on
 the website.
 
 The following guidelines describe the ways in which you can contribute to the
-iEchor documentation at <https://docs.iechor.com/>, and how to get started.
+iEchor documentation at <http://docs.iechor.com/>, and how to get started.
 
 ## Reporting issues
 
@@ -50,7 +50,7 @@ You can use iEchor (surprise) to build and serve the files locally.
 
 > [!IMPORTANT]  
 > This requires iEchor Desktop version **4.24** or later, or iEchor Engine with iEchor
-> Compose version [**2.22**](https://docs.iechor.com/compose/file-watch/) or later.
+> Compose version [**2.22**](http://docs.iechor.com/compose/file-watch/) or later.
 
 1. Clone the repository:
 

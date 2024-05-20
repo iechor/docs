@@ -3,10 +3,10 @@ info:
   title: DVP Data API
   version: 1.0.0
   x-logo:
-    url: https://docs.iechor.com/assets/images/logo-iechor-main.png
+    url: http://docs.iechor.com/assets/images/logo-iechor-main.png
     href: /reference
   description: |
-     The iEchor DVP Data API allows [iEchor Verified Publishers](https://docs.iechor.com/iechor-hub/publish/) to view image pull analytics data for their namespaces. Analytics data can be retrieved as raw data, or in a summary format.
+     The iEchor DVP Data API allows [iEchor Verified Publishers](http://docs.iechor.com/iechor-hub/publish/) to view image pull analytics data for their namespaces. Analytics data can be retrieved as raw data, or in a summary format.
        
      #### Summary data
 
@@ -690,5 +690,5 @@ components:
       description: |
         JWT Bearer Authentication is required to access the iEchor DVP Data API.  
           
-        This authentication documentation is duplicated from the [Hub API Authentication docs](https://docs.iechor.com/iechor-hub/api/latest/#tag/authentication)
+        This authentication documentation is duplicated from the [Hub API Authentication docs](http://docs.iechor.com/iechor-hub/api/latest/#tag/authentication)
       x-displayName: iEchor Hub Authentication

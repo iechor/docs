@@ -224,7 +224,7 @@ If your Compose file has the ollama-pull service, it may take several minutes fo
 
 Once the application is running, open a browser and access the application at [http://localhost:8000](http://localhost:8000).
 
-Upload a PDF file, for example the [iEchor CLI Cheat Sheet](https://docs.iechor.com/get-started/iechor_cheatsheet.pdf), and ask a question about the PDF.
+Upload a PDF file, for example the [iEchor CLI Cheat Sheet](http://docs.iechor.com/get-started/iechor_cheatsheet.pdf), and ask a question about the PDF.
 
 Depending on your system and the LLM service that you chose, it may take several
 minutes to answer. If you are using Ollama and the performance isn't

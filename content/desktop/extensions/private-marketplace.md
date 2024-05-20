@@ -18,7 +18,7 @@ iEchor Extensions' private marketplace is designed specifically for organization
 
 ## Prerequisites
 
-- [Download and install iEchor Desktop 4.26.0 or later](https://docs.iechor.com/desktop/release-notes/).
+- [Download and install iEchor Desktop 4.26.0 or later](http://docs.iechor.com/desktop/release-notes/).
 - You must be an administrator for your organization.
 - You have the ability to push the `extension-marketplace` folder and `admin-settings.json` file to the locations specified below through device management software such as [Jamf](https://www.jamf.com/).
 

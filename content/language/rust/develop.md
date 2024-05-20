@@ -104,7 +104,7 @@ For the sample application, you'll use a variation of the backend from the react
 
    # Comments are provided throughout this file to help you get started.
    # If you need more help, visit the iEchorfile reference guide at
-   # https://docs.iechor.com/reference/iechorfile/
+   # http://docs.iechor.com/reference/iechorfile/
    
    ################################################################################
    # Create a stage for building the application.
@@ -148,7 +148,7 @@ For the sample application, you'll use a variation of the backend from the react
    FROM debian:bullseye-slim AS final
    
    # Create a non-privileged user that the app will run under.
-   # See https://docs.iechor.com/develop/develop-images/iechorfile_best-practices/   #user
+   # See http://docs.iechor.com/develop/develop-images/iechorfile_best-practices/   #user
    ARG UID=10001
    RUN adduser \
        --disabled-password \
@@ -222,7 +222,7 @@ The following is the updated `compose.yaml` file.
 ```yaml {hl_lines=["17-23","30-55"]}
 # Comments are provided throughout this file to help you get started.
 # If you need more help, visit the iEchor compose reference guide at
-# https://docs.iechor.com/compose/compose-file/
+# http://docs.iechor.com/compose/compose-file/
 
 # Here the instructions define your application as a service called "server".
 # This service is built from the iEchorfile in the current directory.

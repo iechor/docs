@@ -1,6 +1,6 @@
 extends: existence
 message: "Avoid generic calls to action: '%s'"
-link: https://docs.iechor.com/contribute/style/formatting/#links
+link: http://docs.iechor.com/contribute/style/formatting/#links
 level: warning
 scope: raw
 ignorecase: true

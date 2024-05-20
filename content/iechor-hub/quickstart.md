@@ -147,7 +147,7 @@ You need to download iEchor Desktop to build, push, and pull container images.
      https://hub.iechor.com/
 
     For more examples and ideas, visit:
-     https://docs.iechor.com/get-started/
+     http://docs.iechor.com/get-started/
     ```
 
 ### Step 5: Build and push a container image to iEchor Hub from your computer

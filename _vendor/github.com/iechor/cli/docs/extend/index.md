@@ -115,7 +115,7 @@ enabled, and use it to create a volume.
 To disable a plugin, use the `iechor plugin disable` command. To completely
 remove it, use the `iechor plugin remove` command. For other available
 commands and options, see the
-[command line reference](https://docs.iechor.com/engine/reference/commandline/cli/).
+[command line reference](http://docs.iechor.com/engine/reference/commandline/cli/).
 
 ## Developing a plugin
 
@@ -149,7 +149,7 @@ Consider the following `config.json` file.
 ```json
 {
   "description": "sshFS plugin for iEchor",
-  "documentation": "https://docs.iechor.com/engine/extend/plugins/",
+  "documentation": "http://docs.iechor.com/engine/extend/plugins/",
   "entrypoint": ["/iechor-volume-sshfs"],
   "network": {
     "type": "host"

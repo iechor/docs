@@ -38,7 +38,7 @@ body:
     attributes:
       label: Location
       description: Where did you find the problem?
-      placeholder: "https://docs.iechor.com/"
+      placeholder: "http://docs.iechor.com/"
     validations:
       required: true
   - type: textarea

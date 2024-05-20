@@ -12,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/iechor/docs/issues"
   },
-  "homepage": "https://docs.iechor.com/",
+  "homepage": "http://docs.iechor.com/",
   "dependencies": {
     "@alpinejs/collapse": "^3.13.5",
     "@alpinejs/focus": "^3.13.7",

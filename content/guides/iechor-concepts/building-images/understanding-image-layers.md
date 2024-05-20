@@ -42,7 +42,7 @@ When the union filesystem is created, in addition to the image layers, a directo
 
 ## Try it out
 
-In this hands-on guide, you will create new image layers manually using the [`iechor container commit`](https://docs.iechor.com/reference/cli/iechor/container/commit/) command. Note that you’ll rarely create images this way, as you’ll normally [use a iEchorfile](./writing-a-iechorfile.md). But, it makes it easier to understand how it’s all working.
+In this hands-on guide, you will create new image layers manually using the [`iechor container commit`](http://docs.iechor.com/reference/cli/iechor/container/commit/) command. Note that you’ll rarely create images this way, as you’ll normally [use a iEchorfile](./writing-a-iechorfile.md). But, it makes it easier to understand how it’s all working.
 
 ### Create a base image
 
@@ -79,7 +79,7 @@ In this first step, you will create your own base image that you will then use f
 
     You should then see a “Hello world!” appear in the console.
 
-5. Now that you have Node installed, you’re ready to save the changes you’ve made as a new image layer, from which you can start new containers or build new images. To do so, you will use the [`iechor container commit`](https://docs.iechor.com/reference/cli/iechor/container/commit/) command. Run the following command in a new terminal:
+5. Now that you have Node installed, you’re ready to save the changes you’ve made as a new image layer, from which you can start new containers or build new images. To do so, you will use the [`iechor container commit`](http://docs.iechor.com/reference/cli/iechor/container/commit/) command. Run the following command in a new terminal:
 
     ```console
     $ iechor container commit -m "Add node" base-container node-base

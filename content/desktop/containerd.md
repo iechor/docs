@@ -71,7 +71,7 @@ $ iechor build --platform=linux/amd64,linux/arm64 .
 [+] Building 0.0s (0/0)
 ERROR: Multi-platform build is not supported for the iechor driver.
 Switch to a different driver, or turn on the containerd image store, and try again.
-Learn more at https://docs.iechor.com/go/build-multi-platform/
+Learn more at http://docs.iechor.com/go/build-multi-platform/
 ```
 
 Enabling the containerd image store lets you build multi-platform images

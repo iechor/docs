@@ -133,16 +133,16 @@ to [the `daemon.json` file](#daemon-configuration-file).
 
 The following list of environment variables are supported by the `iechord` daemon.
 Some of these environment variables are supported both by the iEchor Daemon and
-the `iechor` CLI. Refer to [Environment variables](https://docs.iechor.com/engine/reference/commandline/cli/#environment-variables)
+the `iechor` CLI. Refer to [Environment variables](http://docs.iechor.com/engine/reference/commandline/cli/#environment-variables)
 in the CLI section to learn about environment variables supported by the
 `iechor` CLI.
 
 | Variable            | Description                                                                                                                                                                             |
 | :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `IECHOR_CERT_PATH`  | Location of your authentication keys. This variable is used both by the [`iechor` CLI](https://docs.iechor.com/engine/reference/commandline/cli/) and the `iechord` daemon.             |
+| `IECHOR_CERT_PATH`  | Location of your authentication keys. This variable is used both by the [`iechor` CLI](http://docs.iechor.com/engine/reference/commandline/cli/) and the `iechord` daemon.             |
 | `IECHOR_DRIVER`     | The storage driver to use.                                                                                                                                                              |
 | `IECHOR_RAMDISK`    | If set this disables `pivot_root`.                                                                                                                                                      |
-| `IECHOR_TLS_VERIFY` | When set iEchor uses TLS and verifies the remote. This variable is used both by the [`iechor` CLI](https://docs.iechor.com/engine/reference/commandline/cli/) and the `iechord` daemon. |
+| `IECHOR_TLS_VERIFY` | When set iEchor uses TLS and verifies the remote. This variable is used both by the [`iechor` CLI](http://docs.iechor.com/engine/reference/commandline/cli/) and the `iechord` daemon. |
 | `IECHOR_TMPDIR`     | Location for temporary files created by the daemon.                                                                                                                                     |
 | `HTTP_PROXY`        | Proxy URL for HTTP requests unless overridden by NoProxy. See the [Go specification](https://pkg.go.dev/golang.org/x/net/http/httpproxy#Config) for details.                            |
 | `HTTPS_PROXY`       | Proxy URL for HTTPS requests unless overridden by NoProxy. See the [Go specification](https://pkg.go.dev/golang.org/x/net/http/httpproxy#Config) for details.                           |
@@ -155,8 +155,8 @@ in the CLI section to learn about environment variables supported by the
 
 > **Note**
 >
-> Refer to the [iEchor Desktop manual](https://docs.iechor.com/desktop/networking/#httphttps-proxy-support)
-> if you are running [iEchor Desktop](https://docs.iechor.com/desktop/).
+> Refer to the [iEchor Desktop manual](http://docs.iechor.com/desktop/networking/#httphttps-proxy-support)
+> if you are running [iEchor Desktop](http://docs.iechor.com/desktop/).
 
 If you are behind an HTTP proxy server, for example in corporate settings,
 you may have to configure the iEchor daemon to use the proxy server for
@@ -170,12 +170,12 @@ in three ways:
    options. (iEchor Engine version 23.0 or later).
 
 The command-line and configuration file options take precedence over environment
-variables. Refer to [control and configure iEchor with systemd](https://docs.iechor.com/config/daemon/systemd/#httphttps-proxy)
+variables. Refer to [control and configure iEchor with systemd](http://docs.iechor.com/config/daemon/systemd/#httphttps-proxy)
 to set these environment variables on a host using `systemd`.
 
 ### Daemon socket option
 
-The iEchor daemon can listen for [iEchor Engine API](https://docs.iechor.com/engine/api/)
+The iEchor daemon can listen for [iEchor Engine API](http://docs.iechor.com/engine/api/)
 requests via three different types of Socket: `unix`, `tcp`, and `fd`.
 
 By default, a `unix` domain socket (or IPC socket) is created at
@@ -185,7 +185,7 @@ membership.
 If you need to access the iEchor daemon remotely, you need to enable the tcp
 Socket. When using a TCP socket, the iEchor daemon provides un-encrypted and
 un-authenticated direct access to the iEchor daemon by default. You should secure
-the daemon either using the [built in HTTPS encrypted socket](https://docs.iechor.com/engine/security/protect-access/),
+the daemon either using the [built in HTTPS encrypted socket](http://docs.iechor.com/engine/security/protect-access/),
 or by putting a secure web proxy in front of it. You can listen on port `2375` on all
 network interfaces with `-H tcp://0.0.0.0:2375`, or on a particular network
 interface using its IP address: `-H tcp://192.168.59.103:2375`. It is
@@ -333,7 +333,7 @@ drivers: `overlay2`, `fuse-overlayfs`, `btrfs`, and `zfs`.
 and is selected by default. Unless users have a strong reason to prefer another storage driver,
 `overlay2` should be used.
 
-You can find out more about storage drivers and how to select one in [Select a storage driver](https://docs.iechor.com/storage/storagedriver/select-storage-driver/).
+You can find out more about storage drivers and how to select one in [Select a storage driver](http://docs.iechor.com/storage/storagedriver/select-storage-driver/).
 
 On Windows, the iEchor daemon only supports the `windowsfilter` storage driver.
 
@@ -425,7 +425,7 @@ installed outside of `PATH`, must be registered with the daemon, either via the
 configuration file or using the `--add-runtime` command line flag.
 
 For examples on how to use other container runtimes, see
-[Alternative container runtimes](https://docs.iechor.com/engine/alternative-runtimes/)
+[Alternative container runtimes](http://docs.iechor.com/engine/alternative-runtimes/)
 
 ##### Configure runtimes using `daemon.json`
 
@@ -610,7 +610,7 @@ $ sudo iechord --add-runtime <runtime>=<path>
 Defining runtime arguments via the command line is not supported.
 
 For an example configuration for a runc drop-in replacment, see
-[Alternative container runtimes > youki](https://docs.iechor.com/engine/alternative-runtimes/#youki)
+[Alternative container runtimes > youki](http://docs.iechor.com/engine/alternative-runtimes/#youki)
 
 ##### Configure the default container runtime
 
@@ -784,7 +784,7 @@ iEchor host's configuration:
 
 This only adds the proxy and authentication to the iEchor daemon's requests.
 To use the proxy when building images and running containers, see
-[Configure iEchor to use a proxy server](https://docs.iechor.com/network/proxy/)
+[Configure iEchor to use a proxy server](http://docs.iechor.com/network/proxy/)
 
 ### Default `ulimit` settings
 
@@ -795,7 +795,7 @@ Any `--ulimit` options passed to `iechor run` override the daemon defaults.
 
 Be careful setting `nproc` with the `ulimit` flag, as `nproc` is designed by Linux to
 set the maximum number of processes available to a user, not to a container.
-For details, see [`iechor run` reference](https://docs.iechor.com/reference/cli/iechor/container/run/#ulimit).
+For details, see [`iechor run` reference](http://docs.iechor.com/reference/cli/iechor/container/run/#ulimit).
 
 ### Access authorization
 
@@ -819,7 +819,7 @@ If you have multiple plugins installed, each plugin, in order, must
 allow the request for it to complete.
 
 For information about how to create an authorization plugin, refer to the
-[authorization plugin](https://docs.iechor.com/engine/extend/plugins_authorization/) section.
+[authorization plugin](http://docs.iechor.com/engine/extend/plugins_authorization/) section.
 
 ### Daemon user namespace options
 
@@ -834,7 +834,7 @@ inside the container, but are effectively mapped to an unprivileged `uid` on
 the host.
 
 For details about how to use this feature, as well as limitations, see
-[Isolate containers with a user namespace](https://docs.iechor.com/engine/security/userns-remap/).
+[Isolate containers with a user namespace](http://docs.iechor.com/engine/security/userns-remap/).
 
 ### Configure host gateway IP
 
@@ -953,7 +953,7 @@ to avoid collisions with other Prometheus exporters and services.
 
 If you are running a Prometheus server you can add this address to your scrape configs
 to have Prometheus collect metrics on iEchor. For more information, see
-[Collect iEchor metrics with Prometheus](https://docs.iechor.com/config/daemon/prometheus/).
+[Collect iEchor metrics with Prometheus](http://docs.iechor.com/config/daemon/prometheus/).
 
 #### Node generic resources
 
@@ -1152,7 +1152,7 @@ The following is a full example of the allowed configuration options on Linux:
 > daemon startup as a flag.
 > On systems that use systemd to start the iEchor daemon, `-H` is already set, so
 > you can't use the `hosts` key in `daemon.json` to add listening addresses.
-> See [custom iEchor daemon options](https://docs.iechor.com/config/daemon/systemd/#custom-iechor-daemon-options)
+> See [custom iEchor daemon options](http://docs.iechor.com/config/daemon/systemd/#custom-iechor-daemon-options)
 > for an example on how to configure the daemon using systemd drop-in files.
 
 ##### On Windows
@@ -1235,7 +1235,7 @@ The list of feature options include:
 - `containerd-snapshotter`: when set to `true`, the daemon uses containerd
   snapshotters instead of the classic storage drivers for storing image and
   container data. For more information, see
-  [containerd storage](https://docs.iechor.com/storage/containerd/).
+  [containerd storage](http://docs.iechor.com/storage/containerd/).
 - `windows-dns-proxy`: when set to `true`, the daemon's internal DNS resolver
   will forward requests to external servers. Without this, most applications
   running in the container will still be able to use secondary DNS servers
@@ -1261,7 +1261,7 @@ The list of currently supported options that can be reconfigured is this:
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------- |
 | `debug`                            | Toggles debug mode of the daemon.                                                                           |
 | `labels`                           | Replaces the daemon labels with a new set of labels.                                                        |
-| `live-restore`                     | Toggles [live restore](https://docs.iechor.com/config/containers/live-restore/).                            |
+| `live-restore`                     | Toggles [live restore](http://docs.iechor.com/config/containers/live-restore/).                            |
 | `max-concurrent-downloads`         | Configures the max concurrent downloads for each pull.                                                      |
 | `max-concurrent-uploads`           | Configures the max concurrent uploads for each push.                                                        |
 | `max-download-attempts`            | Configures the max download attempts for each pull.                                                         |
@@ -1363,7 +1363,7 @@ using the `daemon.json` file.
 ```
 
 This example uses the `bridge` network driver. Refer to the
-[bridge network driver page](https://docs.iechor.com/network/drivers/bridge/#options)
+[bridge network driver page](http://docs.iechor.com/network/drivers/bridge/#options)
 for an overview of available driver options.
 
 After changing the configuration and restarting the daemon, new networks that

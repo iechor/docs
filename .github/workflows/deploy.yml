@@ -38,7 +38,7 @@ jobs:
             DOCS_SLACK_MSG="Successfully deployed docs-stage from main branch. $DOCS_URL"
           elif [ "${{ github.ref }}" = "refs/heads/published" ]; then
             HUGO_ENV=production
-            DOCS_URL="https://docs.iechor.com"
+            DOCS_URL="http://docs.iechor.com"
             DOCS_AWS_IAM_ROLE="arn:aws:iam::710015040892:role/prod-docs-docs.iechor.com-20220818202218674300000001"
             DOCS_S3_BUCKET="prod-docs-docs.iechor.com"
             DOCS_S3_CONFIG="s3-config.json"

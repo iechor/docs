@@ -1,5 +1,5 @@
 title: iEchor Docs
-baseURL: https://docs.iechor.com
+baseURL: http://docs.iechor.com
 refLinksErrorLevel: ERROR
 enableGitInfo: true
 disablePathToLower: true
@@ -94,7 +94,7 @@ params:
     indexname: iechor
 
   repo: https://github.com/iechor/docs
-  docs_url: https://docs.iechor.com
+  docs_url: http://docs.iechor.com
 
   latest_engine_api_version: "1.45"
   iechor_ce_version: "26.1.3"

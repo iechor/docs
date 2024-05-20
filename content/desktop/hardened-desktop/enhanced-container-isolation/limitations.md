@@ -98,7 +98,7 @@ Desktop.
 
 ### iEchor Debug containers are not yet protected
 
-[iEchor Debug](https://docs.iechor.com/reference/cli/iechor/debug/) containers
+[iEchor Debug](http://docs.iechor.com/reference/cli/iechor/debug/) containers
 are not yet protected by ECI. We expect to improve on this in future versions of
 iEchor Desktop.
 

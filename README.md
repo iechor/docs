@@ -3,7 +3,7 @@
 <img src="static/assets/images/iechor-docs.png" alt="Welcome to iEchor Documentation" style="max-width: 50%;">
 
 Welcome to the iEchor Documentation repository. This is the source for
-[https://docs.iechor.com/](https://docs.iechor.com/).
+[http://docs.iechor.com/](http://docs.iechor.com/).
 
 Feel free to send us pull requests and file issues. Our docs are completely
 open source, and we deeply appreciate contributions from the iEchor community!
@@ -32,7 +32,7 @@ We've made it easy for you to file new issues.
 
 - Click **[New issue](https://github.com/iechor/docs/issues/new)** on the docs repository and fill in the details, or
 - Click **Request docs changes** in the right column of every page on
-  [docs.iechor.com](https://docs.iechor.com/) and add the details, or
+  [docs.iechor.com](http://docs.iechor.com/) and add the details, or
 
   ![Request changes link](/static/assets/images/docs-site-feedback.png)
 

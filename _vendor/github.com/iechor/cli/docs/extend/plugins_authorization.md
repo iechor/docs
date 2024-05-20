@@ -50,7 +50,7 @@ Each plugin must reside within directories described under the
 
 ## Default user authorization mechanism
 
-If TLS is enabled in the [iEchor daemon](https://docs.iechor.com/engine/security/https/), the default user authorization flow extracts the user details from the certificate subject name.
+If TLS is enabled in the [iEchor daemon](http://docs.iechor.com/engine/security/https/), the default user authorization flow extracts the user details from the certificate subject name.
 That is, the `User` field is set to the client certificate subject common name, and the `AuthenticationMethod` field is set to `TLS`.
 
 ## Basic architecture
@@ -104,7 +104,7 @@ Enable the authorization plugin with a dedicated command line flag in the
 `--authorization-plugin=PLUGIN_ID` format. The flag supplies a `PLUGIN_ID`
 value. This value can be the plugin’s socket or a path to a specification file.
 Authorization plugins can be loaded without restarting the daemon. Refer
-to the [`iechord` documentation](https://docs.iechor.com/reference/cli/iechord/#configuration-reload-behavior) for more information.
+to the [`iechord` documentation](http://docs.iechor.com/reference/cli/iechord/#configuration-reload-behavior) for more information.
 
 ```console
 $ iechord --authorization-plugin=plugin1 --authorization-plugin=plugin2,...

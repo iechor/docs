@@ -84,7 +84,7 @@ const containers = await ddClient.iechor.listContainers();
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options?` | `any` | (Optional). A JSON like `{ "all": true, "limit": 10, "size": true, "filters": JSON.stringify({ status: ["exited"] }), }` For more information about the different properties see [the iEchor API endpoint documentation](https://docs.iechor.com/engine/api/v1.41/#operation/ContainerList). |
+| `options?` | `any` | (Optional). A JSON like `{ "all": true, "limit": 10, "size": true, "filters": JSON.stringify({ status: ["exited"] }), }` For more information about the different properties see [the iEchor API endpoint documentation](http://docs.iechor.com/engine/api/v1.41/#operation/ContainerList). |
 
 #### Returns
 
@@ -106,7 +106,7 @@ const images = await ddClient.iechor.listImages();
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options?` | `any` | (Optional). A JSON like `{ "all": true, "filters": JSON.stringify({ dangling: ["true"] }), "digests": true * }` For more information about the different properties see [the iEchor API endpoint documentation](https://docs.iechor.com/engine/api/v1.41/#tag/Image). |
+| `options?` | `any` | (Optional). A JSON like `{ "all": true, "filters": JSON.stringify({ dangling: ["true"] }), "digests": true * }` For more information about the different properties see [the iEchor API endpoint documentation](http://docs.iechor.com/engine/api/v1.41/#tag/Image). |
 
 #### Returns
 

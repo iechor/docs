@@ -114,13 +114,13 @@ $ iechor attach 0246aa4d1448
 For more information about `iechor run` flags related to foreground and
 background modes, see:
 
-- [`iechor run --detach`](https://docs.iechor.com/reference/cli/iechor/container/run/#detach): run container in background
-- [`iechor run --attach`](https://docs.iechor.com/reference/cli/iechor/container/run/#attach): attach to `stdin`, `stdout`, and `stderr`
-- [`iechor run --tty`](https://docs.iechor.com/reference/cli/iechor/container/run/#tty): allocate a pseudo-tty
-- [`iechor run --interactive`](https://docs.iechor.com/reference/cli/iechor/container/run/#interactive): keep `stdin` open even if not attached
+- [`iechor run --detach`](http://docs.iechor.com/reference/cli/iechor/container/run/#detach): run container in background
+- [`iechor run --attach`](http://docs.iechor.com/reference/cli/iechor/container/run/#attach): attach to `stdin`, `stdout`, and `stderr`
+- [`iechor run --tty`](http://docs.iechor.com/reference/cli/iechor/container/run/#tty): allocate a pseudo-tty
+- [`iechor run --interactive`](http://docs.iechor.com/reference/cli/iechor/container/run/#interactive): keep `stdin` open even if not attached
 
 For more information about re-attaching to a background container, see
-[`iechor attach`](https://docs.iechor.com/reference/cli/iechor/container/attach/).
+[`iechor attach`](http://docs.iechor.com/reference/cli/iechor/container/attach/).
 
 ## Container identification
 
@@ -135,7 +135,7 @@ You can identify a container in three ways:
 The UUID identifier is a random ID assigned to the container by the daemon.
 
 The daemon generates a random string name for containers automatically. You can
-also defined a custom name using [the `--name` flag](https://docs.iechor.com/reference/cli/iechor/container/run/#name).
+also defined a custom name using [the `--name` flag](http://docs.iechor.com/reference/cli/iechor/container/run/#name).
 Defining a `name` can be a handy way to add meaning to a container. If you
 specify a `name`, you can use it when referring to the container in a
 user-defined network. This works for both background and foreground iEchor
@@ -157,7 +157,7 @@ $ iechor ps -q --filter ancestor=nginx:alpine
 ```
 
 For more information about using filters, see
-[Filtering](https://docs.iechor.com/config/filter/).
+[Filtering](http://docs.iechor.com/config/filter/).
 
 ## Container networking
 
@@ -187,7 +187,7 @@ round-trip min/avg/max = 0.257/0.288/0.326 ms
 ```
 
 For more information about container networking, see [Networking
-overview](https://docs.iechor.com/network/)
+overview](http://docs.iechor.com/network/)
 
 ## Filesystem mounts
 
@@ -211,7 +211,7 @@ You can add a filesystem mount to a container using the `--mount` flag for the
 
 The following sections show basic examples of how to create volumes and bind
 mounts. For more in-depth examples and descriptions, refer to the section of
-the [storage section](https://docs.iechor.com/storage/) in the documentation.
+the [storage section](http://docs.iechor.com/storage/) in the documentation.
 
 ### Volume mounts
 
@@ -818,7 +818,7 @@ the host, and reconfigures AppArmor or SELinux to allow the container
 nearly all the same access to the host as processes running outside
 containers on the host. Use this flag with caution.
 For more information about the `--privileged` flag, see the
-[`iechor run` reference](https://docs.iechor.com/reference/cli/iechor/container/run/#privileged).
+[`iechor run` reference](http://docs.iechor.com/reference/cli/iechor/container/run/#privileged).
 
 If you want to limit access to a specific device or devices you can use
 the `--device` flag. It allows you to specify one or more devices that
@@ -967,7 +967,7 @@ use of facilities allowed by the capabilities, so you should not have to adjust 
 
 ## Overriding image defaults
 
-When you build an image from a [iEchorfile](https://docs.iechor.com/reference/iechorfile/),
+When you build an image from a [iEchorfile](http://docs.iechor.com/reference/iechorfile/),
 or when committing it, you can set a number of default parameters that take
 effect when the image starts up as a container. When you run an image, you can
 override those defaults using flags for the `iechor run` command.

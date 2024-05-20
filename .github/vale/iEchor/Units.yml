@@ -1,6 +1,6 @@
 extends: substitution
 message: "Use '%s' instead of '%s'"
-link: https://docs.iechor.com/contribute/style/recommended-words/
+link: http://docs.iechor.com/contribute/style/recommended-words/
 level: error
 swap:
   (?:kilobytes?|KB): kB

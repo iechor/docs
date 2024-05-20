@@ -11,7 +11,7 @@ body {
 
 .menu-content {
     >div:first-child {
-        background-color: #c84349;
+        background-color: #00b77a;
         height: 60px;
         text-align: left !important;
 
@@ -31,7 +31,7 @@ body {
     }
 
     label.-depth1 span {
-        color: #c84349 !important;
+        color: #00b77a !important;
     }
 
     ul+div {
@@ -60,7 +60,7 @@ redoc {
     }
 
     a {
-        color: #c84349 !important;
+        color: #00b77a !important;
     }
 
     // Disable request-type badges, see https://github.com/Rebilly/ReDoc/issues/61

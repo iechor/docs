@@ -11,7 +11,7 @@ aliases:
 ---
 
 The base command for the iEchor CLI is `iechor`. For information about the
-available flags and subcommands, refer to the [CLI reference](https://docs.iechor.com/reference/cli/iechor/)
+available flags and subcommands, refer to the [CLI reference](http://docs.iechor.com/reference/cli/iechor/)
 
 Depending on your iEchor system configuration, you may be required to preface
 each `iechor` command with `sudo`. To avoid having to use `sudo` with the
@@ -19,7 +19,7 @@ each `iechor` command with `sudo`. To avoid having to use `sudo` with the
 `iechor` and add users to it.
 
 For more information about installing iEchor or `sudo` configuration, refer to
-the [installation](https://docs.iechor.com/install/) instructions for your operating system.
+the [installation](http://docs.iechor.com/install/) instructions for your operating system.
 
 ## Environment variables
 
@@ -29,7 +29,7 @@ line:
 | Variable                      | Description                                                                                                                                                                                                                                                       |
 | :---------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `IECHOR_API_VERSION`          | Override the negotiated API version to use for debugging (e.g. `1.19`)                                                                                                                                                                                            |
-| `IECHOR_CERT_PATH`            | Location of your authentication keys. This variable is used both by the `iechor` CLI and the [`iechord` daemon](https://docs.iechor.com/reference/cli/iechord/)                                                                                                   |
+| `IECHOR_CERT_PATH`            | Location of your authentication keys. This variable is used both by the `iechor` CLI and the [`iechord` daemon](http://docs.iechor.com/reference/cli/iechord/)                                                                                                   |
 | `IECHOR_CONFIG`               | The location of your client configuration files.                                                                                                                                                                                                                  |
 | `IECHOR_CONTENT_TRUST_SERVER` | The URL of the Notary server to use. Defaults to the same URL as the registry.                                                                                                                                                                                    |
 | `IECHOR_CONTENT_TRUST`        | When set iEchor uses notary to sign and verify images. Equates to `--disable-content-trust=false` for build, create, pull, push, run.                                                                                                                             |
@@ -38,8 +38,8 @@ line:
 | `IECHOR_HIDE_LEGACY_COMMANDS` | When set, iEchor hides "legacy" top-level commands (such as `iechor rm`, and `iechor pull`) in `iechor help` output, and only `Management commands` per object-type (e.g., `iechor container`) are printed. This may become the default in a future release.      |
 | `IECHOR_HOST`                 | Daemon socket to connect to.                                                                                                                                                                                                                                      |
 | `IECHOR_TLS`                  | Enable TLS for connections made by the `iechor` CLI (equivalent of the `--tls` command-line option). Set to a non-empty value to enable TLS. Note that TLS is enabled automatically if any of the other TLS options are set.                                      |
-| `IECHOR_TLS_VERIFY`           | When set iEchor uses TLS and verifies the remote. This variable is used both by the `iechor` CLI and the [`iechord` daemon](https://docs.iechor.com/reference/cli/iechord/)                                                                                       |
-| `BUILDKIT_PROGRESS`           | Set type of progress output (`auto`, `plain`, `tty`, `rawjson`) when [building](https://docs.iechor.com/reference/cli/iechor/image/build/) with [BuildKit backend](https://docs.iechor.com/build/buildkit/). Use plain to show container output (default `auto`). |
+| `IECHOR_TLS_VERIFY`           | When set iEchor uses TLS and verifies the remote. This variable is used both by the `iechor` CLI and the [`iechord` daemon](http://docs.iechor.com/reference/cli/iechord/)                                                                                       |
+| `BUILDKIT_PROGRESS`           | Set type of progress output (`auto`, `plain`, `tty`, `rawjson`) when [building](http://docs.iechor.com/reference/cli/iechor/image/build/) with [BuildKit backend](http://docs.iechor.com/build/buildkit/). Use plain to show container output (default `auto`). |
 
 Because iEchor is developed using Go, you can also use any environment
 variables used by the Go runtime. In particular, you may find these useful:
@@ -117,18 +117,18 @@ if no `--format` flag is provided.
 
 | Property               | Description                                                                                                                                                                                                    |
 | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `configFormat`         | Custom default format for `iechor config ls` output. See [`iechor config ls`](https://docs.iechor.com/reference/cli/iechor/config/ls/#format) for a list of supported formatting directives.                   |
-| `imagesFormat`         | Custom default format for `iechor images` / `iechor image ls` output. See [`iechor images`](https://docs.iechor.com/reference/cli/iechor/image/ls/#format) for a list of supported formatting directives.      |
-| `networksFormat`       | Custom default format for `iechor network ls` output. See [`iechor network ls`](https://docs.iechor.com/reference/cli/iechor/network/ls/#format) for a list of supported formatting directives.                |
-| `nodesFormat`          | Custom default format for `iechor node ls` output. See [`iechor node ls`](https://docs.iechor.com/reference/cli/iechor/node/ls/#format) for a list of supported formatting directives.                         |
-| `pluginsFormat`        | Custom default format for `iechor plugin ls` output. See [`iechor plugin ls`](https://docs.iechor.com/reference/cli/iechor/plugin/ls/#format) for a list of supported formatting directives.                   |
-| `psFormat`             | Custom default format for `iechor ps` / `iechor container ps` output. See [`iechor ps`](https://docs.iechor.com/reference/cli/iechor/container/ls/#format) for a list of supported formatting directives.      |
-| `secretFormat`         | Custom default format for `iechor secret ls` output. See [`iechor secret ls`](https://docs.iechor.com/reference/cli/iechor/secret/ls/#format) for a list of supported formatting directives.                   |
-| `serviceInspectFormat` | Custom default format for `iechor service inspect` output. See [`iechor service inspect`](https://docs.iechor.com/reference/cli/iechor/service/inspect/#format) for a list of supported formatting directives. |
-| `servicesFormat`       | Custom default format for `iechor service ls` output. See [`iechor service ls`](https://docs.iechor.com/reference/cli/iechor/service/ls/#format) for a list of supported formatting directives.                |
-| `statsFormat`          | Custom default format for `iechor stats` output. See [`iechor stats`](https://docs.iechor.com/reference/cli/iechor/container/stats/#format) for a list of supported formatting directives.                     |
-| `tasksFormat`          | Custom default format for `iechor stack ps` output. See [`iechor stack ps`](https://docs.iechor.com/reference/cli/iechor/stack/ps/#format) for a list of supported formatting directives.                      |
-| `volumesFormat`        | Custom default format for `iechor volume ls` output. See [`iechor volume ls`](https://docs.iechor.com/reference/cli/iechor/volume/ls/#format) for a list of supported formatting directives.                   |
+| `configFormat`         | Custom default format for `iechor config ls` output. See [`iechor config ls`](http://docs.iechor.com/reference/cli/iechor/config/ls/#format) for a list of supported formatting directives.                   |
+| `imagesFormat`         | Custom default format for `iechor images` / `iechor image ls` output. See [`iechor images`](http://docs.iechor.com/reference/cli/iechor/image/ls/#format) for a list of supported formatting directives.      |
+| `networksFormat`       | Custom default format for `iechor network ls` output. See [`iechor network ls`](http://docs.iechor.com/reference/cli/iechor/network/ls/#format) for a list of supported formatting directives.                |
+| `nodesFormat`          | Custom default format for `iechor node ls` output. See [`iechor node ls`](http://docs.iechor.com/reference/cli/iechor/node/ls/#format) for a list of supported formatting directives.                         |
+| `pluginsFormat`        | Custom default format for `iechor plugin ls` output. See [`iechor plugin ls`](http://docs.iechor.com/reference/cli/iechor/plugin/ls/#format) for a list of supported formatting directives.                   |
+| `psFormat`             | Custom default format for `iechor ps` / `iechor container ps` output. See [`iechor ps`](http://docs.iechor.com/reference/cli/iechor/container/ls/#format) for a list of supported formatting directives.      |
+| `secretFormat`         | Custom default format for `iechor secret ls` output. See [`iechor secret ls`](http://docs.iechor.com/reference/cli/iechor/secret/ls/#format) for a list of supported formatting directives.                   |
+| `serviceInspectFormat` | Custom default format for `iechor service inspect` output. See [`iechor service inspect`](http://docs.iechor.com/reference/cli/iechor/service/inspect/#format) for a list of supported formatting directives. |
+| `servicesFormat`       | Custom default format for `iechor service ls` output. See [`iechor service ls`](http://docs.iechor.com/reference/cli/iechor/service/ls/#format) for a list of supported formatting directives.                |
+| `statsFormat`          | Custom default format for `iechor stats` output. See [`iechor stats`](http://docs.iechor.com/reference/cli/iechor/container/stats/#format) for a list of supported formatting directives.                     |
+| `tasksFormat`          | Custom default format for `iechor stack ps` output. See [`iechor stack ps`](http://docs.iechor.com/reference/cli/iechor/stack/ps/#format) for a list of supported formatting directives.                      |
+| `volumesFormat`        | Custom default format for `iechor volume ls` output. See [`iechor volume ls`](http://docs.iechor.com/reference/cli/iechor/volume/ls/#format) for a list of supported formatting directives.                   |
 
 ### Custom HTTP headers
 
@@ -144,14 +144,14 @@ credential store. When this property is set, `iechor login` will attempt to
 store credentials in the binary specified by `iechor-credential-<value>` which
 is visible on `$PATH`. If this property isn't set, credentials are stored
 in the `auths` property of the CLI configuration file. For more information,
-see the [**Credential stores** section in the `iechor login` documentation](https://docs.iechor.com/reference/cli/iechor/login/#credential-stores)
+see the [**Credential stores** section in the `iechor login` documentation](http://docs.iechor.com/reference/cli/iechor/login/#credential-stores)
 
 The property `credHelpers` specifies a set of credential helpers to use
 preferentially over `credsStore` or `auths` when storing and retrieving
 credentials for specific registries. If this property is set, the binary
 `iechor-credential-<value>` will be used when storing or retrieving credentials
 for a specific registry. For more information, see the
-[**Credential helpers** section in the `iechor login` documentation](https://docs.iechor.com/reference/cli/iechor/login/#credential-helpers)
+[**Credential helpers** section in the `iechor login` documentation](http://docs.iechor.com/reference/cli/iechor/login/#credential-helpers)
 
 ### Automatic proxy configuration for containers
 
@@ -172,7 +172,7 @@ be set for each environment:
 
 These settings are used to configure proxy settings for containers only, and not
 used as proxy settings for the `iechor` CLI or the `iechord` daemon. Refer to the
-[environment variables](#environment-variables) and [HTTP/HTTPS proxy](https://docs.iechor.com/config/daemon/systemd/#httphttps-proxy)
+[environment variables](#environment-variables) and [HTTP/HTTPS proxy](http://docs.iechor.com/config/daemon/systemd/#httphttps-proxy)
 sections for configuring proxy settings for the cli and daemon.
 
 > **Warning**
@@ -292,19 +292,19 @@ a `iechor` command. You can use the following protocols:
 | `npipe://[<name>]`                     | Named pipe (Windows only) | `npipe:////./pipe/iechor_engine` |
 
 If you don't specify the `-H` flag, and you're not using a custom
-[context](https://docs.iechor.com/engine/context/working-with-contexts),
+[context](http://docs.iechor.com/engine/context/working-with-contexts),
 commands use the following default sockets:
 
 - `unix:///var/run/iechor.sock` on macOS and Linux
 - `npipe:////./pipe/iechor_engine` on Windows
 
 To achieve a similar effect without having to specify the `-H` flag for every
-command, you could also [create a context](https://docs.iechor.com/reference/cli/iechor/context/create/),
+command, you could also [create a context](http://docs.iechor.com/reference/cli/iechor/context/create/),
 or alternatively, use the
 [`IECHOR_HOST` environment variable](#environment-variables).
 
 For more information about the `-H` flag, see
-[Daemon socket option](https://docs.iechor.com/reference/cli/iechord/#daemon-socket-option).
+[Daemon socket option](http://docs.iechor.com/reference/cli/iechord/#daemon-socket-option).
 
 #### Using TCP sockets
 

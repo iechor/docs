@@ -45,7 +45,7 @@ For frequently asked questions about iEchor Desktop releases, see [FAQs](faqs/re
 ### Upgrades
 
 - [iEchor Compose v2.27.0](https://github.com/iechor/compose/releases/tag/v2.27.0)
-- [iEchor Engine v26.1.1](https://docs.iechor.com/engine/release-notes/26.1/#2611)
+- [iEchor Engine v26.1.1](http://docs.iechor.com/engine/release-notes/26.1/#2611)
 - [Wasm](../desktop/wasm/_index.md) runtimes:
   - Updated `runwasi` shims to `v0.4.0`
   - Updated `deislabs` shims to `v0.11.1`
@@ -131,7 +131,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 
 - [iEchor Compose v2.26.1](https://github.com/iechor/compose/releases/tag/v2.26.1)
 - [iEchor Scout CLI v1.6.3](https://github.com/iechor/scout-cli/releases/tag/v1.6.3)
-- [iEchor Engine v26.0.0](https://docs.iechor.com/engine/release-notes/26.0/#2600)
+- [iEchor Engine v26.0.0](http://docs.iechor.com/engine/release-notes/26.0/#2600)
 - [Buildx v0.13.1](https://github.com/iechor/buildx/releases/tag/v0.13.1)
 - [Kubernetes v1.29.2](https://github.com/kubernetes/kubernetes/releases/tag/v1.29.2)
 - [cri-iechord v0.3.11](https://github.com/Mirantis/cri-iechord/releases/tag/v0.3.11)
@@ -201,7 +201,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 ### Upgrades
 
 - [Compose v2.24.6](https://github.com/iechor/compose/releases/tag/v2.24.6)
-- [iEchor Engine v25.0.3](https://docs.iechor.com/engine/release-notes/25.0/#2503)
+- [iEchor Engine v25.0.3](http://docs.iechor.com/engine/release-notes/25.0/#2503)
 - [iEchor Scout CLI v1.5.0](https://github.com/iechor/scout-cli/releases/tag/v1.5.0)
 - [Qemu 8.1.5](https://wiki.qemu.org/ChangeLog/8.1)
 - [Wasm](../desktop/wasm/_index.md) runtimes:
@@ -299,7 +299,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 
 ### Upgrades
 
-- [iEchor Engine v25.0.2](https://docs.iechor.com/engine/release-notes/25.0/#2502) which contains a fix for [CVE-2024-24557](https://scout.iechor.com/vulnerabilities/id/CVE-2024-24557), [CVE-2024-23650](https://scout.iechor.com/vulnerabilities/id/CVE-2024-23650), [CVE-2024-23651](https://scout.iechor.com/vulnerabilities/id/CVE-2024-23651), [CVE-2024-23652](https://scout.iechor.com/vulnerabilities/id/CVE-2024-23652) and [CVE-2024-23653](https://scout.iechor.com/vulnerabilities/id/CVE-2024-23653)
+- [iEchor Engine v25.0.2](http://docs.iechor.com/engine/release-notes/25.0/#2502) which contains a fix for [CVE-2024-24557](https://scout.iechor.com/vulnerabilities/id/CVE-2024-24557), [CVE-2024-23650](https://scout.iechor.com/vulnerabilities/id/CVE-2024-23650), [CVE-2024-23651](https://scout.iechor.com/vulnerabilities/id/CVE-2024-23651), [CVE-2024-23652](https://scout.iechor.com/vulnerabilities/id/CVE-2024-23652) and [CVE-2024-23653](https://scout.iechor.com/vulnerabilities/id/CVE-2024-23653)
 - [Containerd v1.6.28](https://github.com/containerd/containerd/releases/tag/v1.6.28)
 - [Runc v1.1.12](https://github.com/opencontainers/runc/releases/tag/v1.1.12) which contains a fix for [CVE-2024-21626](https://scout.iechor.com/vulnerabilities/id/CVE-2024-21626)
 
@@ -332,7 +332,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 - [Compose v2.24.3](https://github.com/iechor/compose/releases/tag/v2.24.3)
 - [iEchor Credential Helpers v0.8.1](https://github.com/iechor/iechor-credential-helpers/releases/tag/v0.8.1)
 - [Runc v1.1.11](https://github.com/opencontainers/runc/releases/tag/v1.1.11)
-- [iEchor Engine v25.0.0](https://docs.iechor.com/engine/release-notes/25.0/)
+- [iEchor Engine v25.0.0](http://docs.iechor.com/engine/release-notes/25.0/)
 - [Kubernetes v1.29.1](https://github.com/kubernetes/kubernetes/releases/tag/v1.29.1)
 - [iEchor Scout v1.3.0](https://github.com/iechor/scout-cli/releases/tag/v1.3.0)
 
@@ -441,7 +441,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
   - Wasmedge is now based on WasmEdge `v0.13.5`
   - Spin is now based on Spin `v2.0.1`
   - wws is now based on wws `v1.7.0`
-- [iEchor Engine v24.0.7](https://docs.iechor.com/engine/release-notes/24.0/#2407)
+- [iEchor Engine v24.0.7](http://docs.iechor.com/engine/release-notes/24.0/#2407)
 - [Containerd v1.6.25](https://github.com/containerd/containerd/releases/tag/v1.6.25)
 - [runc v1.1.10](https://github.com/opencontainers/runc/releases/tag/v1.1.10)
 
@@ -571,7 +571,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
   - Fixed outdated links to iEchor documentation included in generated files
   - Add support for ASP.NET Core 8 (in addition to 6 and 7)
 - Fixed a bug that caused a failure when installing Wasm shims.
-- Fixed a bug where iEchor Desktop exits the [Resource Saver mode](https://docs.iechor.com/desktop/use-desktop/resource-saver/) every 15 minutes, or, if the timer is set above 15 minutes, the resource saver mode never kicks in.
+- Fixed a bug where iEchor Desktop exits the [Resource Saver mode](http://docs.iechor.com/desktop/use-desktop/resource-saver/) every 15 minutes, or, if the timer is set above 15 minutes, the resource saver mode never kicks in.
 - Promoted the **Enable background SBOM indexing** option to **General settings**.
 
 #### For Mac
@@ -594,11 +594,11 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 #### For Mac
 
 - Upgrading to MacOS 14 can cause iEchor Desktop to also update to a latest version even if the auto update option is disabled.
-- Uninstalling iEchor Desktop from the command line is not available. As a workaround, you can [uninstall iEchor Desktop from the Dashboard](https://docs.iechor.com/desktop/uninstall/).
+- Uninstalling iEchor Desktop from the command line is not available. As a workaround, you can [uninstall iEchor Desktop from the Dashboard](http://docs.iechor.com/desktop/uninstall/).
 
 #### For Windows
 
-- **Switch to Windows containers** option in the tray menu may not show up on Windows. As a workaround, edit the [`settings.json` file](https://docs.iechor.com/desktop/settings/windows/) and set `"displaySwitchWinLinContainers": true`.
+- **Switch to Windows containers** option in the tray menu may not show up on Windows. As a workaround, edit the [`settings.json` file](http://docs.iechor.com/desktop/settings/windows/) and set `"displaySwitchWinLinContainers": true`.
 
 #### For all platforms
 
@@ -705,7 +705,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 ### Upgrades
 
 - [Compose v2.21.0](https://github.com/iechor/compose/releases/tag/v2.21.0)
-- [iEchor Engine v24.0.6](https://docs.iechor.com/engine/release-notes/24.0/#2406)
+- [iEchor Engine v24.0.6](http://docs.iechor.com/engine/release-notes/24.0/#2406)
 - [iEchor Scout CLI v0.24.1](https://github.com/iechor/scout-cli/releases/tag/v0.24.1).
 - [Wasm](../desktop/wasm.md) runtimes:
   - wasmtime, wasmedge revision `d0a1a1cd`.
@@ -790,7 +790,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 
 - [Buildx v0.11.2](https://github.com/iechor/buildx/releases/tag/v0.11.2)
 - [Compose v2.20.2](https://github.com/iechor/compose/releases/tag/v2.20.2)
-- [iEchor Engine v24.0.5](https://docs.iechor.com/engine/release-notes/24.0/#2405)
+- [iEchor Engine v24.0.5](http://docs.iechor.com/engine/release-notes/24.0/#2405)
 
 > **Note**
 >
@@ -919,7 +919,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 
 - [Buildx v0.10.5](https://github.com/iechor/buildx/releases/tag/v0.10.5)
 - [Compose v2.18.1](https://github.com/iechor/compose/releases/tag/v2.18.1)
-- [iEchor Engine v24.0.2](https://docs.iechor.com/engine/release-notes/24.0/#2402)
+- [iEchor Engine v24.0.2](http://docs.iechor.com/engine/release-notes/24.0/#2402)
 - [Containerd v1.6.21](https://github.com/containerd/containerd/releases/tag/v1.6.21)
 - [runc v1.1.7](https://github.com/opencontainers/runc/releases/tag/v1.1.5)
 
@@ -927,9 +927,9 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 
 #### For all platforms
 
-- [iEchor Scout CLI](https://docs.iechor.com/scout/#iechor-scout-cli) now finds the most recently built image if it is not provided as an argument.
-- Improved the [iEchor Scout CLI](https://docs.iechor.com/scout/#iechor-scout-cli) `compare` command.
-- Added a warning about the [retirement of iEchor Compose ECS/ACS integrations in November 2023](https://docs.iechor.com/go/compose-ecs-eol/). Can be suppressed with `COMPOSE_CLOUD_EOL_SILENT=1`.
+- [iEchor Scout CLI](http://docs.iechor.com/scout/#iechor-scout-cli) now finds the most recently built image if it is not provided as an argument.
+- Improved the [iEchor Scout CLI](http://docs.iechor.com/scout/#iechor-scout-cli) `compare` command.
+- Added a warning about the [retirement of iEchor Compose ECS/ACS integrations in November 2023](http://docs.iechor.com/go/compose-ecs-eol/). Can be suppressed with `COMPOSE_CLOUD_EOL_SILENT=1`.
 - Fixed an HTTP proxy bug where an HTTP 1.0 client could receive an HTTP 1.1 response.
 - Enabled iEchor Desktop's Enhanced Container Isolation (ECI) feature on WSL-2. This is available with a iEchor Business subscription.
 - Fixed a bug on the **Containers** table where previously hidden columns were displayed again after a fresh installation of iEchor Desktop.
@@ -969,7 +969,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 
 ### Upgrades
 
-- [iEchor Engine v23.0.5](https://docs.iechor.com/engine/release-notes/23.0/#2305)
+- [iEchor Engine v23.0.5](http://docs.iechor.com/engine/release-notes/23.0/#2305)
 - [Compose 2.17.3](https://github.com/iechor/compose/releases/tag/v2.17.3)
 - [Containerd v1.6.20](https://github.com/containerd/containerd/releases/tag/v1.6.20)
 - [Kubernetes v1.25.9](https://github.com/kubernetes/kubernetes/releases/tag/v1.25.9)
@@ -1036,7 +1036,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 - [Buildx v0.10.4](https://github.com/iechor/buildx/releases/tag/v0.10.4)
 - [Compose 2.17.2](https://github.com/iechor/compose/releases/tag/v2.17.2)
 - [Containerd v1.6.18](https://github.com/containerd/containerd/releases/tag/v1.6.18), which includes fixes for [CVE-2023-25153](https://github.com/advisories/GHSA-259w-8hf6-59c2) and [CVE-2023-25173](https://github.com/advisories/GHSA-hmfx-3pcx-653p).
-- [iEchor Engine v20.10.24](https://docs.iechor.com/engine/release-notes/20.10/#201024), which contains fixes for [CVE-2023-28841](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-28841),
+- [iEchor Engine v20.10.24](http://docs.iechor.com/engine/release-notes/20.10/#201024), which contains fixes for [CVE-2023-28841](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-28841),
   [CVE-2023-28840](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-28840), and
   [CVE-2023-28842](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-28842).
 
@@ -1059,12 +1059,12 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 - Fixed a bug where `iechor run --gpus=all` hangs. Fixes [iechor/for-win#13324](https://github.com/iechor/for-win/issues/13324).
 - Fixed a bug where Registry Access Management policy updates were not downloaded.
 - iEchor Desktop now allows Windows containers to work when BitLocker is enabled on `C:`.
-- iEchor Desktop with the WSL backend no longer requires the `com.iechor.service` privileged service to run permanently. For more information see [Permission requirements for Windows](https://docs.iechor.com/desktop/windows/permission-requirements/).
+- iEchor Desktop with the WSL backend no longer requires the `com.iechor.service` privileged service to run permanently. For more information see [Permission requirements for Windows](http://docs.iechor.com/desktop/windows/permission-requirements/).
 
 ### For Mac
 
 - Fixed a performance issue where attributes stored on the host would not be cached for VirtioFS users.
-- The first time iEchor Desktop for Mac is launched, the user is presented with an installation window to confirm or adjust the configuration that requires privileged access. For more information see [Permission requirements for Mac](https://docs.iechor.com/desktop/mac/permission-requirements/).
+- The first time iEchor Desktop for Mac is launched, the user is presented with an installation window to confirm or adjust the configuration that requires privileged access. For more information see [Permission requirements for Mac](http://docs.iechor.com/desktop/mac/permission-requirements/).
 - Added the **Advanced** tab in **Settings**, where users can adjust the settings which require privileged access.
 
 ### For Linux
@@ -1117,7 +1117,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 ### Upgrades
 
 - [Containerd v1.6.18](https://github.com/containerd/containerd/releases/tag/v1.6.18), which includes fixes for [CVE-2023-25153](https://github.com/advisories/GHSA-259w-8hf6-59c2) and [CVE-2023-25173](https://github.com/advisories/GHSA-hmfx-3pcx-653p).
-- [iEchor Engine v20.10.23](https://docs.iechor.com/engine/release-notes/20.10/#201023).
+- [iEchor Engine v20.10.23](http://docs.iechor.com/engine/release-notes/20.10/#201023).
 - [Go 1.19.5](https://github.com/golang/go/releases/tag/go1.19.5)
 
 ### Bug fixes and enhancements
@@ -1238,7 +1238,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 
 - [Compose v2.15.1](https://github.com/iechor/compose/releases/tag/v2.15.1)
 - [Containerd v1.6.14](https://github.com/containerd/containerd/releases/tag/v1.6.14)
-- [iEchor Engine v20.10.22](https://docs.iechor.com/engine/release-notes/20.10/#201022)
+- [iEchor Engine v20.10.22](http://docs.iechor.com/engine/release-notes/20.10/#201022)
 - [Buildx v0.10.0](https://github.com/iechor/buildx/releases/tag/v0.10.0)
 - [iEchor Scan v0.23.0](https://github.com/iechor/scan-cli-plugin/releases/tag/v0.23.0)
 - [Go 1.19.4](https://github.com/golang/go/releases/tag/go1.19.4)
@@ -1290,7 +1290,7 @@ This can be resolved by adding the user to the **iechor-users** group. Before st
 ### New
 
 - Substantial performance improvements for macOS users with the option of enabling the new VirtioFS file sharing technology. Available for macOS 12.5 and above.
-- iEchor Desktop for Mac no longer needs to install the privileged helper process `com.iechor.vmnetd` on install or on the first run. For more information see [Permission requirements for Mac](https://docs.iechor.com/desktop/mac/permission-requirements/).
+- iEchor Desktop for Mac no longer needs to install the privileged helper process `com.iechor.vmnetd` on install or on the first run. For more information see [Permission requirements for Mac](http://docs.iechor.com/desktop/mac/permission-requirements/).
 - Added [WebAssembly capabilities](wasm/index.md). Use with the [containerd integration](containerd/index.md).
 - Improved the descriptions for beta and experimental settings to clearly explain the differences and how people can access them.
 - Available disk space of VM now displays in the footer of iEchor Dashboard for Mac and Linux.
